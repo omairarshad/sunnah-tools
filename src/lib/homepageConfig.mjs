@@ -1,4 +1,4 @@
-export const SECTIONS=['featured','promotions','directory','guides'];
+export const SECTIONS=['promotions','directory','guides'];
 export function safePromoUrl(raw){
  try {
   const url=new URL(String(raw));
@@ -16,4 +16,12 @@ export function orderedSections(input){
 }
 export function validTone(tone){
  return ['teal','blue','violet','coral','rose','amber','emerald','mint','indigo'].includes(tone)?tone:'teal';
+}
+
+/** Homepage artwork is always a self-hosted file uploaded through the GitHub CMS. */
+export function safePromoImage(raw){
+ const path=String(raw??'').trim();
+ if(!/^\/media\/[A-Za-z0-9._\/-]+\.(?:svg|png|jpe?g|webp|avif)$/.test(path))return null;
+ if(path.includes('..')||path.includes('//'))return null;
+ return path;
 }
