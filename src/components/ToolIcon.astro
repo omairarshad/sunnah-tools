@@ -1,0 +1,6 @@
+---
+import {iconPaths} from '../data/toolIcons';
+const {slug, size=24}=Astro.props;
+const paths=iconPaths[slug]??iconPaths['prayer-times'];
+---
+<svg class="tool-icon-svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{paths.map(d=><path d={d}/>)}</svg>
