@@ -4,7 +4,7 @@
 
 **Homepage promotions:** prominent ArabicAlphabet.app card above the tool directory, plus IslamReact on YouTube and Meem & Moon Islamic merchandise. All three are marked as external destinations and open in a new tab.
 
-**Editable homepage:** the site reads `src/data/homepage.json`. The editor can change intro copy and visibility, featured tool slugs and order, promotional card text/URLs/colour/visibility/order, section order, and desktop grid columns. The core tool directory is always present to avoid accidentally removing utility content or search pages.
+**Editable homepage:** the site reads `src/data/homepage.json`. The editor can change intro copy and visibility, promotional banner artwork/URLs/colour/visibility/order, section order, and desktop grid columns. The redundant four-card 'Start here' section has been removed. The core tool directory is always present to avoid accidentally removing utility content or search pages.
 
 **Secure editor:** `.pages.yml` configures [Pages CMS](https://app.pagescms.org/), which edits the GitHub source repository after *GitHub authentication*. The static `/admin/` page is a link hub, **not** an unauthenticated write API. Website visitors cannot change content from /admin/. Never give the browser a GitHub personal access token.
 
@@ -24,7 +24,7 @@
 2. Install or approve Pages CMS GitHub App access for **only** `omairarshad/sunnah-tools`. Pages CMS is a third-party service; review the permissions it requests.
 3. Open the repository, choose **`feature/initial-site-and-tools`** (the source branch; **not** the generated `hostinger-live` branch, which is overwritten on every release).
 4. Open **Homepage layout & cards**.
-5. Edit the three external promotions, section ordering, featured tools, colours, headings or number of columns. Save. GitHub Actions will validate and publish the resulting source; Hostinger may require a redeploy depending on the app connection.
+5. Edit the three external promotions, replace banner artwork using the CMS image upload field, change section ordering, colours, headings or number of columns. Save. GitHub Actions will validate and publish the resulting source; Hostinger may require a redeploy depending on the app connection.
 6. If Pages CMS does not offer the desired branch in your account, edit `src/data/homepage.json` using GitHub's file editor on `feature/initial-site-and-tools`, and commit to the source branch. **Do not** edit the generated `hostinger-live` branch.
 7. Edits are versioned; GitHub commits can be reverted if an incorrect card is published.
 
@@ -57,3 +57,11 @@ The CMS manages a typed JSON file, not arbitrary HTML or JavaScript. URLs are va
 - More substantive, independently verified Arabic learning tools linking to the dedicated ArabicAlphabet.app property.
 - Periodic internal SEO performance review using real Search Console queries, not synthetic search-volume guesses.
 - A proper unified authenticated dashboard with GA4 API + Google OAuth would require a secure server-side proxy or third-party hosted analytics service; it cannot be safely implemented by placing credentials in this static Hostinger frontend.
+
+## Branded homepage banners (October 2026)
+
+The large four-card “Start here” row was removed to make the top of the homepage quieter. A wide ArabicAlphabet.app image banner is followed by two compact IslamReact and Meem & Moon image banners; on smaller screens the banners responsively reorganise. Each entire banner is one accessible external link, with the same `data-promo-id` GA4 event capture as before.
+
+The initial shipped SVGs are **original brand-themed illustrations**, not copies of official logos, YouTube thumbnails or photographs. They are lightweight self-hosted stand-ins for the final artwork; the typography, Arabic flashcards, playback illustration and gift/sticker motif reflect each destination. Owners should upload official brand artwork or suitable product photos using Pages CMS when available. In the **External projects and promotional cards** editor, choose **Banner artwork** and upload a local SVG, WebP, PNG or JPEG asset. The `image` property is a local `/media/...` path; this avoids fragile hotlinking and maintains performance. Add a short `imageAlt` description. The old images are retained in `public/media/brands/` for easy rollback.
+
+Do not change a banner to an HTTP or `javascript:` URL. Links are restricted to HTTPS, images to local approved media paths. Source images should be licensed or owned; if the source website updates its identity, replace the local artwork.
