@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+const tools=[
+{slug:'prayer-times',name:'Prayer Times',desc:'Astronomical prayer times for locations worldwide',icon:'◷'},
+{slug:'qibla-finder',name:'Qibla Finder',desc:'Find the bearing to Makkah',icon:'➤'},
+{slug:'tahajjud-time',name:'Tahajjud Calculator',desc:'Find the final third of the night',icon:'☾'},
+{slug:'ramadan-timetable',name:'Ramadan Timetable',desc:'Print a 30-day fasting timetable',icon:'▦'},
+{slug:'zakat-calculator',name:'Zakat Calculator',desc:'Estimate Zakat on eligible assets',icon:'◈'},
+{slug:'hijri-converter',name:'Hijri Date Converter',desc:'Convert Gregorian dates into Hijri',icon:'◉'},
+{slug:'islamic-age',name:'Islamic Age Calculator',desc:'Calculate your lunar age',icon:'✧'},
+{slug:'tasbih-counter',name:'Digital Tasbih Counter',desc:'A simple private dhikr counter',icon:'◎'},
+{slug:'quran-planner',name:'Quran Reading Planner',desc:'Plan a Quran reading goal',icon:'▤'}];
+---
+<Base><section class="hero"><p class="eyebrow">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p><h1>Everyday Islamic tools,<br/><em>beautifully simple.</em></h1><p>Practical calculators, prayer tools and planners — free to use, without creating an account.</p><a class="button" href="#tools">Explore the tools ↓</a></section><section id="tools" class="section"><p class="eyebrow">THE TOOLBOX</p><h2>What would you like to do?</h2><div class="cards">{tools.map(tool=><a class="card" href={`/tools/${tool.slug}/`}><span class="symbol">{tool.icon}</span><h3>{tool.name}</h3><p>{tool.desc}</p><span class="arrow">Explore →</span></a>)}</div></section><section class="note"><h2>Made with care</h2><p>Prayer times, lunar dates and Zakat conventions can differ between regions and scholarly approaches. We make calculation methods and limitations visible; always confirm important decisions with reliable local guidance.</p></section></Base>
