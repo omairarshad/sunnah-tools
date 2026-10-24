@@ -1,0 +1,30 @@
+import {readFileSync,statSync} from 'node:fs';
+import {resolve} from 'node:path';
+import {tools} from '../src/data/tools.ts';
+const read=path=>readFileSync(resolve('dist',path),'utf8');
+const assert=(test,msg)=>{if(!test)throw new Error('Site audit failed: '+msg)};
+const home=read('index.html');
+assert(home.includes('id="tool-search-input"'),'Homepage search is missing');
+assert(home.includes('id="tool-grid"'),'Homepage directory grid missing');
+assert(home.includes('featured-grid'),'Featured tools not rendered');
+assert(home.includes('data-filter="saved"'),'Saved tools category unavailable');
+assert(!home.includes('class="hero"'),'Oversized old hero unexpectedly restored');
+const header=(html)=>html.includes('class="site-header"')&&html.includes('class="site-footer"');
+assert(header(home),'Shared site navigation and footer missing');
+assert(home.includes('aria-label="Main navigation"'),'Main navigation lacks label');
+assert(home.includes('href="https://sunnah.tools/"'),'Home canonical URL missing');
+const sitemap=read('sitemap-0.xml');
+for(const tool of tools){
+ const path=`tools/${tool.slug}/index.html`;
+ const html=read(path);
+ assert(statSync(resolve('dist',path)).size>1000,`Tool page is empty: ${tool.slug}`);
+ assert(header(html),`Shared chrome missing: ${tool.slug}`);
+ assert(html.includes('class="tool-panel"'),`Interactive panel missing: ${tool.slug}`);
+ assert(html.includes('class="tool-disclaimer"'),`Method disclaimer missing: ${tool.slug}`);
+ assert(html.includes('class="tool-aside"'),`Related tools sidebar missing: ${tool.slug}`);
+ assert(html.includes(`https://sunnah.tools/tools/${tool.slug}/`),`Canonical missing: ${tool.slug}`);
+ assert(sitemap.includes(`/tools/${tool.slug}/`),`Sitemap missing: ${tool.slug}`);
+}
+assert(read('robots.txt').includes('sitemap-index.xml'),'Robots sitemap reference missing');
+assert(read('sitemap-index.xml').includes('sitemap-0.xml'),'Sitemap index child missing');
+console.log(`Static UX/SEO audit passed: homepage, ${tools.length} tool routes, responsive shell and sitemap`);
