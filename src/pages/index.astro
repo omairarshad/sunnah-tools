@@ -73,7 +73,7 @@ const categoryCounts=Object.fromEntries(categories.map(category=>[category,categ
  const safeWrite=(key:string,value:string[])=>{try{localStorage.setItem(key,JSON.stringify(value))}catch{}};
  let selected='all';
  let saved=new Set(safeRead(favoriteKey));
- function updateSavedButtons(){favorites.forEach(btn=>{const isSaved=saved.has(btn.dataset.favorite??'');btn.textContent=isSaved?'★':'☆';btn.setAttribute('aria-pressed',String(isSaved));btn.setAttribute('aria-label',(isSaved?'Remove ':'Save ')+(btn.closest('.tool-card')?.querySelector('h3')?.textContent??'tool')+(isSaved?' from favourites':' to favourites')})}
+ function updateSavedButtons(){favorites.forEach(btn=>{const isSaved=saved.has(btn.dataset.favorite??'');btn.textContent=isSaved?'★':'☆';btn.setAttribute('aria-pressed',String(isSaved));btn.setAttribute('aria-label',(isSaved?'Remove ':'Save ')+(btn.closest('.tool-card')?.querySelector('h3')?.textContent??'tool')+(isSaved?' from favourites':' to favourites'))})}
  function filter(){
   const query=search?.value.trim().toLowerCase()??'';
   let total=0;
