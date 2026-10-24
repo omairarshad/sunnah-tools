@@ -7,7 +7,15 @@ const assert=(test,msg)=>{if(!test)throw new Error('Site audit failed: '+msg)};
 const home=read('index.html');
 assert(home.includes('id="tool-search-input"'),'Homepage search is missing');
 assert(home.includes('id="tool-grid"'),'Homepage directory grid missing');
-assert(home.includes('featured-grid'),'Featured tools not rendered');
+assert(!home.includes('featured-grid'),'Redundant Start here cards must be removed');
+assert(!home.includes('id="featured-title"'),'Start here section heading must be removed');
+assert((home.match(/class="promo-banner/g)||[]).length>=3,'Three branded image banners missing');
+for(const asset of ['arabic-alphabet.svg','islamreact.svg','meemandmoon.svg']){
+ const data=read('media/brands/'+asset);
+ assert(data.includes('<svg')&&data.includes('</svg>'),'Invalid SVG image '+asset);
+ assert(home.includes('/media/brands/'+asset),'Image not included on homepage: '+asset);
+}
+assert(home.includes('loading="eager"'),'Featured learning image should load eagerly');
 assert(home.includes('https://www.arabicalphabet.app/'),'Arabic learning promo missing');
 assert(home.includes('https://www.youtube.com/@IslamReact'),'IslamReact channel link missing');
 assert(home.includes('https://meemandmoon.com/'),'Meem & Moon promo missing');
