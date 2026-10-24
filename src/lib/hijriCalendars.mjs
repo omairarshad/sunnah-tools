@@ -22,6 +22,7 @@ export function hijriMonth(year,month){
  const ms=86400000,days=Math.round((lastBoundary.getTime()-first.getTime())/ms);
  if(days!==29&&days!==30)return null;
  const mondayOffset=(first.getUTCDay()+6)%7;
+ /** @type {Array<null|{day:number,iso:string,weekday:number,whiteDay:boolean,fastingStatus:string}>} */
  const cells=Array.from({length:mondayOffset},()=>null);
  for(let day=1;day<=days;day++){
   const date=new Date(first.getTime()+(day-1)*ms);
