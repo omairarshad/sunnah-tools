@@ -1,13 +1,14 @@
 ---
 import Base from '../layouts/Base.astro';
 import ToolIcon from '../components/ToolIcon.astro';
+import {toneForSlug} from '../data/toolTones';
 import {tools} from '../data/tools';
 const categories=['All','Prayer','Ramadan','Zakat','Dates','Everyday'];
 const featuredSlugs=['prayer-times','hijri-converter','zakat-calculator','qibla-finder'];
 const featured=featuredSlugs.map(slug=>tools.find(x=>x.slug===slug)!);
 const categoryCounts=Object.fromEntries(categories.map(category=>[category,category==='All'?tools.length:tools.filter(x=>x.category===category).length]));
 ---
-<Base title="Free Islamic Tools & Calculators" description="Free Islamic tools online: worldwide prayer times, Qibla finder, Zakat calculator, Hijri converter, Ramadan timetable and more. 17 useful tools, no registration.">
+<Base title="Free Islamic Tools & Calculators" description="Free Islamic tools online: worldwide prayer times, Qibla finder, Zakat calculator, Hijri converter, Ramadan timetable and more. Free useful tools, no registration.">
  <section class="home-top" aria-label="Introduction">
   <div class="home-intro">
    <div class="home-intro-text">
@@ -20,7 +21,7 @@ const categoryCounts=Object.fromEntries(categories.map(category=>[category,categ
   <section class="popular" aria-labelledby="featured-title">
    <div class="section-label"><h2 id="featured-title">Start here</h2><span>Most useful tools</span></div>
    <div class="featured-grid">
-    {featured.map((tool,i)=><a class="featured-card" href={`/tools/${tool.slug}/`}>
+    {featured.map((tool,i)=><a class="featured-card" data-tone={toneForSlug(tool.slug)} href={`/tools/${tool.slug}/`}>
       <span class="featured-icon" aria-hidden="true"><ToolIcon slug={tool.slug} size={27}/></span>
       <span class="featured-info"><strong>{tool.name}</strong><small>{tool.desc}</small></span><span class="featured-arrow" aria-hidden="true">↗</span>
     </a>)}
@@ -42,7 +43,7 @@ const categoryCounts=Object.fromEntries(categories.map(category=>[category,categ
   <section id="recent-section" class="recent-tools" hidden aria-labelledby="recent-heading"><div class="section-label"><h3 id="recent-heading">Recently opened</h3><span>Pick up where you left off</span></div><div id="recent-links" class="recent-links"></div></section>
   <div class="directory-list-heading"><p id="tool-count" class="small" aria-live="polite">{tools.length} tools available</p><span>Pick a tool to get started <span aria-hidden="true">↘</span></span></div>
   <div class="cards" id="tool-grid">
-   {tools.map(tool=><article class="tool-card" data-slug={tool.slug} data-category={tool.category.toLowerCase()} data-search={`${tool.name} ${tool.desc} ${tool.keywords}`.toLowerCase()}>
+   {tools.map(tool=><article class="tool-card" data-tone={toneForSlug(tool.slug)} data-slug={tool.slug} data-category={tool.category.toLowerCase()} data-search={`${tool.name} ${tool.desc} ${tool.keywords}`.toLowerCase()}>
     <a class="tool-card-main" href={`/tools/${tool.slug}/`} aria-label={`Open ${tool.name}`}>
      <span class="tool-card-icon"><ToolIcon slug={tool.slug} size={25}/></span>
      <span class="tool-card-category">{tool.category}</span>

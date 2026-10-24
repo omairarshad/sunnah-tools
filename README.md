@@ -8,7 +8,7 @@ The initial Astro + React + TypeScript site is on `feature/initial-site-and-tool
 
 ## Included
 
-The current SEO/UX release has **17 interactive tools**: prayer times, Qibla, Tahajjud, Ramadan timetable, Ramadan countdown, Zakat, Nisab, two-way Hijri conversion, Hijri age, Tasbih, Quran reading planner, fasting tracker, Salah tracker, suhoor/iftar live countdown, gold Zakat calculator, Islamic events calendar, and printable Salah chart.
+The current SEO/UX release has **21 interactive tools**: prayer times, Qibla, Tahajjud, Ramadan timetable, Ramadan countdown, Zakat, Nisab, two-way Hijri conversion, Hijri age, Tasbih, Quran reading planner, fasting tracker, Salah tracker, suhoor/iftar live countdown, gold Zakat calculator, Islamic events calendar, and printable Salah chart.
 
 Search strategy and next-tool research: [docs/SEO_ROADMAP.md](docs/SEO_ROADMAP.md).
 
@@ -70,3 +70,7 @@ Worldwide city search suggests a regional calculation convention when the visito
 ### Search Console
 
 See [Indexing & sitemap diagnostics](docs/INDEXING_RECOVERY.md). The Google Search Console sitemap status belongs to the owner's Google account and cannot be changed by a GitHub release alone.
+
+## Colour-coded tools and new calendars
+
+The utility directory now uses a consistent multi-colour accent scheme per tool. Four new pages are available: White Days fasting calendar (.ics export), printable Hijri calendar, prayer-times iframe generator and Hajj/Umrah packing checklist. They retain clear moon-sighting, Tashreeq and religious-method qualifications. See [docs/TOOL_BATCH_2.md](docs/TOOL_BATCH_2.md) for detailed implementation and validation notes.

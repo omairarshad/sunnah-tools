@@ -1,0 +1,13 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {adjacentMonth,hijriMonth,hijriParts,whiteDaysFrom,HIJRI_MONTHS} from '../src/lib/hijriCalendars.mjs';
+test('Hijri calendar describes 12 months',()=>assert.equal(HIJRI_MONTHS.length,12));
+test('Hijri year rolls forward across Dhul Hijjah',()=>assert.deepEqual(adjacentMonth(1448,12,1),{year:1449,month:1}));
+test('Hijri year rolls back across Muharram',()=>assert.deepEqual(adjacentMonth(1449,1,-1),{year:1448,month:12}));
+test('calendar month contains exactly 29 or 30 days',()=>{const x=hijriMonth(1448,4);assert.ok(x.days===29||x.days===30);assert.equal(x.cells.filter(Boolean).length,x.days)});
+test('calendar month first date maps to 1st of Hijri month',()=>{const x=hijriMonth(1448,4);const parts=hijriParts(new Date(x.start+'T12:00:00Z'));assert.deepEqual(parts,{year:1448,month:4,day:1})});
+test('White Days for ordinary month are 13 14 15',()=>{const x=hijriMonth(1448,4);assert.deepEqual(x.cells.filter(c=>c?.whiteDay).map(c=>c.day),[13,14,15])});
+test('13 Dhul Hijjah is not promoted as a voluntary fast',()=>{const x=hijriMonth(1448,12);assert.equal(x.cells.find(c=>c?.day===13).fastingStatus,'not-recommended')});
+test('Ramadan calendar dates are not separate optional White Days',()=>{const x=hijriMonth(1448,9);assert.equal(x.cells.find(c=>c?.day===14).fastingStatus,'ramadan-obligatory')});
+test('white days across months are forward chronologically',()=>{const x=whiteDaysFrom(new Date('2026-10-24T12:00:00Z'),6);assert.equal(x.length,6);const all=x.flatMap(m=>m.dates.map(x=>x.iso));assert.deepEqual(all,[...all].sort())});
+test('rejects impossible month and out of range year',()=>{assert.equal(hijriMonth(1448,13),null);assert.equal(hijriMonth(1600,1),null)});

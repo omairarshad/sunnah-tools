@@ -1,7 +1,7 @@
 name: Visual UI Smoke Test
 on:
   push:
-    branches: [feature/design-system-ui-ux-overhaul]
+    branches: [feature/colorful-tools-and-batch2]
   workflow_dispatch:
 permissions:
   contents: read
