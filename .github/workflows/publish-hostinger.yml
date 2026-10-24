@@ -43,6 +43,15 @@ jobs:
           test -s dist/index.html
           test -s dist/tools/prayer-times/index.html
           test -s dist/tools/zakat-calculator/index.html
+          test -s dist/tools/gold-zakat-calculator/index.html
+          test -s dist/tools/fasting-times/index.html
+          test -s dist/tools/islamic-events-calendar/index.html
+          test -s dist/tools/printable-prayer-chart/index.html
+          test -s dist/sitemap-0.xml
+          grep -q 'gold-zakat-calculator' dist/sitemap-0.xml
+          grep -q 'fasting-times' dist/sitemap-0.xml
+          grep -q 'islamic-events-calendar' dist/sitemap-0.xml
+          grep -q 'printable-prayer-chart' dist/sitemap-0.xml
           test -f dist/robots.txt
 
       - name: Publish generated files to Hostinger branch

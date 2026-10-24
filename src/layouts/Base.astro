@@ -2,6 +2,7 @@
 import '../styles/global.css';
 const {title='Free Islamic Tools & Calculators',description='Free Islamic calculators, prayer times, Qibla direction, Zakat and Hijri date tools — no registration required.'}=Astro.props;
 const canonical=new URL(Astro.url.pathname,Astro.site);
+const home=Astro.url.pathname==='/';
 const org={'@context':'https://schema.org','@type':'WebSite','name':'Sunnah Tools','url':'https://sunnah.tools/','description':'Free online Islamic calculators, prayer times, Qibla tools, and planners.'};
 ---
 <!doctype html>
@@ -9,9 +10,9 @@ const org={'@context':'https://schema.org','@type':'WebSite','name':'Sunnah Tool
 <head>
  <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
  <meta name="description" content={description}/><link rel="canonical" href={canonical.toString()}/>
- <meta property="og:type" content="website"/><meta property="og:title" content={`${title} | Sunnah Tools`}/><meta property="og:description" content={description}/><meta property="og:url" content={canonical.toString()}/>
+ <meta property="og:type" content="website"/><meta property="og:site_name" content="Sunnah Tools"/><meta property="og:title" content={`${title} | Sunnah Tools`}/><meta property="og:description" content={description}/><meta property="og:url" content={canonical.toString()}/>
  <meta name="twitter:card" content="summary"/><link rel="icon" href="/favicon.svg"/><meta name="theme-color" content="#174638"/>
- <script type="application/ld+json" set:html={JSON.stringify(org)}/>
+ {home&&<script type="application/ld+json" set:html={JSON.stringify(org)}/>}
  <title>{title} | Sunnah Tools</title>
 </head>
 <body>
