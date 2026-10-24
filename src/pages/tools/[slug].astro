@@ -10,7 +10,7 @@ export function getStaticPaths(){return tools.map(tool=>({params:{slug:tool.slug
 const slug=Astro.params.slug as keyof typeof toolBySlug;
 const tool=toolBySlug[slug];
 const guide=guides[slug];
-const enrichedDescription=guide.intro.length>165?guide.intro.slice(0,160).replace(/\\s+[^ ]*$/,'')+'…':guide.intro;
+const enrichedDescription=guide.intro.length>165?guide.intro.slice(0,160).trimEnd()+'…':guide.intro;
 const categoryGuide=tool.category==='Prayer'?{url:'/guides/prayer-time-methods/',label:'How prayer times are calculated'}:tool.category==='Ramadan'?{url:'/guides/ramadan-dates-and-timetables/',label:'Ramadan dates, Fajr and iftar explained'}:null;
 const related=tools.filter(x=>x.slug!==slug).sort((a,b)=>Number(b.category===tool.category)-Number(a.category===tool.category)).slice(0,4);
 const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'All Islamic tools',item:'https://sunnah.tools/'},{'@type':'ListItem',position:2,name:tool.name,item:`https://sunnah.tools/tools/${slug}/`}]};
