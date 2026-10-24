@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://sunnah.tools/sitemap-index.xml
