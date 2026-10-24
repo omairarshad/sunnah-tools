@@ -39,6 +39,14 @@ assert(home.includes('/guides/prayer-time-methods/'),'Contextual prayer method g
 assert(home.includes('/guides/ramadan-dates-and-timetables/'),'Contextual Ramadan guide missing');
 if(process.env.PUBLIC_ADSENSE_ADS_ENABLED!=='true')assert(!home.includes('pagead2.googlesyndication.com'),'Ads must not load when not enabled');
 const sitemap=read('sitemap-0.xml');
+assert((home.match(/class="tool-card-visual"/g)||[]).length===slugs.length,'Every card must show a large illustration');
+for(const slug of slugs){
+ const art=read('tool-art/'+slug+'.svg');
+ assert(art.includes('<svg')&&art.includes('</svg>'),'Missing or invalid original SVG: '+slug);
+ assert(art.includes('viewBox="0 0 600 360"'),'Illustration aspect ratio missing: '+slug);
+ assert(home.includes('/tool-art/'+slug+'.svg'),'Homepage card illustration missing: '+slug);
+}
+assert((home.match(/class="tool-card-description"/g)||[]).length===slugs.length,'Readable descriptions missing under illustrations');
 for(const slug of slugs){
  const path=`tools/${slug}/index.html`;
  const html=read(path);
