@@ -9,6 +9,16 @@ try{
  const page=await desktop.newPage();
  await page.goto(root+'/',{waitUntil:'networkidle'});
  assert.equal(await page.locator('.tool-card').count(),22,'Homepage should expose 22 tools');
+ assert.ok(await page.locator('.brand-symbol').evaluate(img=>img.complete && img.naturalWidth>0),'New branded header emblem must load');
+ assert.equal(await page.locator('link[rel="icon"]').getAttribute('href'),'/favicon.svg','Brand favicon must be linked');
+ const homeColors=await page.evaluate(()=>({
+  card:getComputedStyle(document.querySelector('.tool-card')).backgroundColor,
+  body:getComputedStyle(document.body).backgroundColor,
+  hero:getComputedStyle(document.querySelector('.home-intro')).backgroundImage
+ }));
+ assert.equal(homeColors.card,'rgb(255, 255, 255)','Homepage cards should be white, not pastel');
+ assert.ok(homeColors.hero.includes('gradient'),'Homepage introduction should use the richer hero gradient');
+
  assert.ok(new Set(await page.locator('.tool-card').evaluateAll(elements=>elements.map(el=>el.getAttribute('data-tone')))).size>=6,'Tool cards should have multiple accent colours');
  assert.equal(await page.locator('.featured-card').count(),0,'Redundant Start here links must be removed');
  assert.equal(await page.getByRole('heading',{name:'Start here'}).count(),0,'Start here section must be gone');
@@ -38,6 +48,16 @@ try{
  await page.reload({waitUntil:'networkidle'});
  await page.locator('.filter[data-filter="saved"]').click();
  assert.equal(await page.locator('.tool-card:visible').count(),1,'Favourite should survive reload');
+ await page.goto(root+'/tools/ramadan-countdown/',{waitUntil:'networkidle'});
+ const colors=await page.evaluate(()=>({
+  panel:getComputedStyle(document.querySelector('.tool-panel')).backgroundColor,
+  result:getComputedStyle(document.querySelector('.result')).backgroundImage,
+  warn:getComputedStyle(document.querySelector('.warn')).backgroundColor
+ }));
+ assert.equal(colors.panel,'rgb(255, 255, 255)','Calculator panel should be clean white');
+ assert.ok(colors.result.includes('gradient'),'Ramadan countdown result should use dark, high-contrast gradient');
+ assert.notEqual(colors.warn,'rgb(255, 237, 243)','Warnings must not use pink pastel');
+ await page.screenshot({path:'test-results/visual/ramadan-countdown-premium.png',fullPage:true});
  await page.goto(root+'/tools/hijri-converter/',{waitUntil:'networkidle'});
  const date=await page.locator('input[type=date]').first().inputValue();
  const expected=await page.evaluate(()=>{const d=new Date();const n=(x)=>String(x).padStart(2,'0');return d.getFullYear()+'-'+n(d.getMonth()+1)+'-'+n(d.getDate())});
