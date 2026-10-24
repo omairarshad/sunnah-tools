@@ -44,3 +44,5 @@ progress{width:100%;height:16px;accent-color:#21704e}
 input:focus-visible,button:focus-visible,a:focus-visible,select:focus-visible{outline:3px solid #c4a060;outline-offset:3px}
 @media(max-width:750px){.directory{padding-top:24px}.directory-heading{display:block}.directory-count{display:inline-block}.related-links,.tracker-checks{grid-template-columns:1fr}.tool{padding-top:30px}.tool-inner{margin:20px 0}}
 @media print{.filters,.tool-search,.related,.explainer,.breadcrumb,button,.warn{display:none!important}.tool{max-width:100%;padding:0}.tool-inner{padding:0}.tool-inner input{border:0}}
+
+.compass{position:relative;width:220px;height:220px;border:3px solid #c7d8cb;border-radius:50%;background:radial-gradient(circle,#fff 55%,#e9f3ed);margin:20px auto;text-align:center;box-shadow:inset 0 0 0 9px #f8faf7}.compass-arrow{position:absolute;display:flex;align-items:center;justify-content:center;inset:35px;color:#1c7254;font-weight:900;font-size:116px;line-height:1;transform-origin:center}.compass-n,.compass-s{position:absolute;left:0;right:0;font-size:14px;font-weight:800;color:#2b5547}.compass-n{top:10px}.compass-s{bottom:10px}
