@@ -7,7 +7,7 @@
     "description": "Thoughtfully made Islamic calculators, calendars and daily essentials. No sign-up, no noise — just the tools you came for."
   },
   "featured": {
-    "enabled": true,
+    "enabled": false,
     "title": "Start here",
     "subtitle": "Most useful tools",
     "slugs": [
@@ -20,8 +20,8 @@
   "promotions": {
     "enabled": true,
     "eyebrow": "FROM OUR OTHER PROJECTS",
-    "title": "Learn, watch & discover",
-    "subtitle": "Useful learning resources, videos and Islamic gifts.",
+    "title": "Explore our other projects",
+    "subtitle": "Arabic learning, thoughtful videos and delightful Islamic gifts.",
     "cards": [
       {
         "id": "arabic-alphabet",
@@ -32,7 +32,9 @@
         "description": "Practise Arabic letters with interactive flashcards, helpful word examples and audio pronunciation. A friendly way to build recognition and confidence.",
         "cta": "Start learning Arabic",
         "url": "https://www.arabicalphabet.app/",
-        "tone": "blue"
+        "tone": "blue",
+        "image": "/media/brands/arabic-alphabet.svg",
+        "imageAlt": "Arabic Alphabet colourful learning flashcards illustration"
       },
       {
         "id": "islamreact",
@@ -43,7 +45,9 @@
         "description": "Watch thoughtful reactions to Quran recitations and Islamic teachings, with real conversations and reflections.",
         "cta": "Watch IslamReact",
         "url": "https://www.youtube.com/@IslamReact",
-        "tone": "violet"
+        "tone": "violet",
+        "image": "/media/brands/islamreact.svg",
+        "imageAlt": "IslamReact video and channel banner illustration"
       },
       {
         "id": "meemandmoon",
@@ -54,7 +58,9 @@
         "description": "Explore cute Islamic stickers, enamel pins, cards, bookmarks and gifts made for everyday joy.",
         "cta": "Explore Islamic merch",
         "url": "https://meemandmoon.com/",
-        "tone": "coral"
+        "tone": "coral",
+        "image": "/media/brands/meemandmoon.svg",
+        "imageAlt": "Meem & Moon pastel Islamic gifts illustrated banner"
       }
     ]
   },
@@ -221,7 +227,6 @@
   },
   "layout": {
     "sectionOrder": [
-      "featured",
       "promotions",
       "directory",
       "guides"
