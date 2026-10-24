@@ -1,0 +1,31 @@
+import {readFileSync,statSync} from 'node:fs';
+import {resolve} from 'node:path';
+const toolSource=readFileSync(resolve('src/data/tools.ts'),'utf8');
+const slugs=[...toolSource.matchAll(/slug:'([a-z0-9-]+)'/g)].map(m=>m[1]);
+const read=path=>readFileSync(resolve('dist',path),'utf8');
+const assert=(test,msg)=>{if(!test)throw new Error('Site audit failed: '+msg)};
+const home=read('index.html');
+assert(home.includes('id="tool-search-input"'),'Homepage search is missing');
+assert(home.includes('id="tool-grid"'),'Homepage directory grid missing');
+assert(home.includes('featured-grid'),'Featured tools not rendered');
+assert(home.includes('data-filter="saved"'),'Saved tools category unavailable');
+assert(!home.includes('class="hero"'),'Oversized old hero unexpectedly restored');
+const header=(html)=>html.includes('class="site-header"')&&html.includes('class="site-footer"');
+assert(header(home),'Shared site navigation and footer missing');
+assert(home.includes('aria-label="Main navigation"'),'Main navigation lacks label');
+assert(home.includes('href="https://sunnah.tools/"'),'Home canonical URL missing');
+const sitemap=read('sitemap-0.xml');
+for(const slug of slugs){
+ const path=`tools/${slug}/index.html`;
+ const html=read(path);
+ assert(statSync(resolve('dist',path)).size>1000,`Tool page is empty: ${slug}`);
+ assert(header(html),`Shared chrome missing: ${slug}`);
+ assert(html.includes('class="tool-panel"'),`Interactive panel missing: ${slug}`);
+ assert(html.includes('class="tool-disclaimer"'),`Method disclaimer missing: ${slug}`);
+ assert(html.includes('class="tool-aside"'),`Related tools sidebar missing: ${slug}`);
+ assert(html.includes(`https://sunnah.tools/tools/${slug}/`),`Canonical missing: ${slug}`);
+ assert(sitemap.includes(`/tools/${slug}/`),`Sitemap missing: ${slug}`);
+}
+assert(read('robots.txt').includes('sitemap-index.xml'),'Robots sitemap reference missing');
+assert(read('sitemap-index.xml').includes('sitemap-0.xml'),'Sitemap index child missing');
+console.log(`Static UX/SEO audit passed: homepage, ${slugs.length} tool routes, responsive shell and sitemap`);

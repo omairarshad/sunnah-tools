@@ -1,35 +1,94 @@
 ---
 import Base from '../layouts/Base.astro';
+import ToolIcon from '../components/ToolIcon.astro';
 import {tools} from '../data/tools';
 const categories=['All','Prayer','Ramadan','Zakat','Dates','Everyday'];
+const featuredSlugs=['prayer-times','hijri-converter','zakat-calculator','qibla-finder'];
+const featured=featuredSlugs.map(slug=>tools.find(x=>x.slug===slug)!);
+const categoryCounts=Object.fromEntries(categories.map(category=>[category,category==='All'?tools.length:tools.filter(x=>x.category===category).length]));
 ---
-<Base title="Free Islamic Tools & Calculators" description="Free Islamic tools: prayer times, Qibla direction, Zakat calculator, Hijri date converter, Ramadan timetable and more. No sign-up needed.">
- <section id="tools" class="section directory" aria-labelledby="directory-heading">
-  <p class="eyebrow">FREE TOOLS · NO SIGN-UP</p>
-  <div class="directory-heading"><div><h1 id="directory-heading">Islamic tools for everyday life</h1><p>Find what you need and get straight to it. Fast, free calculators, trackers and timetables.</p></div><span class="directory-count">{tools.length} useful tools</span></div>
-  <div class="tool-search"><label for="tool-search-input">Find a tool</label><input id="tool-search-input" type="search" placeholder="Search: zakat, prayer, Ramadan, Hijri…" autocomplete="off" /></div>
-  <div class="filters" role="group" aria-label="Tool categories">{categories.map((name,i)=><button class:list={['filter',{'active':i===0}]} type="button" data-filter={name.toLowerCase()} aria-pressed={i===0}>{name}</button>)}</div>
-  <p id="tool-count" class="small" aria-live="polite"></p>
-  <div class="cards" id="tool-grid">{tools.map(tool=><a class="card" data-category={tool.category.toLowerCase()} data-search={`${tool.name} ${tool.desc} ${tool.keywords}`.toLowerCase()} href={`/tools/${tool.slug}/`}><span class="symbol" aria-hidden="true">{tool.icon}</span><span class="category">{tool.category}</span><h2>{tool.name}</h2><p>{tool.desc}</p><span class="arrow">Open tool →</span></a>)}</div>
-  <p id="no-results" hidden>No matching tools. Try another search or select All.</p>
+<Base title="Free Islamic Tools & Calculators" description="Free Islamic tools online: worldwide prayer times, Qibla finder, Zakat calculator, Hijri converter, Ramadan timetable and more. 17 useful tools, no registration.">
+ <section class="home-top" aria-label="Introduction">
+  <div class="home-intro">
+   <div class="home-intro-text">
+    <div class="eyebrow"><span class="eyebrow-line"></span> SIMPLE TOOLS, MEANINGFUL DAYS</div>
+    <h1>Everything you need, <em>beautifully simple.</em></h1>
+    <p>Thoughtfully made Islamic calculators, calendars and daily essentials. No sign-up, no noise — just the tools you came for.</p>
+   </div>
+   <div class="intro-ornament" aria-hidden="true"><span class="ornament-moon">☾</span><span class="ornament-star">✧</span><span class="ornament-corner">بسم الله</span></div>
+  </div>
+  <section class="popular" aria-labelledby="featured-title">
+   <div class="section-label"><h2 id="featured-title">Start here</h2><span>Most useful tools</span></div>
+   <div class="featured-grid">
+    {featured.map((tool,i)=><a class="featured-card" href={`/tools/${tool.slug}/`}>
+      <span class="featured-icon" aria-hidden="true"><ToolIcon slug={tool.slug} size={27}/></span>
+      <span class="featured-info"><strong>{tool.name}</strong><small>{tool.desc}</small></span><span class="featured-arrow" aria-hidden="true">↗</span>
+    </a>)}
+   </div>
+  </section>
  </section>
- <section class="note"><h2>Designed to be useful, not complicated</h2><p>Most calculators work directly in your browser. For religious decisions, remember that prayer calculation settings, regional Hijri dates and Zakat guidance can differ. Each tool explains its assumptions.</p></section>
+ <section id="tools" class="section directory" aria-labelledby="directory-heading">
+  <div class="directory-heading">
+   <div><span class="eyebrow">THE TOOLBOX · {tools.length} FREE TOOLS</span><h2 id="directory-heading">Find your next tool<span class="heading-period">.</span></h2><p>Everything in one place. Search by name or browse a category.</p></div>
+   <span class="directory-count"><span class="count-dot"></span> Free, no account needed</span>
+  </div>
+  <div class="directory-controls">
+   <div class="tool-search"><label class="sr-only" for="tool-search-input">Search Islamic tools</label><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg><input id="tool-search-input" type="search" placeholder="Search tools, e.g. Zakat, Qibla, Ramadan..." autocomplete="off"/><kbd class="search-shortcut" aria-hidden="true">/</kbd></div>
+   <div class="filters" role="group" aria-label="Filter Islamic tools by category">
+    {categories.map((category,index)=><button class:list={['filter',{active:index===0}]} type="button" data-filter={category.toLowerCase()} aria-pressed={index===0}>{category}<span class="filter-count">{categoryCounts[category]}</span></button>)}
+    <button class="filter saved-filter" type="button" data-filter="saved" aria-pressed="false"><span aria-hidden="true">☆</span> Saved</button>
+   </div>
+  </div>
+  <section id="recent-section" class="recent-tools" hidden aria-labelledby="recent-heading"><div class="section-label"><h3 id="recent-heading">Recently opened</h3><span>Pick up where you left off</span></div><div id="recent-links" class="recent-links"></div></section>
+  <div class="directory-list-heading"><p id="tool-count" class="small" aria-live="polite">{tools.length} tools available</p><span>Pick a tool to get started <span aria-hidden="true">↘</span></span></div>
+  <div class="cards" id="tool-grid">
+   {tools.map(tool=><article class="tool-card" data-slug={tool.slug} data-category={tool.category.toLowerCase()} data-search={`${tool.name} ${tool.desc} ${tool.keywords}`.toLowerCase()}>
+    <a class="tool-card-main" href={`/tools/${tool.slug}/`} aria-label={`Open ${tool.name}`}>
+     <span class="tool-card-icon"><ToolIcon slug={tool.slug} size={25}/></span>
+     <span class="tool-card-category">{tool.category}</span>
+     <h3>{tool.name}</h3><p>{tool.desc}</p><span class="tool-card-link">Open tool <span aria-hidden="true">↗</span></span>
+    </a>
+    <button type="button" class="favorite" data-favorite={tool.slug} aria-pressed="false" aria-label={`Save ${tool.name} to favourites`} title="Save to favourites">☆</button>
+   </article>)}
+  </div>
+  <div id="no-results" class="no-results" hidden><strong>We couldn't find a matching tool.</strong><p>Try a different keyword or clear your category filter.</p><button id="clear-filters" class="button-outline" type="button">Show all tools</button></div>
+ </section>
+ <section class="trust-strip" aria-label="About our tools">
+  <div class="trust-inner"><div><span aria-hidden="true">◇</span><strong>Free for everyone</strong><p>No account or subscription.</p></div><div><span aria-hidden="true">⌁</span><strong>Privacy-minded</strong><p>Most tools work in your browser.</p></div><div><span aria-hidden="true">✦</span><strong>Transparent methods</strong><p>Clear calculation notes and limitations.</p></div></div>
+ </section>
 </Base>
 <script>
  const search=document.querySelector<HTMLInputElement>('#tool-search-input');
- const cards=Array.from(document.querySelectorAll<HTMLElement>('#tool-grid .card'));
+ const cards=Array.from(document.querySelectorAll<HTMLElement>('#tool-grid .tool-card'));
  const buttons=Array.from(document.querySelectorAll<HTMLButtonElement>('.filter'));
+ const favorites=Array.from(document.querySelectorAll<HTMLButtonElement>('[data-favorite]'));
  const count=document.querySelector<HTMLElement>('#tool-count');
  const empty=document.querySelector<HTMLElement>('#no-results');
+ const recent=document.querySelector<HTMLElement>('#recent-section');
+ const recentLinks=document.querySelector<HTMLElement>('#recent-links');
+ const clear=document.querySelector<HTMLButtonElement>('#clear-filters');
+ const favoriteKey='sunnah-favorite-tools-v1';
+ const recentKey='sunnah-recent-tools-v1';
+ const safeRead=(key:string):string[]=>{try{const a=JSON.parse(localStorage.getItem(key)??'[]');return Array.isArray(a)?a.filter((s:unknown)=>typeof s==='string') as string[]:[]}catch{return []}};
+ const safeWrite=(key:string,value:string[])=>{try{localStorage.setItem(key,JSON.stringify(value))}catch{}};
  let selected='all';
+ let saved=new Set(safeRead(favoriteKey));
+ function updateSavedButtons(){favorites.forEach(btn=>{const isSaved=saved.has(btn.dataset.favorite??'');btn.textContent=isSaved?'★':'☆';btn.setAttribute('aria-pressed',String(isSaved));btn.setAttribute('aria-label',(isSaved?'Remove ':'Save ')+(btn.closest('.tool-card')?.querySelector('h3')?.textContent??'tool')+(isSaved?' from favourites':' to favourites'))})}
  function filter(){
-  const query=search?.value.toLowerCase().trim()??'';
+  const query=search?.value.trim().toLowerCase()??'';
   let total=0;
-  cards.forEach(card=>{const show=(selected==='all'||card.dataset.category===selected)&&(card.dataset.search??'').includes(query);card.hidden=!show;if(show)total++});
-  if(count)count.textContent=total===1?'1 tool shown':`${total} tools shown`;
-  if(empty)empty.hidden=total!==0;
+  cards.forEach(card=>{const matched=(selected==='all'||(selected==='saved'?saved.has(card.dataset.slug??''):card.dataset.category===selected))&&(card.dataset.search??'').includes(query);card.hidden=!matched;if(matched)total++});
+  if(count)count.textContent=total===1?'1 tool available':`${total} tools available`;
+  if(empty)empty.hidden=total>0;
  }
- buttons.forEach(button=>button.addEventListener('click',()=>{selected=button.dataset.filter??'all';buttons.forEach(b=>{const active=b===button;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active))});filter()}));
+ function choose(category:string){selected=category;buttons.forEach(button=>{const isActive=button.dataset.filter===category;button.classList.toggle('active',isActive);button.setAttribute('aria-pressed',String(isActive))});filter()}
+ buttons.forEach(button=>button.addEventListener('click',()=>choose(button.dataset.filter??'all')));
  search?.addEventListener('input',filter);
- filter();
+ favorites.forEach(button=>button.addEventListener('click',()=>{const slug=button.dataset.favorite??'';saved.has(slug)?saved.delete(slug):saved.add(slug);safeWrite(favoriteKey,[...saved]);updateSavedButtons();filter()}));
+ clear?.addEventListener('click',()=>{if(search)search.value='';choose('all');search?.focus()});
+ document.addEventListener('keydown',event=>{const el=document.activeElement;if((event.key==='/'&&!event.metaKey&&!event.ctrlKey&&!event.altKey&&!['INPUT','TEXTAREA','SELECT'].includes(el?.tagName??''))||((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==='k')){event.preventDefault();search?.focus();search?.scrollIntoView({block:'nearest',behavior:'smooth'})}if(event.key==='Escape'&&el===search){search?.blur()}});
+ document.querySelectorAll<HTMLAnchorElement>('.tool-card-main,.featured-card').forEach(link=>link.addEventListener('click',()=>{const slug=link.href.match(/\/tools\/([^/]+)\//)?.[1];if(slug)safeWrite(recentKey,[slug,...safeRead(recentKey).filter(x=>x!==slug)].slice(0,4))}));
+ const recents=safeRead(recentKey).filter(slug=>cards.some(c=>c.dataset.slug===slug)).slice(0,4);
+ if(recent&&recentLinks&&recents.length){recent.hidden=false;for(const slug of recents){const card=cards.find(c=>c.dataset.slug===slug);const a=document.createElement('a');a.href='/tools/'+slug+'/';a.textContent=(card?.querySelector('h3')?.textContent??slug)+' ↗';recentLinks.appendChild(a)}}
+ updateSavedButtons();filter();
 </script>

@@ -1,0 +1,46 @@
+name: Visual UI Smoke Test
+on:
+  push:
+    branches: [feature/design-system-ui-ux-overhaul]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  visual-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-audit --no-fund
+      - run: npm run prepare:cities
+      - run: npm run build
+      - run: npm install --no-save --no-audit --no-fund playwright@1.56.1
+      - run: npx playwright install --with-deps chromium
+      - name: Start local Astro preview
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 4321 > /tmp/sunnah-preview.log 2>&1 &
+          echo "Preview started"
+      - name: Confirm Astro preview is accepting requests
+        shell: bash
+        run: |
+          ready=0
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent --show-error --output /dev/null http://127.0.0.1:4321/; then ready=1; break; fi
+            sleep 1
+          done
+          if [ "$ready" -ne 1 ]; then cat /tmp/sunnah-preview.log; exit 1; fi
+      - name: Exercise actual pages on desktop and mobile
+        run: node scripts/visual-smoke.mjs
+      - name: Store screenshot evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sunnah-ui-screenshots
+          path: test-results/visual/
+          if-no-files-found: ignore
+      - name: Dump preview logs on failure
+        if: failure()
+        run: cat /tmp/sunnah-preview.log || true
