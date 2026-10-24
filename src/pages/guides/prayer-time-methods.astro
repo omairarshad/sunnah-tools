@@ -1,0 +1,24 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="How Islamic Prayer Times Are Calculated" description="Understand Fajr, sunrise, Dhuhr, Asr, Maghrib and Isha calculation methods, twilight angles, UK high-latitude differences and local mosque timetables.">
+<article class="content editorial-guide">
+ <p class="eyebrow">PRAYER TIME GUIDE</p><h1>How are Islamic prayer times calculated?</h1>
+ <p>Prayer times depend on the Sun's position, your location and the calculation convention used. An online timetable is useful, but two reputable websites can show different Fajr, Isha or Asr times for the same city. Those differences do not automatically mean that either timetable has a technical fault.</p>
+ <nav class="guide-quick-links" aria-label="Related prayer tools"><a href="/tools/prayer-times/">Calculate prayer times ↗</a><a href="/tools/qibla-finder/">Find Qibla ↗</a><a href="/tools/tahajjud-time/">Find Tahajjud time ↗</a></nav>
+ <h2>Why location matters</h2><p>Earth's rotation means sunrise and sunset vary according to latitude, longitude and date. The site's city finder supplies geographic coordinates and an IANA timezone, including daylight-saving changes where applicable. Coordinates describe the location; the timezone controls how the calculated instant is displayed on the clock.</p>
+ <h2>What each time represents</h2>
+ <dl class="guide-definitions">
+ <dt>Fajr</dt><dd>Begins at the morning twilight threshold used by the selected calculation convention. This is also the start of the fasting day.</dd>
+ <dt>Sunrise</dt><dd>The estimated moment the Sun rises above the visible horizon in the calculation model.</dd>
+ <dt>Dhuhr</dt><dd>Starts after solar noon, subject to a method's conventions or local timetable adjustment.</dd>
+ <dt>Asr</dt><dd>The standard and Hanafi methods use different shadow-length conventions, so their start times differ.</dd>
+ <dt>Maghrib</dt><dd>Normally begins at sunset. It is a common iftar reference for Ramadan.</dd>
+ <dt>Isha</dt><dd>Begins after evening twilight, using a method-dependent angle or interval after Maghrib.</dd>
+ </dl>
+ <h2>Why Fajr and Isha differ between apps</h2><p>Popular calculation methods, such as Muslim World League, Umm al-Qura, Karachi and North America, do not all use identical twilight parameters. Some authorities publish seasonal adjustments or maintain particular conventions for their communities. Selecting the nearest city alone does not identify which authority's timetable you follow.</p>
+ <h2>High latitudes and UK summer prayer times</h2><p>At high latitudes, evening and morning twilight may overlap or not reach a selected astronomical threshold. Approaches such as a fraction of the night, middle of the night and nearest qualifying day attempt to address this. The site offers controls for several approaches, but cannot choose a binding religious ruling for each region. In the UK, ask your mosque which authority and convention its Ramadan timetable follows.</p>
+ <h2>Prayer start time is not jamaat time</h2><p>A mosque's congregation (jamaat or iqamah) is scheduled by that mosque. Our calculated Dhuhr or Isha is not a promise that a congregation starts at the displayed minute. A mosque embedding the <a href="/tools/prayer-times-widget/">prayer-times widget</a> should label it accordingly and compare the output against its adopted timetable.</p>
+ <h2>Sources, validation and limitations</h2><p>Our site uses the open-source <a href="https://github.com/batoulapps/adhan-js" target="_blank" rel="noopener noreferrer">adhan-js</a> library for astronomical prayer calculations. Its named methods are a starting point for verification, not a substitute for local decisions. See the <a href="https://aladhan.com/calculation-methods" target="_blank" rel="noopener noreferrer">AlAdhan explanation of calculation methods</a> for further comparison. Automated tests check basic chronological order, Asr conventions and timezones, but we do not claim official nationwide approval.</p>
+ <p class="guide-next"><a href="/tools/prayer-times/">Open the worldwide prayer times calculator →</a></p>
+</article></Base>
