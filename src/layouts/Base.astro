@@ -1,6 +1,23 @@
 ---
 import '../styles/global.css';
-const {title='Free Islamic Tools',description='Free prayer times, Qibla direction, Zakat estimates and Hijri date utilities.'}=Astro.props;
+const {title='Free Islamic Tools & Calculators',description='Free Islamic calculators, prayer times, Qibla direction, Zakat and Hijri date tools — no registration required.'}=Astro.props;
 const canonical=new URL(Astro.url.pathname,Astro.site);
+const org={'@context':'https://schema.org','@type':'WebSite','name':'Sunnah Tools','url':'https://sunnah.tools/','description':'Free online Islamic calculators, prayer times, Qibla tools, and planners.'};
 ---
-<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="description" content={description}/><link rel="canonical" href={canonical.toString()}/><link rel="icon" href="/favicon.svg"/><meta name="theme-color" content="#174638"/><title>{title} | Sunnah Tools</title></head><body><header><a class="brand" href="/"><span>☾</span> Sunnah<span class="dot">.</span>tools</a><nav><a href="/#tools">All tools</a><a href="/about/">About</a></nav></header><main><slot/></main><footer><p>© {new Date().getFullYear()} Sunnah Tools · Free Islamic tools for everyday life</p><a href="/privacy/">Privacy</a></footer></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+ <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+ <meta name="description" content={description}/><link rel="canonical" href={canonical.toString()}/>
+ <meta property="og:type" content="website"/><meta property="og:title" content={`${title} | Sunnah Tools`}/><meta property="og:description" content={description}/><meta property="og:url" content={canonical.toString()}/>
+ <meta name="twitter:card" content="summary"/><link rel="icon" href="/favicon.svg"/><meta name="theme-color" content="#174638"/>
+ <script type="application/ld+json" set:html={JSON.stringify(org)}/>
+ <title>{title} | Sunnah Tools</title>
+</head>
+<body>
+ <a class="skip-link" href="#content">Skip to content</a>
+ <header><a class="brand" href="/" aria-label="Sunnah Tools home"><span aria-hidden="true">☾</span> Sunnah<span class="dot">.</span>tools</a><nav aria-label="Main navigation"><a href="/#tools">Tools</a><a href="/about/">About</a></nav></header>
+ <main id="content"><slot/></main>
+ <footer><p>© {new Date().getFullYear()} Sunnah Tools · Free Islamic tools for everyday life</p><div><a href="/about/">About</a><a href="/privacy/">Privacy</a></div></footer>
+</body>
+</html>
