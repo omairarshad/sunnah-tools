@@ -268,3 +268,14 @@ th,td{border-bottom-color:#e2e6df}
  .tool-inner .warn{color:#000;background:#fff}
  .calendar-cell.is-white-day{background:#fff!important;border-color:#888}
 }
+
+/* Remaining interactive surfaces: location suggestions and Qibla dial. */
+.footer-brand>span{color:#f7f4e9}
+.city-results{background:#fff;border-color:#cdd5cd;box-shadow:0 14px 30px rgba(14,44,31,.13)}
+.tool-inner .city-results button{background:#fff;color:#1d3528;border-bottom-color:#e3e8e0}
+.tool-inner .city-results button:hover,.tool-inner .city-results button:focus-visible{background:#f3f3ef;color:#153e2e}
+.city-results button small{color:#627363}
+.compass{border:3px solid #b4bdb1;box-shadow:inset 0 0 0 9px #f1f1ec;background:radial-gradient(circle,#fff 55%,#f1f0e9 100%)}
+.compass-arrow{color:#1d5a42}
+.compass-n,.compass-s{color:#24503a}
+.chart-print .chart-box{color:#225940}
