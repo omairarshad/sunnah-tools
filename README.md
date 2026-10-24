@@ -50,3 +50,23 @@ Check CI, verify user flows with real devices, validate regional prayer examples
 - Prayer calculations now expose additional regional and high-latitude conventions, with a polar fallback option and explicit caution that local mosque methods may differ.
 - Google Search Console: submit `https://sunnah.tools/sitemap-index.xml`, then inspect the homepage and highest-priority pages. Search Console setup requires the domain owner's action; it is not automatic.
 - GitHub checks validate calendar/gold calculations, basic prayer-time sanity, TypeScript and the static Astro build. These are not a substitute for regional mosque or scholarly validation.
+
+## Worldwide city search (October 2026)
+
+The global city search uses the open GeoNames `cities15000` dataset, generated locally during the CI build. To develop locally:
+
+```bash
+npm install
+npm run prepare:cities
+npm run check
+npm test
+npm run build
+```
+
+City data is sourced from https://www.geonames.org/ (CC BY 4.0; https://creativecommons.org/licenses/by/4.0/). The generated dataset contains cities with approximately 15,000+ inhabitants plus capitals; smaller settlements can be entered using GPS coordinates. Visitors' typed searches are filtered in the browser. The first search downloads an approximately 2.1 MiB file once, then reuses the browser cache. No commercial geocoder API keys are required.
+
+Worldwide city search suggests a regional calculation convention when the visitor chooses a city, but users must confirm their preferred method and compare the resulting prayer times with their local mosque. High latitude conventions require additional review.
+
+### Search Console
+
+See [Indexing & sitemap diagnostics](docs/INDEXING_RECOVERY.md). The Google Search Console sitemap status belongs to the owner's Google account and cannot be changed by a GitHub release alone.

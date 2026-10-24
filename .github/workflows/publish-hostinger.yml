@@ -28,6 +28,9 @@ jobs:
       - name: Install dependencies
         run: npm install --no-audit --no-fund
 
+      - name: Prepare world city directory from GeoNames
+        run: npm run prepare:cities
+
       - name: Run calculation tests
         run: npm test
 
@@ -47,6 +50,9 @@ jobs:
           test -s dist/tools/fasting-times/index.html
           test -s dist/tools/islamic-events-calendar/index.html
           test -s dist/tools/printable-prayer-chart/index.html
+          test -s dist/data/cities.json
+          test $(wc -c < dist/data/cities.json) -gt 900000
+          grep -q 'Europe/London' dist/data/cities.json
           test -s dist/sitemap-0.xml
           grep -q 'gold-zakat-calculator' dist/sitemap-0.xml
           grep -q 'fasting-times' dist/sitemap-0.xml
