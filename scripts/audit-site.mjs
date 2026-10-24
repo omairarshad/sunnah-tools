@@ -25,6 +25,15 @@ assert(!home.includes('class="hero"'),'Oversized old hero unexpectedly restored'
 const header=(html)=>html.includes('class="site-header"')&&html.includes('class="site-footer"');
 assert(header(home),'Shared site navigation and footer missing');
 assert(home.includes('aria-label="Main navigation"'),'Main navigation lacks label');
+assert(home.includes('brand-mark.svg'),'Updated premium header emblem missing');
+assert(home.includes('brand-wordmark'),'New logo wordmark missing');
+const mark=read('brand-mark.svg');
+const favicon=read('favicon.svg');
+assert(mark.includes('viewBox="0 0 64 64"')&&mark.includes('#D5AD68'),'Scalable gold emblem missing');
+assert(favicon.includes('#102F28'),'Favicon must match forest green brand');
+const theme=readFileSync(resolve('src/styles/premium.css'),'utf8');
+assert(theme.includes('.tool-inner .result')&&theme.includes('.tool-card[data-tone]'),'Palette does not cover cards and calculator results');
+assert(theme.includes('@media print'),'Print view override missing');
 assert(home.includes('href="https://sunnah.tools/"'),'Home canonical URL missing');
 assert(home.includes('/guides/prayer-time-methods/'),'Contextual prayer method guide missing');
 assert(home.includes('/guides/ramadan-dates-and-timetables/'),'Contextual Ramadan guide missing');

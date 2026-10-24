@@ -1,7 +1,7 @@
 name: Visual UI Smoke Test
 on:
   push:
-    branches: [feature/branded-promo-banners-streamlined-home]
+    branches: [feature/premium-dark-green-refresh]
   workflow_dispatch:
 permissions:
   contents: read
