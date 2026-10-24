@@ -11,6 +11,14 @@ try{
  assert.equal(await page.locator('.tool-card').count(),22,'Homepage should expose 22 tools');
  assert.ok(new Set(await page.locator('.tool-card').evaluateAll(elements=>elements.map(el=>el.getAttribute('data-tone')))).size>=6,'Tool cards should have multiple accent colours');
  assert.equal(await page.locator('.featured-card').count(),4,'Four quick links should be visible');
+ assert.equal(await page.locator('.promo-card').count(),3,'Three featured external projects should be visible');
+ assert.equal(await page.locator('.promo-card').first().getAttribute('data-tone'),'blue','Arabic Alphabet card should lead with blue learning accent');
+ assert.match(await page.locator('.promo-card').first().innerText(),/flashcards/i,'Arabic learning description should mention flashcards');
+ assert.equal(await page.locator('a[data-promo-id="arabic-alphabet"]').getAttribute('href'),'https://www.arabicalphabet.app/');
+ assert.equal(await page.locator('a[data-promo-id="islamreact"]').getAttribute('href'),'https://www.youtube.com/@IslamReact');
+ assert.equal(await page.locator('a[data-promo-id="meemandmoon"]').getAttribute('href'),'https://meemandmoon.com/');
+ assert.equal(await page.locator('script[src*="googletagmanager.com/gtag/js"]').count(),0,'GA4 should never load before setup');
+
  assert.equal(await page.locator('script[src*=adsbygoogle]').count(),0,'Unconfigured AdSense must not load');
  assert.equal(await page.locator('.ad-placement').count(),0,'No blank ad container before activation');
  await page.screenshot({path:'test-results/visual/home-desktop.png',fullPage:true});
@@ -62,6 +70,11 @@ try{
  assert.ok(await page.locator('.widget-preview iframe').isVisible(),'Embed preview iframe visible');
  await page.locator('.widget-preview iframe').contentFrame().locator('.embed-prayers').waitFor({state:'visible',timeout:15000});
  await page.screenshot({path:'test-results/visual/prayer-widget-desktop.png',fullPage:true});
+ await page.goto(root+'/admin/',{waitUntil:'networkidle'});
+ assert.equal(await page.locator('meta[name="robots"][content*="noindex"]').count(),1,'Admin hub must not be indexed');
+ assert.ok(await page.getByRole('link',{name:'Open Pages CMS'}).count()>=1,'Admin should link to authenticated CMS');
+ assert.ok(await page.getByText('Awaiting measurement ID and activation').count()>=1,'Admin shows accurate analytics setup state');
+ await page.screenshot({path:'test-results/visual/admin-portal-desktop.png',fullPage:true});
  const mobile=await browser.newContext({viewport:{width:390,height:844},deviceScaleFactor:1,isMobile:true,hasTouch:true});
  const m=await mobile.newPage();
  await m.goto(root+'/',{waitUntil:'networkidle'});
@@ -69,6 +82,8 @@ try{
  assert.ok(dimensions.body<=dimensions.width+2,'Mobile layout overflows horizontally: '+JSON.stringify(dimensions));
  assert.equal(await m.locator('.tool-card').count(),22);
  await m.screenshot({path:'test-results/visual/home-mobile.png',fullPage:true});
+ await m.goto(root+'/',{waitUntil:'networkidle'});
+ assert.equal(await m.locator('.promo-card').count(),3,'Promotions remain visible on mobile');
  await m.goto(root+'/tools/zakat-calculator/',{waitUntil:'networkidle'});
  assert.ok(await m.locator('.tool-panel').isVisible(),'Mobile tool panel must be visible');
  await m.screenshot({path:'test-results/visual/zakat-mobile.png',fullPage:true});
