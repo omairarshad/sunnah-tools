@@ -1,6 +1,6 @@
 import {useEffect,useState} from 'react';
 import {CalculationMethod,Coordinates,Madhab,PrayerTimes,Qibla} from 'adhan';
-import {localISODate,nisabAmounts,parseAmount,zakatEstimate,finalThirdStart,readingPlan} from '../lib/calculations.mjs';
+import {localISODate,nisabAmounts,parseAmount,zakatEstimate,finalThirdStart,readingPlan,hijriToGregorian} from '../lib/calculations.mjs';
 const cities=[['Newcastle upon Tyne','Europe/London',54.9783,-1.6178],['London','Europe/London',51.5072,-0.1276],['Makkah','Asia/Riyadh',21.4225,39.8262],['Madinah','Asia/Riyadh',24.4672,39.6111],['New York','America/New_York',40.7128,-74.006],['Karachi','Asia/Karachi',24.8607,67.0011],['Lahore','Asia/Karachi',31.5204,74.3587],['Dubai','Asia/Dubai',25.2048,55.2708],['Kuala Lumpur','Asia/Kuala_Lumpur',3.139,101.6869],['Jakarta','Asia/Jakarta',-6.2088,106.8456],['Istanbul','Europe/Istanbul',41.0082,28.9784],['Toronto','America/Toronto',43.6532,-79.3832],['Sydney','Australia/Sydney',-33.8688,151.2093]] as const;
 const labels=['Fajr','Sunrise','Dhuhr','Asr','Maghrib','Isha'] as const;
 function fmt(d:Date,zone:string){return Number.isNaN(d.getTime())?'—':new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',timeZone:zone,hour12:false}).format(d)}
@@ -16,13 +16,13 @@ const params=()=>{const m=method==='makkah'?CalculationMethod.UmmAlQura():method
 const calculate=(d:Date)=>new PrayerTimes(new Coordinates(latitude,longitude),d,params());
 const valid=Number.isFinite(latitude)&&Math.abs(latitude)<=90&&Number.isFinite(longitude)&&Math.abs(longitude)<=180;
 let times:PrayerTimes|null=null,bearing:number|null=null,lastThird:Date|null=null,following:Date|null=null;
-try{new Intl.DateTimeFormat('en',{timeZone:tz});if(!valid)throw Error('Invalid coordinates');const d=date(day||dayAtZone(tz));if(!d)throw Error('Invalid date');times=calculate(d);bearing=Qibla(new Coordinates(latitude,longitude));const next=new Date(d);next.setDate(d.getDate()+1);following=calculate(next).fajr;lastThird=new Date(times.maghrib.getTime()+(following.getTime()-times.maghrib.getTime())*2/3)}catch{}
+try{new Intl.DateTimeFormat('en',{timeZone:tz});if(!valid)throw Error('Invalid coordinates');const d=date(day||dayAtZone(tz));if(!d)throw Error('Invalid date');times=calculate(d);bearing=Qibla(new Coordinates(latitude,longitude));const next=new Date(d);next.setDate(d.getDate()+1);following=calculate(next).fajr;lastThird=finalThirdStart(times.maghrib,following)}catch{}
 const locate=()=>navigator.geolocation?.getCurrentPosition(pos=>{setLat(String(pos.coords.latitude));setLon(String(pos.coords.longitude));setZone(Intl.DateTimeFormat().resolvedOptions().timeZone);setError('')},()=>setError('Location permission declined or unavailable. Enter coordinates manually.'));
 const rows=Array.from({length:30},(_,i)=>{const d=date(start);if(!d)return null;d.setDate(d.getDate()+i);try{const t=calculate(d);return {day:i+1,date:d.toLocaleDateString('en-GB'),fajr:fmt(t.fajr,tz),maghrib:fmt(t.maghrib,tz)}}catch{return null}}).filter(x=>x!==null);
 return <div><div className="two"><Field label="Preset city"><select value={city} onChange={e=>{setCity(+e.target.value);setLat('');setLon('');setZone('');setDay('')}}>{cities.map((c,i)=><option value={i} key={i}>{c[0]}</option>)}</select></Field><div><label>Or detect your position</label><button type="button" onClick={locate}>Use my location</button></div></div><p className="small">Worldwide locations supported through manual coordinates and timezone.</p><div className="two"><Field label="Latitude"><input placeholder={String(c[2])} value={lat} onChange={e=>setLat(e.target.value)}/></Field><Field label="Longitude"><input placeholder={String(c[3])} value={lon} onChange={e=>setLon(e.target.value)}/></Field></div><Field label="Timezone (IANA)"><input placeholder={c[1]} value={zone} onChange={e=>setZone(e.target.value)}/></Field>{error&&<p role="alert">{error}</p>}
 {kind!=='qibla-finder'&&<div className="two"><Field label="Calculation convention"><select value={method} onChange={e=>setMethod(e.target.value)}><option value="mwl">Muslim World League</option><option value="makkah">Umm al-Qura</option><option value="karachi">Karachi</option><option value="na">ISNA North America</option></select></Field><Field label="Asr school"><select value={hanafi?'hanafi':'standard'} onChange={e=>setHanafi(e.target.value==='hanafi')}><option value="standard">Standard</option><option value="hanafi">Hanafi</option></select></Field></div>}
 {kind==='prayer-times'&&<><Field label="Date"><input type="date" value={day||dayAtZone(tz)} onChange={e=>setDay(e.target.value)}/></Field>{times?<div className="prayers">{labels.map(x=><div key={x}><span>{x}</span><strong>{fmt(times![x.toLowerCase() as Lowercase<typeof x>],tz)}</strong></div>)}</div>:<p>Could not calculate times. Check the location and timezone.</p>}</>}
-{kind==='qibla-finder'&&<Block title="Qibla bearing clockwise from true north" value={bearing===null?'Check your location':bearing.toFixed(1)+'°'}/>}
+{kind==='qibla-finder'&&<><Block title="Qibla bearing clockwise from true north" value={bearing===null?'Check your location':bearing.toFixed(1)+'°'}/>{bearing!==null&&<div className="compass" role="img" aria-label={`Qibla is ${bearing.toFixed(1)} degrees clockwise from true north`}><span className="compass-n">N</span><span className="compass-arrow" style={{transform:`rotate(${bearing}deg)`}}>↑</span><span className="compass-s">S</span></div>}</>}
 {kind==='tahajjud-time'&&<>{times&&lastThird&&following?<><Block title="Maghrib" value={fmt(times.maghrib,tz)}/><Block title="Beginning of the final third of night" value={fmt(lastThird,tz)}/><Block title="Following Fajr" value={fmt(following,tz)}/></>:<p>Check your location.</p>}</>}
 {kind==='ramadan-timetable'&&<><Field label="Estimated first day of Ramadan (Gregorian)"><input type="date" value={start} onChange={e=>setStart(e.target.value)}/></Field><div className="table-wrap"><table><thead><tr><th>Day</th><th>Date</th><th>Fajr</th><th>Maghrib</th></tr></thead><tbody>{rows.map(x=><tr key={x.day}><td>{x.day}</td><td>{x.date}</td><td>{x.fajr}</td><td>{x.maghrib}</td></tr>)}</tbody></table></div><button className="print-hide" onClick={()=>window.print()}>Print / Save as PDF</button></>}
 <p className="warn">These are calculated times, not mosque congregation times. Check local methodology, high-latitude conventions, and moon sighting before relying on a timetable.</p></div>
@@ -62,6 +62,8 @@ function Nisab(){
 }
 function Hijri({age=false}:{age?:boolean}){
  const [value,setValue]=useState(()=>age?'2000-01-01':localISODate());
+ const [direction,setDirection]=useState<'gregorian'|'hijri'>('gregorian');
+ const [hy,setHy]=useState(1448),[hm,setHm]=useState(1),[hd,setHd]=useState(1);
  const d=date(value),h=d?new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate(),12)):null;
  let years:number|null=null;
  if(h){const opts={year:'numeric',month:'numeric',day:'numeric',timeZone:'UTC'} as const;
@@ -70,10 +72,18 @@ function Hijri({age=false}:{age?:boolean}){
  years=ty-by-(tm<bm||(tm===bm&&td<bd)?1:0);
  if(h>new Date())years=null;
  }
- return <><Field label={age?'Gregorian date of birth':'Gregorian date'}><input type="date" value={value} onChange={e=>setValue(e.target.value)}/></Field>
+ const back=direction==='hijri'&&!age?hijriToGregorian(hy,hm,hd):null;
+ return <>
+ {!age&&<Field label="Conversion direction"><select value={direction} onChange={e=>setDirection(e.target.value as 'gregorian'|'hijri')}><option value="gregorian">Gregorian → Hijri</option><option value="hijri">Hijri → Gregorian</option></select></Field>}
+ {(age||direction==='gregorian')?<><Field label={age?'Gregorian date of birth':'Gregorian date'}><input type="date" value={value} onChange={e=>setValue(e.target.value)}/></Field>
  <Block title={age?'Completed Islamic lunar years':'Umm al-Qura Hijri date'} value={h?(age?(years===null?'Choose a past date':years+' years'):islamic(h)):'Choose a valid date'}/>
  {!age&&<button className="secondary" type="button" onClick={()=>setValue(localISODate())}>Jump to today</button>}
- <p className="small">The date converter defaults to today's date in your device's local time. The Umm al-Qura calendar may differ from local moon sighting.</p></>;
+ </>:<><div className="two"><Field label="Hijri year (AH)"><input type="number" min="1300" max="1600" step="1" value={hy} onChange={e=>setHy(Number(e.target.value))}/></Field><Field label="Hijri month (1–12)"><input type="number" min="1" max="12" step="1" value={hm} onChange={e=>setHm(Number(e.target.value))}/></Field></div>
+ <Field label="Hijri day (1–30)"><input type="number" min="1" max="30" step="1" value={hd} onChange={e=>setHd(Number(e.target.value))}/></Field>
+ <Block title="Gregorian date" value={back?new Intl.DateTimeFormat('en-GB',{dateStyle:'long',timeZone:'UTC'}).format(back):'No matching date in supported range'}/>
+ </>}
+ <p className="small">The Gregorian input defaults to today on your device. Calculated Umm al-Qura dates may differ from locally observed lunar months. Reverse conversion supports Hijri years 1300–1600 AH.</p>
+ </>;
 }
 function Counter(){
  const [n,setN]=useState(0),[target,setTarget]=useState(33),[ready,setReady]=useState(false);
