@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import AdPlacement from '../../components/AdPlacement.astro';
 import ToolApp from '../../components/ToolApp';
 import ToolIcon from '../../components/ToolIcon.astro';
 import {toneForSlug} from '../../data/toolTones';
@@ -35,6 +36,7 @@ const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemL
    <section class="explainer" id="how-it-works" aria-labelledby="how-label"><div class="section-label"><h2 id="how-label">How it works</h2><span>Method and accuracy</span></div><p>{guide.method}</p>{guide.source&&<p class="source-note">Reference: <a href={guide.source.url} target="_blank" rel="noopener noreferrer">{guide.source.label}<span aria-hidden="true"> ↗</span></a></p>}</section>
    <section class="explainer" aria-labelledby="faq-label"><div class="section-label"><h2 id="faq-label">Good to know</h2><span>Frequently asked</span></div><details class="faq-detail"><summary>{guide.question}<span class="plus-symbol" aria-hidden="true">+</span></summary><p>{guide.answer}</p></details></section>
    <p class="tool-disclaimer"><span aria-hidden="true">ⓘ</span> Sunnah Tools provides informational calculations, not binding religious rulings. Dates and calculation methods vary by region. Confirm important worship decisions with trusted local guidance.</p>
+   <AdPlacement placement="tool"/>
   </div>
   <aside class="tool-aside" aria-label="Other useful Islamic tools">
     <div class="aside-title"><span class="eyebrow">KEEP EXPLORING</span><h2>More useful tools</h2><p>You might also find these helpful.</p></div>
