@@ -40,7 +40,7 @@ jobs:
       - name: Generate static website
         run: npm run build
 
-      - name: Audit generated interface and all 17 routes
+      - name: Audit generated interface and every tool route
         run: node scripts/audit-site.mjs
 
       - name: Check deployable homepage exists
@@ -56,7 +56,16 @@ jobs:
           test -s dist/data/cities.json
           test $(wc -c < dist/data/cities.json) -gt 900000
           grep -q 'Europe/London' dist/data/cities.json
+          test -s dist/tools/white-days-calendar/index.html
+          test -s dist/tools/printable-hijri-calendar/index.html
+          test -s dist/tools/prayer-times-widget/index.html
+          test -s dist/tools/umrah-packing-checklist/index.html
+          test -s dist/embed/prayer-times/index.html
           test -s dist/sitemap-0.xml
+          grep -q 'white-days-calendar' dist/sitemap-0.xml
+          grep -q 'printable-hijri-calendar' dist/sitemap-0.xml
+          grep -q 'prayer-times-widget' dist/sitemap-0.xml
+          grep -q 'umrah-packing-checklist' dist/sitemap-0.xml
           grep -q 'gold-zakat-calculator' dist/sitemap-0.xml
           grep -q 'fasting-times' dist/sitemap-0.xml
           grep -q 'islamic-events-calendar' dist/sitemap-0.xml
