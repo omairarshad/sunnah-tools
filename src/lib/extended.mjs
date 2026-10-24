@@ -25,7 +25,7 @@ export function upcomingEvents(today=new Date(),limit=10) {
  if(!Number.isFinite(year))return [];
  const floor=localISODate(today);
  return Array.from({length:3},(_,n)=>year+n).flatMap(hijriYear=>
-  ISLAMIC_EVENTS.map(event=>{const calculated=hijriToGregorian(hijriYear,event.month,event.day);return calculated?{...event,hijriYear,date:calculated.toISOString().slice(0,10)}:null}).filter(Boolean)
+  ISLAMIC_EVENTS.map(event=>{const calculated=hijriToGregorian(hijriYear,event.month,event.day);return calculated?{...event,hijriYear,date:calculated.toISOString().slice(0,10)}:null}).filter(event=>event!==null)
  ).filter(event=>event.date>=floor).sort((a,b)=>a.date.localeCompare(b.date)).slice(0,limit);
 }
 export function printableDates(start,days) {
