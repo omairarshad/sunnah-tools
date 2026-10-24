@@ -1,0 +1,11 @@
+---
+import {siteAds} from '../lib/siteAds';
+const {placement}=Astro.props;
+const slot=placement==='home'?siteAds.slots.home:placement==='tool'?siteAds.slots.tool:null;
+const show=siteAds.enabled&&Boolean(slot);
+---
+{show&&<aside class="ad-placement" aria-label="Advertisement" data-placement={placement}>
+ <div class="ad-disclosure">Advertisement</div>
+ <ins class="adsbygoogle" style="display:block" data-ad-client={siteAds.client} data-ad-slot={slot} data-ad-format="auto" data-full-width-responsive="true"></ins>
+ <script is:inline>(window.adsbygoogle = window.adsbygoogle || []).push({});</script>
+</aside>}
