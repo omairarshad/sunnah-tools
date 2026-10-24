@@ -1,4 +1,5 @@
 import {useEffect,useState} from 'react';
+import {GoldZakat,IslamicEvents,PrayerChart} from './NextTools';
 import {CalculationMethod,Coordinates,Madhab,PrayerTimes,Qibla} from 'adhan';
 import {localISODate,nisabAmounts,parseAmount,zakatEstimate,finalThirdStart,readingPlan,hijriToGregorian} from '../lib/calculations.mjs';
 const cities=[['Newcastle upon Tyne','Europe/London',54.9783,-1.6178],['London','Europe/London',51.5072,-0.1276],['Makkah','Asia/Riyadh',21.4225,39.8262],['Madinah','Asia/Riyadh',24.4672,39.6111],['New York','America/New_York',40.7128,-74.006],['Karachi','Asia/Karachi',24.8607,67.0011],['Lahore','Asia/Karachi',31.5204,74.3587],['Dubai','Asia/Dubai',25.2048,55.2708],['Kuala Lumpur','Asia/Kuala_Lumpur',3.139,101.6869],['Jakarta','Asia/Jakarta',-6.2088,106.8456],['Istanbul','Europe/Istanbul',41.0082,28.9784],['Toronto','America/Toronto',43.6532,-79.3832],['Sydney','Australia/Sydney',-33.8688,151.2093]] as const;
@@ -10,7 +11,8 @@ function islamic(d:Date){return new Intl.DateTimeFormat('en-GB-u-ca-islamic-umal
 function Block({title,value}:{title:string,value:string|number}){return <div className="result"><span>{title}</span><strong>{value}</strong></div>}
 function Field({label,children}:{label:string,children:React.ReactNode}){return <label>{label}{children}</label>}
 function Prayer({kind}:{kind:string}){
-const [city,setCity]=useState(0),[lat,setLat]=useState(''),[lon,setLon]=useState(''),[zone,setZone]=useState(''),[day,setDay]=useState(''),[method,setMethod]=useState('mwl'),[hanafi,setHanafi]=useState(false),[start,setStart]=useState('2027-02-08'),[error,setError]=useState('');
+const [city,setCity]=useState(0),[lat,setLat]=useState(''),[lon,setLon]=useState(''),[zone,setZone]=useState(''),[day,setDay]=useState(''),[method,setMethod]=useState('mwl'),[hanafi,setHanafi]=useState(false),[start,setStart]=useState('2027-02-08'),[error,setError]=useState(''),[now,setNow]=useState(()=>Date.now());
+useEffect(()=>{if(kind!=='fasting-times')return;const timer=window.setInterval(()=>setNow(Date.now()),30000);return()=>window.clearInterval(timer)},[kind]);
 const c=cities[city],latitude=lat===''?c[2]:Number(lat),longitude=lon===''?c[3]:Number(lon),tz=zone||c[1];
 const params=()=>{const m=method==='makkah'?CalculationMethod.UmmAlQura():method==='karachi'?CalculationMethod.Karachi():method==='na'?CalculationMethod.NorthAmerica():CalculationMethod.MuslimWorldLeague();m.madhab=hanafi?Madhab.Hanafi:Madhab.Shafi;return m};
 const calculate=(d:Date)=>new PrayerTimes(new Coordinates(latitude,longitude),d,params());
@@ -21,6 +23,7 @@ const locate=()=>navigator.geolocation?.getCurrentPosition(pos=>{setLat(String(p
 const rows=Array.from({length:30},(_,i)=>{const d=date(start);if(!d)return null;d.setDate(d.getDate()+i);try{const t=calculate(d);return {day:i+1,date:d.toLocaleDateString('en-GB'),fajr:fmt(t.fajr,tz),maghrib:fmt(t.maghrib,tz)}}catch{return null}}).filter(x=>x!==null);
 return <div><div className="two"><Field label="Preset city"><select value={city} onChange={e=>{setCity(+e.target.value);setLat('');setLon('');setZone('');setDay('')}}>{cities.map((c,i)=><option value={i} key={i}>{c[0]}</option>)}</select></Field><div><label>Or detect your position</label><button type="button" onClick={locate}>Use my location</button></div></div><p className="small">Worldwide locations supported through manual coordinates and timezone.</p><div className="two"><Field label="Latitude"><input placeholder={String(c[2])} value={lat} onChange={e=>setLat(e.target.value)}/></Field><Field label="Longitude"><input placeholder={String(c[3])} value={lon} onChange={e=>setLon(e.target.value)}/></Field></div><Field label="Timezone (IANA)"><input placeholder={c[1]} value={zone} onChange={e=>setZone(e.target.value)}/></Field>{error&&<p role="alert">{error}</p>}
 {kind!=='qibla-finder'&&<div className="two"><Field label="Calculation convention"><select value={method} onChange={e=>setMethod(e.target.value)}><option value="mwl">Muslim World League</option><option value="makkah">Umm al-Qura</option><option value="karachi">Karachi</option><option value="na">ISNA North America</option></select></Field><Field label="Asr school"><select value={hanafi?'hanafi':'standard'} onChange={e=>setHanafi(e.target.value==='hanafi')}><option value="standard">Standard</option><option value="hanafi">Hanafi</option></select></Field></div>}
+{kind==='fasting-times'&&<>{times?<><div className="two"><Block title="Suhoor cutoff (calculated Fajr)" value={fmt(times.fajr,tz)}/><Block title="Iftar time (calculated Maghrib)" value={fmt(times.maghrib,tz)}/></div>{(()=>{const tomorrowDate=date(dayAtZone(tz));if(!tomorrowDate)return null;tomorrowDate.setDate(tomorrowDate.getDate()+1);const nextTimes=calculate(tomorrowDate);const events=[{name:'Fajr (suhoor cutoff)',at:times!.fajr},{name:'Maghrib (iftar)',at:times!.maghrib},{name:'Next Fajr',at:nextTimes.fajr},{name:'Next Maghrib',at:nextTimes.maghrib}].filter(x=>x.at.getTime()>now).sort((a,b)=>a.at.getTime()-b.at.getTime());const next=events[0];if(!next)return null;const diff=Math.max(0,next.at.getTime()-now),hours=Math.floor(diff/3600000),minutes=Math.floor(diff%3600000/60000);return <Block title={'Countdown to '+next.name} value={hours+'h '+minutes+'m'}/>})()}</>:<p className="warn">Could not calculate times. Check coordinates and timezone.</p>}<p className="small">Automatically updates while this page is open. Dates shown are for the selected location's current day.</p></>}
 {kind==='prayer-times'&&<><Field label="Date"><input type="date" value={day||dayAtZone(tz)} onChange={e=>setDay(e.target.value)}/></Field>{times?<div className="prayers">{labels.map(x=><div key={x}><span>{x}</span><strong>{fmt(times![x.toLowerCase() as Lowercase<typeof x>],tz)}</strong></div>)}</div>:<p>Could not calculate times. Check the location and timezone.</p>}</>}
 {kind==='qibla-finder'&&<><Block title="Qibla bearing clockwise from true north" value={bearing===null?'Check your location':bearing.toFixed(1)+'°'}/>{bearing!==null&&<div className="compass" role="img" aria-label={`Qibla is ${bearing.toFixed(1)} degrees clockwise from true north`}><span className="compass-n">N</span><span className="compass-arrow" style={{transform:`rotate(${bearing}deg)`}}>↑</span><span className="compass-s">S</span></div>}</>}
 {kind==='tahajjud-time'&&<>{times&&lastThird&&following?<><Block title="Maghrib" value={fmt(times.maghrib,tz)}/><Block title="Beginning of the final third of night" value={fmt(lastThird,tz)}/><Block title="Following Fajr" value={fmt(following,tz)}/></>:<p>Check your location.</p>}</>}
@@ -133,8 +136,11 @@ function SalahTracker(){
 }
 
 export default function ToolApp({slug}:{slug:string}){
- if(['prayer-times','qibla-finder','tahajjud-time','ramadan-timetable'].includes(slug))return <Prayer kind={slug}/>;
+ if(['prayer-times','qibla-finder','tahajjud-time','ramadan-timetable','fasting-times'].includes(slug))return <Prayer kind={slug}/>;
  if(slug==='zakat-calculator')return <Zakat/>;
+ if(slug==='gold-zakat-calculator')return <GoldZakat/>;
+ if(slug==='islamic-events-calendar')return <IslamicEvents/>;
+ if(slug==='printable-prayer-chart')return <PrayerChart/>;
  if(slug==='nisab-calculator')return <Nisab/>;
  if(slug==='hijri-converter')return <Hijri/>;
  if(slug==='islamic-age')return <Hijri age/>;
