@@ -31,6 +31,11 @@ jobs:
       - name: Prepare world city directory from GeoNames
         run: npm run prepare:cities
 
+      - name: Prepare AdSense seller authorisation file when configured
+        env:
+          PUBLIC_ADSENSE_PUBLISHER_ID: ${{ vars.ADSENSE_PUBLISHER_ID }}
+        run: npm run prepare:ads
+
       - name: Run calculation tests
         run: npm test
 
@@ -38,6 +43,12 @@ jobs:
         run: npm run check
 
       - name: Generate static website
+        env:
+          PUBLIC_ADSENSE_PUBLISHER_ID: ${{ vars.ADSENSE_PUBLISHER_ID }}
+          PUBLIC_ADSENSE_ADS_ENABLED: ${{ vars.ADSENSE_ADS_ENABLED }}
+          PUBLIC_ADSENSE_CMP_READY: ${{ vars.ADSENSE_CMP_READY }}
+          PUBLIC_ADSENSE_HOME_SLOT: ${{ vars.ADSENSE_HOME_SLOT }}
+          PUBLIC_ADSENSE_TOOL_SLOT: ${{ vars.ADSENSE_TOOL_SLOT }}
         run: npm run build
 
       - name: Audit generated interface and every tool route
