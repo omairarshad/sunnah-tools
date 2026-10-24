@@ -4,17 +4,17 @@ Free Islamic tools for everyday life — https://sunnah.tools
 
 ## Preview branch
 
-The initial Astro + React + TypeScript site is on `feature/initial-site-and-tools`. **Do not deploy this branch to the public domain until checks and religious-method review are complete.**
+Source work is merged into `feature/initial-site-and-tools`; the successful GitHub Actions workflow generates the static `hostinger-live` branch connected to Hostinger. Changes must pass tests and review before merging. Religious methods remain informational.
 
 ## Included
 
-The current SEO/UX release has **21 interactive tools**: prayer times, Qibla, Tahajjud, Ramadan timetable, Ramadan countdown, Zakat, Nisab, two-way Hijri conversion, Hijri age, Tasbih, Quran reading planner, fasting tracker, Salah tracker, suhoor/iftar live countdown, gold Zakat calculator, Islamic events calendar, and printable Salah chart.
+The current SEO/UX release has **22 interactive tools**: prayer times, Qibla, Tahajjud, Ramadan timetable, Ramadan countdown, Zakat, Nisab, two-way Hijri conversion, Hijri age, Tasbih, Quran reading planner, fasting tracker, Salah tracker, suhoor/iftar live countdown, gold Zakat calculator, Islamic events calendar, and printable Salah chart.
 
 Search strategy and next-tool research: [docs/SEO_ROADMAP.md](docs/SEO_ROADMAP.md).
 
 ## Initial release
 
-Worldwide astronomical prayer times (select major cities or input any coordinates and timezone), Qibla bearing, Tahajjud calculator, 30-day printable Ramadan timetable, Zakat estimate (manual metal prices), Gregorian-to-Hijri conversion, Hijri age, browser-local Tasbih counter, and Quran reading planner.
+Worldwide astronomical prayer times (select major cities or input any coordinates and timezone), Qibla bearing, Tahajjud calculator, 29/30-day printable Ramadan timetable, Zakat estimate (manual metal prices), Gregorian-to-Hijri conversion, Hijri age, browser-local Tasbih counter, and Quran reading planner.
 
 ## Local commands
 
@@ -38,7 +38,7 @@ Hostinger Web App build command: `npm run build`; static output directory: `dist
 - Hijri dates use the `Intl` Umm al-Qura calendar and may differ from local moon-sighting announcements.
 - The Zakat result is an educational estimate, not a scholarly ruling; no live commodity price API is used, and eligibility/hawl must be checked independently.
 - Ramadan first day is entered by the visitor pending local moon sighting.
-- No accounts, subscriptions or advertising are present.
+- No visitor accounts or subscriptions are required. The optional AdSense integration is disabled unless complete publisher, consent and ad-slot settings are activated.
 
 ## Before launch
 
@@ -74,3 +74,4 @@ See [Indexing & sitemap diagnostics](docs/INDEXING_RECOVERY.md). The Google Sear
 ## Colour-coded tools and new calendars
 
 The utility directory now uses a consistent multi-colour accent scheme per tool. Four new pages are available: White Days fasting calendar (.ics export), printable Hijri calendar, prayer-times iframe generator and Hajj/Umrah packing checklist. They retain clear moon-sighting, Tashreeq and religious-method qualifications. See [docs/TOOL_BATCH_2.md](docs/TOOL_BATCH_2.md) for detailed implementation and validation notes.
+\n## SEO & monetisation phase (October 2026)\n\n- 22nd tool: Fitrana calculator using explicitly user-entered verified local rate, not a fabricated current figure.\n- Ramadan timetable supports 29/30 days, print and downloadable CSV.\n- Original method guides cover prayer time conventions and Ramadan date/timetable caveats.\n- AdSense configuration is OFF by default and is controlled through GitHub Actions variables and certified consent setup. See [AdSense launch checklist](docs/ADSENSE_SETUP.md).\n
