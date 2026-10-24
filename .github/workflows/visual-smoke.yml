@@ -1,7 +1,7 @@
 name: Visual UI Smoke Test
 on:
   push:
-    branches: [feature/adsense-ready-seo-ramadan-v3]
+    branches: [feature/promotions-cms-analytics-hub]
   workflow_dispatch:
 permissions:
   contents: read

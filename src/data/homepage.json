@@ -1,0 +1,231 @@
+{
+  "intro": {
+    "enabled": true,
+    "eyebrow": "SIMPLE TOOLS, MEANINGFUL DAYS",
+    "headline": "Everything you need,",
+    "emphasis": "beautifully simple.",
+    "description": "Thoughtfully made Islamic calculators, calendars and daily essentials. No sign-up, no noise — just the tools you came for."
+  },
+  "featured": {
+    "enabled": true,
+    "title": "Start here",
+    "subtitle": "Most useful tools",
+    "slugs": [
+      "prayer-times",
+      "hijri-converter",
+      "zakat-calculator",
+      "qibla-finder"
+    ]
+  },
+  "promotions": {
+    "enabled": true,
+    "eyebrow": "FROM OUR OTHER PROJECTS",
+    "title": "Learn, watch & discover",
+    "subtitle": "Useful learning resources, videos and Islamic gifts.",
+    "cards": [
+      {
+        "id": "arabic-alphabet",
+        "enabled": true,
+        "featured": true,
+        "type": "Learning · External",
+        "title": "Learn the Arabic Alphabet",
+        "description": "Practise Arabic letters with interactive flashcards, helpful word examples and audio pronunciation. A friendly way to build recognition and confidence.",
+        "cta": "Start learning Arabic",
+        "url": "https://www.arabicalphabet.app/",
+        "tone": "blue"
+      },
+      {
+        "id": "islamreact",
+        "enabled": true,
+        "featured": false,
+        "type": "YouTube · External",
+        "title": "IslamReact on YouTube",
+        "description": "Watch thoughtful reactions to Quran recitations and Islamic teachings, with real conversations and reflections.",
+        "cta": "Watch IslamReact",
+        "url": "https://www.youtube.com/@IslamReact",
+        "tone": "violet"
+      },
+      {
+        "id": "meemandmoon",
+        "enabled": true,
+        "featured": false,
+        "type": "Shop · External",
+        "title": "Meem & Moon",
+        "description": "Explore cute Islamic stickers, enamel pins, cards, bookmarks and gifts made for everyday joy.",
+        "cta": "Explore Islamic merch",
+        "url": "https://meemandmoon.com/",
+        "tone": "coral"
+      }
+    ]
+  },
+  "directory": {
+    "title": "Find your next tool",
+    "description": "Everything in one place. Search by name or browse a category.",
+    "columns": 3,
+    "cards": [
+      {
+        "slug": "prayer-times",
+        "title": "Prayer Times",
+        "description": "Find Fajr, Dhuhr, Asr, Maghrib and Isha for your location.",
+        "tone": "teal",
+        "enabled": true
+      },
+      {
+        "slug": "fasting-times",
+        "title": "Suhoor & Iftar Times",
+        "description": "See calculated fasting start, iftar and the next countdown.",
+        "tone": "amber",
+        "enabled": true
+      },
+      {
+        "slug": "qibla-finder",
+        "title": "Qibla Finder",
+        "description": "Calculate the direction of the Kaaba from anywhere.",
+        "tone": "blue",
+        "enabled": true
+      },
+      {
+        "slug": "tahajjud-time",
+        "title": "Tahajjud Time Calculator",
+        "description": "See when the final third of the night begins.",
+        "tone": "violet",
+        "enabled": true
+      },
+      {
+        "slug": "ramadan-timetable",
+        "title": "Ramadan Timetable",
+        "description": "Generate and print Fajr and Maghrib timings.",
+        "tone": "coral",
+        "enabled": true
+      },
+      {
+        "slug": "ramadan-countdown",
+        "title": "Ramadan Countdown",
+        "description": "Count down to an estimated first day of Ramadan.",
+        "tone": "rose",
+        "enabled": true
+      },
+      {
+        "slug": "zakat-calculator",
+        "title": "Zakat Calculator",
+        "description": "Estimate Zakat on savings, gold and investments.",
+        "tone": "emerald",
+        "enabled": true
+      },
+      {
+        "slug": "fitrana-calculator",
+        "title": "Fitrana Calculator",
+        "description": "Estimate Zakat al-Fitr for your household using a verified local rate.",
+        "tone": "coral",
+        "enabled": true
+      },
+      {
+        "slug": "gold-zakat-calculator",
+        "title": "Gold Zakat Calculator",
+        "description": "Estimate the value of 9k–24k gold and conditional Zakat.",
+        "tone": "amber",
+        "enabled": true
+      },
+      {
+        "slug": "nisab-calculator",
+        "title": "Nisab Calculator",
+        "description": "Compare the gold and silver wealth thresholds.",
+        "tone": "violet",
+        "enabled": true
+      },
+      {
+        "slug": "islamic-events-calendar",
+        "title": "Islamic Events Calendar",
+        "description": "Explore estimated dates for Ramadan, Eid, Ashura and Hajj.",
+        "tone": "blue",
+        "enabled": true
+      },
+      {
+        "slug": "hijri-converter",
+        "title": "Hijri Date Converter",
+        "description": "Check the Islamic date for a Gregorian date.",
+        "tone": "teal",
+        "enabled": true
+      },
+      {
+        "slug": "islamic-age",
+        "title": "Islamic Age Calculator",
+        "description": "Find your age in Islamic lunar years.",
+        "tone": "rose",
+        "enabled": true
+      },
+      {
+        "slug": "tasbih-counter",
+        "title": "Digital Tasbih",
+        "description": "Count dhikr and save progress on this device.",
+        "tone": "coral",
+        "enabled": true
+      },
+      {
+        "slug": "quran-planner",
+        "title": "Quran Reading Planner",
+        "description": "Plan your daily reading to finish the Quran.",
+        "tone": "indigo",
+        "enabled": true
+      },
+      {
+        "slug": "fasting-tracker",
+        "title": "Fasting Tracker",
+        "description": "Track completed and remaining make-up fasts.",
+        "tone": "mint",
+        "enabled": true
+      },
+      {
+        "slug": "printable-prayer-chart",
+        "title": "Printable Prayer Chart",
+        "description": "Make a free 7, 14 or 30 day Salah checklist PDF.",
+        "tone": "blue",
+        "enabled": true
+      },
+      {
+        "slug": "salah-tracker",
+        "title": "Daily Salah Tracker",
+        "description": "Tick off your five daily prayers privately.",
+        "tone": "emerald",
+        "enabled": true
+      },
+      {
+        "slug": "white-days-calendar",
+        "title": "White Days Fasting Calendar",
+        "description": "See the upcoming 13th–15th Hijri dates and export reminders.",
+        "tone": "violet",
+        "enabled": true
+      },
+      {
+        "slug": "printable-hijri-calendar",
+        "title": "Printable Hijri Calendar",
+        "description": "Create an Islamic monthly calendar to print or save as PDF.",
+        "tone": "amber",
+        "enabled": true
+      },
+      {
+        "slug": "prayer-times-widget",
+        "title": "Prayer Times Website Widget",
+        "description": "Create an embeddable timetable for a mosque or community site.",
+        "tone": "indigo",
+        "enabled": true
+      },
+      {
+        "slug": "umrah-packing-checklist",
+        "title": "Hajj & Umrah Packing List",
+        "description": "Plan, tick off and print a practical journey checklist.",
+        "tone": "coral",
+        "enabled": true
+      }
+    ]
+  },
+  "layout": {
+    "sectionOrder": [
+      "featured",
+      "promotions",
+      "directory",
+      "guides"
+    ],
+    "showGuides": true
+  }
+}

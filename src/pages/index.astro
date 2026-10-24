@@ -4,34 +4,53 @@ import AdPlacement from '../components/AdPlacement.astro';
 import ToolIcon from '../components/ToolIcon.astro';
 import {toneForSlug} from '../data/toolTones';
 import {tools} from '../data/tools';
+import homepage from '../data/homepage.json';
+import {safePromoUrl,orderedSections,validTone} from '../lib/homepageConfig.mjs';
 const categories=['All','Prayer','Ramadan','Zakat','Dates','Everyday'];
-const featuredSlugs=['prayer-times','hijri-converter','zakat-calculator','qibla-finder'];
-const featured=featuredSlugs.map(slug=>tools.find(x=>x.slug===slug)!);
-const categoryCounts=Object.fromEntries(categories.map(category=>[category,category==='All'?tools.length:tools.filter(x=>x.category===category).length]));
+const bySlug=new Map(tools.map(tool=>[tool.slug,tool]));
+const listed=new Set<string>();
+const toolCards=homepage.directory.cards.flatMap(item=>{
+ if(listed.has(item.slug)||!item.enabled)return [];
+ const tool=bySlug.get(item.slug as typeof tools[number]['slug']);
+ if(!tool)return [];
+ listed.add(item.slug);
+ return [{...tool,name:item.title||tool.name,desc:item.description||tool.desc,tone:validTone(item.tone)}];
+});
+const visibleTools=[...toolCards,...tools.filter(t=>!homepage.directory.cards.some(o=>o.slug===t.slug)).map(t=>({...t,tone:toneForSlug(t.slug)}))];
+const featured=homepage.featured.slugs.map(slug=>visibleTools.find(x=>x.slug===slug)).filter((item):item is (typeof visibleTools)[number]=>Boolean(item));
+const order=orderedSections(homepage.layout.sectionOrder);
+const rank=(section:string)=>order.indexOf(section);
+const promos=homepage.promotions.cards.filter(c=>c.enabled&&safePromoUrl(c.url)).map(c=>({...c,tone:validTone(c.tone),externalUrl:safePromoUrl(c.url)!}));
+const categoryCounts=Object.fromEntries(categories.map(category=>[category,category==='All'?visibleTools.length:visibleTools.filter(x=>x.category===category).length]));
 ---
 <Base title="Free Islamic Tools & Calculators" description="Free Islamic tools online: worldwide prayer times, Qibla finder, Zakat calculator, Hijri converter, Ramadan timetable and more. Free useful tools, no registration.">
- <section class="home-top" aria-label="Introduction">
+ {homepage.intro.enabled&&<section class="home-top" aria-label="Introduction">
   <div class="home-intro">
    <div class="home-intro-text">
-    <div class="eyebrow"><span class="eyebrow-line"></span> SIMPLE TOOLS, MEANINGFUL DAYS</div>
-    <h1>Everything you need, <em>beautifully simple.</em></h1>
-    <p>Thoughtfully made Islamic calculators, calendars and daily essentials. No sign-up, no noise — just the tools you came for.</p>
+    <div class="eyebrow"><span class="eyebrow-line"></span> {homepage.intro.eyebrow}</div>
+    <h1>{homepage.intro.headline} <em>{homepage.intro.emphasis}</em></h1>
+    <p>{homepage.intro.description}</p>
    </div>
    <div class="intro-ornament" aria-hidden="true"><span class="ornament-moon">☾</span><span class="ornament-star">✧</span><span class="ornament-corner">بسم الله</span></div>
   </div>
-  <section class="popular" aria-labelledby="featured-title">
-   <div class="section-label"><h2 id="featured-title">Start here</h2><span>Most useful tools</span></div>
+ </section>}
+ <div class="home-layout">
+ {homepage.featured.enabled&&<section class="popular section" style={`order:${rank("featured")}`} aria-labelledby="featured-title">
+   <div class="section-label"><h2 id="featured-title">{homepage.featured.title}</h2><span>{homepage.featured.subtitle}</span></div>
    <div class="featured-grid">
-    {featured.map((tool,i)=><a class="featured-card" data-tone={toneForSlug(tool.slug)} href={`/tools/${tool.slug}/`}>
+    {featured.map((tool,i)=><a class="featured-card" data-tone={tool.tone} href={`/tools/${tool.slug}/`}>
       <span class="featured-icon" aria-hidden="true"><ToolIcon slug={tool.slug} size={27}/></span>
       <span class="featured-info"><strong>{tool.name}</strong><small>{tool.desc}</small></span><span class="featured-arrow" aria-hidden="true">↗</span>
     </a>)}
    </div>
-  </section>
- </section>
- <section id="tools" class="section directory" aria-labelledby="directory-heading">
+  </section>}
+ {homepage.promotions.enabled&&promos.length>0&&<section class="promo-section section" style={`order:${rank("promotions")}`} aria-labelledby="promo-heading">
+  <div class="promo-heading"><div><span class="eyebrow">{homepage.promotions.eyebrow}</span><h2 id="promo-heading">{homepage.promotions.title}</h2><p>{homepage.promotions.subtitle}</p></div></div>
+  <div class="promo-grid">{promos.map(card=><article class:list={["promo-card",{ "promo-card-featured":card.featured }]} data-tone={card.tone}><div class="promo-type"><span class="promo-icon" aria-hidden="true">{card.id==="arabic-alphabet"?"ا":card.id==="islamreact"?"▶":card.id==="meemandmoon"?"✿":"✦"}</span><span>{card.type}</span></div><h3>{card.title}</h3><p>{card.description}</p><a href={card.externalUrl} target="_blank" rel="noopener noreferrer" data-promo-id={card.id} aria-label={`${card.cta} (opens external website)`}>{card.cta} <span aria-hidden="true">↗</span></a></article>)}</div>
+ </section>}
+ <section id="tools" class="section directory" data-columns={homepage.directory.columns} style={`order:${rank("directory")}`} aria-labelledby="directory-heading">
   <div class="directory-heading">
-   <div><span class="eyebrow">THE TOOLBOX · {tools.length} FREE TOOLS</span><h2 id="directory-heading">Find your next tool<span class="heading-period">.</span></h2><p>Everything in one place. Search by name or browse a category.</p></div>
+   <div><span class="eyebrow">THE TOOLBOX · {visibleTools.length} FREE TOOLS</span><h2 id="directory-heading">{homepage.directory.title}<span class="heading-period">.</span></h2><p>{homepage.directory.description}</p></div>
    <span class="directory-count"><span class="count-dot"></span> Free, no account needed</span>
   </div>
   <div class="directory-controls">
@@ -42,9 +61,9 @@ const categoryCounts=Object.fromEntries(categories.map(category=>[category,categ
    </div>
   </div>
   <section id="recent-section" class="recent-tools" hidden aria-labelledby="recent-heading"><div class="section-label"><h3 id="recent-heading">Recently opened</h3><span>Pick up where you left off</span></div><div id="recent-links" class="recent-links"></div></section>
-  <div class="directory-list-heading"><p id="tool-count" class="small" aria-live="polite">{tools.length} tools available</p><span>Pick a tool to get started <span aria-hidden="true">↘</span></span></div>
+  <div class="directory-list-heading"><p id="tool-count" class="small" aria-live="polite">{visibleTools.length} tools available</p><span>Pick a tool to get started <span aria-hidden="true">↘</span></span></div>
   <div class="cards" id="tool-grid">
-   {tools.map(tool=><article class="tool-card" data-tone={toneForSlug(tool.slug)} data-slug={tool.slug} data-category={tool.category.toLowerCase()} data-search={`${tool.name} ${tool.desc} ${tool.keywords}`.toLowerCase()}>
+   {visibleTools.map(tool=><article class="tool-card" data-tone={tool.tone} data-slug={tool.slug} data-category={tool.category.toLowerCase()} data-search={`${tool.name} ${tool.desc} ${tool.keywords}`.toLowerCase()}>
     <a class="tool-card-main" href={`/tools/${tool.slug}/`} aria-label={`Open ${tool.name}`}>
      <span class="tool-card-icon"><ToolIcon slug={tool.slug} size={25}/></span>
      <span class="tool-card-category">{tool.category}</span>
@@ -56,13 +75,14 @@ const categoryCounts=Object.fromEntries(categories.map(category=>[category,categ
   <div id="no-results" class="no-results" hidden><strong>We couldn't find a matching tool.</strong><p>Try a different keyword or clear your category filter.</p><button id="clear-filters" class="button-outline" type="button">Show all tools</button></div>
   <AdPlacement placement="home"/>
  </section>
- <section class="home-guides section" aria-labelledby="learning-heading">
+ {homepage.layout.showGuides&&<section class="home-guides section" style={`order:${rank("guides")}`} aria-labelledby="learning-heading">
  <div class="section-label"><h2 id="learning-heading">Useful guides & explanations</h2><span>Understand the methods behind your results</span></div>
  <div class="guide-links">
   <a href="/guides/prayer-time-methods/"><strong>How are prayer times calculated?</strong><span>Fajr, Isha, Asr, high latitudes and local mosque differences →</span></a>
   <a href="/guides/ramadan-dates-and-timetables/"><strong>Plan a reliable Ramadan timetable</strong><span>Understand lunar dates, suhoor cutoffs and printable fasting times →</span></a>
  </div>
- </section>
+ </section>}
+ </div>
  <section class="trust-strip" aria-label="About our tools">
   <div class="trust-inner"><div><span aria-hidden="true">◇</span><strong>Free for everyone</strong><p>No account or subscription.</p></div><div><span aria-hidden="true">⌁</span><strong>Privacy-minded</strong><p>Most tools work in your browser.</p></div><div><span aria-hidden="true">✦</span><strong>Transparent methods</strong><p>Clear calculation notes and limitations.</p></div></div>
  </section>
