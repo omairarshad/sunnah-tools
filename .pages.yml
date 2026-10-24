@@ -17,18 +17,6 @@ content:
           - { name: headline, type: string, label: Main headline }
           - { name: emphasis, type: string, label: Highlighted headline }
           - { name: description, type: text, label: Intro description }
-      - name: featured
-        label: Featured Islamic tools
-        type: object
-        fields:
-          - { name: enabled, type: boolean, label: Show featured tools }
-          - { name: title, type: string }
-          - { name: subtitle, type: string }
-          - name: slugs
-            label: Featured tool slugs in order
-            description: Use an existing tool slug from the directory, e.g. prayer-times
-            type: string
-            list: true
       - name: promotions
         label: External projects and promotional cards
         type: object
@@ -49,12 +37,14 @@ content:
             fields:
               - { name: id, type: string, label: Unique card ID, required: true }
               - { name: enabled, type: boolean, label: Show card }
-              - { name: featured, type: boolean, label: Make card wider }
+              - { name: featured, type: boolean, label: Make this banner wider }
               - { name: type, type: string, label: Badge }
               - { name: title, type: string, required: true }
               - { name: description, type: text }
               - { name: cta, type: string, label: Button text }
               - { name: url, type: string, required: true, description: HTTPS external URL only }
+              - { name: image, type: image, required: true, label: Banner artwork, description: Upload an SVG or WebP/PNG image to the local media library }
+              - { name: imageAlt, type: text, label: Image description for accessibility }
               - name: tone
                 type: select
                 options:
@@ -73,24 +63,24 @@ content:
                 - { name: 2, label: Two columns }
                 - { name: 3, label: Three columns }
                 - { name: 4, label: Four columns }
-      - name: cards
-        label: Tool cards (drag to reorder)
-        type: object
-        list:
-          min: 1
-          max: 100
-          collapsible:
-            collapsed: true
-            summary: "{title}"
-        fields:
-          - { name: slug, type: string, required: true, description: Existing tool slug, do not change unless replacing card }
-          - { name: enabled, type: boolean, label: Show on homepage }
-          - { name: title, type: string, required: true, label: Homepage card title }
-          - { name: description, type: text, label: Homepage card description }
-          - name: tone
-            type: select
-            options:
-              values: [blue, violet, coral, teal, amber, emerald, rose, indigo, mint]
+          - name: cards
+            label: Tool cards (drag to reorder)
+            type: object
+            list:
+              min: 1
+              max: 100
+              collapsible:
+                collapsed: true
+                summary: "{title}"
+            fields:
+              - { name: slug, type: string, required: true, description: Existing tool slug, do not change unless replacing card }
+              - { name: enabled, type: boolean, label: Show on homepage }
+              - { name: title, type: string, required: true, label: Homepage card title }
+              - { name: description, type: text, label: Homepage card description }
+              - name: tone
+                type: select
+                options:
+                  values: [blue, violet, coral, teal, amber, emerald, rose, indigo, mint]
       - name: layout
         label: Homepage section order
         type: object
@@ -100,5 +90,5 @@ content:
             type: select
             list: true
             options:
-              values: [featured, promotions, directory, guides]
+              values: [promotions, directory, guides]
           - { name: showGuides, type: boolean, label: Show educational guides }
