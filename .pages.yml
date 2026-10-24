@@ -77,6 +77,8 @@ content:
               - { name: enabled, type: boolean, label: Show on homepage }
               - { name: title, type: string, required: true, label: Homepage card title }
               - { name: description, type: text, label: Homepage card description }
+              - { name: image, type: image, required: true, label: Large tool illustration, description: Upload a locally stored SVG WebP PNG or JPEG illustration }
+              - { name: imageAlt, type: string, label: Illustration alt description }
               - name: tone
                 type: select
                 options:
