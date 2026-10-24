@@ -1,0 +1,10 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {goldValue,upcomingEvents,printableDates,ISLAMIC_EVENTS} from '../src/lib/extended.mjs';
+test('22k gold value uses pure content not total gross gram valuation',()=>{const v=goldValue({weightGrams:24,karat:22,price24kPerGram:100});assert.deepEqual(v,{pureGoldGrams:22,estimatedValue:2200,conditionalZakat:55})});
+test('reject invalid karat and negative weight',()=>{assert.equal(goldValue({weightGrams:-1,karat:24,price24kPerGram:100}),null);assert.equal(goldValue({weightGrams:50,karat:25,price24kPerGram:100}),null)});
+test('never invent current gold prices',()=>assert.equal(goldValue({weightGrams:30,karat:24,price24kPerGram:0}).estimatedValue,0));
+test('important Hijri dates defined exactly',()=>{assert.deepEqual(ISLAMIC_EVENTS.find(x=>x.name==='Eid al-Fitr'),{name:'Eid al-Fitr',month:10,day:1,note:'1 Shawwal; confirm local moon sighting'});assert.equal(ISLAMIC_EVENTS.find(x=>x.name==='Day of Arafah').day,9)});
+test('upcoming dates are sorted and in present or future',()=>{const v=upcomingEvents(new Date('2026-10-24T12:00:00Z'),10);assert.ok(v.length>5);assert.ok(v.every(x=>x.date>='2026-10-24'));assert.deepEqual(v.map(x=>x.date),v.map(x=>x.date).sort())});
+test('printable chart dates cross months correctly',()=>{const v=printableDates('2026-10-30',7);assert.equal(v[0],'2026-10-30');assert.equal(v[2],'2026-11-01');assert.equal(v.length,7)});
+test('reject invalid chart inputs',()=>{assert.deepEqual(printableDates('2026-02-31',7),[]);assert.deepEqual(printableDates('2026-10-24',60),[])});
