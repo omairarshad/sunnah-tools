@@ -1,0 +1,20 @@
+// Decorative SVG path outlines. Text labels always accompany these icons.
+export const iconPaths:Record<string,string[]>={
+'prayer-times':['M12 3v3','M12 18v3','M3 12h3','M18 12h3','M5.64 5.64l2.12 2.12','M16.24 16.24l2.12 2.12','M5.64 18.36l2.12-2.12','M16.24 7.76l2.12-2.12','M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8'],
+'fasting-times':['M2 12h20','M4 17a8 8 0 0 1 16 0','M5 7l2-2','M12 3v3','M19 7l-2-2','M6 20h12'],
+'qibla-finder':['m12 2 7 17-7-3-7 3 7-17Z','M12 16v6'],
+'tahajjud-time':['M20.9 13.1A9 9 0 0 1 10.9 3.1 9 9 0 1 0 20.9 13.1Z','M16 3v3','M14.5 4.5h3'],
+'ramadan-timetable':['M3 6h18v15H3z','M7 3v6','M17 3v6','M3 11h18','M7 15h3','M14 15h3'],
+'ramadan-countdown':['M12 7v5l3 2','M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0'],
+'zakat-calculator':['M4 6h16v13H4z','M4 10h16','M16 15h2','M7 3h10'],
+'gold-zakat-calculator':['m3 9 4-5h10l4 5-9 12Z','M3 9h18','M7 4l5 17','M17 4l-5 17'],
+'nisab-calculator':['M12 3v18','M6 21h12','M3 7h18','M6 7l-4 7h8l-4-7','M18 7l-4 7h8l-4-7'],
+'islamic-events-calendar':['M3 5h18v16H3z','M7 2v6','M17 2v6','M3 10h18','m8 16 2 2 4-4'],
+'hijri-converter':['M7 3H4v3','M4 6a8 8 0 0 1 13-2','M17 21h3v-3','M20 18a8 8 0 0 1-13 2'],
+'islamic-age':['M12 2v20','M5 6h14','M5 18h14','M7 12h10'],
+'tasbih-counter':['M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18','M12 7v5l3 3'],
+'quran-planner':['M12 6c-4-2-7-2-10-1v14c3-1 6-1 10 1 4-2 7-2 10-1V5c-3-1-6-1-10 1Z','M12 6v14'],
+'fasting-tracker':['M4 5h16v15H4z','M8 3v4','M16 3v4','M4 10h16','m8 15 2 2 4-4'],
+'printable-prayer-chart':['M6 2h9l4 4v16H6z','M15 2v5h4','M9 12h7','M9 16h7'],
+'salah-tracker':['M4 4h16v16H4z','m8 12 3 3 5-6']
+};
