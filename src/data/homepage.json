@@ -6,17 +6,6 @@
     "emphasis": "beautifully simple.",
     "description": "Thoughtfully made Islamic calculators, calendars and daily essentials. No sign-up, no noise — just the tools you came for."
   },
-  "featured": {
-    "enabled": false,
-    "title": "Start here",
-    "subtitle": "Most useful tools",
-    "slugs": [
-      "prayer-times",
-      "hijri-converter",
-      "zakat-calculator",
-      "qibla-finder"
-    ]
-  },
   "promotions": {
     "enabled": true,
     "eyebrow": "FROM OUR OTHER PROJECTS",
