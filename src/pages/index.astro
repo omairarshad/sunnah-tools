@@ -1,14 +1,35 @@
 ---
 import Base from '../layouts/Base.astro';
-const tools=[
-{slug:'prayer-times',name:'Prayer Times',desc:'Astronomical prayer times for locations worldwide',icon:'◷'},
-{slug:'qibla-finder',name:'Qibla Finder',desc:'Find the bearing to Makkah',icon:'➤'},
-{slug:'tahajjud-time',name:'Tahajjud Calculator',desc:'Find the final third of the night',icon:'☾'},
-{slug:'ramadan-timetable',name:'Ramadan Timetable',desc:'Print a 30-day fasting timetable',icon:'▦'},
-{slug:'zakat-calculator',name:'Zakat Calculator',desc:'Estimate Zakat on eligible assets',icon:'◈'},
-{slug:'hijri-converter',name:'Hijri Date Converter',desc:'Convert Gregorian dates into Hijri',icon:'◉'},
-{slug:'islamic-age',name:'Islamic Age Calculator',desc:'Calculate your lunar age',icon:'✧'},
-{slug:'tasbih-counter',name:'Digital Tasbih Counter',desc:'A simple private dhikr counter',icon:'◎'},
-{slug:'quran-planner',name:'Quran Reading Planner',desc:'Plan a Quran reading goal',icon:'▤'}];
+import {tools} from '../data/tools';
+const categories=['All','Prayer','Ramadan','Zakat','Dates','Everyday'];
 ---
-<Base><section class="hero"><p class="eyebrow">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p><h1>Everyday Islamic tools,<br/><em>beautifully simple.</em></h1><p>Practical calculators, prayer tools and planners — free to use, without creating an account.</p><a class="button" href="#tools">Explore the tools ↓</a></section><section id="tools" class="section"><p class="eyebrow">THE TOOLBOX</p><h2>What would you like to do?</h2><div class="cards">{tools.map(tool=><a class="card" href={`/tools/${tool.slug}/`}><span class="symbol">{tool.icon}</span><h3>{tool.name}</h3><p>{tool.desc}</p><span class="arrow">Explore →</span></a>)}</div></section><section class="note"><h2>Made with care</h2><p>Prayer times, lunar dates and Zakat conventions can differ between regions and scholarly approaches. We make calculation methods and limitations visible; always confirm important decisions with reliable local guidance.</p></section></Base>
+<Base title="Free Islamic Tools & Calculators" description="Free Islamic tools: prayer times, Qibla direction, Zakat calculator, Hijri date converter, Ramadan timetable and more. No sign-up needed.">
+ <section id="tools" class="section directory" aria-labelledby="directory-heading">
+  <p class="eyebrow">FREE TOOLS · NO SIGN-UP</p>
+  <div class="directory-heading"><div><h1 id="directory-heading">Islamic tools for everyday life</h1><p>Find what you need and get straight to it. Fast, free calculators, trackers and timetables.</p></div><span class="directory-count">{tools.length} useful tools</span></div>
+  <div class="tool-search"><label for="tool-search-input">Find a tool</label><input id="tool-search-input" type="search" placeholder="Search: zakat, prayer, Ramadan, Hijri…" autocomplete="off" /></div>
+  <div class="filters" role="group" aria-label="Tool categories">{categories.map((name,i)=><button class:list={['filter',{'active':i===0}]} type="button" data-filter={name.toLowerCase()} aria-pressed={i===0}>{name}</button>)}</div>
+  <p id="tool-count" class="small" aria-live="polite"></p>
+  <div class="cards" id="tool-grid">{tools.map(tool=><a class="card" data-category={tool.category.toLowerCase()} data-search={`${tool.name} ${tool.desc} ${tool.keywords}`.toLowerCase()} href={`/tools/${tool.slug}/`}><span class="symbol" aria-hidden="true">{tool.icon}</span><span class="category">{tool.category}</span><h2>{tool.name}</h2><p>{tool.desc}</p><span class="arrow">Open tool →</span></a>)}</div>
+  <p id="no-results" hidden>No matching tools. Try another search or select All.</p>
+ </section>
+ <section class="note"><h2>Designed to be useful, not complicated</h2><p>Most calculators work directly in your browser. For religious decisions, remember that prayer calculation settings, regional Hijri dates and Zakat guidance can differ. Each tool explains its assumptions.</p></section>
+</Base>
+<script>
+ const search=document.querySelector<HTMLInputElement>('#tool-search-input');
+ const cards=Array.from(document.querySelectorAll<HTMLElement>('#tool-grid .card'));
+ const buttons=Array.from(document.querySelectorAll<HTMLButtonElement>('.filter'));
+ const count=document.querySelector<HTMLElement>('#tool-count');
+ const empty=document.querySelector<HTMLElement>('#no-results');
+ let selected='all';
+ function filter(){
+  const query=search?.value.toLowerCase().trim()??'';
+  let total=0;
+  cards.forEach(card=>{const show=(selected==='all'||card.dataset.category===selected)&&(card.dataset.search??'').includes(query);card.hidden=!show;if(show)total++});
+  if(count)count.textContent=total===1?'1 tool shown':`${total} tools shown`;
+  if(empty)empty.hidden=total!==0;
+ }
+ buttons.forEach(button=>button.addEventListener('click',()=>{selected=button.dataset.filter??'all';buttons.forEach(b=>{const active=b===button;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active))});filter()}));
+ search?.addEventListener('input',filter);
+ filter();
+</script>

@@ -1,11 +1,25 @@
 ---
 import Base from '../../layouts/Base.astro';
 import ToolApp from '../../components/ToolApp';
-const names={
-'prayer-times':['Prayer Times','Calculate worldwide daily prayer times.'],'qibla-finder':['Qibla Finder','Find the true-north direction to Makkah.'],'tahajjud-time':['Tahajjud Calculator','Find the beginning of the final third of night.'],'ramadan-timetable':['Ramadan Timetable','Print a 30-day Fajr and Maghrib schedule.'],'zakat-calculator':['Zakat Calculator','Estimate Zakat with your own asset and Nisab figures.'],'hijri-converter':['Hijri Date Converter','Convert a Gregorian date to the Umm al-Qura calendar.'],'islamic-age':['Islamic Age Calculator','Find your approximate completed Hijri years.'],'tasbih-counter':['Tasbih Counter','Keep a local digital dhikr count.'],'quran-planner':['Quran Reading Planner','Break a Quran reading goal into daily pages.']
-} as const;
-export function getStaticPaths(){return ['prayer-times','qibla-finder','tahajjud-time','ramadan-timetable','zakat-calculator','hijri-converter','islamic-age','tasbih-counter','quran-planner'].map(slug=>({params:{slug}}))}
-const slug=Astro.params.slug as keyof typeof names;
-const [name,description]=names[slug];
+import {tools,toolBySlug} from '../../data/tools';
+import {guides} from '../../data/guides';
+export function getStaticPaths(){return tools.map(tool=>({params:{slug:tool.slug}}))}
+const slug=Astro.params.slug as keyof typeof toolBySlug;
+const tool=toolBySlug[slug];
+const guide=guides[slug];
+const related=tools.filter(x=>x.slug!==slug).sort((a,b)=>Number(b.category===tool.category)-Number(a.category===tool.category)).slice(0,4);
+const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList','itemListElement':[{'@type':'ListItem',position:1,name:'Home',item:'https://sunnah.tools/'},{'@type':'ListItem',position:2,name:tool.name,item:`https://sunnah.tools/tools/${slug}/`}]};
 ---
-<Base title={name} description={description}><section class="tool"><p class="eyebrow"><a href="/">← All Islamic tools</a></p><h1>{name}</h1><p>{description}</p><div class="tool-inner"><ToolApp slug={slug} client:only="react"/></div><p class="warn">Sunnah Tools is an educational utility, not a religious authority. Calculation conventions may differ. Confirm important worship decisions with trusted qualified sources and your local mosque.</p><a href="/">Explore more tools →</a></section></Base>
+<Base title={tool.name} description={tool.desc}>
+ <script type="application/ld+json" set:html={JSON.stringify(breadcrumb)}/>
+ <section class="tool">
+  <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">All Islamic tools</a><span aria-hidden="true"> / </span>{tool.name}</nav>
+  <p class="eyebrow">{tool.category.toUpperCase()} · FREE TOOL</p>
+  <h1>{tool.name}</h1><p class="tool-lead">{guide.intro}</p>
+  <div class="tool-inner"><ToolApp slug={slug} client:only="react"/></div>
+  <section class="explainer" aria-labelledby="how-it-works"><h2 id="how-it-works">How this tool works</h2><p>{guide.method}</p>{guide.source&&<p class="small">Reference: <a href={guide.source.url} target="_blank" rel="noopener noreferrer">{guide.source.label}</a>.</p>}</section>
+  <section class="explainer" aria-labelledby="faq"><h2 id="faq">Common question</h2><details><summary>{guide.question}</summary><p>{guide.answer}</p></details></section>
+  <p class="warn">Sunnah Tools provides informational calculations, not binding religious rulings. Dates and methods vary by region and practice. Confirm important worship decisions with trusted local guidance.</p>
+  <section class="related"><h2>More free Islamic tools</h2><div class="related-links">{related.map(other=><a href={`/tools/${other.slug}/`}>{other.name} <span aria-hidden="true">↗</span></a>)}</div></section>
+ </section>
+</Base>
