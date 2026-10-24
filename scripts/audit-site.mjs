@@ -1,6 +1,7 @@
 import {readFileSync,statSync} from 'node:fs';
 import {resolve} from 'node:path';
-import {tools} from '../src/data/tools.ts';
+const toolSource=readFileSync(resolve('src/data/tools.ts'),'utf8');
+const slugs=[...toolSource.matchAll(/slug:'([a-z0-9-]+)'/g)].map(m=>m[1]);
 const read=path=>readFileSync(resolve('dist',path),'utf8');
 const assert=(test,msg)=>{if(!test)throw new Error('Site audit failed: '+msg)};
 const home=read('index.html');
@@ -14,17 +15,17 @@ assert(header(home),'Shared site navigation and footer missing');
 assert(home.includes('aria-label="Main navigation"'),'Main navigation lacks label');
 assert(home.includes('href="https://sunnah.tools/"'),'Home canonical URL missing');
 const sitemap=read('sitemap-0.xml');
-for(const tool of tools){
- const path=`tools/${tool.slug}/index.html`;
+for(const slug of slugs){
+ const path=`tools/${slug}/index.html`;
  const html=read(path);
- assert(statSync(resolve('dist',path)).size>1000,`Tool page is empty: ${tool.slug}`);
- assert(header(html),`Shared chrome missing: ${tool.slug}`);
- assert(html.includes('class="tool-panel"'),`Interactive panel missing: ${tool.slug}`);
- assert(html.includes('class="tool-disclaimer"'),`Method disclaimer missing: ${tool.slug}`);
- assert(html.includes('class="tool-aside"'),`Related tools sidebar missing: ${tool.slug}`);
- assert(html.includes(`https://sunnah.tools/tools/${tool.slug}/`),`Canonical missing: ${tool.slug}`);
- assert(sitemap.includes(`/tools/${tool.slug}/`),`Sitemap missing: ${tool.slug}`);
+ assert(statSync(resolve('dist',path)).size>1000,`Tool page is empty: ${slug}`);
+ assert(header(html),`Shared chrome missing: ${slug}`);
+ assert(html.includes('class="tool-panel"'),`Interactive panel missing: ${slug}`);
+ assert(html.includes('class="tool-disclaimer"'),`Method disclaimer missing: ${slug}`);
+ assert(html.includes('class="tool-aside"'),`Related tools sidebar missing: ${slug}`);
+ assert(html.includes(`https://sunnah.tools/tools/${slug}/`),`Canonical missing: ${slug}`);
+ assert(sitemap.includes(`/tools/${slug}/`),`Sitemap missing: ${slug}`);
 }
 assert(read('robots.txt').includes('sitemap-index.xml'),'Robots sitemap reference missing');
 assert(read('sitemap-index.xml').includes('sitemap-0.xml'),'Sitemap index child missing');
-console.log(`Static UX/SEO audit passed: homepage, ${tools.length} tool routes, responsive shell and sitemap`);
+console.log(`Static UX/SEO audit passed: homepage, ${slugs.length} tool routes, responsive shell and sitemap`);
