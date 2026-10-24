@@ -1,0 +1,61 @@
+name: Build static site for Hostinger
+
+on:
+  push:
+    branches:
+      - feature/initial-site-and-tools
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: hostinger-live-publish
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out website source
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Run calculation tests
+        run: npm test
+
+      - name: Type-check Astro and React
+        run: npm run check
+
+      - name: Generate static website
+        run: npm run build
+
+      - name: Check deployable homepage exists
+        shell: bash
+        run: |
+          test -s dist/index.html
+          test -s dist/tools/prayer-times/index.html
+          test -s dist/tools/zakat-calculator/index.html
+          test -f dist/robots.txt
+
+      - name: Publish generated files to Hostinger branch
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          cd dist
+          git init --initial-branch=hostinger-live
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m "site: static build from ${GITHUB_SHA}"
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git push --force origin HEAD:refs/heads/hostinger-live
