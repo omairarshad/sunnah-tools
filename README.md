@@ -8,7 +8,7 @@ The initial Astro + React + TypeScript site is on `feature/initial-site-and-tool
 
 ## Included
 
-The current SEO/UX release has **13 interactive tools**: prayer times, Qibla, Tahajjud, Ramadan timetable, Ramadan countdown, Zakat, Nisab, two-way Hijri conversion, Hijri age, Tasbih, Quran reading planner, fasting tracker and Salah tracker.
+The current SEO/UX release has **17 interactive tools**: prayer times, Qibla, Tahajjud, Ramadan timetable, Ramadan countdown, Zakat, Nisab, two-way Hijri conversion, Hijri age, Tasbih, Quran reading planner, fasting tracker, Salah tracker, suhoor/iftar live countdown, gold Zakat calculator, Islamic events calendar, and printable Salah chart.
 
 Search strategy and next-tool research: [docs/SEO_ROADMAP.md](docs/SEO_ROADMAP.md).
 
@@ -43,3 +43,10 @@ Hostinger Web App build command: `npm run build`; static output directory: `dist
 ## Before launch
 
 Check CI, verify user flows with real devices, validate regional prayer examples and religious explanations, check accessibility, review privacy/hosting logs, and only then approve the pull request to `main`.
+
+## Phase 3 (24 October 2026)
+
+- Added four focused tool pages: gold Zakat, today's suhoor/iftar with live next-event countdown, upcoming Islamic events, and printable 7/14/30-day Salah charts.
+- Prayer calculations now expose additional regional and high-latitude conventions, with a polar fallback option and explicit caution that local mosque methods may differ.
+- Google Search Console: submit `https://sunnah.tools/sitemap-index.xml`, then inspect the homepage and highest-priority pages. Search Console setup requires the domain owner's action; it is not automatic.
+- GitHub checks validate calendar/gold calculations, basic prayer-time sanity, TypeScript and the static Astro build. These are not a substitute for regional mosque or scholarly validation.
