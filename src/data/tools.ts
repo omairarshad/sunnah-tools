@@ -16,6 +16,10 @@ export const tools = [
  {slug:'fasting-tracker',name:'Fasting Tracker',desc:'Track completed and remaining make-up fasts.',icon:'✓',category:'Ramadan',keywords:'qada missed fasts Ramadan'},
  {slug:'printable-prayer-chart',name:'Printable Prayer Chart',desc:'Make a free 7, 14 or 30 day Salah checklist PDF.',icon:'☷',category:'Everyday',keywords:'prayer tracker chart printable kids daily prayer pdf'},
  {slug:'salah-tracker',name:'Daily Salah Tracker',desc:'Tick off your five daily prayers privately.',icon:'□',category:'Everyday',keywords:'daily prayer tracker checklist'}
+ {slug:'white-days-calendar',name:'White Days Fasting Calendar',desc:'See the upcoming 13th–15th Hijri dates and export reminders.',icon:'☾',category:'Dates',keywords:'ayyam al bid white days fasting calendar 13 14 15'},
+ {slug:'printable-hijri-calendar',name:'Printable Hijri Calendar',desc:'Create an Islamic monthly calendar to print or save as PDF.',icon:'▦',category:'Dates',keywords:'islamic month calendar hijri printable pdf'},
+ {slug:'prayer-times-widget',name:'Prayer Times Website Widget',desc:'Create an embeddable timetable for a mosque or community site.',icon:'◷',category:'Prayer',keywords:'mosque embed salah namaz prayer times iframe'},
+ {slug:'umrah-packing-checklist',name:'Hajj & Umrah Packing List',desc:'Plan, tick off and print a practical journey checklist.',icon:'✓',category:'Everyday',keywords:'hajj umrah travel packing checklist printable'}
 ] as const;
 export type ToolSlug = typeof tools[number]['slug'];
 export const toolBySlug = Object.fromEntries(tools.map(tool=>[tool.slug,tool])) as Record<ToolSlug,typeof tools[number]>;
