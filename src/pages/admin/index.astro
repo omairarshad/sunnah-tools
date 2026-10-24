@@ -1,0 +1,31 @@
+---
+import Base from '../../layouts/Base.astro';
+import {siteAnalytics} from '../../lib/siteAnalytics';
+import {siteAds} from '../../lib/siteAds';
+const report=siteAnalytics.dashboardUrl;
+---
+<Base title="Site Dashboard & Content Editor" description="Sunnah Tools site owner's operations hub with private analytics links, content editing and publishing workflows." noindex={true}>
+<section class="admin-shell">
+ <span class="eyebrow">SITE OPERATIONS · SUNNAH TOOLS</span>
+ <h1>Your Sunnah Tools dashboard</h1>
+ <p class="admin-summary">One place to manage homepage cards, review search performance, check advertising revenue and open the traffic dashboard. Editing requires your GitHub account; private analytics require your Google sign-in. This page itself contains no confidential account data.</p>
+ <div class="admin-dashboard-grid">
+  <div class="admin-module"><span class="module-tag">CONTENT EDITOR</span><h2>Edit homepage</h2><p>Change the Arabic Alphabet, IslamReact and Meem & Moon cards; choose featured tools, colours, visibility, homepage text and section order.</p><a href="https://app.pagescms.org/" target="_blank" rel="noopener noreferrer">Open Pages CMS ↗</a></div>
+  <div class="admin-module"><span class="module-tag">TRAFFIC & BEHAVIOUR</span><h2>Google Analytics 4</h2><p>See visitors, sessions, countries, traffic sources, top pages and events such as external promo clicks.</p><div class="no-data">Tracking: {siteAnalytics.enabled?'Configured; visitor consent required':'Awaiting measurement ID and activation'}</div><a href="https://analytics.google.com/analytics/web/" target="_blank" rel="noopener noreferrer">View GA4 reports ↗</a></div>
+  <div class="admin-module"><span class="module-tag">ORGANIC SEARCH</span><h2>Google Search Console</h2><p>Review Google impressions, clicks, search queries, indexed pages, sitemap health and Core Web Vitals.</p><a href="https://search.google.com/search-console/" target="_blank" rel="noopener noreferrer">Open Search Console ↗</a></div>
+  <div class="admin-module"><span class="module-tag">AD MONETISATION</span><h2>Google AdSense</h2><p>Monitor page RPM, estimated revenue, ad impressions, policy issues and approvals once your account is activated.</p><div class="no-data">Ads: {siteAds.enabled?'Activated in website build':'Disabled until approval and CMP readiness'}</div><a href="https://www.google.com/adsense/" target="_blank" rel="noopener noreferrer">Open AdSense ↗</a></div>
+  <div class="admin-module"><span class="module-tag">SITE RELEASES</span><h2>Deployment status</h2><p>Check test results and builds, then confirm Hostinger has deployed the latest <code>hostinger-live</code> branch.</p><a href="https://github.com/omairarshad/sunnah-tools/actions" target="_blank" rel="noopener noreferrer">View GitHub builds ↗</a></div>
+  <div class="admin-module"><span class="module-tag">YOUR WEBSITE</span><h2>Live homepage</h2><p>Preview current tools, promotional cards and layout in a new tab after publishing your edits.</p><a href="https://sunnah.tools/" target="_blank" rel="noopener noreferrer">Open Sunnah Tools ↗</a></div>
+ </div>
+ <section class="admin-stack" aria-labelledby="report-heading">
+  <h2 id="report-heading">Your traffic overview</h2>
+  {report?<><p>This panel displays your configured Looker Studio report, using Google's own access permissions. If you see a sign-in error here, open it in a new tab instead.</p><div class="admin-report"><iframe title="Sunnah Tools private analytics report" src={report} loading="lazy" referrerpolicy="no-referrer" /></div><p><a href={report} target="_blank" rel="noopener noreferrer">Open the full report in Looker Studio ↗</a></p></>:<><p><strong>Analytics dashboard connection not configured yet.</strong> Create a GA4 property for Sunnah Tools, then connect it to a private <a href="https://lookerstudio.google.com/" target="_blank" rel="noopener noreferrer">Looker Studio report</a> showing users, top tools, search sources, external promo clicks and event counts.</p><p>Set the GitHub Actions variable <code>LOOKER_STUDIO_REPORT_URL</code> to your report URL once you've built it; the website will then display it here. Keep the report restricted to your Google account rather than making it publicly viewable.</p></>}
+ </section>
+ <section class="admin-stack" aria-labelledby="manage-heading">
+  <h2 id="manage-heading">How homepage editing works</h2>
+  <p>Open Pages CMS → sign in with GitHub → grant access to <code>omairarshad/sunnah-tools</code> → select branch <code>feature/initial-site-and-tools</code> → open <strong>Homepage layout & cards</strong>. Save your edits to GitHub and the build workflow prepares the new site for Hostinger.</p>
+  <p>Only editors with approved repository permissions can save changes. Don't create a publicly writable admin endpoint or paste GitHub access tokens into the website.</p>
+  <p><a href="https://github.com/omairarshad/sunnah-tools/blob/feature/initial-site-and-tools/docs/ANALYTICS_AND_CMS.md" target="_blank" rel="noopener noreferrer">Read configuration and setup instructions ↗</a></p>
+ </section>
+</section>
+</Base>
