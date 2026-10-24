@@ -10,10 +10,14 @@ try{
  await page.goto(root+'/',{waitUntil:'networkidle'});
  assert.equal(await page.locator('.tool-card').count(),22,'Homepage should expose 22 tools');
  assert.ok(new Set(await page.locator('.tool-card').evaluateAll(elements=>elements.map(el=>el.getAttribute('data-tone')))).size>=6,'Tool cards should have multiple accent colours');
- assert.equal(await page.locator('.featured-card').count(),4,'Four quick links should be visible');
- assert.equal(await page.locator('.promo-card').count(),3,'Three featured external projects should be visible');
- assert.equal(await page.locator('.promo-card').first().getAttribute('data-tone'),'blue','Arabic Alphabet card should lead with blue learning accent');
- assert.match(await page.locator('.promo-card').first().innerText(),/flashcards/i,'Arabic learning description should mention flashcards');
+ assert.equal(await page.locator('.featured-card').count(),0,'Redundant Start here links must be removed');
+ assert.equal(await page.getByRole('heading',{name:'Start here'}).count(),0,'Start here section must be gone');
+ assert.equal(await page.locator('.promo-banner').count(),3,'Three full-image external banner links should be visible');
+ assert.equal(await page.locator('.promo-banner-featured').count(),1,'Arabic learning banner should occupy the featured wide slot');
+ assert.equal(await page.locator('.promo-banner img').count(),3,'Each promotion must contain branded artwork');
+ assert.ok(await page.locator('.promo-banner img').evaluateAll(images=>images.every(img=>img.complete && img.naturalWidth>0)),'All self-hosted promotional images must load');
+ assert.equal(await page.locator('.promo-banner').first().getAttribute('data-tone'),'blue','Arabic Alphabet card should lead with blue learning accent');
+ assert.match(await page.locator('.promo-banner').first().innerText(),/flashcards/i,'Arabic learning description should mention flashcards');
  assert.equal(await page.locator('a[data-promo-id="arabic-alphabet"]').getAttribute('href'),'https://www.arabicalphabet.app/');
  assert.equal(await page.locator('a[data-promo-id="islamreact"]').getAttribute('href'),'https://www.youtube.com/@IslamReact');
  assert.equal(await page.locator('a[data-promo-id="meemandmoon"]').getAttribute('href'),'https://meemandmoon.com/');
@@ -83,7 +87,8 @@ try{
  assert.equal(await m.locator('.tool-card').count(),22);
  await m.screenshot({path:'test-results/visual/home-mobile.png',fullPage:true});
  await m.goto(root+'/',{waitUntil:'networkidle'});
- assert.equal(await m.locator('.promo-card').count(),3,'Promotions remain visible on mobile');
+ assert.equal(await m.locator('.promo-banner').count(),3,'All three promotional banners remain on mobile');
+ assert.ok(await m.locator('.promo-banner').evaluateAll(els=>els.every(el=>{const r=el.getBoundingClientRect();return r.width>0 && r.left>=-2 && r.right<=innerWidth+2})),'No promotional banner should overflow mobile viewport');
  await m.goto(root+'/tools/zakat-calculator/',{waitUntil:'networkidle'});
  assert.ok(await m.locator('.tool-panel').isVisible(),'Mobile tool panel must be visible');
  await m.screenshot({path:'test-results/visual/zakat-mobile.png',fullPage:true});
