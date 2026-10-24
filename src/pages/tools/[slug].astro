@@ -4,7 +4,7 @@ import ToolApp from '../../components/ToolApp';
 const names={
 'prayer-times':['Prayer Times','Calculate worldwide daily prayer times.'],'qibla-finder':['Qibla Finder','Find the true-north direction to Makkah.'],'tahajjud-time':['Tahajjud Calculator','Find the beginning of the final third of night.'],'ramadan-timetable':['Ramadan Timetable','Print a 30-day Fajr and Maghrib schedule.'],'zakat-calculator':['Zakat Calculator','Estimate Zakat with your own asset and Nisab figures.'],'hijri-converter':['Hijri Date Converter','Convert a Gregorian date to the Umm al-Qura calendar.'],'islamic-age':['Islamic Age Calculator','Find your approximate completed Hijri years.'],'tasbih-counter':['Tasbih Counter','Keep a local digital dhikr count.'],'quran-planner':['Quran Reading Planner','Break a Quran reading goal into daily pages.']
 } as const;
-export function getStaticPaths(){return Object.keys(names).map(slug=>({params:{slug}}))}
+export function getStaticPaths(){return ['prayer-times','qibla-finder','tahajjud-time','ramadan-timetable','zakat-calculator','hijri-converter','islamic-age','tasbih-counter','quran-planner'].map(slug=>({params:{slug}}))}
 const slug=Astro.params.slug as keyof typeof names;
 const [name,description]=names[slug];
 ---
