@@ -1,4 +1,4 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
-export default defineConfig({ site:'https://sunnah.tools', output:'static', integrations:[react(), sitemap({filter:(page)=>!page.includes("/embed/prayer-times/")})] });
+export default defineConfig({ site:'https://sunnah.tools', output:'static', integrations:[react(), sitemap({filter:(page)=>!page.includes("/embed/prayer-times/")&&!page.includes("/admin/")})] });
