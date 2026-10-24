@@ -1,6 +1,7 @@
 import {useEffect,useState} from 'react';
 import {GoldZakat,IslamicEvents,PrayerChart} from './NextTools';
 import CitySearch from './CitySearch';
+import {WhiteDaysCalendar,PrintableHijriCalendar,PrayerWidgetGenerator,UmrahPackingChecklist} from './BatchTools';
 import {CalculationMethod,Coordinates,Madhab,PrayerTimes,Qibla,HighLatitudeRule,PolarCircleResolution} from 'adhan';
 import {localISODate,nisabAmounts,parseAmount,zakatEstimate,finalThirdStart,readingPlan,hijriToGregorian} from '../lib/calculations.mjs';
 const cities=[['Newcastle upon Tyne','Europe/London',54.9783,-1.6178],['London','Europe/London',51.5072,-0.1276],['Makkah','Asia/Riyadh',21.4225,39.8262],['Madinah','Asia/Riyadh',24.4672,39.6111],['New York','America/New_York',40.7128,-74.006],['Karachi','Asia/Karachi',24.8607,67.0011],['Lahore','Asia/Karachi',31.5204,74.3587],['Dubai','Asia/Dubai',25.2048,55.2708],['Kuala Lumpur','Asia/Kuala_Lumpur',3.139,101.6869],['Jakarta','Asia/Jakarta',-6.2088,106.8456],['Istanbul','Europe/Istanbul',41.0082,28.9784],['Toronto','America/Toronto',43.6532,-79.3832],['Sydney','Australia/Sydney',-33.8688,151.2093]] as const;
@@ -138,6 +139,10 @@ function SalahTracker(){
 
 export default function ToolApp({slug}:{slug:string}){
  if(['prayer-times','qibla-finder','tahajjud-time','ramadan-timetable','fasting-times'].includes(slug))return <Prayer kind={slug}/>;
+ if(slug==='white-days-calendar')return <WhiteDaysCalendar/>;
+ if(slug==='printable-hijri-calendar')return <PrintableHijriCalendar/>;
+ if(slug==='prayer-times-widget')return <PrayerWidgetGenerator/>;
+ if(slug==='umrah-packing-checklist')return <UmrahPackingChecklist/>;
  if(slug==='zakat-calculator')return <Zakat/>;
  if(slug==='gold-zakat-calculator')return <GoldZakat/>;
  if(slug==='islamic-events-calendar')return <IslamicEvents/>;
