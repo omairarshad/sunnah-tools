@@ -20,3 +20,41 @@
 @media(max-width:410px){.featured-grid{grid-template-columns:1fr}.featured-card{min-height:0}.cards{grid-template-columns:1fr}.tool-card-main{min-height:160px}.tool-card-category{display:block}.favorite{top:14px}.home-intro h1{font-size:34px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
 @media print{@page{size:A4 portrait;margin:10mm}body{background:#fff;color:#000}.site-header,.site-footer,.tool-aside,.mobile-related,.tool-actions,.breadcrumb,.related,.explainer,.tool-disclaimer,.filters,.tool-search,.print-hide,.panel-privacy,.tool-inner button,.tool-panel-heading .panel-status,.warn{display:none!important}.tool-screen{max-width:100%;padding:0}.tool-topline{margin:0 0 10px}.tool-topline h1{font-size:26px;margin:0 0 5px}.tool-lead{display:none}.tool-layout{display:block}.tool-panel{border:0;box-shadow:none}.tool-panel-heading{padding:0 0 10px;border:0}.tool-inner{padding:0}.table-wrap{overflow:visible}.chart-print{width:100%;font-size:11px}.chart-print td,.chart-print th{padding:5px 7px!important;border:1px solid #888!important}.chart-print .chart-box{font-size:17px;color:#000}}
+
+/* Distinct tool identities, inspired by multi-colour utility directories.
+   Colour is supplementary: names, labels, icons and buttons remain visible. */
+[data-tone="teal"]{--tone:#126e69;--tone-soft:#e4f6f3;--tone-edge:#bbe6df;--tone-wash:#f6fcfb}
+[data-tone="blue"]{--tone:#2364aa;--tone-soft:#e8f1fe;--tone-edge:#c8daf7;--tone-wash:#f8fbff}
+[data-tone="violet"]{--tone:#7044a6;--tone-soft:#f2ebfd;--tone-edge:#dfcdf5;--tone-wash:#fcfaff}
+[data-tone="coral"]{--tone:#ae533a;--tone-soft:#fff0e9;--tone-edge:#f5d8c7;--tone-wash:#fffaf7}
+[data-tone="rose"]{--tone:#ad4167;--tone-soft:#ffeef3;--tone-edge:#f0cddd;--tone-wash:#fff9fb}
+[data-tone="amber"]{--tone:#94601e;--tone-soft:#fff4df;--tone-edge:#efdcae;--tone-wash:#fffdf6}
+[data-tone="emerald"]{--tone:#26724c;--tone-soft:#e7f6e9;--tone-edge:#c5e5d0;--tone-wash:#f8fcf8}
+[data-tone="mint"]{--tone:#176d73;--tone-soft:#e4f6f4;--tone-edge:#b7dfdf;--tone-wash:#f9fdfc}
+[data-tone="indigo"]{--tone:#4a54a4;--tone-soft:#eef0ff;--tone-edge:#d1d6f4;--tone-wash:#fafaff}
+.featured-card[data-tone]{background:linear-gradient(160deg,#fff 45%,var(--tone-wash));border-color:var(--tone-edge)}
+.featured-card[data-tone] .featured-icon{background:var(--tone-soft);color:var(--tone)}
+.featured-card[data-tone] .featured-arrow{color:var(--tone)}
+.featured-card[data-tone]:hover{border-color:var(--tone);box-shadow:0 8px 25px rgba(22,50,39,.08)}
+.tool-card[data-tone]{background:linear-gradient(148deg,#fff 48%,var(--tone-wash));border-color:var(--tone-edge)}
+.tool-card[data-tone] .tool-card-icon{background:var(--tone-soft);color:var(--tone)}
+.tool-card[data-tone] .tool-card-category{color:var(--tone)}
+.tool-card[data-tone] .tool-card-link{color:var(--tone)}
+.tool-card[data-tone]:hover,.tool-card[data-tone]:focus-within{border-color:var(--tone);box-shadow:0 9px 30px rgba(23,40,44,.07)}
+.tool-screen[data-tone] .tool-heading-icon{color:var(--tone);background:var(--tone-soft);border-color:var(--tone-edge)}
+.tool-screen[data-tone] .panel-status{color:var(--tone)}
+.tool-screen[data-tone] .status-dot{background:var(--tone)}
+.tool-screen[data-tone] .tool-panel{border-color:var(--tone-edge)}
+.tool-screen[data-tone] .tool-panel-heading{background:linear-gradient(100deg,#fff,var(--tone-wash))}
+.tool-screen[data-tone] .tool-inner .result{background:var(--tone-soft);border-color:var(--tone-edge)}
+.tool-screen[data-tone] .tool-inner .result strong{color:var(--tone)}
+.tool-screen[data-tone] .tool-inner progress{accent-color:var(--tone)}
+.tool-screen[data-tone] .tool-inner button:not(.secondary):not(.city-results button){background:var(--tone);border-color:var(--tone);color:#fff}
+.tool-screen[data-tone] .tool-inner button.secondary{background:var(--tone-soft);color:var(--tone);border-color:var(--tone-edge)}
+.aside-link[data-tone] .aside-icon{color:var(--tone);background:var(--tone-soft)}
+.filter[data-filter="prayer"][aria-pressed="true"]{background:#126e69;border-color:#126e69}
+.filter[data-filter="ramadan"][aria-pressed="true"]{background:#ae533a;border-color:#ae533a}
+.filter[data-filter="zakat"][aria-pressed="true"]{background:#26724c;border-color:#26724c}
+.filter[data-filter="dates"][aria-pressed="true"]{background:#4a54a4;border-color:#4a54a4}
+.filter[data-filter="everyday"][aria-pressed="true"]{background:#7044a6;border-color:#7044a6}
+@media print{.tool-screen[data-tone] .tool-panel,.tool-card[data-tone]{border-color:#aaa;background:#fff}}
