@@ -1,7 +1,7 @@
 export const tools = [
  {slug:'prayer-times',name:'Prayer Times',desc:'Find Fajr, Dhuhr, Asr, Maghrib and Isha for your location.',icon:'◷',category:'Prayer',keywords:'salah namaz daily prayer timetable'},
  {slug:'qibla-finder',name:'Qibla Finder',desc:'Calculate the direction of the Kaaba from anywhere.',icon:'➤',category:'Prayer',keywords:'mecca compass direction'},
- {slug:'tahajjud-time',name:'Last Third of Night',desc:'See when the final third of the night begins.',icon:'☾',category:'Prayer',keywords:'tahajjud time night prayer calculator'},
+ {slug:'tahajjud-time',name:'Tahajjud Time Calculator',desc:'See when the final third of the night begins.',icon:'☾',category:'Prayer',keywords:'tahajjud time night prayer calculator'},
  {slug:'ramadan-timetable',name:'Ramadan Timetable',desc:'Generate and print Fajr and Maghrib timings.',icon:'▦',category:'Ramadan',keywords:'suhoor iftar calendar pdf 2027'},
  {slug:'ramadan-countdown',name:'Ramadan Countdown',desc:'Count down to an estimated first day of Ramadan.',icon:'◴',category:'Ramadan',keywords:'ramadan 2027 days remaining'},
  {slug:'zakat-calculator',name:'Zakat Calculator',desc:'Estimate Zakat on savings, gold and investments.',icon:'◈',category:'Zakat',keywords:'zakat calculator gold cash business'},
