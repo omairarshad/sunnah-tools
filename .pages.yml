@@ -73,6 +73,24 @@ content:
                 - { name: 2, label: Two columns }
                 - { name: 3, label: Three columns }
                 - { name: 4, label: Four columns }
+      - name: cards
+        label: Tool cards (drag to reorder)
+        type: object
+        list:
+          min: 1
+          max: 100
+          collapsible:
+            collapsed: true
+            summary: "{title}"
+        fields:
+          - { name: slug, type: string, required: true, description: Existing tool slug, do not change unless replacing card }
+          - { name: enabled, type: boolean, label: Show on homepage }
+          - { name: title, type: string, required: true, label: Homepage card title }
+          - { name: description, type: text, label: Homepage card description }
+          - name: tone
+            type: select
+            options:
+              values: [blue, violet, coral, teal, amber, emerald, rose, indigo, mint]
       - name: layout
         label: Homepage section order
         type: object
