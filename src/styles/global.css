@@ -178,3 +178,16 @@
 .admin-stack p{margin:8px 0;font-size:13px}
 @media(max-width:850px){.admin-dashboard-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:580px){.admin-dashboard-grid{grid-template-columns:1fr}.admin-shell{padding:32px 16px 55px}}
+
+/* Consent UI appears only when the owner has enabled GA4. Never blocks site tools. */
+.analytics-consent[hidden]{display:none!important}
+.analytics-consent{position:fixed;z-index:45;bottom:18px;left:50%;transform:translateX(-50%);background:#fff;border:1px solid #bdcfbd;border-radius:15px;padding:19px 20px;display:flex;align-items:center;gap:24px;box-shadow:0 14px 50px rgba(21,39,31,.2);max-width:850px;width:calc(100% - 32px)}
+.analytics-consent>div:first-child{flex:1}.analytics-consent strong{font-size:14px}.analytics-consent p{font-size:12px;line-height:1.55;margin:6px 0 0}.analytics-consent a{color:#24654a}
+.consent-actions{display:flex;gap:8px;flex-wrap:wrap}
+.consent-actions button{padding:11px 13px;border:1px solid #d6e3d6;border-radius:9px;background:white;color:#24513c;font-weight:750;font-size:12px}
+.consent-actions button:last-child{background:#1d6449;color:white;border-color:#1d6449}
+.privacy-controls{margin-left:auto}.privacy-controls button{background:transparent;border:1px solid #648579;padding:8px 10px;border-radius:7px;color:#d9eedf;font-size:11px}
+.admin-report{border:1px solid #d7e3d8;border-radius:14px;overflow:hidden;min-height:560px;background:#fff}
+.admin-report iframe{width:100%;height:650px;border:0;display:block}
+@media(max-width:720px){.analytics-consent{display:block}.consent-actions{margin-top:13px}.consent-actions button{flex:1}.admin-report iframe{height:610px}}
+@media print{.analytics-consent,.admin-shell{display:none!important}}
