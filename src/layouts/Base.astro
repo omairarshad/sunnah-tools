@@ -3,22 +3,37 @@ import '../styles/global.css';
 const {title='Free Islamic Tools & Calculators',description='Free Islamic calculators, prayer times, Qibla direction, Zakat and Hijri date tools — no registration required.'}=Astro.props;
 const canonical=new URL(Astro.url.pathname,Astro.site);
 const home=Astro.url.pathname==='/';
-const org={'@context':'https://schema.org','@type':'WebSite','name':'Sunnah Tools','url':'https://sunnah.tools/','description':'Free online Islamic calculators, prayer times, Qibla tools, and planners.'};
+const org={'@context':'https://schema.org','@type':'WebSite',name:'Sunnah Tools',url:'https://sunnah.tools/',description:'Free online Islamic calculators, prayer times, Qibla tools, and planners.'};
 ---
 <!doctype html>
 <html lang="en">
 <head>
- <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
- <meta name="description" content={description}/><link rel="canonical" href={canonical.toString()}/>
- <meta property="og:type" content="website"/><meta property="og:site_name" content="Sunnah Tools"/><meta property="og:title" content={`${title} | Sunnah Tools`}/><meta property="og:description" content={description}/><meta property="og:url" content={canonical.toString()}/>
- <meta name="twitter:card" content="summary"/><link rel="icon" href="/favicon.svg"/><meta name="theme-color" content="#174638"/>
- {home&&<script type="application/ld+json" set:html={JSON.stringify(org)}/>}
- <title>{title} | Sunnah Tools</title>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="description" content={description}/><link rel="canonical" href={canonical.toString()}/>
+<meta property="og:type" content="website"/><meta property="og:site_name" content="Sunnah Tools"/><meta property="og:title" content={title+' | Sunnah Tools'}/><meta property="og:description" content={description}/><meta property="og:url" content={canonical.toString()}/>
+<meta name="twitter:card" content="summary"/><link rel="icon" href="/favicon.svg"/><meta name="theme-color" content="#143b32"/>
+{home&&<script type="application/ld+json" set:html={JSON.stringify(org)}/>}
+<title>{title} | Sunnah Tools</title>
 </head>
 <body>
- <a class="skip-link" href="#content">Skip to content</a>
- <header><a class="brand" href="/" aria-label="Sunnah Tools home"><span aria-hidden="true">☾</span> Sunnah<span class="dot">.</span>tools</a><nav aria-label="Main navigation"><a href="/#tools">Tools</a><a href="/about/">About</a></nav></header>
- <main id="content"><slot/></main>
- <footer><p>© {new Date().getFullYear()} Sunnah Tools · Free Islamic tools for everyday life</p><div><a href="/about/">About</a><a href="/privacy/">Privacy</a></div></footer>
+<a class="skip-link" href="#content">Skip to content</a>
+<header class="site-header">
+ <div class="site-header-inner">
+  <a class="brand" href="/" aria-label="Sunnah Tools homepage"><span class="brand-mark" aria-hidden="true"><svg width="27" height="27" viewBox="0 0 32 32" fill="none"><path d="M22 3a13 13 0 1 0 7 21A14.4 14.4 0 0 1 22 3Z" fill="currentColor"/><path d="m22.5 10 1.1 3.3 3.4 1.1-3.4 1.1-1.1 3.2-1.1-3.2-3.3-1.1 3.3-1.1Z" fill="#dab874"/></svg></span><span>Sunnah<span class="brand-sub">Tools</span></span></a>
+  <nav aria-label="Main navigation" class="top-navigation">
+   <a href="/#tools">Explore tools</a>
+   <a href="/tools/prayer-times/">Prayer times</a>
+   <a href="/tools/zakat-calculator/">Zakat</a>
+   <a href="/about/">About</a>
+  </nav>
+  <a href="/#tools" class="header-action">All tools <span aria-hidden="true">↗</span></a>
+ </div>
+</header>
+<main id="content"><slot/></main>
+<footer class="site-footer"><div class="footer-inner">
+ <div><a class="footer-brand" href="/">Sunnah Tools <span>✳</span></a><p>Thoughtful Islamic utilities, free and easy to use.</p></div>
+ <div class="footer-links"><a href="/#tools">All tools</a><a href="/about/">About</a><a href="/privacy/">Privacy</a><a href="/sitemap-index.xml">Sitemap</a></div>
+ <p class="footer-bottom">© {new Date().getFullYear()} Sunnah Tools. Calculations are informational; follow trusted local guidance for religious decisions.</p>
+</div></footer>
 </body>
 </html>
