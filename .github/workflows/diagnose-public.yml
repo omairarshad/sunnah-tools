@@ -1,0 +1,38 @@
+name: Diagnose public sitemap and DNS
+on:
+  push:
+    branches: [feature/worldwide-city-search-and-sitemap-diagnostics]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  public-reachability:
+    runs-on: ubuntu-latest
+    steps:
+      - name: DNS and public HTTP diagnostics (read-only)
+        shell: bash
+        run: |
+          set +e
+          echo '=== DNS A and AAAA ==='
+          for name in sunnah.tools www.sunnah.tools; do
+            echo "Hostname: $name"
+            getent ahostsv4 "$name" | head -n 3
+            getent ahostsv6 "$name" | head -n 3
+          done
+          echo '=== Direct HTTPS/HTTP responses ==='
+          for url in \
+            'https://sunnah.tools/' \
+            'https://sunnah.tools/sitemap-index.xml' \
+            'https://sunnah.tools/sitemap-0.xml' \
+            'https://sunnah.tools/robots.txt' \
+            'http://sunnah.tools/sitemap-index.xml' \
+            'https://www.sunnah.tools/sitemap-index.xml'; do
+            echo "Testing $url"
+            curl --ipv4 --location --silent --show-error --max-time 15 --output /tmp/public-check --write-out 'status=%{http_code} final=%{url_effective} type=%{content_type} bytes=%{size_download}\n' "$url"
+            head -c 180 /tmp/public-check
+            echo
+          done
+          echo '=== Googlebot UA test (not authenticating as Googlebot) ==='
+          curl --ipv4 -A 'Googlebot' --location --silent --show-error --max-time 15 --output /tmp/googlebot-check --write-out 'status=%{http_code} final=%{url_effective} type=%{content_type}\n' 'https://sunnah.tools/sitemap-index.xml'
+          head -c 200 /tmp/googlebot-check
+          echo
