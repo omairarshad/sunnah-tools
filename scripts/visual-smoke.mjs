@@ -16,7 +16,6 @@ try{
  await page.locator('.filter[data-filter="all"]').click();
  await page.locator('#tool-search-input').fill('qibla');
  assert.equal(await page.locator('.tool-card:visible').count(),1,'Search should narrow tools');
- await page.locator('#clear-filters').click().catch(()=>{});
  await page.locator('#tool-search-input').fill('');
  await page.locator('[data-favorite="prayer-times"]').click();
  await page.locator('.filter[data-filter="saved"]').click();
