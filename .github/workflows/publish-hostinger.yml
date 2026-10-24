@@ -51,6 +51,8 @@ jobs:
           test -s dist/tools/islamic-events-calendar/index.html
           test -s dist/tools/printable-prayer-chart/index.html
           test -s dist/data/cities.json
+          test $(wc -c < dist/data/cities.json) -gt 900000
+          grep -q 'Europe/London' dist/data/cities.json
           test -s dist/sitemap-0.xml
           grep -q 'gold-zakat-calculator' dist/sitemap-0.xml
           grep -q 'fasting-times' dist/sitemap-0.xml
