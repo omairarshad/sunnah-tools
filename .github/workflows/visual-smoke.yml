@@ -23,6 +23,15 @@ jobs:
         run: |
           npm run preview -- --host 127.0.0.1 --port 4321 > /tmp/sunnah-preview.log 2>&1 &
           echo "Preview started"
+      - name: Confirm Astro preview is accepting requests
+        shell: bash
+        run: |
+          ready=0
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent --show-error --output /dev/null http://127.0.0.1:4321/; then ready=1; break; fi
+            sleep 1
+          done
+          if [ "$ready" -ne 1 ]; then cat /tmp/sunnah-preview.log; exit 1; fi
       - name: Exercise actual pages on desktop and mobile
         run: node scripts/visual-smoke.mjs
       - name: Store screenshot evidence
