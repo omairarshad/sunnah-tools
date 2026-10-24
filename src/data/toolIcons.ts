@@ -16,5 +16,9 @@ export const iconPaths:Record<string,string[]>={
 'quran-planner':['M12 6c-4-2-7-2-10-1v14c3-1 6-1 10 1 4-2 7-2 10-1V5c-3-1-6-1-10 1Z','M12 6v14'],
 'fasting-tracker':['M4 5h16v15H4z','M8 3v4','M16 3v4','M4 10h16','m8 15 2 2 4-4'],
 'printable-prayer-chart':['M6 2h9l4 4v16H6z','M15 2v5h4','M9 12h7','M9 16h7'],
-'salah-tracker':['M4 4h16v16H4z','m8 12 3 3 5-6']
+'salah-tracker':['M4 4h16v16H4z','m8 12 3 3 5-6'],
+'white-days-calendar':['M20.9 13.1A9 9 0 0 1 10.9 3.1 9 9 0 1 0 20.9 13.1Z','M13 7v4','m11 3 1.5 1.5 3-3'],
+'printable-hijri-calendar':['M4 5h16v16H4z','M8 2v6','M16 2v6','M4 10h16','M8 14h3','M13 14h3'],
+'prayer-times-widget':['M3 4h18v13H3z','M8 21h8','M12 17v4','M7 9h3','M14 9h3','M7 13h10'],
+'umrah-packing-checklist':['M6 4h12v18H6z','M9 4V2h6v2','m9 13 2 2 4-4','M9 18h6']
 };
