@@ -6,6 +6,7 @@ export const tools = [
  {slug:'ramadan-timetable',name:'Ramadan Timetable',desc:'Generate and print Fajr and Maghrib timings.',icon:'▦',category:'Ramadan',keywords:'suhoor iftar calendar pdf 2027'},
  {slug:'ramadan-countdown',name:'Ramadan Countdown',desc:'Count down to an estimated first day of Ramadan.',icon:'◴',category:'Ramadan',keywords:'ramadan 2027 days remaining'},
  {slug:'zakat-calculator',name:'Zakat Calculator',desc:'Estimate Zakat on savings, gold and investments.',icon:'◈',category:'Zakat',keywords:'zakat calculator gold cash business'},
+ {slug:'fitrana-calculator',name:'Fitrana Calculator',desc:'Estimate Zakat al-Fitr for your household using a verified local rate.',icon:'◈',category:'Zakat',keywords:'fitrana zakat al fitr amount household calculator 2027 ramadan'},
  {slug:'gold-zakat-calculator',name:'Gold Zakat Calculator',desc:'Estimate the value of 9k–24k gold and conditional Zakat.',icon:'◈',category:'Zakat',keywords:'22k 18k 24k jewellery gold zakat gram purity'},
  {slug:'nisab-calculator',name:'Nisab Calculator',desc:'Compare the gold and silver wealth thresholds.',icon:'◇',category:'Zakat',keywords:'gold silver nisab current value price'},
  {slug:'islamic-events-calendar',name:'Islamic Events Calendar',desc:'Explore estimated dates for Ramadan, Eid, Ashura and Hajj.',icon:'▦',category:'Dates',keywords:'muslim islamic holidays religious dates eid 2027'},

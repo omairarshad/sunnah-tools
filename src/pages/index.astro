@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import AdPlacement from '../components/AdPlacement.astro';
 import ToolIcon from '../components/ToolIcon.astro';
 import {toneForSlug} from '../data/toolTones';
 import {tools} from '../data/tools';
@@ -53,6 +54,14 @@ const categoryCounts=Object.fromEntries(categories.map(category=>[category,categ
    </article>)}
   </div>
   <div id="no-results" class="no-results" hidden><strong>We couldn't find a matching tool.</strong><p>Try a different keyword or clear your category filter.</p><button id="clear-filters" class="button-outline" type="button">Show all tools</button></div>
+  <AdPlacement placement="home"/>
+ </section>
+ <section class="home-guides section" aria-labelledby="learning-heading">
+ <div class="section-label"><h2 id="learning-heading">Useful guides & explanations</h2><span>Understand the methods behind your results</span></div>
+ <div class="guide-links">
+  <a href="/guides/prayer-time-methods/"><strong>How are prayer times calculated?</strong><span>Fajr, Isha, Asr, high latitudes and local mosque differences →</span></a>
+  <a href="/guides/ramadan-dates-and-timetables/"><strong>Plan a reliable Ramadan timetable</strong><span>Understand lunar dates, suhoor cutoffs and printable fasting times →</span></a>
+ </div>
  </section>
  <section class="trust-strip" aria-label="About our tools">
   <div class="trust-inner"><div><span aria-hidden="true">◇</span><strong>Free for everyone</strong><p>No account or subscription.</p></div><div><span aria-hidden="true">⌁</span><strong>Privacy-minded</strong><p>Most tools work in your browser.</p></div><div><span aria-hidden="true">✦</span><strong>Transparent methods</strong><p>Clear calculation notes and limitations.</p></div></div>

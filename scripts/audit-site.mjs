@@ -14,6 +14,9 @@ const header=(html)=>html.includes('class="site-header"')&&html.includes('class=
 assert(header(home),'Shared site navigation and footer missing');
 assert(home.includes('aria-label="Main navigation"'),'Main navigation lacks label');
 assert(home.includes('href="https://sunnah.tools/"'),'Home canonical URL missing');
+assert(home.includes('/guides/prayer-time-methods/'),'Contextual prayer method guide missing');
+assert(home.includes('/guides/ramadan-dates-and-timetables/'),'Contextual Ramadan guide missing');
+if(process.env.PUBLIC_ADSENSE_ADS_ENABLED!=='true')assert(!home.includes('pagead2.googlesyndication.com'),'Ads must not load when not enabled');
 const sitemap=read('sitemap-0.xml');
 for(const slug of slugs){
  const path=`tools/${slug}/index.html`;
@@ -26,6 +29,10 @@ for(const slug of slugs){
  assert(html.includes(`https://sunnah.tools/tools/${slug}/`),`Canonical missing: ${slug}`);
  assert(sitemap.includes(`/tools/${slug}/`),`Sitemap missing: ${slug}`);
 }
+assert(read('guides/prayer-time-methods/index.html').includes('How are Islamic prayer times calculated?'),'Prayer method guide missing');
+assert(read('guides/ramadan-dates-and-timetables/index.html').includes('Planning a reliable Ramadan timetable'),'Ramadan guide missing');
+assert(sitemap.includes('/guides/prayer-time-methods/'),'Methodology guide missing from sitemap');
+assert(sitemap.includes('/guides/ramadan-dates-and-timetables/'),'Ramadan guide missing from sitemap');
 assert(read('robots.txt').includes('sitemap-index.xml'),'Robots sitemap reference missing');
 assert(read('sitemap-index.xml').includes('sitemap-0.xml'),'Sitemap index child missing');
 console.log(`Static UX/SEO audit passed: homepage, ${slugs.length} tool routes, responsive shell and sitemap`);

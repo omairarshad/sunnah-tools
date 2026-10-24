@@ -9,7 +9,8 @@
     "preview": "astro preview",
     "check": "astro check",
     "test": "node --test tests/*.test.mjs",
-    "prepare:cities": "node scripts/build-cities.mjs"
+    "prepare:cities": "node scripts/build-cities.mjs",
+    "prepare:ads": "node scripts/prepare-ads.mjs"
   },
   "dependencies": {
     "@astrojs/react": "4.4.2",

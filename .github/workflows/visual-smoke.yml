@@ -1,7 +1,7 @@
 name: Visual UI Smoke Test
 on:
   push:
-    branches: [feature/colorful-tools-and-batch2]
+    branches: [feature/adsense-ready-seo-ramadan-v3]
   workflow_dispatch:
 permissions:
   contents: read
@@ -16,6 +16,7 @@ jobs:
           node-version: '22'
       - run: npm install --no-audit --no-fund
       - run: npm run prepare:cities
+      - run: npm run prepare:ads
       - run: npm run build
       - run: npm install --no-save --no-audit --no-fund playwright@1.56.1
       - run: npx playwright install --with-deps chromium
