@@ -7,6 +7,7 @@ export const iconPaths:Record<string,string[]>={
 'ramadan-timetable':['M3 6h18v15H3z','M7 3v6','M17 3v6','M3 11h18','M7 15h3','M14 15h3'],
 'ramadan-countdown':['M12 7v5l3 2','M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0'],
 'zakat-calculator':['M4 6h16v13H4z','M4 10h16','M16 15h2','M7 3h10'],
+'fitrana-calculator':['M4 5h16v14H4z','M8 10h8','M12 8v10','M16 12v6','M4 3v2','M20 3v2'],
 'gold-zakat-calculator':['m3 9 4-5h10l4 5-9 12Z','M3 9h18','M7 4l5 17','M17 4l-5 17'],
 'nisab-calculator':['M12 3v18','M6 21h12','M3 7h18','M6 7l-4 7h8l-4-7','M18 7l-4 7h8l-4-7'],
 'islamic-events-calendar':['M3 5h18v16H3z','M7 2v6','M17 2v6','M3 10h18','m8 16 2 2 4-4'],
