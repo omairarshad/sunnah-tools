@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import ToolApp from '../../components/ToolApp';
 import ToolIcon from '../../components/ToolIcon.astro';
+import {toneForSlug} from '../../data/toolTones';
 import {tools,toolBySlug} from '../../data/tools';
 import {guides} from '../../data/guides';
 export function getStaticPaths(){return tools.map(tool=>({params:{slug:tool.slug}}))}
@@ -13,7 +14,7 @@ const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemL
 ---
 <Base title={tool.name} description={tool.desc}>
 <script type="application/ld+json" set:html={JSON.stringify(breadcrumb)}/>
-<section class="tool-screen">
+<section class="tool-screen" data-tone={toneForSlug(slug)}>
  <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/#tools">All tools</a><span aria-hidden="true">›</span><span>{tool.category}</span><span aria-hidden="true">›</span><span aria-current="page">{tool.name}</span></nav>
  <div class="tool-topline">
   <div class="tool-titles">
@@ -37,7 +38,7 @@ const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemL
   </div>
   <aside class="tool-aside" aria-label="Other useful Islamic tools">
     <div class="aside-title"><span class="eyebrow">KEEP EXPLORING</span><h2>More useful tools</h2><p>You might also find these helpful.</p></div>
-    <div class="aside-list">{related.map(other=><a href={`/tools/${other.slug}/`} class="aside-link"><span class="aside-icon"><ToolIcon slug={other.slug} size={21}/></span><span><strong>{other.name}</strong><small>{other.category}</small></span><span aria-hidden="true">↗</span></a>)}</div>
+    <div class="aside-list">{related.map(other=><a href={`/tools/${other.slug}/`} class="aside-link" data-tone={toneForSlug(other.slug)}><span class="aside-icon"><ToolIcon slug={other.slug} size={21}/></span><span><strong>{other.name}</strong><small>{other.category}</small></span><span aria-hidden="true">↗</span></a>)}</div>
     <div class="aside-care"><span aria-hidden="true">✦</span><strong>Made for simplicity</strong><p>Free tools, thoughtfully built. Transparent methods. No login required.</p><a href="/about/">Learn about Sunnah Tools →</a></div>
   </aside>
  </div>
