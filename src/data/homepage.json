@@ -1,0 +1,75 @@
+{
+  "intro": {
+    "enabled": true,
+    "eyebrow": "SIMPLE TOOLS, MEANINGFUL DAYS",
+    "headline": "Everything you need,",
+    "emphasis": "beautifully simple.",
+    "description": "Thoughtfully made Islamic calculators, calendars and daily essentials. No sign-up, no noise — just the tools you came for."
+  },
+  "featured": {
+    "enabled": true,
+    "title": "Start here",
+    "subtitle": "Most useful tools",
+    "slugs": [
+      "prayer-times",
+      "hijri-converter",
+      "zakat-calculator",
+      "qibla-finder"
+    ]
+  },
+  "promotions": {
+    "enabled": true,
+    "eyebrow": "FROM OUR OTHER PROJECTS",
+    "title": "Learn, watch & discover",
+    "subtitle": "Useful learning resources, videos and Islamic gifts.",
+    "cards": [
+      {
+        "id": "arabic-alphabet",
+        "enabled": true,
+        "featured": true,
+        "type": "Learning · External",
+        "title": "Learn the Arabic Alphabet",
+        "description": "Practise Arabic letters with interactive flashcards, helpful word examples and audio pronunciation. A friendly way to build recognition and confidence.",
+        "cta": "Start learning Arabic",
+        "url": "https://www.arabicalphabet.app/",
+        "tone": "blue"
+      },
+      {
+        "id": "islamreact",
+        "enabled": true,
+        "featured": false,
+        "type": "YouTube · External",
+        "title": "IslamReact on YouTube",
+        "description": "Watch thoughtful reactions to Quran recitations and Islamic teachings, with real conversations and reflections.",
+        "cta": "Watch IslamReact",
+        "url": "https://www.youtube.com/@IslamReact",
+        "tone": "violet"
+      },
+      {
+        "id": "meemandmoon",
+        "enabled": true,
+        "featured": false,
+        "type": "Shop · External",
+        "title": "Meem & Moon",
+        "description": "Explore cute Islamic stickers, enamel pins, cards, bookmarks and gifts made for everyday joy.",
+        "cta": "Explore Islamic merch",
+        "url": "https://meemandmoon.com/",
+        "tone": "coral"
+      }
+    ]
+  },
+  "directory": {
+    "title": "Find your next tool",
+    "description": "Everything in one place. Search by name or browse a category.",
+    "columns": 3
+  },
+  "layout": {
+    "sectionOrder": [
+      "featured",
+      "promotions",
+      "directory",
+      "guides"
+    ],
+    "showGuides": true
+  }
+}
