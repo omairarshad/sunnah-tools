@@ -1,0 +1,6 @@
+---
+import '../styles/global.css';
+const {title='Free Islamic Tools',description='Free prayer times, Qibla direction, Zakat estimates and Hijri date utilities.'}=Astro.props;
+const canonical=new URL(Astro.url.pathname,Astro.site);
+---
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="description" content={description}/><link rel="canonical" href={canonical.toString()}/><link rel="icon" href="/favicon.svg"/><meta name="theme-color" content="#174638"/><title>{title} | Sunnah Tools</title></head><body><header><a class="brand" href="/"><span>☾</span> Sunnah<span class="dot">.</span>tools</a><nav><a href="/#tools">All tools</a><a href="/about/">About</a></nav></header><main><slot/></main><footer><p>© {new Date().getFullYear()} Sunnah Tools · Free Islamic tools for everyday life</p><a href="/privacy/">Privacy</a></footer></body></html>
