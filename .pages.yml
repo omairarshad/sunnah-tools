@@ -63,6 +63,8 @@ content:
                 - { name: 2, label: Two columns }
                 - { name: 3, label: Three columns }
                 - { name: 4, label: Four columns }
+                - { name: 5, label: Five columns }
+                - { name: 6, label: Six columns }
           - name: cards
             label: Tool cards (drag to reorder)
             type: object
