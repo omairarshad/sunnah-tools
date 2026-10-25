@@ -31,7 +31,7 @@ try{
   return {ratio:visual.height/cardBox.height,width:visual.width,imageFit:styles.objectFit};
  });
  assert.ok(galleryMetrics.ratio>.52,'Artwork should occupy most of every tool card, not be a small icon');
- assert.equal(galleryMetrics.imageFit,'contain','Artwork should not be cropped');
+ assert.equal(galleryMetrics.imageFit,'cover','Low-poly artwork should fill the whole visual panel');
  const columns=async()=>page.locator('#tool-grid').evaluate(grid=>getComputedStyle(grid).gridTemplateColumns.trim().split(/\s+/).length);
  assert.equal(await columns(),4,'Wide desktop should show four image-first tool cards per row');
  for(const [width,expected] of [[1000,3],[800,2],[500,1]]){
