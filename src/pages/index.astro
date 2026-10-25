@@ -17,7 +17,7 @@ const toolCards=homepage.directory.cards.flatMap(item=>{
  return [{...tool,name:item.title||tool.name,desc:item.description||tool.desc,tone:validTone(item.tone),image:safeToolImage(item.image)??`/tool-art/${tool.slug}.svg`,imageAlt:item.imageAlt||`${tool.name} illustration`}];
 });
 const visibleTools=[...toolCards,...tools.filter(t=>!homepage.directory.cards.some(o=>o.slug===t.slug)).map(t=>({...t,tone:toneForSlug(t.slug),image:`/tool-art/${t.slug}.svg`,imageAlt:`${t.name} illustration`}))];
-const topicName=new Map(toolTopics.map(t=>[t.id,t]));
+const topicName=new Map<string,{label:string;description:string}>(toolTopics.map(t=>[t.id,t] as [string,{label:string;description:string}]));
 const order=orderedSections(homepage.layout.sectionOrder);
 const rank=(section:string)=>order.indexOf(section);
 const promos=homepage.promotions.cards.filter(c=>c.enabled&&safePromoUrl(c.url)).map(c=>({...c,tone:validTone(c.tone),externalUrl:safePromoUrl(c.url)!,imageSrc:safePromoImage(c.image)})).filter(c=>Boolean(c.imageSrc));
