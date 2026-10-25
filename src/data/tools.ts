@@ -21,6 +21,12 @@ export const tools = [
  {slug:'printable-hijri-calendar',name:'Printable Hijri Calendar',desc:'Create an Islamic monthly calendar to print or save as PDF.',icon:'▦',category:'Dates',keywords:'islamic month calendar hijri printable pdf'},
  {slug:'prayer-times-widget',name:'Prayer Times Website Widget',desc:'Create an embeddable timetable for a mosque or community site.',icon:'◷',category:'Prayer',keywords:'mosque embed salah namaz prayer times iframe'},
  {slug:'umrah-packing-checklist',name:'Hajj & Umrah Packing List',desc:'Plan, tick off and print a practical journey checklist.',icon:'✓',category:'Everyday',keywords:'hajj umrah travel packing checklist printable'}
+, {slug:'qada-prayer-calculator',name:'Missed Salah (Qada) Calculator',desc:'Estimate and privately track make-up prayers.',icon:'☷',category:'Prayer',keywords:'qaza namaz missed salah prayer calculator make up witr tracker'},
+ {slug:'laylatul-qadr-nights',name:'Laylatul Qadr Odd Nights',desc:'Find the 21st to 29th Ramadan nights.',icon:'☾',category:'Ramadan',keywords:'laylat al qadr odd nights calculator 21 23 25 27 29 2027'},
+ {slug:'fidya-calculator',name:'Fidya Calculator',desc:'Estimate Fidya for eligible missed fasts at a verified rate.',icon:'◇',category:'Zakat',keywords:'fidyah fidya calculator 2027 missed fast charity cost per day'},
+ {slug:'kaffarah-calculator',name:'Kaffarah Calculator',desc:'Explore conditional oath and Ramadan expiation costs.',icon:'◈',category:'Zakat',keywords:'kaffarah kaffara calculator broken oath fast expiation'},
+ {slug:'qurbani-share-calculator',name:'Qurbani Share Calculator',desc:'Split Udhiyah costs across animal shares.',icon:'◈',category:'Everyday',keywords:'qurbani udhiyah cow seven shares calculator cost 2027'},
+ {slug:'tawaf-sai-counter',name:'Tawaf & Sa’i Counter',desc:'Count seven Tawaf circuits and Sa’i lengths.',icon:'◎',category:'Everyday',keywords:'tawaf counter sai safa marwah umrah hajj rounds'}
 ] as const;
 export type ToolSlug = typeof tools[number]['slug'];
 export const toolBySlug = Object.fromEntries(tools.map(tool=>[tool.slug,tool])) as Record<ToolSlug,typeof tools[number]>;

@@ -61,7 +61,7 @@ export function QadaPrayerCalculator(){
  useEffect(()=>{if(ready)try{localStorage.setItem(storageKey,JSON.stringify(done))}catch{}},[done,ready]);
  const base=qadaPlanningDays({mode,days:intValue(days),years:Number(years),start,end,excluded:intValue(excluded)});
  const names:string[]=witr?[...prayerNames,'Witr']:[...prayerNames];
- const targets=names.map(name=>({name,target:overrides[name]===undefined||overrides[name]===''?base:intValue(overrides[name])}));
+ const targets=names.map(name=>({name,target:overrides[name]===undefined||overrides[name]===''?(base??NaN):intValue(overrides[name])}));
  const valid=base!==null&&targets.every(item=>Number.isSafeInteger(item.target)&&item.target>=0&&item.target<=1000000);
  const total=valid?targets.reduce((sum,item)=>sum+item.target,0):0;
  const completed=valid?targets.reduce((sum,item)=>sum+Math.min(item.target,done[item.name]??0),0):0;
