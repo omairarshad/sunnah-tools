@@ -1,0 +1,12 @@
+---
+import Base from '../../layouts/Base.astro';
+import {cityPrayerPages} from '../../data/cityPrayerPages';
+const regions=['England','Scotland','Wales','Saudi Arabia','Pakistan','United Arab Emirates','Canada','United States'];
+---
+<Base title="Prayer Times by City – Fajr, Dhuhr, Asr, Maghrib and Isha" description="Find daily prayer times in major UK and international cities with selectable calculation methods and seven-day calendars.">
+ <section class="tool-screen city-prayer-page"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">All tools</a><span aria-hidden="true">›</span><span aria-current="page">Prayer times by city</span></nav>
+ <h1>Prayer times by city</h1><p class="tool-lead">Choose a city to see calculated times for the five daily prayers, plus sunrise. Times use the city's timezone and can be adjusted to the calculation method followed by your mosque.</p>
+ <div class="city-index-grid">{regions.map(region=>{const cities=cityPrayerPages.filter(c=>c.region===region);return cities.length?<section><h2>{region}</h2><ul>{cities.map(city=><li><a href={'/prayer-times/'+city.slug+'/'}>{city.name} prayer times</a></li>)}</ul></section>:null})}</div>
+ <section class="explainer"><h2>Don't see your city?</h2><p>The <a href="/tools/prayer-times/">worldwide prayer-times calculator</a> supports city search or precise coordinates. These location pages are city-centre estimates, not officially approved local mosque timetables.</p></section>
+ </section>
+</Base>

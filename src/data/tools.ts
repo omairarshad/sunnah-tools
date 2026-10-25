@@ -27,6 +27,16 @@ export const tools = [
  {slug:'kaffarah-calculator',name:'Kaffarah Calculator',desc:'Explore conditional oath and Ramadan expiation costs.',icon:'◈',category:'Zakat',keywords:'kaffarah kaffara calculator broken oath fast expiation'},
  {slug:'qurbani-share-calculator',name:'Qurbani Share Calculator',desc:'Split Udhiyah costs across animal shares.',icon:'◈',category:'Everyday',keywords:'qurbani udhiyah cow seven shares calculator cost 2027'},
  {slug:'tawaf-sai-counter',name:'Tawaf & Sa’i Counter',desc:'Count seven Tawaf circuits and Sa’i lengths.',icon:'◎',category:'Everyday',keywords:'tawaf counter sai safa marwah umrah hajj rounds'}
+,
+ {slug:'prayer-rakats-chart',name:"Prayer Rakats Chart",desc:"Check the obligatory rakats in each daily prayer and print a reference chart.",icon:'✦',category:'Prayer',keywords:'fajr dhuhr asr maghrib isha rakats chart printable'},
+ {slug:'daily-adhkar',name:"Quranic Duas & Adhkar",desc:"Read a source-linked collection of Quranic duas with a repetition counter.",icon:'✦',category:'Everyday',keywords:'morning evening adhkar duas quran remembrance Arabic transliteration'},
+ {slug:'halal-additives-checker',name:"Halal Additives Checker",desc:"Look up common food E-numbers and see which sources need checking.",icon:'✦',category:'Everyday',keywords:'E471 halal E120 E322 E422 halal food additives vegetarian source'},
+ {slug:'zakat-anniversary-calculator',name:"Zakat Anniversary Calculator",desc:"Find an approximate one-lunar-year anniversary for Zakat planning.",icon:'✦',category:'Zakat',keywords:'zakat due date hawl lunar year anniversary nisab date'},
+ {slug:'dhul-hijjah-planner',name:"Dhul Hijjah & Arafah Dates",desc:"See the estimated first ten days of Dhul Hijjah and Arafah date.",icon:'✦',category:'Dates',keywords:'Arafah day dates Dhul Hijjah first ten days Eid al Adha 2027'},
+ {slug:'travel-prayer-guide',name:"Travel Prayer (Qasr) Guide",desc:"Compare common Qasr prayer rules and record your travel details.",icon:'✦',category:'Prayer',keywords:'qasr travel prayer calculator shorten prayers Hanafi Shafi miles'},
+ {slug:'quran-juz-finder',name:"Quran Juz Finder",desc:"Find the start of each of the Quran's 30 Juz.",icon:'✦',category:'Everyday',keywords:'Quran juz index list surah ayah hizb'},
+ {slug:'zakat-stocks-crypto',name:"Stocks & Crypto Zakat Estimate",desc:"Review a conditional Zakat estimate for shares and cryptocurrency.",icon:'✦',category:'Zakat',keywords:'zakat stocks shares crypto cryptocurrency bitcoin portfolio 2.5 percent'},
+ {slug:'hifz-tracker',name:"Hifz Memorisation Tracker",desc:"Plan a memorisation target and record completed verses.",icon:'✦',category:'Everyday',keywords:'hifz Quran memorization tracker ayat plan verses'}
 ] as const;
 export type ToolSlug = typeof tools[number]['slug'];
 export const toolBySlug = Object.fromEntries(tools.map(tool=>[tool.slug,tool])) as Record<ToolSlug,typeof tools[number]>;

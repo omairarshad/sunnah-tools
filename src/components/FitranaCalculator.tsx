@@ -2,7 +2,7 @@ import {useState} from 'react';
 import {fitranaEstimate} from '../lib/ramadanHelpers.mjs';
 export default function FitranaCalculator(){
  const [people,setPeople]=useState(4),[rate,setRate]=useState(''),[currency,setCurrency]=useState('GBP');
- const [extra,setExtra]=useState('0');
+ const [extra,setExtra]=useState('0'),[source,setSource]=useState(''),[checkedOn,setCheckedOn]=useState('');
  const parsed=rate.trim()?Number(rate):NaN;
  const result=fitranaEstimate({people,ratePerPerson:parsed,additional:Number(extra)});
  const format=(n:number)=>new Intl.NumberFormat('en-GB',{style:'currency',currency}).format(n);
@@ -16,7 +16,8 @@ export default function FitranaCalculator(){
    <label>Verified rate per person<input type="number" min="0" step="0.01" inputMode="decimal" value={rate} onChange={e=>setRate(e.target.value)} placeholder="Enter your charity's published rate"/></label>
    <label>Optional extra donation<input type="number" min="0" step="0.01" inputMode="decimal" value={extra} onChange={e=>setExtra(e.target.value)}/></label>
   </div>
-  {result?<><div className="prayers"><div>Fitrana subtotal<strong>{format(result.people*result.ratePerPerson)}</strong></div><div>Additional donation<strong>{format(result.additional)}</strong></div></div><div className="result"><span>Estimated amount to arrange</span><strong>{format(result.total)}</strong></div></>:<p className="warn" role="status">Enter a valid number of people and a positive, verified rate per person to calculate.</p>}
+  <div className="two"><label>Where you checked the rate (optional)<input type="text" value={source} maxLength={120} onChange={e=>setSource(e.target.value)} placeholder="Mosque or charity name"/></label><label>Date rate was checked<input type="date" value={checkedOn} onChange={e=>setCheckedOn(e.target.value)}/></label></div>
+ {result?<><div className="prayers"><div>Fitrana subtotal<strong>{format(result.people*result.ratePerPerson)}</strong></div><div>Additional donation<strong>{format(result.additional)}</strong></div></div><div className="result"><span>Estimated amount to arrange</span><strong>{format(result.total)}</strong>{source&&<small>Based on rate checked with: {source}{checkedOn?' · '+checkedOn:''}</small>}</div></>:<p className="warn" role="status">Enter a valid number of people and a positive, verified rate per person to calculate.</p>}
   <p className="warn">This tool does not determine who is obliged to pay or set an official rate. Consult your local mosque or the organisation receiving your payment; requirements and deadlines vary by scholarly opinion.</p>
   <p className="small">No financial information is saved or transmitted by this calculator.</p>
  </div>;

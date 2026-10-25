@@ -3,9 +3,9 @@ import {resolve} from 'node:path';
 const toolSource=readFileSync(resolve('src/data/tools.ts'),'utf8');
 const slugs=[...toolSource.matchAll(/slug:'([a-z0-9-]+)'/g)].map(m=>m[1]);
 const read=path=>readFileSync(resolve('dist',path),'utf8');
-const newSlugs=['laylatul-qadr-nights','fidya-calculator','qada-prayer-calculator','qurbani-share-calculator','kaffarah-calculator','tawaf-sai-counter'];
+const newSlugs=['laylatul-qadr-nights','fidya-calculator','qada-prayer-calculator','qurbani-share-calculator','kaffarah-calculator','tawaf-sai-counter','prayer-rakats-chart','daily-adhkar','halal-additives-checker','zakat-anniversary-calculator','dhul-hijjah-planner','travel-prayer-guide','quran-juz-finder','zakat-stocks-crypto','hifz-tracker'];
 const assert=(test,msg)=>{if(!test)throw new Error('Site audit failed: '+msg)};
-assert(slugs.length===28,'Expected 28 Islamic tools after release');
+assert(slugs.length===37,'Expected 37 Islamic tools after release');
 for(const item of newSlugs)assert(slugs.includes(item),'New tool missing from registry: '+item);
 const home=read('index.html');
 assert(home.includes('id="tool-search-input"'),'Homepage search is missing');
@@ -104,3 +104,14 @@ if(process.env.PUBLIC_GA4_ENABLED!=='true')assert(!home.includes('googletagmanag
 assert(read('robots.txt').includes('sitemap-index.xml'),'Robots sitemap reference missing');
 assert(read('sitemap-index.xml').includes('sitemap-0.xml'),'Sitemap index child missing');
 console.log(`Static UX/SEO audit passed: homepage, ${slugs.length} tool routes, responsive shell and sitemap`);
+
+const cityPaths=["london","birmingham","manchester","bradford","leicester","leeds","newcastle","glasgow","edinburgh","cardiff","makkah","karachi","dubai","toronto","new-york"];
+for(const slug of cityPaths){
+ const p='prayer-times/'+slug+'/index.html';
+ const html=read(p);
+ assert(html.includes('Prayer times in ')&&html.includes('city-prayer-page'),'City prayer page missing or unhelpful: '+slug);
+ assert(html.includes('method')&&html.includes('Fajr')&&html.includes('Maghrib'),'City-specific calculator missing: '+slug);
+ assert(sitemap.includes('/prayer-times/'+slug+'/'),'City sitemap missing: '+slug);
+}
+assert(sitemap.includes('/prayer-times/'),'City index missing from sitemap');
+console.log('Verified '+cityPaths.length+' location-specific prayer pages');

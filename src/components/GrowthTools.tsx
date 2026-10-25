@@ -56,9 +56,17 @@ const prayerNames=['Fajr','Dhuhr','Asr','Maghrib','Isha'] as const;
 export function QadaPrayerCalculator(){
  const [mode,setMode]=useState<'days'|'years'|'range'>('days'),[days,setDays]=useState('30'),[years,setYears]=useState('1'),[start,setStart]=useState(''),[end,setEnd]=useState(''),[excluded,setExcluded]=useState('0'),[witr,setWitr]=useState(false);
  const [overrides,setOverrides]=useState<Record<string,string>>({}),[done,setDone]=useState<Record<string,number>>({}),[ready,setReady]=useState(false);
- const storageKey='sunnah-qada-progress-v1';
- useEffect(()=>{try{const value=JSON.parse(localStorage.getItem(storageKey)??'{}');if(value&&typeof value==='object'&&!Array.isArray(value)){const safe:Record<string,number>={};for(const key of [...prayerNames,'Witr'])if(Number.isSafeInteger(value[key])&&value[key]>=0&&value[key]<=1000000)safe[key]=value[key];setDone(safe)}}catch{}setReady(true)},[]);
- useEffect(()=>{if(ready)try{localStorage.setItem(storageKey,JSON.stringify(done))}catch{}},[done,ready]);
+ const storageKey='sunnah-qada-plan-v2';
+ useEffect(()=>{try{const value=JSON.parse(localStorage.getItem(storageKey)??'null')??{done:JSON.parse(localStorage.getItem('sunnah-qada-progress-v1')??'{}')};
+ if(value&&typeof value==='object'&&!Array.isArray(value)){
+ const safe:Record<string,number>={};for(const key of [...prayerNames,'Witr'])if(Number.isSafeInteger(value.done?.[key])&&value.done[key]>=0&&value.done[key]<=1000000)safe[key]=value.done[key];setDone(safe);
+ if(['days','years','range'].includes(value.mode))setMode(value.mode);
+ for(const [key,setter] of [['days',setDays],['years',setYears],['start',setStart],['end',setEnd],['excluded',setExcluded]] as const){const v=value[key];if(typeof v==='string'&&v.length<30)setter(v)}
+ if(typeof value.witr==='boolean')setWitr(value.witr);
+ if(value.overrides&&typeof value.overrides==='object'){const next:Record<string,string>={};for(const name of [...prayerNames,'Witr']){const v=value.overrides[name];if(typeof v==='string'&&v.length<12)next[name]=v}setOverrides(next)}
+ }}catch{}setReady(true)},[]);
+ useEffect(()=>{if(ready)try{localStorage.setItem(storageKey,JSON.stringify({mode,days,years,start,end,excluded,witr,overrides,done}))}catch{}},[ready,mode,days,years,start,end,excluded,witr,overrides,done]);
+ const backup=()=>{const blob=new Blob([JSON.stringify({version:2,mode,days,years,start,end,excluded,witr,overrides,done},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='qada-prayer-plan.json';a.click();window.setTimeout(()=>URL.revokeObjectURL(url),1000)};
  const base=qadaPlanningDays({mode,days:intValue(days),years:Number(years),start,end,excluded:intValue(excluded)});
  const names:string[]=witr?[...prayerNames,'Witr']:[...prayerNames];
  const targets=names.map(name=>({name,target:overrides[name]===undefined||overrides[name]===''?(base??NaN):intValue(overrides[name])}));
@@ -81,9 +89,9 @@ export function QadaPrayerCalculator(){
     <div><strong>{name}</strong><label>Estimated missed prayers<input aria-label={'Estimated missed '+name+' prayers'} type="number" min="0" max="1000000" step="1" value={overrides[name]??''} placeholder={String(base)} onChange={e=>setOverrides(v=>({...v,[name]:e.target.value}))}/></label></div>
     <div className="growth-qada-progress"><span>{Math.min(target,done[name]??0).toLocaleString('en-GB')} / {target.toLocaleString('en-GB')} made up</span><progress value={Math.min(target,done[name]??0)} max={Math.max(1,target)}/><div className="action-row"><button type="button" onClick={()=>adjust(name,1,target)} disabled={(done[name]??0)>=target}>+ 1 completed</button><button type="button" className="secondary" onClick={()=>adjust(name,-1,target)} disabled={(done[name]??0)<=0}>Undo</button></div></div>
    </div>)}</div>
-   <button type="button" className="secondary" onClick={()=>{if(window.confirm('Clear all saved Qada prayer progress on this device?'))setDone({})}}>Reset saved progress</button>
+   <div className="action-row"><button type="button" className="secondary" onClick={backup}>Download plan backup (JSON)</button><button type="button" className="secondary" onClick={()=>{if(window.confirm('Clear saved Qada plan and progress on this device?')){setDone({});setOverrides({});setMode('days');setDays('30');setYears('1');setStart('');setEnd('');setExcluded('0');setWitr(false)}}}>Reset plan and progress</button></div>
   </>:<Notice>Enter a valid period and exclusions, and use non-negative whole numbers for individual prayer targets.</Notice>}
-  <Notice>Scholars differ on making up deliberately missed prayers, Witr and other circumstances. This is a private organisational aid, not a fatwa or an automatic determination of liability. Seek qualified guidance before setting your targets.</Notice>
+  <p className="small">This device now remembers both your estimated targets and recorded progress. Keep a downloaded backup before clearing browser data.</p><Notice>Scholars differ on making up deliberately missed prayers, Witr and other circumstances. This is a private organisational aid, not a fatwa or an automatic determination of liability. Seek qualified guidance before setting your targets.</Notice>
   <p className="small">Reference: <a href="https://sunnah.com/muslim:684a" target="_blank" rel="noopener noreferrer">Sahih Muslim 684a</a> on prayer missed through sleep or forgetfulness.</p>
  </div>;
 }

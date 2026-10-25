@@ -97,6 +97,7 @@ const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemL
    <section aria-label={tool.name} class="tool-panel">
     <div class="tool-inner"><ToolApp slug={slug} client:only="react"/></div>
    </section>
+   {slug==='prayer-times'&&<p class="small"><a href="/prayer-times/">Browse city-specific prayer times</a> — select a major city or use the calculator above for any location.</p>}
    <section class="explainer seo-explainer" id="how-it-works" aria-labelledby="how-label">
     <div class="section-label"><h2 id="how-label">How to use {tool.name}</h2></div>
     <p>{seo.summary}</p><p>{seo.details}</p>

@@ -131,6 +131,24 @@
         "imageAlt": "Prayer mat and individual Salah progress checklist"
       },
       {
+        "slug": "prayer-rakats-chart",
+        "title": "Prayer Rakats Chart",
+        "description": "Check the obligatory rakats in each daily prayer and print a reference chart.",
+        "tone": "blue",
+        "enabled": true,
+        "image": "/tool-art/prayer-rakats-chart.svg",
+        "imageAlt": "Low-poly illustration representing prayer rakats chart with a clear geometric symbol"
+      },
+      {
+        "slug": "travel-prayer-guide",
+        "title": "Travel Prayer (Qasr) Guide",
+        "description": "Compare common Qasr prayer rules and record your travel details.",
+        "tone": "teal",
+        "enabled": true,
+        "image": "/tool-art/travel-prayer-guide.svg",
+        "imageAlt": "Low-poly illustration representing travel prayer (qasr) guide with a clear geometric symbol"
+      },
+      {
         "slug": "fasting-times",
         "title": "Suhoor & Iftar Times",
         "description": "See calculated fasting start, iftar and the next countdown.",
@@ -239,6 +257,24 @@
         "imageAlt": "Charitable food parcel and ten light-coloured circles"
       },
       {
+        "slug": "zakat-anniversary-calculator",
+        "title": "Zakat Anniversary Calculator",
+        "description": "Find an approximate one-lunar-year anniversary for Zakat planning.",
+        "tone": "emerald",
+        "enabled": true,
+        "image": "/tool-art/zakat-anniversary-calculator.svg",
+        "imageAlt": "Low-poly illustration representing zakat anniversary calculator with a clear geometric symbol"
+      },
+      {
+        "slug": "zakat-stocks-crypto",
+        "title": "Stocks & Crypto Zakat Estimate",
+        "description": "Review a conditional Zakat estimate for shares and cryptocurrency.",
+        "tone": "coral",
+        "enabled": true,
+        "image": "/tool-art/zakat-stocks-crypto.svg",
+        "imageAlt": "Low-poly illustration representing stocks & crypto zakat estimate with a clear geometric symbol"
+      },
+      {
         "slug": "islamic-events-calendar",
         "title": "Islamic Events Calendar",
         "description": "Explore estimated dates for Ramadan, Eid, Ashura and Hajj.",
@@ -264,6 +300,15 @@
         "enabled": true,
         "image": "/tool-art/islamic-age.svg",
         "imageAlt": "Birthday calendar with a lunar year age badge"
+      },
+      {
+        "slug": "dhul-hijjah-planner",
+        "title": "Dhul Hijjah & Arafah Dates",
+        "description": "See the estimated first ten days of Dhul Hijjah and Arafah date.",
+        "tone": "amber",
+        "enabled": true,
+        "image": "/tool-art/dhul-hijjah-planner.svg",
+        "imageAlt": "Low-poly illustration representing dhul hijjah & arafah dates with a clear geometric symbol"
       },
       {
         "slug": "umrah-packing-checklist",
@@ -309,6 +354,42 @@
         "enabled": true,
         "image": "/tool-art/tawaf-sai-counter.svg",
         "imageAlt": "Kaaba and the seven circuits of Tawaf"
+      },
+      {
+        "slug": "daily-adhkar",
+        "title": "Quranic Duas & Adhkar",
+        "description": "Read a source-linked collection of Quranic duas with a repetition counter.",
+        "tone": "indigo",
+        "enabled": true,
+        "image": "/tool-art/daily-adhkar.svg",
+        "imageAlt": "Low-poly illustration representing quranic duas & adhkar with a clear geometric symbol"
+      },
+      {
+        "slug": "quran-juz-finder",
+        "title": "Quran Juz Finder",
+        "description": "Find the start of each of the Quran's 30 Juz.",
+        "tone": "violet",
+        "enabled": true,
+        "image": "/tool-art/quran-juz-finder.svg",
+        "imageAlt": "Low-poly illustration representing quran juz finder with a clear geometric symbol"
+      },
+      {
+        "slug": "hifz-tracker",
+        "title": "Hifz Memorisation Tracker",
+        "description": "Plan a memorisation target and record completed verses.",
+        "tone": "rose",
+        "enabled": true,
+        "image": "/tool-art/hifz-tracker.svg",
+        "imageAlt": "Low-poly illustration representing hifz memorisation tracker with a clear geometric symbol"
+      },
+      {
+        "slug": "halal-additives-checker",
+        "title": "Halal Additives Checker",
+        "description": "Look up common food E-numbers and see which sources need checking.",
+        "tone": "mint",
+        "enabled": true,
+        "image": "/tool-art/halal-additives-checker.svg",
+        "imageAlt": "Low-poly illustration representing halal additives checker with a clear geometric symbol"
       }
     ]
   },
