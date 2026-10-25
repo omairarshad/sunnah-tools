@@ -56,7 +56,7 @@
   "directory": {
     "title": "Browse tools",
     "description": "",
-    "columns": 4,
+    "columns": 6,
     "cards": [
       {
         "slug": "prayer-times",

@@ -1,13 +1,14 @@
-/* Sunnah Tools — visual-first tool gallery.
-   Layout intentionally follows an illustration-dominant utility gallery, not a text panel with an icon.
-   Every entry already has a unique 600x360 illustration stored under /tool-art/. */
+/* Compact six-column gallery: let visitors scan more tools at once.
+   SVGs remain 600x360, so CSS preserves their 5:3 proportion. */
 .directory .cards,
-.directory[data-columns="4"] .cards{
+.directory[data-columns="6"] .cards{
   display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:19px;
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:12px;
   align-items:stretch;
 }
+.directory[data-columns="5"] .cards{grid-template-columns:repeat(5,minmax(0,1fr))}
+.directory[data-columns="4"] .cards{grid-template-columns:repeat(4,minmax(0,1fr))}
 .directory[data-columns="3"] .cards{grid-template-columns:repeat(3,minmax(0,1fr))}
 .directory[data-columns="2"] .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
 .directory .tool-card[data-tone],.directory .tool-card{
@@ -17,16 +18,16 @@
   flex-direction:column;
   overflow:hidden;
   background:#fff;
-  border:1px solid #dadeD8;
-  border-radius:14px;
+  border:1px solid #daded8;
+  border-radius:11px;
   box-shadow:0 2px 8px rgba(20,40,29,.04);
   transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
 }
 .directory .tool-card[hidden]{display:none!important}
 .directory .tool-card:hover,.directory .tool-card:focus-within{
   border-color:#b99558;
-  box-shadow:0 12px 28px rgba(17,45,34,.13);
-  transform:translateY(-3px);
+  box-shadow:0 9px 22px rgba(17,45,34,.13);
+  transform:translateY(-2px);
 }
 .directory .tool-card-main{
   display:flex;
@@ -39,132 +40,114 @@
   text-decoration:none;
 }
 .directory .tool-card-visual{
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  display:block;
   flex:none;
   width:100%;
-  height:clamp(205px,18vw,248px);
-  min-height:205px;
+  height:auto;
+  min-height:0;
+  aspect-ratio:5 / 3;
+  position:relative;
   padding:0;
   margin:0;
   overflow:hidden;
-  background:#184B64;
+  background:#184b64;
   border-bottom:1px solid #edf0eb;
 }
 .directory .tool-card-visual img{
   display:block;
+  position:absolute;
+  inset:0;
   width:100%;
   height:100%;
   max-height:none;
   object-fit:cover;
-  object-position:center center;
+  object-position:center;
   transform:none;
   transition:transform .22s ease;
 }
 .directory .tool-card:hover .tool-card-visual img,
-.directory .tool-card:focus-within .tool-card-visual img{
-  transform:scale(1.035);
-}
+.directory .tool-card:focus-within .tool-card-visual img{transform:scale(1.035)}
 .directory .tool-card-body{
   display:flex;
   flex:1;
   flex-direction:column;
   align-items:center;
   text-align:center;
-  min-height:146px;
-  gap:0;
-  padding:15px 14px 17px;
-}
-.directory .tool-card-category,.directory .tool-card[data-tone] .tool-card-category{
-  position:static;
-  inset:auto;
-  display:block;
-  margin:0 0 8px;
-  padding:0;
-  max-width:100%;
-  border:0;
-  background:transparent;
-  font-size:10px;
-  font-weight:800;
-  line-height:1.15;
-  letter-spacing:.11em;
-  color:#688076;
-  text-transform:uppercase;
+  min-width:0;
+  min-height:119px;
+  padding:12px 10px 13px;
 }
 .directory .tool-card h3{
   max-width:100%;
   margin:0 0 7px;
   color:#162f24;
-  line-height:1.22;
-  font-size:18px;
-  letter-spacing:-.025em;
-  font-weight:800;
+  line-height:1.26;
+  font-size:15px;
+  letter-spacing:-.02em;
+  font-weight:750;
+  overflow-wrap:break-word;
 }
 .directory .tool-card-description{
   display:-webkit-box;
   max-width:100%;
-  min-height:32px;
+  min-height:0;
   overflow:hidden;
   -webkit-box-orient:vertical;
-  -webkit-line-clamp:2;
-  line-clamp:2;
+  -webkit-line-clamp:3;
+  line-clamp:3;
   margin:0;
-  font-size:12px;
-  line-height:1.45;
+  font-size:11.5px;
+  line-height:1.4;
   color:#617064;
 }
-.directory .tool-card-link,.directory .tool-card[data-tone] .tool-card-link{
-  display:inline-flex;
-  align-items:center;
-  align-self:center;
-  justify-content:center;
-  gap:7px;
-  margin-top:auto;
-  padding:12px 0 0;
-  font-size:12px;
-  font-weight:800;
-  color:#1d6549;
-}
-.directory .tool-card-link span{font-size:17px}
 .directory .favorite{
   position:absolute;
-  top:12px;
-  right:12px;
+  top:8px;
+  right:8px;
   z-index:2;
   display:grid;
   place-items:center;
   padding:0;
-  width:37px;
-  height:37px;
+  width:32px;
+  height:32px;
   border:1px solid #d9dfd8;
   border-radius:9px;
   background:rgba(255,255,255,.97);
   color:#485f52;
-  box-shadow:0 3px 10px rgba(17,38,29,.1);
+  font-size:20px;
+  box-shadow:0 2px 7px rgba(17,38,29,.12);
 }
+.directory .favorite::before{content:"";position:absolute;inset:-6px}
 .directory .favorite[aria-pressed=true]{background:#fff8e9;border-color:#d6b678;color:#936416}
 .directory .favorite:focus-visible{outline:3px solid #bc9147;outline-offset:2px}
-@media(max-width:1170px){
-  .directory .cards,.directory[data-columns="4"] .cards,.directory[data-columns="3"] .cards{
-    grid-template-columns:repeat(3,minmax(0,1fr))
-  }
-  .directory .tool-card-visual{height:220px;min-height:190px}
+/* Narrower laptops remain dense without squeezing titles or save controls. */
+@media(max-width:1179px){
+ .directory .cards,.directory[data-columns="6"] .cards{grid-template-columns:repeat(5,minmax(0,1fr))}
 }
-@media(max-width:850px){
-  .directory .cards,.directory[data-columns="4"] .cards,.directory[data-columns="3"] .cards,.directory[data-columns="2"] .cards{
-    grid-template-columns:repeat(2,minmax(0,1fr))
-  }
-  .directory .tool-card-visual{height:210px}
+@media(max-width:1023px){
+ .directory .cards,.directory[data-columns="6"] .cards,.directory[data-columns="5"] .cards{grid-template-columns:repeat(4,minmax(0,1fr))}
 }
-@media(max-width:550px){
-  .directory .cards,.directory[data-columns="4"] .cards,.directory[data-columns="3"] .cards,.directory[data-columns="2"] .cards{
-    grid-template-columns:1fr;gap:16px
-  }
-  .directory .tool-card-visual{height:clamp(215px,60vw,290px)}
-  .directory .tool-card-body{min-height:130px;padding:15px 18px 17px}
-  .directory .tool-card h3{font-size:20px}
-  .directory .tool-card-description{font-size:12.5px}
+@media(max-width:819px){
+ .directory .cards,.directory[data-columns="6"] .cards,.directory[data-columns="5"] .cards,
+ .directory[data-columns="4"] .cards{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .directory .tool-card-body{padding:12px 11px 14px}
+}
+@media(max-width:619px){
+ .directory .cards,.directory[data-columns="6"] .cards,.directory[data-columns="5"] .cards,
+ .directory[data-columns="4"] .cards,.directory[data-columns="3"] .cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+ .directory .tool-card h3{font-size:15px}
+ .directory .tool-card-body{min-height:124px}
+}
+@media(max-width:419px){
+ .directory .cards,.directory[data-columns="6"] .cards,.directory[data-columns="5"] .cards,
+ .directory[data-columns="4"] .cards,.directory[data-columns="3"] .cards,.directory[data-columns="2"] .cards{grid-template-columns:1fr;gap:10px}
+ /* Compact horizontal rows instead of enormous single-column image cards. */
+ .directory .tool-card-main{flex-direction:row;align-items:stretch;min-height:116px}
+ .directory .tool-card-visual{width:39%;height:auto;aspect-ratio:auto;border-bottom:0;border-right:1px solid #edf0eb}
+ .directory .tool-card-body{min-height:116px;align-items:flex-start;text-align:left;justify-content:center;padding:13px 48px 13px 13px}
+ .directory .tool-card h3{font-size:15px;margin-bottom:5px}
+ .directory .tool-card-description{-webkit-line-clamp:2;line-clamp:2;font-size:11.5px}
+ .directory .favorite{top:10px;right:10px}
 }
 @media(prefers-reduced-motion:reduce){
  .directory .tool-card,.directory .tool-card-visual img{transition:none}

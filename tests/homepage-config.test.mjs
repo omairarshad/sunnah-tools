@@ -41,3 +41,8 @@ test('tool imagery is restricted to local paths, not remote or executable URLs',
  for(const uri of ['https://example.com/i.svg','javascript:alert(1)','//evil.test/img.svg','/tool-art/../private.svg','/media/image.svg?next=1'])assert.equal(safeToolImage(uri),null);
  for(const uri of ['/tool-art/qibla-finder.svg','/media/uploaded/new-card.webp'])assert.equal(safeToolImage(uri),uri);
 });
+
+test('tool directory defaults to six desktop columns for faster browsing',()=>{
+ assert.equal(page.directory.columns,6);
+ assert.equal(page.directory.cards.length,28);
+});

@@ -8,33 +8,33 @@ try{
  const desktop=await browser.newContext({viewport:{width:1440,height:1000},deviceScaleFactor:1});
  const page=await desktop.newPage();
  await page.goto(root+'/',{waitUntil:'networkidle'});
- assert.equal(await page.locator('.tool-card').count(),22,'Homepage should expose 22 tools');
- assert.equal(await page.locator('.tool-card-visual img').count(),22,'Every tool should have a large illustration');
+ assert.equal(await page.locator('.tool-card').count(),28,'Homepage should expose 28 tools');
+ assert.equal(await page.locator('.tool-card-visual img').count(),28,'Every tool should retain its illustration');
  const artPaths=await page.locator('.tool-card-visual img').evaluateAll(images=>images.map(img=>new URL(img.src).pathname));
- assert.equal(new Set(artPaths).size,22,'Each card must have an original unique illustration');
+ assert.equal(new Set(artPaths).size,28,'Each card must have an original unique illustration');
  for(const img of await page.locator('.tool-card-visual img').all()){
   await img.scrollIntoViewIfNeeded();
   await img.evaluate(image=>image.decode());
  }
- assert.ok(await page.locator('.tool-card-visual img').evaluateAll(images=>images.every(img=>img.complete&&img.naturalWidth>=500&&img.naturalHeight>=300&&img.alt.length>15)),'All 22 image assets must load at full resolution with accessible descriptions');
+ assert.ok(await page.locator('.tool-card-visual img').evaluateAll(images=>images.every(img=>img.complete&&img.naturalWidth>=500&&img.naturalHeight>=300&&img.alt.length>15)),'All 28 image assets must load at full resolution with accessible descriptions');
  const layout=await page.locator('.tool-card').first().evaluate(card=>{
   const picture=card.querySelector('.tool-card-visual').getBoundingClientRect();
   const heading=card.querySelector('h3').getBoundingClientRect();
   const caption=card.querySelector('.tool-card-description').getBoundingClientRect();
   return {imageHeight:picture.height,imageBottom:picture.bottom,headingTop:heading.top,captionTop:caption.top};
  });
- assert.ok(layout.imageHeight>=205&&layout.headingTop>layout.imageBottom&&layout.captionTop>layout.headingTop,'Large gallery images must sit clearly above titles and descriptions');
+ assert.ok(layout.imageHeight>=95&&layout.headingTop>layout.imageBottom&&layout.captionTop>layout.headingTop,'Compact gallery images must sit clearly above titles and descriptions');
  const galleryMetrics=await page.locator('.tool-card').first().evaluate(card=>{
   const cardBox=card.getBoundingClientRect(), visual=card.querySelector('.tool-card-visual').getBoundingClientRect();
   const img=card.querySelector('.tool-card-visual img');
   const styles=getComputedStyle(img);
   return {ratio:visual.height/cardBox.height,width:visual.width,imageFit:styles.objectFit};
  });
- assert.ok(galleryMetrics.ratio>.52,'Artwork should occupy most of every tool card, not be a small icon');
+ assert.ok(galleryMetrics.ratio>.35,'Artwork should remain prominent without making cards enormous');
  assert.equal(galleryMetrics.imageFit,'cover','Low-poly artwork should fill the whole visual panel');
  const columns=async()=>page.locator('#tool-grid').evaluate(grid=>getComputedStyle(grid).gridTemplateColumns.trim().split(/\s+/).length);
- assert.equal(await columns(),4,'Wide desktop should show four image-first tool cards per row');
- for(const [width,expected] of [[1000,3],[800,2],[500,1]]){
+ assert.equal(await columns(),6,'Wide desktop should show six compact tool cards per row');
+ for(const [width,expected] of [[1150,5],[1000,4],[800,3],[500,2],[390,1]]){
    await page.setViewportSize({width,height:1000});
    assert.equal(await columns(),expected,`Tool card layout should be ${expected} column(s) at ${width}px`);
  }
@@ -58,7 +58,7 @@ try{
  assert.equal(await page.locator('.promo-banner img').count(),3,'Each promotion must contain branded artwork');
  assert.ok(await page.locator('.promo-banner img').evaluateAll(images=>images.every(img=>img.complete && img.naturalWidth>0)),'All self-hosted promotional images must load');
  assert.equal(await page.locator('.promo-banner').first().getAttribute('data-tone'),'blue','Arabic Alphabet card should lead with blue learning accent');
- assert.match(await page.locator('.promo-banner').first().innerText(),/flashcards/i,'Arabic learning description should mention flashcards');
+ assert.match(await page.locator('.promo-banner').first().getAttribute('aria-label'),/flashcards/i,'Arabic learning banner should describe its destination');
  assert.equal(await page.locator('a[data-promo-id="arabic-alphabet"]').getAttribute('href'),'https://www.arabicalphabet.app/');
  assert.equal(await page.locator('a[data-promo-id="islamreact"]').getAttribute('href'),'https://www.youtube.com/@IslamReact');
  assert.equal(await page.locator('a[data-promo-id="meemandmoon"]').getAttribute('href'),'https://meemandmoon.com/');
@@ -68,7 +68,7 @@ try{
  assert.equal(await page.locator('.ad-placement').count(),0,'No blank ad container before activation');
  await page.screenshot({path:'test-results/visual/home-desktop.png',fullPage:true});
  await page.locator('.filter[data-filter="zakat"]').click();
- assert.equal(await page.locator('.tool-card:visible').count(),4,'Zakat category should show 4 tools');
+ assert.equal(await page.locator('.tool-card:visible').count(),6,'Zakat category should show 6 tools');
  await page.locator('.filter[data-filter="all"]').click();
  await page.locator('#tool-search-input').fill('qibla');
  assert.equal(await page.locator('.tool-card:visible').count(),1,'Search should narrow tools');
@@ -135,10 +135,10 @@ try{
  await m.goto(root+'/',{waitUntil:'networkidle'});
  const dimensions=await m.evaluate(()=>({body:document.documentElement.scrollWidth,width:document.documentElement.clientWidth}));
  assert.ok(dimensions.body<=dimensions.width+2,'Mobile layout overflows horizontally: '+JSON.stringify(dimensions));
- assert.equal(await m.locator('.tool-card').count(),22);
- assert.equal(await m.locator('.tool-card-visual img').count(),22,'Mobile cards should retain all artwork');
+ assert.equal(await m.locator('.tool-card').count(),28);
+ assert.equal(await m.locator('.tool-card-visual img').count(),28,'Mobile cards should retain all artwork');
  const mobileWidth=await m.locator('.tool-card').first().evaluate(card=>({card:card.getBoundingClientRect().width,picture:card.querySelector('.tool-card-visual').getBoundingClientRect().height}));
- assert.ok(mobileWidth.card>320&&mobileWidth.picture>165,'Mobile illustration must remain large and distinguishable');
+ assert.ok(mobileWidth.card>320&&mobileWidth.picture>95&&mobileWidth.picture<180,'Mobile tools should use compact horizontal image rows');
 
  await m.screenshot({path:'test-results/visual/home-mobile.png',fullPage:true});
  await m.goto(root+'/',{waitUntil:'networkidle'});
