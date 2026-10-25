@@ -279,3 +279,31 @@ th,td{border-bottom-color:#e2e6df}
 .compass-arrow{color:#1d5a42}
 .compass-n,.compass-s{color:#24503a}
 .chart-print .chart-box{color:#225940}
+
+
+/* Six new calculators: spacious results and touch-friendly tracking cards. */
+.growth-tool{max-width:100%;line-height:1.6}
+.growth-tool>p:first-child{margin-top:0}
+.growth-night-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:20px 0}
+.growth-night,.growth-count-card,.growth-qada-row{border:1px solid #dce6dc;background:#f8faf6;border-radius:13px;padding:18px;min-width:0}
+.growth-night strong{display:block;font-size:17px;line-height:1.4;color:#204b36;margin:9px 0}
+.growth-night small{display:block;font-size:12px;line-height:1.6;color:#637467}
+.growth-eyebrow{display:block;font-size:10px;font-weight:850;letter-spacing:.1em;color:#4c8061}
+.growth-count-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:20px 0}
+.growth-count-card h3{font-size:19px;margin:10px 0}
+.growth-count{display:flex;align-items:baseline;justify-content:center;margin:18px 0}
+.growth-count strong{font-size:70px;line-height:1;font-family:Georgia,"Times New Roman",serif;color:#225c41}
+.growth-count span{font-size:25px;color:#7a8d7f}
+.growth-count-card .action-row{justify-content:center}
+.growth-qada-list{display:grid;gap:11px;margin:18px 0}
+.growth-qada-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:20px;align-items:center}
+.growth-qada-row strong{color:#22583e}
+.growth-qada-row label{margin-bottom:0}
+.growth-qada-progress>span{font-size:12px;font-weight:750;color:#315b42}
+.growth-qada-progress progress{display:block;margin:9px 0}
+.growth-qada-progress .action-row{margin:9px 0 0}
+.growth-tool .result small{display:block;font-size:12px;margin-top:8px}
+.growth-tool .result{min-width:0}
+.growth-tool .result strong{overflow-wrap:anywhere}
+@media(max-width:640px){.growth-night-grid,.growth-count-grid,.growth-qada-row{grid-template-columns:1fr}.growth-count strong{font-size:62px}.growth-night{padding:15px}}
+@media print{.growth-night,.growth-count-card,.growth-qada-row{background:#fff!important;border-color:#999!important;break-inside:avoid}.growth-night strong,.growth-count strong,.growth-qada-row strong{color:#000!important}.growth-night-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}

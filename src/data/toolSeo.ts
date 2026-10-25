@@ -397,5 +397,137 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
         "answer": "Yes. Use the print option for a physical copy to check before leaving."
       }
     ]
-  }
+  },
+  "laylatul-qadr-nights": {
+  "title": "Laylatul Qadr Odd Nights Calculator – Ramadan Dates",
+  "h1": "Laylatul Qadr Odd Nights Calculator",
+  "description": "Find Ramadan's 21st, 23rd, 25th, 27th and 29th nights from your local start date. View, print and export dates for the last ten nights.",
+  "summary": "Choose your community's announced first fasting day to work out when the odd-numbered nights in the last ten nights of Ramadan begin.",
+  "details": "The Islamic night begins at sunset before its corresponding daytime fast. Our calculator places the 21st night on the civil evening after the 20th day of fasting, then lists the 23rd, 25th, 27th and 29th nights. Add the dates to your calendar with a downloadable ICS file or print them for your Ramadan plan.",
+  "caution": "This is not an official Ramadan start announcement or a predictor of Laylatul Qadr. Night dates can change with local moon sighting. Worship throughout the last ten nights, not solely the odd-numbered ones. Sunset varies by location and is not calculated on this page.",
+  "faqs": [
+    {
+      "question": "When is the 27th night of Ramadan 2027?",
+      "answer": "It starts at sunset after the 26th daytime fast. Enter the first Ramadan fasting day announced by your local community to see the corresponding civil evening; it can differ between locations."
+    },
+    {
+      "question": "Does the 21st night begin on the 21st day?",
+      "answer": "The 21st Islamic night begins the previous civil evening, after the 20th daytime fast, because Islamic dates change at sunset."
+    },
+    {
+      "question": "Can I add Ramadan odd nights to my calendar?",
+      "answer": "Yes. Download the calendar file to add all five evening dates, or print the result. Use your local sunset time when planning."
+    }
+  ]
+},
+  "fidya-calculator": {
+  "title": "Fidya Calculator – Missed Ramadan Fast Estimate",
+  "h1": "Fidya Calculator for Missed Ramadan Fasts",
+  "description": "Calculate a Fidya estimate for eligible missed fasts. Enter the number of fasting days, a verified local per-day rate and your currency.",
+  "summary": "Estimate possible Fidya for eligible missed Ramadan fasting days using a locally verified rate, without a misleading worldwide default.",
+  "details": "Enter the days for which a qualified authority has determined Fidya applies and the current per-day amount from a trusted local charity or scholar. The result is days multiplied by your entered rate, displayed in your selected currency. The calculator does not fetch rates or collect payments.",
+  "caution": "Fidya is not owed for every missed fast and is not an automatic alternative to making up days. Health circumstances, ability to fast later and differences between scholarly schools affect the ruling and form of payment. Confirm your eligibility and local rate before acting.",
+  "faqs": [
+    {
+      "question": "How much Fidya should I pay per day?",
+      "answer": "The amount depends on locally applicable food costs and the guidance you follow. This tool intentionally requires you to enter a verified current rate instead of making one up."
+    },
+    {
+      "question": "Do I pay Fidya or make up missed Ramadan fasts?",
+      "answer": "It depends on why you missed them, whether you can fast later and the rulings you follow. Consult a qualified authority for your circumstances."
+    },
+    {
+      "question": "Are Fidya, Fitrana and Kaffarah the same?",
+      "answer": "No. These are distinct Islamic giving or expiation categories with different conditions and methods."
+    }
+  ]
+},
+  "qada-prayer-calculator": {
+  "title": "Missed Salah Calculator – Qada / Qaza Prayer Tracker",
+  "h1": "Missed Salah (Qada) Calculator",
+  "description": "Estimate Qada or Qaza prayers by days, years or date range. Set Fajr-to-Isha targets, optionally include Witr, and track make-up progress privately.",
+  "summary": "Create a private plan for potentially missed Salah, with editable prayer targets and saved on-device progress.",
+  "details": "Choose a number of days, approximate years or an inclusive start and end date. Exclude days only after checking applicable exemptions and adjust Fajr, Dhuhr, Asr, Maghrib and Isha individually. You can optionally add Witr, which has school-specific treatment. Mark completed make-up prayers and use Undo for corrections. Completion counts are stored in your browser only.",
+  "caution": "This is a planning estimate rather than a determination of religious liability. Rulings differ regarding deliberately missed prayers, exemption periods, Witr and how to make up prayers. Only enter obligations established through qualified guidance.",
+  "faqs": [
+    {
+      "question": "How do I calculate years of missed Salah?",
+      "answer": "Select approximate years and then review the estimated number of days. Adjust the target for each prayer to reflect your circumstances, rather than treating the estimate as a ruling."
+    },
+    {
+      "question": "Should I include Witr when counting missed prayers?",
+      "answer": "Witr is treated differently across schools of law. The option is off by default; include it only if it fits the guidance you follow."
+    },
+    {
+      "question": "Does the Qada tracker save my prayer records?",
+      "answer": "It stores completed counts in local storage on that browser. There is no account or synchronisation, and clearing browser data may erase progress."
+    }
+  ]
+},
+  "qurbani-share-calculator": {
+  "title": "Qurbani Share Calculator – Cow, Sheep & Udhiyah Costs",
+  "h1": "Qurbani Share Calculator",
+  "description": "Split Qurbani (Udhiyah) costs for a cow, camel, buffalo, sheep or goat. Work out each participant's contribution with up to seven shares.",
+  "summary": "Calculate the equal contribution for each participant in a Qurbani using your actual quoted animal cost.",
+  "details": "Select an animal, number of participating shares and quoted total price. For a sheep or goat, the calculator allows a single share. For cattle, buffalo or camel, it allows up to seven participants under a commonly cited ruling. It divides your entered total cost by the number selected and shows the result in your chosen currency.",
+  "caution": "Payment splitting is not proof that a sacrifice is valid. Animal age, eligibility, ownership, intention and allocation of shares depend on scholarly guidance and local arrangements. Prices are entered by you and not checked against a provider.",
+  "faqs": [
+    {
+      "question": "How many Qurbani shares can be in a cow?",
+      "answer": "Under a commonly cited ruling, a cow may be shared by up to seven participants. Check eligibility and intentions with a qualified authority."
+    },
+    {
+      "question": "Can seven people split a sheep as seven Qurbani shares?",
+      "answer": "The calculator uses the common distinction that a sheep or goat represents one sacrificial share. Sharing payment informally is not the same as establishing seven separate shares."
+    },
+    {
+      "question": "Does this calculator include animal prices?",
+      "answer": "No. Enter the actual total quoted by your chosen provider, including any costs you want to divide."
+    }
+  ]
+},
+  "kaffarah-calculator": {
+  "title": "Kaffarah Calculator – Broken Oath & Ramadan Estimate",
+  "h1": "Kaffarah Calculator",
+  "description": "Explore a conditional Kaffarah feeding-cost estimate for a broken oath or Ramadan fast violation. Enter a locally verified cost per person.",
+  "summary": "Review distinct Kaffarah scenarios and an illustrative cost to feed eligible people, where feeding is applicable.",
+  "details": "Kaffarah for a broken oath and for specific Ramadan violations are not the same obligation. For an oath, Quran 5:89 describes feeding ten needy people or clothing them, with fasting when unable. For certain Ramadan cases, remedies can include freeing a slave, consecutive fasting or feeding sixty people according to relevant rulings and circumstances. The calculator displays only a conditional feeding scenario using a local rate you provide; it does not prescribe a payment.",
+  "caution": "Not every missed or broken fast creates Kaffarah. Whether feeding, fasting or another remedy applies, and whether monetary substitution is permitted, depends on the case and school of law. Confirm the obligation and its order with a qualified scholar before taking action.",
+  "faqs": [
+    {
+      "question": "How many people should be fed for Kaffarah of an oath?",
+      "answer": "Quran 5:89 refers to feeding ten needy people, or clothing them, with fasting three days if unable. The applicable feeding method requires local guidance."
+    },
+    {
+      "question": "Is there a fixed Kaffarah amount in the UK?",
+      "answer": "There is no universal amount suitable for every case. Enter a verified locally applicable cost per eligible person for an illustration, not as an automatic payment instruction."
+    },
+    {
+      "question": "Do all broken Ramadan fasts require Kaffarah?",
+      "answer": "No. The act, intention, exemptions and rulings followed determine whether expiation applies. Ask a qualified scholar about your situation."
+    }
+  ]
+},
+  "tawaf-sai-counter": {
+  "title": "Tawaf & Sa’i Counter – Seven Rounds for Umrah & Hajj",
+  "h1": "Tawaf & Sa’i Counter",
+  "description": "Free Tawaf and Sa'i counters for Umrah and Hajj. Track seven Kaaba circuits and seven Safa–Marwah lengths with undo, reset and private progress.",
+  "summary": "Keep separate seven-round counts for Tawaf circuits and Sa'i one-way lengths with simple tap controls.",
+  "details": "For Tawaf, increment the counter after finishing each complete circuit around the Kaaba, beginning and ending at the Black Stone. For Sa'i, count one length from Safa to Marwah as one, then the return from Marwah to Safa as two; seven lengths finish at Marwah. You can undo accidental taps or reset either counter. Both are stored locally in your browser.",
+  "caution": "This counter is only a practical reminder. It does not authenticate the validity of Hajj or Umrah rites and cannot replace guidance for starting points, intentions or special circumstances. Progress may be lost if you clear data or switch devices.",
+  "faqs": [
+    {
+      "question": "How many circuits are there in Tawaf?",
+      "answer": "Seven complete circuits around the Kaaba. Tap the counter once after completing each circuit."
+    },
+    {
+      "question": "Is Safa to Marwah and back one Sa'i round?",
+      "answer": "No. Safa to Marwah is one length and Marwah back to Safa is two. The seventh length finishes at Marwah."
+    },
+    {
+      "question": "Will my Tawaf count stay if I close the tab?",
+      "answer": "The counters are saved to browser storage on the current device, subject to your storage settings. You can also reset them manually."
+    }
+  ]
+}
 };

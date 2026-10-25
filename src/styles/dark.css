@@ -266,3 +266,22 @@ html[data-theme="dark"] .widget-preview iframe{background:#192b22}
  html[data-theme="dark"] .calendar-cell strong,
  html[data-theme="dark"] .tool-inner .prayers strong{color:#000!important}
 }
+
+
+/* New worship tools: night dates, donation estimates, qada progress and ritual counters. */
+html[data-theme="dark"] .growth-night,
+html[data-theme="dark"] .growth-count-card,
+html[data-theme="dark"] .growth-qada-row{background:#1c3026;border-color:#3a5747;color:#e0ece2}
+html[data-theme="dark"] .growth-night strong,
+html[data-theme="dark"] .growth-qada-row strong,
+html[data-theme="dark"] .growth-count strong{color:#f1f8ee}
+html[data-theme="dark"] .growth-eyebrow,
+html[data-theme="dark"] .growth-qada-progress>span{color:#a7d9b5}
+html[data-theme="dark"] .growth-night small,
+html[data-theme="dark"] .growth-count span{color:#b6ccbd}
+@media print{html[data-theme="dark"] .growth-night,
+html[data-theme="dark"] .growth-count-card,
+html[data-theme="dark"] .growth-qada-row{background:#fff!important;color:#000!important;border-color:#999!important}
+html[data-theme="dark"] .growth-night strong,
+html[data-theme="dark"] .growth-qada-row strong,
+html[data-theme="dark"] .growth-count strong{color:#000!important}}

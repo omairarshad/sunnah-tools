@@ -39,7 +39,13 @@ const guidePriorities:Record<string,string[]>={
  'fasting-times':['ramadan','prayer'],
  'ramadan-timetable':['ramadan','prayer'],
  'zakat-calculator':['zakat'],
- 'fitrana-calculator':['zakat']
+ 'fitrana-calculator':['zakat'],
+ 'laylatul-qadr-nights':['ramadan','dates'],
+ 'fidya-calculator':['zakat','ramadan'],
+ 'qada-prayer-calculator':['prayer','everyday'],
+ 'qurbani-share-calculator':['everyday','zakat'],
+ 'kaffarah-calculator':['zakat','ramadan'],
+ 'tawaf-sai-counter':['everyday']
 };
 const relatedGuides=[...new Set(guidePriorities[slug]??[toolTopicBySlug[slug]])].map(key=>guideLinks[key]).filter(Boolean);
 const relatedPriority:Record<string,string[]>={
@@ -48,14 +54,22 @@ const relatedPriority:Record<string,string[]>={
  'hijri-converter':['islamic-events-calendar','printable-hijri-calendar','ramadan-countdown','white-days-calendar'],
  'tahajjud-time':['prayer-times','qibla-finder','printable-prayer-chart','prayer-times-widget'],
  'fasting-times':['ramadan-timetable','prayer-times','ramadan-countdown','white-days-calendar'],
- 'ramadan-timetable':['fasting-times','ramadan-countdown','white-days-calendar','prayer-times'],
- 'ramadan-countdown':['ramadan-timetable','fasting-times','islamic-events-calendar','hijri-converter'],
+ 'ramadan-timetable':['fasting-times','laylatul-qadr-nights','ramadan-countdown','white-days-calendar'],
+ 'ramadan-countdown':['laylatul-qadr-nights','ramadan-timetable','fasting-times','islamic-events-calendar'],
  'white-days-calendar':['hijri-converter','islamic-events-calendar','printable-hijri-calendar','fasting-tracker'],
  'zakat-calculator':['gold-zakat-calculator','nisab-calculator','fitrana-calculator','hijri-converter'],
- 'fitrana-calculator':['zakat-calculator','nisab-calculator','gold-zakat-calculator','ramadan-timetable'],
+ 'fitrana-calculator':['fidya-calculator','kaffarah-calculator','zakat-calculator','ramadan-timetable'],
  'gold-zakat-calculator':['zakat-calculator','nisab-calculator','fitrana-calculator','hijri-converter'],
  'islamic-events-calendar':['hijri-converter','printable-hijri-calendar','white-days-calendar','ramadan-countdown'],
- 'printable-hijri-calendar':['hijri-converter','islamic-events-calendar','white-days-calendar','islamic-age']
+ 'printable-hijri-calendar':['hijri-converter','islamic-events-calendar','white-days-calendar','islamic-age'],
+ 'laylatul-qadr-nights':['ramadan-timetable','ramadan-countdown','fasting-times','white-days-calendar'],
+ 'fidya-calculator':['kaffarah-calculator','fitrana-calculator','fasting-tracker','zakat-calculator'],
+ 'qada-prayer-calculator':['salah-tracker','printable-prayer-chart','prayer-times','tahajjud-time'],
+ 'qurbani-share-calculator':['umrah-packing-checklist','nisab-calculator','islamic-events-calendar','zakat-calculator'],
+ 'kaffarah-calculator':['fidya-calculator','fasting-tracker','fitrana-calculator','ramadan-timetable'],
+ 'tawaf-sai-counter':['umrah-packing-checklist','qibla-finder','prayer-times','tasbih-counter'],
+ 'salah-tracker':['qada-prayer-calculator','printable-prayer-chart','prayer-times','tahajjud-time'],
+ 'umrah-packing-checklist':['tawaf-sai-counter','qurbani-share-calculator','qibla-finder','prayer-times']
 };
 const relatedFallback=tools.filter(x=>x.slug!==slug).sort((a,b)=>Number(toolTopicBySlug[b.slug]===toolTopicBySlug[slug])-Number(toolTopicBySlug[a.slug]===toolTopicBySlug[slug])||Number(b.category===tool.category)-Number(a.category===tool.category)).map(x=>x.slug);
 const related=[...new Set([...(relatedPriority[slug]??[]),...relatedFallback])].filter(other=>other!==slug).slice(0,4).map(other=>toolBySlug[other as keyof typeof toolBySlug]);
