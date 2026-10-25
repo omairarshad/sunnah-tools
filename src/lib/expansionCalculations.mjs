@@ -50,7 +50,7 @@ export function dhulHijjahDays(year){
  return Array.from({length:10},(_,i)=>{
   const d=hijriToGregorian(year,12,i+1);
   return d?{day:i+1,date:d.toISOString().slice(0,10)}:null;
- }).filter(Boolean);
+ }).filter((value)=>value!==null);
 }
 export function portfolioEstimate(values,debts){
  if(!Array.isArray(values)||!values.length||values.some(x=>!Number.isFinite(x)||x<0)||!Number.isFinite(debts)||debts<0)return null;
