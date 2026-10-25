@@ -1,0 +1,149 @@
+---
+import Base from '../../layouts/Base.astro';
+import AdPlacement from '../../components/AdPlacement.astro';
+import ToolApp from '../../components/ToolApp';
+import ToolIcon from '../../components/ToolIcon.astro';
+import {toneForSlug} from '../../data/toolTones';
+import {tools,toolBySlug} from '../../data/tools';
+import {guides} from '../../data/guides';
+import {toolSeo} from '../../data/toolSeo';
+import {toolTopicBySlug} from '../../data/toolTopics';
+export function getStaticPaths(){return tools.map(tool=>({params:{slug:tool.slug}}))}
+const slug=Astro.params.slug as keyof typeof toolBySlug;
+const tool=toolBySlug[slug];
+const guide=guides[slug];
+const seo=toolSeo[slug];
+if(!seo)throw new Error(`Missing unique SEO entry for ${slug}`);
+const faqItems=[{question:guide.question,answer:guide.answer},...seo.faqs];
+const faqSchema={'@context':'https://schema.org','@type':'FAQPage',mainEntity:faqItems.map(item=>({'@type':'Question',name:item.question,acceptedAnswer:{'@type':'Answer',text:item.answer}}))};
+// Static hosting: publish a labelled UTC snapshot in HTML; the browser refreshes the local civil date.
+const renderedAt=new Date();
+const renderedDate=renderedAt.toISOString().slice(0,10);
+const renderedHijriRaw=new Intl.DateTimeFormat('en-GB-u-ca-islamic-umalqura',{timeZone:'UTC',day:'numeric',month:'long',year:'numeric'}).format(renderedAt);
+const renderedHijri=/\bAH\b/i.test(renderedHijriRaw)?renderedHijriRaw:renderedHijriRaw+' AH';
+const enrichedDescription=seo.description;
+const guideLinks:Record<string,{url:string;label:string}>={
+ prayer:{url:'/guides/prayer-time-methods/',label:'How are prayer times calculated?'},
+ ramadan:{url:'/guides/ramadan-dates-and-timetables/',label:'Ramadan dates and reliable fasting timetables'},
+ dates:{url:'/guides/hijri-calendar-and-moon-sighting/',label:'Hijri calendars and local moon sighting'},
+ zakat:{url:'/guides/zakat-nisab-and-fitrana/',label:'How Zakat, Nisab and Fitrana differ'},
+ everyday:{url:'/guides/using-islamic-planning-tools/',label:'Making the most of Islamic planning tools'}
+};
+const guidePriorities:Record<string,string[]>={
+ 'hijri-converter':['dates','ramadan'],
+ 'white-days-calendar':['dates','ramadan'],
+ 'islamic-events-calendar':['dates','ramadan'],
+ 'printable-hijri-calendar':['dates','ramadan'],
+ 'ramadan-countdown':['ramadan','dates'],
+ 'prayer-times':['prayer','ramadan'],
+ 'fasting-times':['ramadan','prayer'],
+ 'ramadan-timetable':['ramadan','prayer'],
+ 'zakat-calculator':['zakat'],
+ 'fitrana-calculator':['zakat'],
+ 'laylatul-qadr-nights':['ramadan','dates'],
+ 'fidya-calculator':['zakat','ramadan'],
+ 'qada-prayer-calculator':['prayer','everyday'],
+ 'qurbani-share-calculator':['everyday','zakat'],
+ 'kaffarah-calculator':['zakat','ramadan'],
+ 'tawaf-sai-counter':['everyday']
+};
+const relatedGuides=[...new Set(guidePriorities[slug]??[toolTopicBySlug[slug]])].map(key=>guideLinks[key]).filter(Boolean);
+const relatedPriority:Record<string,string[]>={
+ 'prayer-times':['qibla-finder','tahajjud-time','prayer-times-widget','fasting-times'],
+ 'qibla-finder':['prayer-times','tahajjud-time','hijri-converter','prayer-times-widget'],
+ 'hijri-converter':['islamic-events-calendar','printable-hijri-calendar','ramadan-countdown','white-days-calendar'],
+ 'tahajjud-time':['prayer-times','qibla-finder','printable-prayer-chart','prayer-times-widget'],
+ 'fasting-times':['ramadan-timetable','prayer-times','ramadan-countdown','white-days-calendar'],
+ 'ramadan-timetable':['fasting-times','laylatul-qadr-nights','ramadan-countdown','white-days-calendar'],
+ 'ramadan-countdown':['laylatul-qadr-nights','ramadan-timetable','fasting-times','islamic-events-calendar'],
+ 'white-days-calendar':['hijri-converter','islamic-events-calendar','printable-hijri-calendar','fasting-tracker'],
+ 'zakat-calculator':['gold-zakat-calculator','nisab-calculator','fitrana-calculator','hijri-converter'],
+ 'fitrana-calculator':['fidya-calculator','kaffarah-calculator','zakat-calculator','ramadan-timetable'],
+ 'gold-zakat-calculator':['zakat-calculator','nisab-calculator','fitrana-calculator','hijri-converter'],
+ 'islamic-events-calendar':['hijri-converter','printable-hijri-calendar','white-days-calendar','ramadan-countdown'],
+ 'printable-hijri-calendar':['hijri-converter','islamic-events-calendar','white-days-calendar','islamic-age'],
+ 'laylatul-qadr-nights':['ramadan-timetable','ramadan-countdown','fasting-times','white-days-calendar'],
+ 'fidya-calculator':['kaffarah-calculator','fitrana-calculator','fasting-tracker','zakat-calculator'],
+ 'qada-prayer-calculator':['salah-tracker','printable-prayer-chart','prayer-times','tahajjud-time'],
+ 'qurbani-share-calculator':['umrah-packing-checklist','nisab-calculator','islamic-events-calendar','zakat-calculator'],
+ 'kaffarah-calculator':['fidya-calculator','fasting-tracker','fitrana-calculator','ramadan-timetable'],
+ 'tawaf-sai-counter':['umrah-packing-checklist','qibla-finder','prayer-times','tasbih-counter'],
+ 'salah-tracker':['qada-prayer-calculator','printable-prayer-chart','prayer-times','tahajjud-time'],
+ 'umrah-packing-checklist':['tawaf-sai-counter','qurbani-share-calculator','qibla-finder','prayer-times']
+};
+const relatedFallback=tools.filter(x=>x.slug!==slug).sort((a,b)=>Number(toolTopicBySlug[b.slug]===toolTopicBySlug[slug])-Number(toolTopicBySlug[a.slug]===toolTopicBySlug[slug])||Number(b.category===tool.category)-Number(a.category===tool.category)).map(x=>x.slug);
+const related=[...new Set([...(relatedPriority[slug]??[]),...relatedFallback])].filter(other=>other!==slug).slice(0,4).map(other=>toolBySlug[other as keyof typeof toolBySlug]);
+const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'All Islamic tools',item:'https://sunnah.tools/'},{'@type':'ListItem',position:2,name:tool.name,item:`https://sunnah.tools/tools/${slug}/`}]};
+---
+<Base title={seo.title} description={enrichedDescription}>
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumb)}/>
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)}/>
+<script type="application/ld+json" set:html={JSON.stringify({'@context':'https://schema.org','@type':'WebApplication',name:seo.title,description:enrichedDescription,url:`https://sunnah.tools/tools/${slug}/`,applicationCategory:'UtilitiesApplication',operatingSystem:'Web browser',offers:{'@type':'Offer',price:'0',priceCurrency:'GBP'}})}/>
+<section class="tool-screen" data-tone={toneForSlug(slug)}>
+ <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/#tools">All tools</a><span aria-hidden="true">›</span><span>{tool.category}</span><span aria-hidden="true">›</span><span aria-current="page">{tool.name}</span></nav>
+ <div class="tool-topline">
+  <div class="tool-titles">
+   <div class="tool-heading-identity"><span class="tool-heading-icon"><ToolIcon slug={slug} size={30}/></span></div>
+   <h1>{seo.h1}</h1><p class="tool-lead">{guide.intro}</p>
+  </div>
+  <div class="tool-actions">
+   <button id="save-current-tool" type="button" class="tool-action" data-slug={slug} aria-pressed="false" aria-label="Save this tool to favourites"><span aria-hidden="true">☆</span> Save</button>
+   <button id="share-current-tool" type="button" class="tool-action" aria-label="Share or copy this tool's link"><span aria-hidden="true">↗</span> Share</button>
+  </div>
+ </div>
+ <div class="tool-layout">
+  <div class="tool-main">
+   {slug==='hijri-converter'&&<div class="today-hijri" aria-live="polite"><strong>Today’s Hijri date</strong><p id="today-hijri-value">{renderedHijri} (calculated)</p><small id="today-hijri-note">Calculated for {renderedDate} (UTC) using Umm al-Qura. Local moon sighting and sunset may give a different date.</small></div>}
+   <section aria-label={tool.name} class="tool-panel">
+    <div class="tool-inner"><ToolApp slug={slug} client:only="react"/></div>
+   </section>
+   {slug==='prayer-times'&&<p class="small"><a href="/prayer-times/">Browse city-specific prayer times</a> — select a major city or use the calculator above for any location.</p>}
+   <section class="explainer seo-explainer" id="how-it-works" aria-labelledby="how-label">
+    <div class="section-label"><h2 id="how-label">How to use {tool.name}</h2></div>
+    <p>{seo.summary}</p><p>{seo.details}</p>
+    <h3>How it works</h3><p>{guide.method}</p>
+    <h3>What to check</h3><p>{seo.caution}</p>
+    {guide.source&&<p class="source-note">Reference: <a href={guide.source.url} target="_blank" rel="noopener noreferrer">{guide.source.label}<span aria-hidden="true"> ↗</span></a></p>}
+   </section>
+   <section class="explainer" aria-labelledby="faq-label">
+    <div class="section-label"><h2 id="faq-label">Common questions</h2></div>
+    {faqItems.map(({question,answer})=><details class="faq-detail"><summary>{question}<span class="plus-symbol" aria-hidden="true">+</span></summary><p>{answer}</p></details>)}
+   </section>
+   <section class="explainer" aria-labelledby="related-guides-label">
+    <div class="section-label"><h2 id="related-guides-label">Related guides</h2></div>
+    <ul class="related-guide-list">{relatedGuides.map(item=><li><a href={item.url}>{item.label} <span aria-hidden="true">→</span></a></li>)}</ul>
+   </section>
+   
+   <AdPlacement placement="tool"/>
+  </div>
+  <aside class="tool-aside" aria-label="Other useful Islamic tools">
+    <div class="aside-title"><h2>Related tools</h2></div>
+    <div class="aside-list">{related.map(other=><a href={`/tools/${other.slug}/`} class="aside-link" data-tone={toneForSlug(other.slug)}><span class="aside-icon"><ToolIcon slug={other.slug} size={21}/></span><span><strong>{other.name}</strong><small>{other.category}</small></span><span aria-hidden="true">↗</span></a>)}</div>
+    
+  </aside>
+ </div>
+ <section class="related mobile-related"><div class="section-label"><h2>Explore more tools</h2></div><div class="related-links">{related.map(other=><a href={`/tools/${other.slug}/`}>{other.name}<span aria-hidden="true">↗</span></a>)}</div></section>
+ <p id="share-feedback" class="sr-only" role="status" aria-live="polite"></p>
+</section>
+</Base>
+<script>
+ const todayDate=document.querySelector<HTMLElement>('#today-hijri-value');
+ const todayNote=document.querySelector<HTMLElement>('#today-hijri-note');
+ if(todayDate){try{
+  const formatter=new Intl.DateTimeFormat('en-GB-u-ca-islamic-umalqura',{day:'numeric',month:'long',year:'numeric'});
+  const formatted=formatter.format(new Date());
+  todayDate.textContent=(/\bAH\b/i.test(formatted)?formatted:formatted+' AH')+' (calculated)';
+  if(todayNote)todayNote.textContent="The date is calculated using Umm al-Qura. Local moon sighting and sunset may give a different date.";
+ }catch{todayDate.textContent='Use the date converter to check the current Hijri date.'}}
+ const save=document.querySelector<HTMLButtonElement>('#save-current-tool');
+ const share=document.querySelector<HTMLButtonElement>('#share-current-tool');
+ const feedback=document.querySelector<HTMLElement>('#share-feedback');
+ const key='sunnah-favorite-tools-v1';
+ const slug=save?.dataset.slug??'';
+ const get=():string[]=>{try{const data=JSON.parse(localStorage.getItem(key)??'[]');return Array.isArray(data)?data.filter((s:unknown)=>typeof s==='string') as string[]:[]}catch{return []}};
+ function update(){if(!save)return;const active=get().includes(slug);save.innerHTML=(active?'★ Saved':'☆ Save');save.setAttribute('aria-pressed',String(active));save.setAttribute('aria-label',active?'Remove this tool from favourites':'Save this tool to favourites')}
+ save?.addEventListener('click',()=>{const current=get();try{localStorage.setItem(key,JSON.stringify(current.includes(slug)?current.filter(x=>x!==slug):[...current,slug]))}catch{}update()});
+ share?.addEventListener('click',async()=>{const url=window.location.href;try{if(navigator.share){await navigator.share({title:document.title,url});if(feedback)feedback.textContent='Sharing options opened'}else if(navigator.clipboard){await navigator.clipboard.writeText(url);if(feedback)feedback.textContent='Link copied';share.textContent='✓ Copied'}else{if(feedback)feedback.textContent='Copy the URL from your browser address bar'}}catch(e){if(feedback)feedback.textContent='Share cancelled or unavailable'}});
+ try{const recentKey='sunnah-recent-tools-v1';const recents=JSON.parse(localStorage.getItem(recentKey)??'[]');const safe=Array.isArray(recents)?recents.filter((s:unknown)=>typeof s==='string'&&s!==slug) as string[]:[];localStorage.setItem(recentKey,JSON.stringify([slug,...safe].slice(0,4)))}catch{}
+ update();
+</script>

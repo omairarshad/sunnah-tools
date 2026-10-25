@@ -1,0 +1,138 @@
+name: Build static site for Hostinger
+
+on:
+  push:
+    branches:
+      - feature/initial-site-and-tools
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: hostinger-live-publish
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out website source
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Prepare world city directory from GeoNames
+        run: npm run prepare:cities
+
+      - name: Prepare AdSense seller authorisation file when configured
+        env:
+          PUBLIC_ADSENSE_PUBLISHER_ID: ${{ vars.ADSENSE_PUBLISHER_ID }}
+        run: npm run prepare:ads
+
+      - name: Run calculation tests
+        run: npm test
+
+      - name: Type-check Astro and React
+        run: npm run check
+
+      - name: Stamp public release with exact source commit
+        run: node scripts/write-release-marker.mjs
+
+      - name: Generate static website
+        env:
+          PUBLIC_ADSENSE_PUBLISHER_ID: ${{ vars.ADSENSE_PUBLISHER_ID }}
+          PUBLIC_ADSENSE_ADS_ENABLED: ${{ vars.ADSENSE_ADS_ENABLED }}
+          PUBLIC_ADSENSE_CMP_READY: ${{ vars.ADSENSE_CMP_READY }}
+          PUBLIC_ADSENSE_HOME_SLOT: ${{ vars.ADSENSE_HOME_SLOT }}
+          PUBLIC_ADSENSE_TOOL_SLOT: ${{ vars.ADSENSE_TOOL_SLOT }}
+          PUBLIC_GA4_MEASUREMENT_ID: ${{ vars.GA4_MEASUREMENT_ID }}
+          PUBLIC_GA4_ENABLED: ${{ vars.GA4_ENABLED }}
+          PUBLIC_LOOKER_STUDIO_REPORT_URL: ${{ vars.LOOKER_STUDIO_REPORT_URL }}
+        run: npm run build
+
+      - name: Audit generated interface and every tool route
+        run: node scripts/audit-site.mjs
+
+      - name: Ensure server cache policy is included
+        shell: bash
+        run: |
+          cp public/.htaccess dist/.htaccess
+          test -s dist/release.json
+          test -s dist/.htaccess
+          grep -q 'illustrated-37-tools' dist/release.json
+
+      - name: Check deployable homepage exists
+        shell: bash
+        run: |
+          test -s dist/index.html
+          test $(grep -o 'class="tool-card-visual"' dist/index.html | wc -l) -eq 37
+          ! grep -q 'class="tool-card-icon"' dist/index.html
+          test -s dist/tool-art/prayer-times.svg
+          test -s dist/tool-art/umrah-packing-checklist.svg
+          test -s dist/tools/prayer-times/index.html
+          test -s dist/tools/zakat-calculator/index.html
+          test -s dist/tools/gold-zakat-calculator/index.html
+          test -s dist/tools/fasting-times/index.html
+          test -s dist/tools/islamic-events-calendar/index.html
+          test -s dist/tools/printable-prayer-chart/index.html
+          test -s dist/data/cities.json
+          test $(wc -c < dist/data/cities.json) -gt 900000
+          grep -q 'Europe/London' dist/data/cities.json
+          test -s dist/admin/index.html
+          test -s dist/tools/white-days-calendar/index.html
+          test -s dist/tools/printable-hijri-calendar/index.html
+          test -s dist/tools/prayer-times-widget/index.html
+          test -s dist/tools/umrah-packing-checklist/index.html
+          test -s dist/embed/prayer-times/index.html
+          test -s dist/sitemap-0.xml
+          grep -q 'white-days-calendar' dist/sitemap-0.xml
+          grep -q 'printable-hijri-calendar' dist/sitemap-0.xml
+          grep -q 'prayer-times-widget' dist/sitemap-0.xml
+          grep -q 'umrah-packing-checklist' dist/sitemap-0.xml
+          grep -q 'gold-zakat-calculator' dist/sitemap-0.xml
+          grep -q 'fasting-times' dist/sitemap-0.xml
+          grep -q 'islamic-events-calendar' dist/sitemap-0.xml
+          grep -q 'printable-prayer-chart' dist/sitemap-0.xml
+          test -f dist/robots.txt
+          for slug in laylatul-qadr-nights fidya-calculator qada-prayer-calculator qurbani-share-calculator kaffarah-calculator tawaf-sai-counter; do
+            test -s "dist/tools/$slug/index.html"
+            test -s "dist/tool-art/$slug.svg"
+            grep -q "$slug" dist/sitemap-0.xml
+          done
+          for slug in prayer-rakats-chart daily-adhkar halal-additives-checker zakat-anniversary-calculator dhul-hijjah-planner travel-prayer-guide quran-juz-finder zakat-stocks-crypto hifz-tracker; do
+            test -s "dist/tools/$slug/index.html"
+            test -s "dist/tool-art/$slug.svg"
+            grep -q "$slug" dist/sitemap-0.xml
+          done
+          for city in london birmingham manchester bradford leicester leeds newcastle glasgow edinburgh cardiff makkah karachi dubai toronto new-york; do
+            test -s "dist/prayer-times/$city/index.html"
+            grep -q "/prayer-times/$city/" dist/sitemap-0.xml
+          done
+
+      - name: Publish generated files to Hostinger branch
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          cd dist
+          git init --initial-branch=hostinger-live
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m "site: static build from ${GITHUB_SHA}"
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git push --force origin HEAD:refs/heads/hostinger-live
+
+      - name: Verify public Hostinger site isn't serving stale UI
+        continue-on-error: true
+        env:
+          SUNNAH_PUBLIC_SITE: https://sunnah.tools
+        run: node scripts/check-public-deployment.mjs

@@ -1,0 +1,29 @@
+---
+import Base from '../../layouts/Base.astro';
+import CityPrayerTable from '../../components/CityPrayerTable';
+import {cityPrayerPages} from '../../data/cityPrayerPages';
+import type {CityPrayerPage} from '../../data/cityPrayerPages';
+export function getStaticPaths(){return cityPrayerPages.map(city=>({params:{city:city.slug},props:{city}}))}
+const {city}=Astro.props as {city:CityPrayerPage};
+const other=cityPrayerPages.filter(x=>x.slug!==city.slug).slice(0,8);
+const title='Prayer Times in '+city.name+' – Fajr to Isha';
+const description='See calculated Fajr, sunrise, Dhuhr, Asr, Maghrib and Isha in '+city.name+', '+city.region+'. Choose a method, review seven days and compare your mosque’s timetable.';
+const schema={'@context':'https://schema.org','@type':'WebPage',name:title,description,about:{'@type':'City',name:city.name},url:'https://sunnah.tools/prayer-times/'+city.slug+'/'};
+---
+<Base title={title} description={description}>
+ <script type="application/ld+json" set:html={JSON.stringify(schema)}/>
+ <section class="tool-screen city-prayer-page">
+ <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">All tools</a><span aria-hidden="true">›</span><a href="/prayer-times/">Prayer times by city</a><span aria-hidden="true">›</span><span aria-current="page">{city.name}</span></nav>
+ <div class="tool-topline"><div class="tool-titles"><h1>Prayer times in {city.name}</h1><p class="tool-lead">{city.note}</p></div></div>
+ <div class="tool-layout"><div class="tool-main">
+  <section class="tool-panel" aria-label={'Calculated prayer times in '+city.name}><div class="tool-inner"><CityPrayerTable city={city} client:only="react"/></div></section>
+  <section class="explainer seo-explainer">
+   <h2>How the {city.name} times are calculated</h2>
+   <p>We calculate times for {city.name}, {city.region}, near {city.lat.toFixed(3)}° latitude and {city.lon.toFixed(3)}° longitude. The default calculation convention is {city.method==='makkah'?'Umm al-Qura':city.method==='karachi'?'Karachi':city.method==='dubai'?'Dubai':city.method==='na'?'North America / ISNA':'Muslim World League'}, which you can change. Your browser calculates the current local date, including daylight-saving changes where applicable.</p>
+   <h3>Why times can differ</h3><p>Prayer schedules vary when mosques use different Fajr or Isha angles, local corrections or a different Asr school. Calculated starts are not the same as jamaat/iqamah times. Check your chosen convention against your local mosque.</p>
+   <h3>For Ramadan in {city.name}</h3><p>Fajr is often used to check the start of fasting and Maghrib to check iftar. Confirm your fasting calendar and the first day of Ramadan with an appropriate local authority, since lunar dates can differ.</p>
+   <p><a href="/guides/prayer-time-methods/">How prayer calculation methods work</a> · <a href="/tools/ramadan-timetable/">Make a Ramadan timetable</a></p>
+  </section>
+ </div><aside class="tool-aside"><h2>Other cities</h2><ul>{other.map(otherCity=><li><a href={'/prayer-times/'+otherCity.slug+'/'}>Prayer times in {otherCity.name}</a></li>)}</ul><p><a href="/prayer-times/">See all cities</a></p></aside></div>
+ </section>
+</Base>

@@ -1,0 +1,21 @@
+name: Verify Sunnah Tools
+on:
+  push:
+    branches: [main, 'feature/**', 'fix/**']
+  pull_request:
+    branches: [main]
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-audit --no-fund
+      - run: npm run prepare:cities
+      - run: npm run prepare:ads
+      - run: npm test
+      - run: npm run check
+      - run: npm run build
+      - run: node scripts/audit-site.mjs

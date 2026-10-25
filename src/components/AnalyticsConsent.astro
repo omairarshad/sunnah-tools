@@ -1,0 +1,58 @@
+---
+import {siteAnalytics} from '../lib/siteAnalytics';
+const active=siteAnalytics.enabled;
+const measurementId=siteAnalytics.id;
+---
+{active&&<div id="analytics-consent" class="analytics-consent" hidden role="region" aria-label="Optional analytics preferences">
+ <div><strong>Analytics preferences</strong><p>Allow optional analytics to help us see how the site is used? Nothing is tracked unless you agree. Read our <a href="/privacy/">privacy policy</a>.</p></div>
+ <div class="consent-actions"><button type="button" id="analytics-no">No thanks</button><button type="button" id="analytics-yes">Allow analytics</button></div>
+</div>}
+{active&&<script define:vars={{measurementId}} is:inline>
+(function(){
+ const choiceKey='sunnah-analytics-choice-v1';
+ let consent=false,loaded=false,searchTracked=false;
+ const popup=document.getElementById('analytics-consent');
+ const launcher=document.getElementById('analytics-preferences');
+ const show=()=>{if(popup)popup.hidden=false;};
+ const hide=()=>{if(popup)popup.hidden=true;};
+ let choice=null;
+ try{choice=localStorage.getItem(choiceKey)}catch{}
+ function gtag(){window.dataLayer=window.dataLayer||[];window.dataLayer.push(arguments);}
+ function activate(){
+  if(loaded)return;loaded=true;consent=true;
+  gtag('consent','default',{analytics_storage:'granted',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});
+  gtag('js',new Date());gtag('config',measurementId,{send_page_view:true});
+  const script=document.createElement('script');script.async=true;
+  script.src='https://www.googletagmanager.com/gtag/js?id='+encodeURIComponent(measurementId);
+  document.head.appendChild(script);
+ }
+ function update(value){
+  consent=value==='yes';
+  try{localStorage.setItem(choiceKey,value)}catch{}
+  hide();if(consent)activate();
+  else if(loaded){gtag('consent','update',{analytics_storage:'denied'});}
+ }
+ if(choice==='yes')activate();
+ if(choice!=='yes'&&choice!=='no')show();
+ document.getElementById('analytics-yes')?.addEventListener('click',()=>update('yes'));
+ document.getElementById('analytics-no')?.addEventListener('click',()=>update('no'));
+ launcher?.addEventListener('click',()=>show());
+ window.sunnahTrack=function(name,params){
+  if(!consent||!loaded||!/^([a-z][a-z0-9_]{1,39})$/.test(name))return;
+  gtag('event',name,params||{});
+ };
+ document.addEventListener('click',function(event){
+  const target=event.target;
+  if(!(target instanceof Element))return;
+  const promo=target.closest('[data-promo-id]');
+  if(promo){window.sunnahTrack('promotion_click',{promotion_id:promo.getAttribute('data-promo-id')||'unknown'});return;}
+  const tool=target.closest('a[href^="/tools/"]');
+  if(tool){const slug=(tool.getAttribute('href')||'').split('/')[2];if(slug)window.sunnahTrack('tool_open',{tool_slug:slug});return;}
+  const saved=target.closest('[data-favorite]');
+  if(saved){window.sunnahTrack('favorite_toggle',{tool_slug:saved.getAttribute('data-favorite')||'unknown'});}
+ });
+ document.getElementById('tool-search-input')?.addEventListener('input',function(){
+  if(!searchTracked&&this.value.trim().length>=2){searchTracked=true;window.sunnahTrack('tool_search_used',{});}
+ });
+})();
+</script>}

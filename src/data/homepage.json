@@ -1,0 +1,404 @@
+{
+  "intro": {
+    "enabled": true,
+    "eyebrow": "",
+    "headline": "Islamic tools for everyday life",
+    "emphasis": "",
+    "description": "Find prayer times, convert Hijri dates, calculate Zakat and plan Ramadan."
+  },
+  "promotions": {
+    "enabled": true,
+    "eyebrow": "",
+    "title": "More from us",
+    "subtitle": "",
+    "cards": [
+      {
+        "id": "arabic-alphabet",
+        "enabled": true,
+        "featured": true,
+        "type": "Arabic lessons",
+        "title": "Learn the Arabic Alphabet",
+        "description": "Practise Arabic letters with interactive flashcards, helpful word examples and audio pronunciation. A friendly way to build recognition and confidence.",
+        "cta": "Start learning Arabic",
+        "url": "https://www.arabicalphabet.app/",
+        "tone": "blue",
+        "image": "/media/brands/arabic-alphabet.svg",
+        "imageAlt": "Arabic Alphabet colourful learning flashcards illustration"
+      },
+      {
+        "id": "islamreact",
+        "enabled": true,
+        "featured": false,
+        "type": "Videos",
+        "title": "IslamReact on YouTube",
+        "description": "Watch thoughtful reactions to Quran recitations and Islamic teachings, with real conversations and reflections.",
+        "cta": "Watch IslamReact",
+        "url": "https://www.youtube.com/@IslamReact",
+        "tone": "violet",
+        "image": "/media/brands/islamreact.svg",
+        "imageAlt": "IslamReact video and channel banner illustration"
+      },
+      {
+        "id": "meemandmoon",
+        "enabled": true,
+        "featured": false,
+        "type": "Gifts",
+        "title": "Meem & Moon",
+        "description": "Explore cute Islamic stickers, enamel pins, cards, bookmarks and gifts made for everyday joy.",
+        "cta": "Explore Islamic merch",
+        "url": "https://meemandmoon.com/",
+        "tone": "coral",
+        "image": "/media/brands/meemandmoon.svg",
+        "imageAlt": "Meem & Moon pastel Islamic gifts illustrated banner"
+      }
+    ]
+  },
+  "directory": {
+    "title": "Browse tools",
+    "description": "",
+    "columns": 6,
+    "cards": [
+      {
+        "slug": "prayer-times",
+        "title": "Prayer Times",
+        "description": "Find Fajr, Dhuhr, Asr, Maghrib and Isha for your location.",
+        "tone": "teal",
+        "enabled": true,
+        "image": "/tool-art/prayer-times.svg",
+        "imageAlt": "A mosque at the hours of daily prayer, with a clear clock face"
+      },
+      {
+        "slug": "qibla-finder",
+        "title": "Qibla Finder",
+        "description": "Calculate the direction of the Kaaba from anywhere.",
+        "tone": "blue",
+        "enabled": true,
+        "image": "/tool-art/qibla-finder.svg",
+        "imageAlt": "A compass needle pointing to the Kaaba"
+      },
+      {
+        "slug": "hijri-converter",
+        "title": "Hijri Date Converter",
+        "description": "Check the Islamic date for a Gregorian date.",
+        "tone": "teal",
+        "enabled": true,
+        "image": "/tool-art/hijri-converter.svg",
+        "imageAlt": "Side-by-side Gregorian and Hijri calendars with exchange arrows"
+      },
+      {
+        "slug": "tahajjud-time",
+        "title": "Tahajjud Time Calculator",
+        "description": "See when the final third of the night begins.",
+        "tone": "violet",
+        "enabled": true,
+        "image": "/tool-art/tahajjud-time.svg",
+        "imageAlt": "A night sky, crescent moon and prayer mat"
+      },
+      {
+        "slug": "printable-prayer-chart",
+        "title": "Printable Prayer Chart",
+        "description": "Print a 7, 14 or 30-day Salah checklist.",
+        "tone": "blue",
+        "enabled": true,
+        "image": "/tool-art/printable-prayer-chart.svg",
+        "imageAlt": "A printed prayer tracking checklist on a clipboard"
+      },
+      {
+        "slug": "prayer-times-widget",
+        "title": "Prayer Times Website Widget",
+        "description": "Create an embeddable timetable for a mosque or community site.",
+        "tone": "indigo",
+        "enabled": true,
+        "image": "/tool-art/prayer-times-widget.svg",
+        "imageAlt": "Computer screen with an embeddable prayer timetable"
+      },
+      {
+        "slug": "salah-tracker",
+        "title": "Daily Salah Tracker",
+        "description": "Tick off your five daily prayers privately.",
+        "tone": "emerald",
+        "enabled": true,
+        "image": "/tool-art/salah-tracker.svg",
+        "imageAlt": "Five labelled daily Salah tracker boxes with progress marks"
+      },
+      {
+        "slug": "qada-prayer-calculator",
+        "title": "Missed Salah (Qada) Calculator",
+        "description": "Estimate and privately track make-up prayers.",
+        "tone": "teal",
+        "enabled": true,
+        "image": "/tool-art/qada-prayer-calculator.svg",
+        "imageAlt": "Prayer mat and individual Salah progress checklist"
+      },
+      {
+        "slug": "prayer-rakats-chart",
+        "title": "Prayer Rakats Chart",
+        "description": "Check the obligatory rakats in each daily prayer and print a reference chart.",
+        "tone": "blue",
+        "enabled": true,
+        "image": "/tool-art/prayer-rakats-chart.svg",
+        "imageAlt": "Low-poly illustration representing prayer rakats chart with a clear geometric symbol"
+      },
+      {
+        "slug": "travel-prayer-guide",
+        "title": "Travel Prayer (Qasr) Guide",
+        "description": "Compare common Qasr prayer rules and record your travel details.",
+        "tone": "teal",
+        "enabled": true,
+        "image": "/tool-art/travel-prayer-guide.svg",
+        "imageAlt": "Low-poly illustration representing travel prayer (qasr) guide with a clear geometric symbol"
+      },
+      {
+        "slug": "fasting-times",
+        "title": "Suhoor & Iftar Times",
+        "description": "See calculated fasting start, iftar and the next countdown.",
+        "tone": "amber",
+        "enabled": true,
+        "image": "/tool-art/fasting-times.svg",
+        "imageAlt": "Sunset dates, a drinking cup and a plate for Suhoor and Iftar"
+      },
+      {
+        "slug": "ramadan-timetable",
+        "title": "Ramadan Timetable",
+        "description": "Generate and print Fajr and Maghrib timings.",
+        "tone": "coral",
+        "enabled": true,
+        "image": "/tool-art/ramadan-timetable.svg",
+        "imageAlt": "Ramadan calendar with marked fasting dates and prayer-time row"
+      },
+      {
+        "slug": "ramadan-countdown",
+        "title": "Ramadan Countdown",
+        "description": "Count down to an estimated first day of Ramadan.",
+        "tone": "rose",
+        "enabled": true,
+        "image": "/tool-art/ramadan-countdown.svg",
+        "imageAlt": "Flip-clock digits and a crescent showing a Ramadan countdown"
+      },
+      {
+        "slug": "laylatul-qadr-nights",
+        "title": "Laylatul Qadr Odd Nights",
+        "description": "Find the 21st to 29th Ramadan nights.",
+        "tone": "violet",
+        "enabled": true,
+        "image": "/tool-art/laylatul-qadr-nights.svg",
+        "imageAlt": "Crescent above a Ramadan night calendar with five stars"
+      },
+      {
+        "slug": "white-days-calendar",
+        "title": "White Days Fasting Calendar",
+        "description": "See the upcoming 13th–15th Hijri dates and export reminders.",
+        "tone": "violet",
+        "enabled": true,
+        "image": "/tool-art/white-days-calendar.svg",
+        "imageAlt": "Three crescent-moon dates marked 13, 14 and 15"
+      },
+      {
+        "slug": "fasting-tracker",
+        "title": "Fasting Tracker",
+        "description": "Track completed and remaining make-up fasts.",
+        "tone": "mint",
+        "enabled": true,
+        "image": "/tool-art/fasting-tracker.svg",
+        "imageAlt": "Calendar with four checked fasting days and pending dates"
+      },
+      {
+        "slug": "zakat-calculator",
+        "title": "Zakat Calculator",
+        "description": "Estimate Zakat on savings, gold and investments.",
+        "tone": "emerald",
+        "enabled": true,
+        "image": "/tool-art/zakat-calculator.svg",
+        "imageAlt": "A wallet, gold coin and 2.5 percent Zakat symbol"
+      },
+      {
+        "slug": "fitrana-calculator",
+        "title": "Fitrana Calculator",
+        "description": "Estimate Zakat al-Fitr for your household using a verified local rate.",
+        "tone": "coral",
+        "enabled": true,
+        "image": "/tool-art/fitrana-calculator.svg",
+        "imageAlt": "Staple-food sack, bowl of rice and a giving heart"
+      },
+      {
+        "slug": "gold-zakat-calculator",
+        "title": "Gold Zakat Calculator",
+        "description": "Estimate the value of 9k–24k gold and conditional Zakat.",
+        "tone": "amber",
+        "enabled": true,
+        "image": "/tool-art/gold-zakat-calculator.svg",
+        "imageAlt": "Gold bars and a gold ring"
+      },
+      {
+        "slug": "nisab-calculator",
+        "title": "Nisab Calculator",
+        "description": "Compare the gold and silver wealth thresholds.",
+        "tone": "violet",
+        "enabled": true,
+        "image": "/tool-art/nisab-calculator.svg",
+        "imageAlt": "Balanced scale comparing gold and silver"
+      },
+      {
+        "slug": "fidya-calculator",
+        "title": "Fidya Calculator",
+        "description": "Estimate Fidya for eligible missed fasts at a verified rate.",
+        "tone": "emerald",
+        "enabled": true,
+        "image": "/tool-art/fidya-calculator.svg",
+        "imageAlt": "Food parcel and donation coins"
+      },
+      {
+        "slug": "kaffarah-calculator",
+        "title": "Kaffarah Calculator",
+        "description": "Explore conditional oath and Ramadan expiation costs.",
+        "tone": "coral",
+        "enabled": true,
+        "image": "/tool-art/kaffarah-calculator.svg",
+        "imageAlt": "A geometric charity food parcel with a bowl of food and ten decorative circles"
+      },
+      {
+        "slug": "zakat-anniversary-calculator",
+        "title": "Zakat Anniversary Calculator",
+        "description": "Find an approximate one-lunar-year anniversary for Zakat planning.",
+        "tone": "emerald",
+        "enabled": true,
+        "image": "/tool-art/zakat-anniversary-calculator.svg",
+        "imageAlt": "Low-poly illustration representing zakat anniversary calculator with a clear geometric symbol"
+      },
+      {
+        "slug": "zakat-stocks-crypto",
+        "title": "Stocks & Crypto Zakat Estimate",
+        "description": "Review a conditional Zakat estimate for shares and cryptocurrency.",
+        "tone": "coral",
+        "enabled": true,
+        "image": "/tool-art/zakat-stocks-crypto.svg",
+        "imageAlt": "Low-poly illustration representing stocks & crypto zakat estimate with a clear geometric symbol"
+      },
+      {
+        "slug": "islamic-events-calendar",
+        "title": "Islamic Events Calendar",
+        "description": "Explore estimated dates for Ramadan, Eid, Ashura and Hajj.",
+        "tone": "blue",
+        "enabled": true,
+        "image": "/tool-art/islamic-events-calendar.svg",
+        "imageAlt": "Islamic events calendar with Eid and Hajj dates"
+      },
+      {
+        "slug": "printable-hijri-calendar",
+        "title": "Printable Hijri Calendar",
+        "description": "Create an Islamic monthly calendar to print or save as PDF.",
+        "tone": "amber",
+        "enabled": true,
+        "image": "/tool-art/printable-hijri-calendar.svg",
+        "imageAlt": "A printer producing a Hijri calendar sheet"
+      },
+      {
+        "slug": "islamic-age",
+        "title": "Islamic Age Calculator",
+        "description": "Find your age in Islamic lunar years.",
+        "tone": "rose",
+        "enabled": true,
+        "image": "/tool-art/islamic-age.svg",
+        "imageAlt": "Birthday calendar with a lunar year age badge"
+      },
+      {
+        "slug": "dhul-hijjah-planner",
+        "title": "Dhul Hijjah & Arafah Dates",
+        "description": "See the estimated first ten days of Dhul Hijjah and Arafah date.",
+        "tone": "amber",
+        "enabled": true,
+        "image": "/tool-art/dhul-hijjah-planner.svg",
+        "imageAlt": "Low-poly illustration representing dhul hijjah & arafah dates with a clear geometric symbol"
+      },
+      {
+        "slug": "umrah-packing-checklist",
+        "title": "Hajj & Umrah Packing List",
+        "description": "Plan, tick off and print a practical journey checklist.",
+        "tone": "coral",
+        "enabled": true,
+        "image": "/tool-art/umrah-packing-checklist.svg",
+        "imageAlt": "Pilgrimage travel suitcase with an Umrah passport"
+      },
+      {
+        "slug": "tasbih-counter",
+        "title": "Digital Tasbih",
+        "description": "Count dhikr and save progress on this device.",
+        "tone": "coral",
+        "enabled": true,
+        "image": "/tool-art/tasbih-counter.svg",
+        "imageAlt": "Circular prayer beads around a digital dhikr count"
+      },
+      {
+        "slug": "quran-planner",
+        "title": "Quran Reading Planner",
+        "description": "Plan your daily reading to finish the Quran.",
+        "tone": "indigo",
+        "enabled": true,
+        "image": "/tool-art/quran-planner.svg",
+        "imageAlt": "Open Quran with bookmark and reading checklist"
+      },
+      {
+        "slug": "qurbani-share-calculator",
+        "title": "Qurbani Share Calculator",
+        "description": "Split Udhiyah costs across animal shares.",
+        "tone": "amber",
+        "enabled": true,
+        "image": "/tool-art/qurbani-share-calculator.svg",
+        "imageAlt": "Seven Qurbani cost shares arranged around an animal silhouette"
+      },
+      {
+        "slug": "tawaf-sai-counter",
+        "title": "Tawaf & Sa’i Counter",
+        "description": "Count seven Tawaf circuits and Sa’i lengths.",
+        "tone": "blue",
+        "enabled": true,
+        "image": "/tool-art/tawaf-sai-counter.svg",
+        "imageAlt": "Kaaba and the seven circuits of Tawaf"
+      },
+      {
+        "slug": "daily-adhkar",
+        "title": "Quranic Duas & Adhkar",
+        "description": "Read a source-linked collection of Quranic duas with a repetition counter.",
+        "tone": "indigo",
+        "enabled": true,
+        "image": "/tool-art/daily-adhkar.svg",
+        "imageAlt": "Low-poly illustration representing quranic duas & adhkar with a clear geometric symbol"
+      },
+      {
+        "slug": "quran-juz-finder",
+        "title": "Quran Juz Finder",
+        "description": "Find the start of each of the Quran's 30 Juz.",
+        "tone": "violet",
+        "enabled": true,
+        "image": "/tool-art/quran-juz-finder.svg",
+        "imageAlt": "Low-poly illustration representing quran juz finder with a clear geometric symbol"
+      },
+      {
+        "slug": "hifz-tracker",
+        "title": "Hifz Memorisation Tracker",
+        "description": "Plan a memorisation target and record completed verses.",
+        "tone": "rose",
+        "enabled": true,
+        "image": "/tool-art/hifz-tracker.svg",
+        "imageAlt": "Low-poly illustration representing hifz memorisation tracker with a clear geometric symbol"
+      },
+      {
+        "slug": "halal-additives-checker",
+        "title": "Halal Additives Checker",
+        "description": "Look up common food E-numbers and see which sources need checking.",
+        "tone": "mint",
+        "enabled": true,
+        "image": "/tool-art/halal-additives-checker.svg",
+        "imageAlt": "Low-poly illustration representing halal additives checker with a clear geometric symbol"
+      }
+    ]
+  },
+  "layout": {
+    "sectionOrder": [
+      "promotions",
+      "directory",
+      "guides"
+    ],
+    "showGuides": true
+  }
+}

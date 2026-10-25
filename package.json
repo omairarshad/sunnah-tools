@@ -1,0 +1,32 @@
+{
+  "name": "sunnah-tools",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev --host 0.0.0.0",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "test": "node --test tests/*.test.mjs",
+    "prepare:cities": "node scripts/build-cities.mjs",
+    "prepare:ads": "node scripts/prepare-ads.mjs"
+  },
+  "dependencies": {
+    "@astrojs/react": "4.4.2",
+    "@astrojs/sitemap": "3.6.1",
+    "astro": "5.16.6",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "adhan": "4.4.6"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.4",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
+    "typescript": "~5.9.0"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

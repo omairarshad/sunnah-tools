@@ -1,0 +1,57 @@
+---
+import Base from '../../layouts/Base.astro';
+import '../../styles/font-lab.css';
+const choices=[
+ {id:'petrona-karla',name:'Petrona + Karla',badge:'Live default',tone:'A warm, independent editorial identity',description:'Petrona adds handcrafted bookish character; Karla keeps the form fields friendly and legible.',heading:'Petrona',body:'Karla',headingUrl:'https://fonts.google.com/specimen/Petrona',bodyUrl:'https://fonts.google.com/specimen/Karla'},
+ {id:'alegreya-family',name:'Alegreya + Alegreya Sans',badge:'Bookish',tone:'Literary, human and quietly traditional',description:'The Alegreya family feels like a publication, not a dashboard, without using imitation calligraphy.',heading:'Alegreya',body:'Alegreya Sans',headingUrl:'https://fonts.google.com/specimen/Alegreya',bodyUrl:'https://fonts.google.com/specimen/Alegreya+Sans'},
+ {id:'eczar-plex',name:'Eczar + IBM Plex Sans',badge:'Characterful',tone:'Expressive headings and precise utility text',description:'Eczar creates memorable headings, balanced by IBM Plex Sans in numbers and interactive controls.',heading:'Eczar',body:'IBM Plex Sans',headingUrl:'https://fonts.google.com/specimen/Eczar',bodyUrl:'https://fonts.google.com/specimen/IBM+Plex+Sans'}
+];
+---
+<Base title="Typography Lab – Compare Website Fonts" description="Private comparison of three editorial Google Fonts pairings for Sunnah Tools." noindex={true}>
+ <section class="font-lab" aria-labelledby="font-lab-title">
+  <div class="font-lab-intro">
+   
+   <h1 id="font-lab-title">Compare the fonts</h1>
+   <p>The new default pairs Petrona's expressive editorial headings with Karla's clear interface text. Compare it with two alternatives and try each font pairing across the real site's cards, calculators and guides.</p>
+   <div class="font-lab-note"><strong>Petrona + Karla is the live default.</strong> Alternative pairings are temporary and apply only in this browser tab's session. Choose “Exit preview” to return to Petrona + Karla. The default fonts and optional alternatives are provided by Google Fonts.</div>
+  </div>
+  <div class="font-lab-showcase">
+   {choices.map(c=><article class="font-lab-card" data-combo={c.id}>
+    <div class="font-lab-card-top">
+     <div><span class="font-lab-chip">{c.badge}</span><h2>{c.name}</h2><small>{c.tone}</small></div>
+     <small>Headline: {c.heading} / Interface: {c.body}</small>
+    </div>
+    <div class="font-lab-card-body">
+     <div class="font-lab-hero">
+      
+      <h3 class="font-lab-display">Islamic tools for everyday life</h3>
+      <p>Find prayer times, convert Hijri dates, calculate Zakat and plan Ramadan.</p>
+     </div>
+     <div class="font-lab-sample-grid">
+      <div class="font-lab-sample">
+       
+       <h3>Zakat Calculator</h3>
+       <p>Estimate Zakat on savings, gold and investments. Review the figures you've entered before deciding what to pay.</p>
+      </div>
+      <div class="font-lab-metric">
+       <span>Estimated Zakat due</span>
+       <strong>£1,250.00</strong>
+       <label>Amount in GBP<input type="text" aria-label={'Example input in '+c.name} value="50000" readonly/></label>
+      </div>
+     </div>
+    </div>
+    <div class="font-lab-card-actions">
+     <a class="font-lab-primary" href={c.id==='petrona-karla'?'/?font-preview=off#tools':'/?font-preview='+c.id+'#tools'}>{c.id==='petrona-karla'?'See the live default':'Try on the website'}</a>
+     <a href={'/tools/zakat-calculator/?font-preview='+c.id}>See a calculator</a>
+     <a href={c.headingUrl} target="_blank" rel="noopener noreferrer">View {c.heading} on Google Fonts</a>
+     <a href={c.bodyUrl} target="_blank" rel="noopener noreferrer">View {c.body}</a>
+    </div>
+   </article>)}
+  </div>
+  <div class="font-lab-compare-baseline">
+   <h2>Compare with the original</h2>
+   <p>The published Petrona + Karla typography is the default. Other pairings are session-only previews and will not affect other visitors.</p>
+   <a href="/?font-preview=off">Return to the current website</a>
+  </div>
+ </section>
+</Base>

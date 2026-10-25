@@ -1,0 +1,37 @@
+/* Sunnah Tools typography · Petrona and Karla · October 2026
+   Deliberately editorial headings, practical and approachable interface text.
+   This is the permanent default, with system fallbacks while Google Fonts load. */
+:root {
+ --font-body:"Karla","Trebuchet MS",Arial,sans-serif;
+ --font-display:"Petrona","Iowan Old Style","Baskerville",Georgia,serif;
+ font-family:var(--font-body);
+}
+html,body{font-family:var(--font-body)}
+button,input,select,textarea{font-family:var(--font-body)}
+h1,h2,h3{letter-spacing:-.018em}
+h1,h2{font-family:var(--font-display);font-optical-sizing:auto}
+.home-intro h1,.tool-topline h1,.content h1{letter-spacing:-.028em;line-height:1.14}
+.directory-heading h2,.promo-heading h2,.tool-panel-heading h2,.aside-title h2,.calendar-print-heading h2,
+.section-label h2,.section-label h3,.editorial-guide h2,.admin-shell h1{
+ font-family:var(--font-display);
+ letter-spacing:-.018em;
+ font-weight:600;
+}
+.brand,.footer-brand{font-family:var(--font-display);font-weight:650;letter-spacing:-.021em}
+.directory .tool-card h3,.tool-card h3,.promo-card h3,.featured-info strong{
+ font-family:var(--font-body);font-weight:700;letter-spacing:-.012em;
+}
+.top-navigation a,.tool-inner label,.filter,.tool-card-link,.header-action{font-family:var(--font-body)}
+.tool-inner :is(input,select,textarea,button),.tool-inner .result strong,.prayers strong,.growth-count strong{font-variant-numeric:tabular-nums}
+.eyebrow,.panel-status,.tool-card-category{letter-spacing:.105em}
+/* The portable prayer-times embed inherits no parent document typography. */
+.embed-body{font-family:var(--font-body)}
+/* Preserve the existing privacy-safe, session-only alternative-font preview. */
+
+/* Copy edit: allow section headings to stand without decorative labels. */
+.home-intro h1{margin-top:0}
+.directory-heading h2{margin-top:0;margin-bottom:9px}
+.aside-title h2{margin-top:0;margin-bottom:14px}
+.tool-heading-identity{margin-bottom:4px}
+.promo-heading h2{margin-top:0}
+.font-lab-card .font-lab-display{margin-top:0}

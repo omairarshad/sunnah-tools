@@ -1,0 +1,98 @@
+media:
+  input: public/media
+  output: /media
+content:
+  - name: homepage
+    label: Homepage layout & cards
+    type: file
+    path: src/data/homepage.json
+    format: json
+    fields:
+      - name: intro
+        label: Homepage introduction
+        type: object
+        fields:
+          - { name: enabled, type: boolean, label: Show intro }
+          - { name: eyebrow, type: string, label: Small heading }
+          - { name: headline, type: string, label: Main headline }
+          - { name: emphasis, type: string, label: Highlighted headline }
+          - { name: description, type: text, label: Intro description }
+      - name: promotions
+        label: External projects and promotional cards
+        type: object
+        fields:
+          - { name: enabled, type: boolean, label: Show promotional section }
+          - { name: eyebrow, type: string }
+          - { name: title, type: string }
+          - { name: subtitle, type: text }
+          - name: cards
+            label: Cards (drag to reorder)
+            type: object
+            list:
+              min: 0
+              max: 12
+              collapsible:
+                collapsed: true
+                summary: "{title}"
+            fields:
+              - { name: id, type: string, label: Unique card ID, required: true }
+              - { name: enabled, type: boolean, label: Show card }
+              - { name: featured, type: boolean, label: Make this banner wider }
+              - { name: type, type: string, label: Badge }
+              - { name: title, type: string, required: true }
+              - { name: description, type: text }
+              - { name: cta, type: string, label: Button text }
+              - { name: url, type: string, required: true, description: HTTPS external URL only }
+              - { name: image, type: image, required: true, label: Banner artwork, description: Upload an SVG or WebP/PNG image to the local media library }
+              - { name: imageAlt, type: text, label: Image description for accessibility }
+              - name: tone
+                type: select
+                options:
+                  values: [blue, violet, coral, teal, amber, emerald, rose, indigo, mint]
+      - name: directory
+        label: Tools grid
+        type: object
+        fields:
+          - { name: title, type: string }
+          - { name: description, type: text }
+          - name: columns
+            label: Desktop columns
+            type: select
+            options:
+              values:
+                - { name: 2, label: Two columns }
+                - { name: 3, label: Three columns }
+                - { name: 4, label: Four columns }
+                - { name: 5, label: Five columns }
+                - { name: 6, label: Six columns }
+          - name: cards
+            label: Tool cards (drag to reorder)
+            type: object
+            list:
+              min: 1
+              max: 100
+              collapsible:
+                collapsed: true
+                summary: "{title}"
+            fields:
+              - { name: slug, type: string, required: true, description: Existing tool slug, do not change unless replacing card }
+              - { name: enabled, type: boolean, label: Show on homepage }
+              - { name: title, type: string, required: true, label: Homepage card title }
+              - { name: description, type: text, label: Homepage card description }
+              - { name: image, type: image, required: true, label: Large tool illustration, description: Upload a locally stored SVG WebP PNG or JPEG illustration }
+              - { name: imageAlt, type: string, label: Illustration alt description }
+              - name: tone
+                type: select
+                options:
+                  values: [blue, violet, coral, teal, amber, emerald, rose, indigo, mint]
+      - name: layout
+        label: Homepage section order
+        type: object
+        fields:
+          - name: sectionOrder
+            label: Section order (reorder list items)
+            type: select
+            list: true
+            options:
+              values: [promotions, directory, guides]
+          - { name: showGuides, type: boolean, label: Show educational guides }

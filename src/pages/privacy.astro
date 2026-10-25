@@ -1,0 +1,26 @@
+---
+import Base from '../layouts/Base.astro';
+import {siteAds} from '../lib/siteAds';
+import {siteAnalytics} from '../lib/siteAnalytics';
+---
+<Base title="Privacy Policy" description="Privacy information for Sunnah Tools, including browser-local trackers, optional location services, hosting logs and possible Google AdSense advertising.">
+<section class="content">
+ <h1>Privacy at Sunnah Tools</h1>
+ <p>Last updated: 25 October 2026. Sunnah Tools is an independent, free Islamic utilities website. This page explains how features work and what changes when third-party advertising is enabled.</p>
+ <h2>Calculators and location</h2>
+ <p>Calculators generally run within your web browser. You may enter a city or coordinates manually. If you click the browser's location permission button, coordinates are supplied by your browser; location permission is optional. City-search data is downloaded as a static GeoNames directory. Do not enter sensitive identifying information into fields unless necessary.</p>
+ <h2>Browser-local preferences</h2>
+ <p>Favourites, recent tools, Tasbih counts, fasting trackers, daily prayer checklists and Hajj/Umrah packing progress can be stored in your browser's local storage. These data are not synced to a Sunnah Tools user account. Clear the site's stored data in your browser to remove them. Other tools such as Zakat estimation do not intentionally save your inputs.</p>
+ <h2>Hosting</h2>
+ <p>Our hosting provider may process ordinary technical request logs, such as IP addresses, request times and errors, as part of serving and securing the website. We do not currently operate a visitor account database for these tools.</p>
+ <h2>Website typography (Google Fonts)</h2>
+ <p>To display our Petrona and Karla typefaces, the site requests a stylesheet and font files from Google Fonts. Your browser connects directly to Google’s font servers, which may receive normal technical request details such as your IP address. Alternative fonts in the optional typography comparison also use Google Fonts. No calculator entries or private tracker data are included in these font requests. Read <a href="https://developers.google.com/fonts/faq/privacy" target="_blank" rel="noopener noreferrer">Google Fonts privacy information</a>.</p>
+ <h2>Optional Google Analytics</h2>
+ {siteAnalytics.enabled?<p>We offer an optional analytics preference. Google Analytics loads only when you choose to allow it; you can revisit the preference in the footer to withdraw consent for future events. When allowed, Google can process usage data and set analytics cookies to report visits, popular tool pages and high-level interactions. We do not intentionally send your calculator amounts, prayer-time location, city search terms or personal checklist entries as analytics event parameters. For additional detail see <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google's privacy policy</a>.</p>:<p>Our optional Google Analytics integration is currently disabled. When configured, it will ask permission before loading tracking scripts and will not intentionally send entered calculator values or location details to analytics.</p>}
+ <h2>Google advertising</h2>
+ {siteAds.enabled?<p>Google AdSense is configured to serve advertising on eligible pages, subject to applicable privacy choices. Google and its partners may process information through cookies or similar technologies as explained by the consent interface. Please use the consent and privacy controls offered to you. Read <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer">Google's advertising privacy information</a>.</p>:<p>Advertising is not currently enabled through this website's AdSense integration. The site is prepared for possible future Google AdSense advertisements, but it does not load AdSense advertising requests until the publisher and consent configuration is activated. This page will reflect the active configuration.</p>}
+ <p>If we activate advertising, we will use Google's certified consent-management setup where required, including for the UK and EEA. Additional information and controls may be provided in Google's consent interface. We do not claim that a custom banner alone provides Google publisher compliance.</p>
+ <h2>Changes and questions</h2>
+ <p>We may revise this notice as the tools, advertising settings or legal requirements change. For technical issues or privacy-related requests, use the <a href="https://github.com/omairarshad/sunnah-tools/issues" target="_blank" rel="noopener noreferrer">project issue tracker</a> without including private account numbers, personal health records or financial balances.</p>
+ <p><a href="/">← Return to all tools</a></p>
+</section></Base>
