@@ -49,7 +49,7 @@
   padding:0;
   margin:0;
   overflow:hidden;
-  background:#fff;
+  background:#184B64;
   border-bottom:1px solid #edf0eb;
 }
 .directory .tool-card-visual img{
@@ -57,7 +57,7 @@
   width:100%;
   height:100%;
   max-height:none;
-  object-fit:contain;
+  object-fit:cover;
   object-position:center center;
   transform:none;
   transition:transform .22s ease;
@@ -174,4 +174,51 @@
 @media print{
  .directory .tool-card-visual{display:none!important}
  .directory .tool-card-body{text-align:left;align-items:flex-start}
+}
+
+/* Topic headings are genuine grid rows, not extra tool cards. */
+.directory .directory-topic-heading{
+ grid-column:1/-1;
+ padding:20px 0 0;
+ margin:2px 0 -4px;
+ display:flex;
+ align-items:baseline;
+ justify-content:space-between;
+ flex-wrap:wrap;
+ gap:5px 20px;
+ border-top:1px solid #D8E2DA;
+}
+.directory .directory-topic-heading:first-child{padding-top:0;border-top:0}
+.directory .directory-topic-heading[hidden]{display:none!important}
+.directory .directory-topic-heading h3{
+ font-size:21px;
+ line-height:1.2;
+ letter-spacing:-.04em;
+ color:#123E30;
+ margin:0;
+}
+.directory .directory-topic-heading p{
+ font-size:12px;
+ color:#5B6B62;
+ margin:0;
+}
+.seo-explainer h3{font-size:18px;color:#143C30;margin:22px 0 8px}
+.seo-explainer p{max-width:75ch}
+.today-hijri{
+ background:#fff;
+ padding:18px 22px;
+ margin:0 0 20px;
+ border:1px solid #bfd7cc;
+ border-left:6px solid #246953;
+ border-radius:12px;
+ color:#243B30;
+}
+.today-hijri strong{font-size:16px}
+.today-hijri p{font-size:25px;font-weight:800;line-height:1.25;margin:8px 0;color:#163C30}
+.today-hijri small{display:block;font-size:12px;line-height:1.5;color:#556960}
+@media(max-width:550px){
+ .directory .directory-topic-heading{padding-top:17px;margin:0}
+ .directory .directory-topic-heading h3{font-size:20px}
+ .directory .directory-topic-heading p{flex-basis:100%}
+ .today-hijri p{font-size:22px}
 }
