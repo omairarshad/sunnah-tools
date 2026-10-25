@@ -47,9 +47,9 @@ export function PrayerChart(){
   <label>First day<input type="date" value={start} onChange={e=>setStart(e.target.value)} /></label>
   <label>Chart length<select value={days} onChange={e=>setDays(Number(e.target.value))}><option value={7}>7 days</option><option value={14}>14 days</option><option value={30}>30 days</option></select></label>
  </div>
- <p className="small print-hide">Print the blank checklist and tick each prayer on paper. No account or personal data is required.</p>
+ <p className="small print-hide">Print the chart and tick each prayer as you go.</p>
  {dates.length>0?<div className="table-wrap"><table className="chart-print"><thead><tr><th>Date</th><th>Fajr</th><th>Dhuhr</th><th>Asr</th><th>Maghrib</th><th>Isha</th></tr></thead><tbody>{dates.map(d=><tr key={d}><td>{new Intl.DateTimeFormat('en-GB',{day:'2-digit',month:'short',timeZone:'UTC'}).format(new Date(d+'T12:00:00Z'))}</td>{['fajr','dhuhr','asr','maghrib','isha'].map(p=><td className="chart-box" key={p}>□</td>)}</tr>)}</tbody></table></div>:<p className="warn">Choose a valid date.</p>}
  <div className="action-row print-hide"><button onClick={()=>window.print()}>Print / Save as PDF</button></div>
- <p className="small print-hide">Tip: use your browser's Print command and choose 'Save as PDF' for a reusable file.</p>
+ <p className="small print-hide">To keep a copy, select Save as PDF in your browser's print menu.</p>
  </div>;
 }

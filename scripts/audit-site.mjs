@@ -67,18 +67,18 @@ for(const slug of slugs){
  assert(header(html),`Shared chrome missing: ${slug}`);
  assert(html.includes('id="theme-toggle"'),`Theme toggle missing on tool page: ${slug}`);
  assert(html.includes('class="tool-panel"'),`Interactive panel missing: ${slug}`);
- assert(html.includes('class="tool-disclaimer"'),`Method disclaimer missing: ${slug}`);
+ assert(html.includes('What to check')&&html.includes('How it works'),`Tool guidance missing: ${slug}`);
  assert(html.includes('class="tool-aside"'),`Related tools sidebar missing: ${slug}`);
  assert(html.includes(`https://sunnah.tools/tools/${slug}/`),`Canonical missing: ${slug}`);
  assert(sitemap.includes(`/tools/${slug}/`),`Sitemap missing: ${slug}`);
  assert((html.match(/class="faq-detail"/g)||[]).length>=3,`Three visible FAQs missing: ${slug}`);
  assert(html.includes('"@type":"FAQPage"')&&html.includes('"@type":"WebApplication"')&&html.includes('"@type":"BreadcrumbList"'),`Schema markup incomplete: ${slug}`);
  assert(html.includes('related-guide-list'),`Contextual related guides missing: ${slug}`);
- assert(html.includes('seo-explainer')&&html.includes('Important limitations'),`Unique explanation missing: ${slug}`);
+ assert(html.includes('seo-explainer')&&html.includes('What to check'),`Unique explanation missing: ${slug}`);
  assert(html.includes('meta name="description"'),`SEO meta description missing: ${slug}`);
  assert(!html.includes('<title>'+slug+' | Sunnah Tools</title>'),`Generic metadata found: ${slug}`);
 }
-for(const slug of newSlugs){const html=read(`tools/${slug}/index.html`);assert(html.includes('source-note'),`New tool needs a religious source: ${slug}`);assert(html.includes('Calculation method and accuracy')&&html.includes('Important limitations'),`New tool lacks accuracy notes: ${slug}`);}
+for(const slug of newSlugs){const html=read(`tools/${slug}/index.html`);assert(html.includes('source-note'),`New tool needs a religious source: ${slug}`);assert(html.includes('How it works')&&html.includes('What to check'),`New tool lacks accuracy notes: ${slug}`);}
 assert(read('guides/prayer-time-methods/index.html').includes('How are Islamic prayer times calculated?'),'Prayer method guide missing');
 assert(read('guides/ramadan-dates-and-timetables/index.html').includes('Planning a reliable Ramadan timetable'),'Ramadan guide missing');
 assert(sitemap.includes('/guides/prayer-time-methods/'),'Methodology guide missing from sitemap');
@@ -88,7 +88,7 @@ for(const guide of ['hijri-calendar-and-moon-sighting','zakat-nisab-and-fitrana'
  assert(sitemap.includes('/guides/'+guide+'/'),`Guide missing from sitemap: ${guide}`);
 }
 assert(read('tools/hijri-converter/index.html').includes('today-hijri-value'),'Current Hijri date answer missing');
-assert(read('tools/hijri-converter/index.html').includes('HTML snapshot for'),'Calculated Hijri date must be present in static HTML');
+assert(read('tools/hijri-converter/index.html').includes('Calculated for'),'Calculated Hijri date must be present in static HTML');
 const typeLab=read('font-lab/index.html');
 assert(typeLab.includes('noindex,nofollow'),'Typography comparison must be noindexed');
 assert(typeLab.includes('font-preview=petrona-karla')&&typeLab.includes('font-preview=alegreya-family')&&typeLab.includes('font-preview=eczar-plex'),'Three typography previews must be linked');

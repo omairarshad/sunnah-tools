@@ -31,7 +31,7 @@ export function LaylatulQadrNights(){
  return <div className="growth-tool">
   <p>Enter the <strong>first daytime fast</strong> announced by your local community. The tool lists the civil evenings when the commonly numbered odd nights begin.</p>
   <label>First day of Ramadan (Gregorian)<input type="date" value={first} onChange={e=>setFirst(e.target.value)}/></label>
-  <p className="small">The prefilled 2027 date is an editable planning example, not a confirmed Ramadan announcement.</p>
+  <p className="small">The example date is not a confirmed Ramadan start. Use the date announced in your area.</p>
   {nights.length?<><div className="growth-night-grid">{nights.map(({night,evening,daytime})=><div className="growth-night" key={night}><span className="growth-eyebrow">NIGHT {night} OF RAMADAN</span><strong>{dateLabel(evening!)}</strong><small>Begins at local sunset; continues into {dateLabel(daytime!)} before dawn</small></div>)}</div>
   <div className="action-row print-hide"><button type="button" onClick={download}>Add evenings to calendar (.ics)</button><button type="button" className="secondary" onClick={()=>window.print()}>Print dates</button></div></>:<Notice>Enter a valid Gregorian start date.</Notice>}
   <Notice>The Islamic night begins at sunset, not midnight. Local moon-sighting announcements may change these dates. The odd-numbered nights are a planning aid; seek Laylatul Qadr throughout the last ten nights, not only these five.</Notice>
@@ -46,7 +46,7 @@ export function FidyaCalculator(){
   <p>Calculate an <strong>illustrative Fidya amount</strong> using the number of eligible fasting days and the verified local Fidya rate you supply.</p>
   <div className="two"><label>Fasting days for which Fidya applies<input type="number" min="1" max="100000" step="1" inputMode="numeric" value={days} onChange={e=>setDays(e.target.value)} placeholder="e.g. 5"/></label><label>Verified Fidya rate per day<input type="number" min="0.01" step="any" inputMode="decimal" value={rate} onChange={e=>setRate(e.target.value)} placeholder="Enter your local rate"/></label></div>
   <Currency value={currency} onChange={setCurrency}/>
-  {estimate?<><div className="result" role="status"><span>Estimated Fidya at your entered rate</span><strong>{money(estimate.total,currency)}</strong><small>{days} days × {money(Number(rate),currency)} per day</small></div></>:<p className="small">Enter a positive number of eligible days and a verified rate to see a calculation. We do not set a universal rate.</p>}
+  {estimate?<><div className="result" role="status"><span>Estimated Fidya at your entered rate</span><strong>{money(estimate.total,currency)}</strong><small>{days} days × {money(Number(rate),currency)} per day</small></div></>:<p className="small">Enter the number of days and your locally confirmed Fidya rate.</p>}
   <Notice>Fidya is not automatically due for every missed fast. Whether you should make up fasts, pay Fidya, or follow another ruling depends on your circumstances and school of law. Confirm eligibility and the current local rate with a qualified authority before paying.</Notice>
   <p className="small">Reference: <a href="https://quran.com/2/184" target="_blank" rel="noopener noreferrer">Quran 2:184</a>. Fidya, Fitrana and Kaffarah are different obligations.</p>
  </div>;
@@ -67,7 +67,7 @@ export function QadaPrayerCalculator(){
  const completed=valid?targets.reduce((sum,item)=>sum+Math.min(item.target,done[item.name]??0),0):0;
  const adjust=(name:string,delta:number,target:number)=>setDone(prev=>({...prev,[name]:Math.min(target,Math.max(0,(prev[name]??0)+delta))}));
  return <div className="growth-tool">
-  <p>Plan and track a <strong>personal estimate</strong> of missed prayers (Qada Salah). You decide the period, exclusions and each prayer's count; this tool cannot determine your religious obligation.</p>
+  <p>Estimate missed prayers (Qada Salah) and record prayers you have made up. Check which prayers you need to include with a qualified scholar.</p>
   <label>How would you like to estimate the period?<select value={mode} onChange={e=>setMode(e.target.value as 'days'|'years'|'range')}><option value="days">Number of days</option><option value="years">Approximate years</option><option value="range">Inclusive date range</option></select></label>
   {mode==='days'&&<label>Estimated days to review<input type="number" min="1" max="36525" step="1" value={days} onChange={e=>setDays(e.target.value)}/></label>}
   {mode==='years'&&<label>Estimated years to review<input type="number" min="0.01" max="100" step="any" value={years} onChange={e=>setYears(e.target.value)}/></label>}
@@ -76,7 +76,7 @@ export function QadaPrayerCalculator(){
   <p className="small">Only exclude days after checking the rules relevant to your circumstances, such as pre-puberty periods and valid exemptions. The date-range option counts civil days, not individual prayers.</p>
   <label className="check"><input type="checkbox" checked={witr} onChange={e=>setWitr(e.target.checked)}/> Include Witr in my plan (school-dependent)</label>
   {valid?<><div className="two"><div className="result"><span>Estimated prayers in this plan</span><strong>{total.toLocaleString('en-GB')}</strong></div><div className="result"><span>Remaining after recorded progress</span><strong>{(total-completed).toLocaleString('en-GB')}</strong></div></div>
-   <p className="small">Edit each target to reflect your own estimate. Blank targets use {base?.toLocaleString('en-GB')} days. Progress is saved only in this browser.</p>
+   <p className="small">Adjust each prayer count as needed. Blank fields use {base?.toLocaleString('en-GB')} days.</p>
    <div className="growth-qada-list">{targets.map(({name,target})=><div className="growth-qada-row" key={name}>
     <div><strong>{name}</strong><label>Estimated missed prayers<input aria-label={'Estimated missed '+name+' prayers'} type="number" min="0" max="1000000" step="1" value={overrides[name]??''} placeholder={String(base)} onChange={e=>setOverrides(v=>({...v,[name]:e.target.value}))}/></label></div>
     <div className="growth-qada-progress"><span>{Math.min(target,done[name]??0).toLocaleString('en-GB')} / {target.toLocaleString('en-GB')} made up</span><progress value={Math.min(target,done[name]??0)} max={Math.max(1,target)}/><div className="action-row"><button type="button" onClick={()=>adjust(name,1,target)} disabled={(done[name]??0)>=target}>+ 1 completed</button><button type="button" className="secondary" onClick={()=>adjust(name,-1,target)} disabled={(done[name]??0)<=0}>Undo</button></div></div>
@@ -93,7 +93,7 @@ export function QurbaniShareCalculator(){
  const max=['sheep','goat'].includes(animal)?1:7;
  const estimate=qurbaniEstimate(animal,intValue(participants),Number(cost));
  return <div className="growth-tool">
-  <p>Split the cost of a Qurbani (Udhiyah) animal between participants. Enter your actual total cost; no live animal prices are assumed.</p>
+  <p>Enter the quoted cost of your Qurbani (Udhiyah) animal to see how much each participant would contribute.</p>
   <div className="two"><label>Animal type<select value={animal} onChange={e=>{const a=e.target.value;setAnimal(a);setParticipants(['sheep','goat'].includes(a)?'1':'7')}}><option value="sheep">Sheep</option><option value="goat">Goat</option><option value="cow">Cow</option><option value="buffalo">Buffalo</option><option value="camel">Camel</option></select></label>
   <label>Participants (one share each)<select value={participants} onChange={e=>setParticipants(e.target.value)}>{Array.from({length:max},(_,i)=><option key={i+1} value={i+1}>{i+1}</option>)}</select></label></div>
   <div className="two"><label>Total animal and processing cost<input type="number" min="0.01" step="any" inputMode="decimal" value={cost} onChange={e=>setCost(e.target.value)} placeholder="Enter quoted total"/></label><Currency value={currency} onChange={setCurrency}/></div>
@@ -131,7 +131,7 @@ export function TawafSaiCounter(){
  const change=(type:RoundType,delta:number)=>setRounds(v=>({...v,[type]:Math.min(7,Math.max(0,v[type]+delta))}));
  const reset=(type:RoundType)=>{if(window.confirm('Reset the '+(type==='tawaf'?'Tawaf':'Sa’i')+' counter to zero?'))setRounds(v=>({...v,[type]:0}))};
  return <div className="growth-tool">
-  <p>Keep track of your seven Tawaf circuits and seven Sa'i lengths privately on this device. Counters are separate and do not reset automatically.</p>
+  <p>Count seven Tawaf circuits and seven Sa'i lengths. Each counter can be undone or reset separately.</p>
   <div className="growth-count-grid">
    {(['tawaf','sai'] as const).map(type=><section className="growth-count-card" key={type} aria-label={type==='tawaf'?'Tawaf counter':'Sai counter'}>
     <span className="growth-eyebrow">{type==='tawaf'?'TAWAF · KAABA':'SA’I · SAFA & MARWAH'}</span>

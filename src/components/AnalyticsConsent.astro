@@ -4,7 +4,7 @@ const active=siteAnalytics.enabled;
 const measurementId=siteAnalytics.id;
 ---
 {active&&<div id="analytics-consent" class="analytics-consent" hidden role="region" aria-label="Optional analytics preferences">
- <div><strong>Help us make Sunnah Tools better</strong><p>May we use optional Google Analytics to understand which tools are useful? No analytics tracking runs unless you agree. Read our <a href="/privacy/">privacy policy</a>.</p></div>
+ <div><strong>Analytics preferences</strong><p>Allow optional analytics to help us see how the site is used? Nothing is tracked unless you agree. Read our <a href="/privacy/">privacy policy</a>.</p></div>
  <div class="consent-actions"><button type="button" id="analytics-no">No thanks</button><button type="button" id="analytics-yes">Allow analytics</button></div>
 </div>}
 {active&&<script define:vars={{measurementId}} is:inline>

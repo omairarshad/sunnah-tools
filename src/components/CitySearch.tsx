@@ -19,7 +19,7 @@ export default function CitySearch({onSelect}:{onSelect:(city:City)=>void}){
  }
  const choose=(row:City)=>{onSelect(row);setQuery(row[0]+', '+row[1]);setOpen(false)};
  return <div className="city-search" onKeyDown={e=>{if(e.key==='Escape')setOpen(false)}}>
-   <label htmlFor="city-lookup">Find your city worldwide</label>
+   <label htmlFor="city-lookup">Search for a city</label>
    <input id="city-lookup" role="combobox" aria-autocomplete="list" aria-expanded={open&&results.length>0}
     aria-controls="city-suggestions" type="search" autoComplete="off"
     placeholder="Type city name (e.g. London, Lahore, Sydney)"
@@ -30,8 +30,8 @@ export default function CitySearch({onSelect}:{onSelect:(city:City)=>void}){
     {results.length?results.map(row=><button key={row[0]+'-'+row[1]+'-'+row[2]+'-'+row[3]} type="button" role="option" aria-selected={false} onClick={()=>choose(row)}>
       <span>{row[0]} <small>{row[2]&&row[2]!== '00'?row[2]+' · ':''}{row[1]}</small></span>
       <span className="small">{row[5]}</span>
-    </button>):<p className="small">No matching city in the 15,000+ population dataset. Try a nearby city or enter your coordinates.</p>}
+    </button>):<p className="small">City not found. Try a nearby city or enter coordinates.</p>}
    </div>}
-   <p className="small">Powered by <a href="https://www.geonames.org/" target="_blank" rel="noopener noreferrer">GeoNames</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>). Contains cities with approximately 15,000+ residents and capitals; smaller places can use coordinates.</p>
+   <p className="small">City data: <a href="https://www.geonames.org/" target="_blank" rel="noopener noreferrer">GeoNames</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>). For smaller places, enter coordinates.</p>
  </div>;
 }

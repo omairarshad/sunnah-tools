@@ -46,5 +46,5 @@ test('tool page includes machine-readable FAQs and contextual guides',()=>{
  assert.match(page,/FAQPage/);
  assert.match(page,/mainEntity:faqItems/);
  assert.match(page,/relatedGuides/);
- assert.match(page,/HTML snapshot for \{renderedDate\}/);
+ assert.match(page,/Calculated for \{renderedDate\}/);
 });

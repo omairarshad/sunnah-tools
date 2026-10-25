@@ -53,7 +53,7 @@ try{
  assert.ok(new Set(await page.locator('.tool-card').evaluateAll(elements=>elements.map(el=>el.getAttribute('data-tone')))).size>=6,'Tool cards should have multiple accent colours');
  assert.equal(await page.locator('.featured-card').count(),0,'Redundant Start here links must be removed');
  assert.equal(await page.getByRole('heading',{name:'Start here'}).count(),0,'Start here section must be gone');
- assert.equal(await page.locator('.promo-banner').count(),3,'Three full-image external banner links should be visible');
+ assert.equal(await page.locator('.promo-banner').count(),3,'Three project banners should be visible');
  assert.equal(await page.locator('.promo-banner-featured').count(),1,'Arabic learning banner should occupy the featured wide slot');
  assert.equal(await page.locator('.promo-banner img').count(),3,'Each promotion must contain branded artwork');
  assert.ok(await page.locator('.promo-banner img').evaluateAll(images=>images.every(img=>img.complete && img.naturalWidth>0)),'All self-hosted promotional images must load');
