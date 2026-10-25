@@ -100,27 +100,9 @@
   line-height:1.4;
   color:#617064;
 }
-.directory .favorite{
-  position:absolute;
-  top:8px;
-  right:8px;
-  z-index:2;
-  display:grid;
-  place-items:center;
-  padding:0;
-  width:32px;
-  height:32px;
-  border:1px solid #d9dfd8;
-  border-radius:9px;
-  background:rgba(255,255,255,.97);
-  color:#485f52;
-  font-size:20px;
-  box-shadow:0 2px 7px rgba(17,38,29,.12);
-}
-.directory .favorite::before{content:"";position:absolute;inset:-6px}
-.directory .favorite[aria-pressed=true]{background:#fff8e9;border-color:#d6b678;color:#936416}
-.directory .favorite:focus-visible{outline:3px solid #bc9147;outline-offset:2px}
-/* Narrower laptops remain dense without squeezing titles or save controls. */
+/* Tool cards have one action: open the tool. Keep keyboard focus obvious. */
+.directory .tool-card-main:focus-visible{outline:3px solid #bc9147;outline-offset:-3px;border-radius:11px}
+/* Narrower laptops remain dense without squeezing titles. */
 @media(max-width:1179px){
  .directory .cards,.directory[data-columns="6"] .cards{grid-template-columns:repeat(5,minmax(0,1fr))}
 }
@@ -144,10 +126,9 @@
  /* Compact horizontal rows instead of enormous single-column image cards. */
  .directory .tool-card-main{flex-direction:row;align-items:stretch;min-height:116px}
  .directory .tool-card-visual{width:39%;height:auto;aspect-ratio:auto;border-bottom:0;border-right:1px solid #edf0eb}
- .directory .tool-card-body{min-height:116px;align-items:flex-start;text-align:left;justify-content:center;padding:13px 48px 13px 13px}
+ .directory .tool-card-body{min-height:116px;align-items:flex-start;text-align:left;justify-content:center;padding:13px}
  .directory .tool-card h3{font-size:15px;margin-bottom:5px}
  .directory .tool-card-description{-webkit-line-clamp:2;line-clamp:2;font-size:11.5px}
- .directory .favorite{top:10px;right:10px}
 }
 @media(prefers-reduced-motion:reduce){
  .directory .tool-card,.directory .tool-card-visual img{transition:none}

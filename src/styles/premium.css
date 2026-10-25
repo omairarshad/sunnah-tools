@@ -107,9 +107,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,su
 .tool-card[data-tone] .tool-card-link{color:#1d6349}
 .tool-card h3{color:#1b3027;font-weight:800}
 .tool-card p{color:#59675f}
-.favorite,.favorite[aria-pressed="true"]{border-color:#d9dcd4;background:#fff;color:#6b7166}
-.favorite[aria-pressed="true"]{color:#8b651c;border-color:#cdbb96}
-.favorite:hover{background:#f5f3ee}
 .no-results{background:#fff;border-color:#bfc9c0}
 .recent-links a{background:#fff;border-color:#d7dfd5;color:#234c3a}
 .recent-links a:hover{background:#f0f2ed}

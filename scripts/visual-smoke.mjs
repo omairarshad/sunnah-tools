@@ -8,15 +8,15 @@ try{
  const desktop=await browser.newContext({viewport:{width:1440,height:1000},deviceScaleFactor:1});
  const page=await desktop.newPage();
  await page.goto(root+'/',{waitUntil:'networkidle'});
- assert.equal(await page.locator('.tool-card').count(),28,'Homepage should expose 28 tools');
- assert.equal(await page.locator('.tool-card-visual img').count(),28,'Every tool should retain its illustration');
+ assert.equal(await page.locator('.tool-card').count(),37,'Homepage should expose 37 tools');
+ assert.equal(await page.locator('.tool-card-visual img').count(),37,'Every tool should retain its illustration');
  const artPaths=await page.locator('.tool-card-visual img').evaluateAll(images=>images.map(img=>new URL(img.src).pathname));
- assert.equal(new Set(artPaths).size,28,'Each card must have an original unique illustration');
+ assert.equal(new Set(artPaths).size,37,'Each card must have an original unique illustration');
  for(const img of await page.locator('.tool-card-visual img').all()){
   await img.scrollIntoViewIfNeeded();
   await img.evaluate(image=>image.decode());
  }
- assert.ok(await page.locator('.tool-card-visual img').evaluateAll(images=>images.every(img=>img.complete&&img.naturalWidth>=500&&img.naturalHeight>=300&&img.alt.length>15)),'All 28 image assets must load at full resolution with accessible descriptions');
+ assert.ok(await page.locator('.tool-card-visual img').evaluateAll(images=>images.every(img=>img.complete&&img.naturalWidth>=500&&img.naturalHeight>=300&&img.alt.length>15)),'All 37 image assets must load at full resolution with accessible descriptions');
  const layout=await page.locator('.tool-card').first().evaluate(card=>{
   const picture=card.querySelector('.tool-card-visual').getBoundingClientRect();
   const heading=card.querySelector('h3').getBoundingClientRect();
@@ -73,12 +73,14 @@ try{
  await page.locator('#tool-search-input').fill('qibla');
  assert.equal(await page.locator('.tool-card:visible').count(),1,'Search should narrow tools');
  await page.locator('#tool-search-input').fill('');
- await page.locator('[data-favorite="prayer-times"]').click();
- await page.locator('.filter[data-filter="saved"]').click();
- assert.equal(await page.locator('.tool-card:visible').count(),1,'Saved category should show favourited tool');
- await page.reload({waitUntil:'networkidle'});
- await page.locator('.filter[data-filter="saved"]').click();
- assert.equal(await page.locator('.tool-card:visible').count(),1,'Favourite should survive reload');
+ assert.equal(await page.locator('.favorite, [data-favorite], .saved-filter, [data-filter="saved"]').count(),0,'Favourites UI must be removed');
+ assert.equal(await page.locator('.tool-card-main').count(),37,'Each card must have one direct link');
+ await page.locator('.tool-card-main[href="/tools/prayer-times/"]').click();
+ await page.goto(root+'/',{waitUntil:'networkidle'});
+ assert.ok(await page.locator('#recent-section').isVisible(),'Recently opened should be retained');
+ assert.equal(await page.locator('#recent-links a[href="/tools/prayer-times/"]').count(),1,'Recently opened should remember the clicked tool');
+ await page.locator('.filter[data-filter="all"]').click();
+ assert.equal(await page.locator('.tool-card:visible').count(),37,'Clearing filters still shows all tools');
  await page.goto(root+'/tools/ramadan-countdown/',{waitUntil:'networkidle'});
  const colors=await page.evaluate(()=>({
   panel:getComputedStyle(document.querySelector('.tool-panel')).backgroundColor,
@@ -103,7 +105,7 @@ try{
  await page.goto(root+'/tools/fitrana-calculator/',{waitUntil:'networkidle'});
  await page.getByLabel('Verified rate per person').fill('7');
  await page.getByLabel('People in household').fill('4');
- assert.match(await page.locator('.result').innerText(),/28\.00/,'Fitrana calculations should update');
+ assert.match(await page.locator('.result').innerText(),/37\.00/,'Fitrana calculations should update');
  await page.screenshot({path:'test-results/visual/fitrana-desktop.png',fullPage:true});
  await page.goto(root+'/tools/ramadan-timetable/',{waitUntil:'networkidle'});
  await page.getByLabel('Timetable length').selectOption('29');
@@ -135,8 +137,8 @@ try{
  await m.goto(root+'/',{waitUntil:'networkidle'});
  const dimensions=await m.evaluate(()=>({body:document.documentElement.scrollWidth,width:document.documentElement.clientWidth}));
  assert.ok(dimensions.body<=dimensions.width+2,'Mobile layout overflows horizontally: '+JSON.stringify(dimensions));
- assert.equal(await m.locator('.tool-card').count(),28);
- assert.equal(await m.locator('.tool-card-visual img').count(),28,'Mobile cards should retain all artwork');
+ assert.equal(await m.locator('.tool-card').count(),37);
+ assert.equal(await m.locator('.tool-card-visual img').count(),37,'Mobile cards should retain all artwork');
  const mobileWidth=await m.locator('.tool-card').first().evaluate(card=>({card:card.getBoundingClientRect().width,picture:card.querySelector('.tool-card-visual').getBoundingClientRect().height}));
  assert.ok(mobileWidth.card>320&&mobileWidth.picture>95&&mobileWidth.picture<180,'Mobile tools should use compact horizontal image rows');
 
@@ -148,5 +150,5 @@ try{
  assert.ok(await m.locator('.tool-panel').isVisible(),'Mobile tool panel must be visible');
  await m.screenshot({path:'test-results/visual/zakat-mobile.png',fullPage:true});
  await mobile.close();await desktop.close();
- console.log('Visual smoke PASS: desktop/mobile layout, filters, saved tools, Hijri default, city selection, 7 screenshots');
+ console.log('Visual smoke PASS: desktop/mobile layout, filters, recently opened, Hijri default, city selection, 7 screenshots');
 }finally{await browser.close()}
