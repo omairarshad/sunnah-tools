@@ -42,6 +42,9 @@ jobs:
       - name: Type-check Astro and React
         run: npm run check
 
+      - name: Stamp public release with exact source commit
+        run: node scripts/write-release-marker.mjs
+
       - name: Generate static website
         env:
           PUBLIC_ADSENSE_PUBLISHER_ID: ${{ vars.ADSENSE_PUBLISHER_ID }}
@@ -57,10 +60,22 @@ jobs:
       - name: Audit generated interface and every tool route
         run: node scripts/audit-site.mjs
 
+      - name: Ensure server cache policy is included
+        shell: bash
+        run: |
+          cp public/.htaccess dist/.htaccess
+          test -s dist/release.json
+          test -s dist/.htaccess
+          grep -q 'illustrated-22-tools' dist/release.json
+
       - name: Check deployable homepage exists
         shell: bash
         run: |
           test -s dist/index.html
+          test $(grep -o 'class="tool-card-visual"' dist/index.html | wc -l) -eq 22
+          ! grep -q 'class="tool-card-icon"' dist/index.html
+          test -s dist/tool-art/prayer-times.svg
+          test -s dist/tool-art/umrah-packing-checklist.svg
           test -s dist/tools/prayer-times/index.html
           test -s dist/tools/zakat-calculator/index.html
           test -s dist/tools/gold-zakat-calculator/index.html
@@ -101,3 +116,9 @@ jobs:
           git commit -m "site: static build from ${GITHUB_SHA}"
           git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git push --force origin HEAD:refs/heads/hostinger-live
+
+      - name: Verify public Hostinger site isn't serving stale UI
+        continue-on-error: true
+        env:
+          SUNNAH_PUBLIC_SITE: https://sunnah.tools
+        run: node scripts/check-public-deployment.mjs
