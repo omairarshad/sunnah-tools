@@ -13,7 +13,7 @@ async function verify(){
  const [htmlResponse,releaseResponse,artResponse]=await Promise.all([get('/'),get('/release.json'),get('/tool-art/prayer-times.svg')]);
  const html=await htmlResponse.text(),release=await releaseResponse.json(),art=await artResponse.text();
  const illustrationCount=(html.match(/class="tool-card-visual"/g)||[]).length;
- if(illustrationCount!==22)throw new Error('Public homepage still has '+illustrationCount+'/22 illustrated cards; likely stale Hostinger branch or cache');
+ if(illustrationCount!==37)throw new Error('Public homepage still has '+illustrationCount+'/37 illustrated cards; likely stale Hostinger branch or cache');
  if(html.includes('class="tool-card-icon"'))throw new Error('Public homepage contains obsolete small-icon card markup');
  if(!art.includes('<svg'))throw new Error('Public illustration is not served as SVG');
  if(release.sourceCommit!==expected)throw new Error('Hostinger serving source '+release.sourceCommit+' instead of '+expected);
