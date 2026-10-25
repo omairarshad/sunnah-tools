@@ -27,3 +27,11 @@ h1,h2{font-family:var(--font-display);font-optical-sizing:auto}
 /* The portable prayer-times embed inherits no parent document typography. */
 .embed-body{font-family:var(--font-body)}
 /* Preserve the existing privacy-safe, session-only alternative-font preview. */
+
+/* Copy edit: allow section headings to stand without decorative labels. */
+.home-intro h1{margin-top:0}
+.directory-heading h2{margin-top:0;margin-bottom:9px}
+.aside-title h2{margin-top:0;margin-bottom:14px}
+.tool-heading-identity{margin-bottom:4px}
+.promo-heading h2{margin-top:0}
+.font-lab-card .font-lab-display{margin-top:0}

@@ -54,7 +54,7 @@ function Zakat(){
  return <>
  <div className="two"><Field label="Currency"><select value={currency} onChange={e=>setCurrency(e.target.value)}>{['GBP','USD','EUR','PKR','SAR','AED','CAD','AUD','INR'].map(x=><option key={x}>{x}</option>)}</select></Field>
  <Field label="Nisab comparison"><select value={metal} onChange={e=>setMetal(e.target.value as 'gold'|'silver')}><option value="silver">Silver benchmark (612.36g)</option><option value="gold">Gold benchmark (87.48g)</option></select></Field></div>
- <p className="small">Enter the current metal price per gram yourself, in your chosen currency. This tool does not fetch live commodity prices.</p>
+ <p className="small">Enter a current price per gram in your chosen currency.</p>
  <div className="two">{keys.map((x,i)=><Field label={x} key={x}><input type="number" inputMode="decimal" min="0" step="any" value={v[i]} onChange={e=>setV(v.map((y,j)=>j===i?e.target.value:y))} placeholder={i===3||i===4?'Required for Nisab calculation':'0'} /></Field>)}</div>
  <label className="check"><input type="checkbox" checked={hawl} onChange={e=>setHawl(e.target.checked)}/> I have checked the applicable lunar-year (hawl) requirement for my circumstances.</label>
  {result?<><div className="prayers"><div>Assets<strong>{money(assets)}</strong></div><div>After liabilities<strong>{money(result.net)}</strong></div><div>Selected Nisab<strong>{money(result.threshold)}</strong></div></div>
@@ -73,7 +73,7 @@ function Nisab(){
  <Field label="Currency"><select value={currency} onChange={e=>setCurrency(e.target.value)}>{['GBP','USD','EUR','PKR','SAR','AED','CAD','AUD','INR'].map(x=><option key={x}>{x}</option>)}</select></Field>
  <div className="two"><Field label="24k gold price / gram"><input type="number" inputMode="decimal" min="0" step="any" placeholder="Enter current price" value={gold} onChange={e=>setGold(e.target.value)}/></Field><Field label="Silver price / gram"><input type="number" inputMode="decimal" min="0" step="any" placeholder="Enter current price" value={silver} onChange={e=>setSilver(e.target.value)}/></Field></div>
  {valid?<div className="two"><Block title="Gold Nisab · 87.48 g" value={gp>0?money(v.gold):'Enter gold price'}/><Block title="Silver Nisab · 612.36 g" value={sp>0?money(v.silver):'Enter silver price'}/></div>:<p className="warn">Prices must be non-negative numbers.</p>}
- <p className="warn">These are thresholds, not a Zakat eligibility ruling. No live price feed is connected; verify current prices independently.</p></>;
+ <p className="warn">These values are based on the prices you enter. Check current prices and seek guidance on which Nisab threshold applies.</p></>;
 }
 function Hijri({age=false}:{age?:boolean}){
  const [value,setValue]=useState(()=>age?'2000-01-01':localISODate());
@@ -97,7 +97,7 @@ function Hijri({age=false}:{age?:boolean}){
  <Field label="Hijri day (1–30)"><input type="number" min="1" max="30" step="1" value={hd} onChange={e=>setHd(Number(e.target.value))}/></Field>
  <Block title="Gregorian date" value={back?new Intl.DateTimeFormat('en-GB',{dateStyle:'long',timeZone:'UTC'}).format(back):'No matching date in supported range'}/>
  </>}
- <p className="small">The Gregorian input defaults to today on your device. Calculated Umm al-Qura dates may differ from locally observed lunar months. Reverse conversion supports Hijri years 1300–1600 AH.</p>
+ <p className="small">The Gregorian date starts at today. Umm al-Qura dates may differ from local moon sightings. Hijri-to-Gregorian conversion supports 1300–1600 AH.</p>
  </>;
 }
 function Counter(){
@@ -144,7 +144,7 @@ function SalahTracker(){
  useEffect(()=>{const t=window.setInterval(()=>{const day=localISODate();if(day!==today){setToday(day);setSelected([])}},60000);return()=>window.clearInterval(t)},[today]);
  return <><p>Today: <strong>{today}</strong></p><div className="tracker-checks">{prayers.map(prayer=><label className="check" key={prayer}><input type="checkbox" checked={selected.includes(prayer)} onChange={e=>setSelected(v=>e.target.checked?[...v,prayer]:v.filter(x=>x!==prayer))}/>{prayer}</label>)}</div>
  <Block title="Prayers ticked today" value={`${selected.length} / 5`}/>
- <p className="small">Private, device-only checklist. It resets when your local calendar day changes.</p></>;
+ <p className="small">Your checklist is saved on this device and starts again each day.</p></>;
 }
 
 export default function ToolApp({slug}:{slug:string}){

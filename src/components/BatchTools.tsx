@@ -73,7 +73,7 @@ export function UmrahPackingChecklist(){
  <div className="result"><span>{trip} packing progress</span><strong>{checked.length} / {all.length} items</strong><progress value={checked.length} max={all.length}/></div>
  {PACKING.map(group=><section className="pack-group" key={group.category}><h3>{group.category}</h3>{group.items.map(item=><label className="check" key={item}><input type="checkbox" checked={checked.includes(item)} onChange={e=>setChecked(current=>e.target.checked?[...current,item]:current.filter(x=>x!==item))}/>{item}</label>)}</section>)}
  <div className="action-row print-hide"><button onClick={()=>window.print()}>Print checklist</button><button className="secondary" onClick={()=>{if(window.confirm('Clear every tick in this checklist?'))setChecked([])}}>Reset ticks</button></div>
- <p className="small">Your checklist stays on this browser only. Entry, visa, vaccinations, Hajj permits and airline policies vary by traveller and date.</p>
+ <p className="small">Your list is saved on this device. Check current visa, vaccination, permit and airline requirements before travelling.</p>
  </div>;
 }
 
@@ -91,10 +91,10 @@ export function PrayerWidgetGenerator(){
  <div className="two"><label>Location name<input value={label} maxLength={60} onChange={e=>setLabel(e.target.value)}/></label><label>Timezone (IANA)<input value={tz} onChange={e=>setTz(e.target.value)} placeholder="Europe/London"/></label></div>
  <div className="two"><label>Calculation method<select value={method} onChange={e=>setMethod(e.target.value)}><option value="mwl">Muslim World League</option><option value="karachi">Karachi</option><option value="makkah">Umm al-Qura</option><option value="na">North America / ISNA</option><option value="egypt">Egypt</option><option value="singapore">Singapore</option><option value="turkey">Turkey</option><option value="dubai">Dubai</option></select></label><label>Asr method<select value={school} onChange={e=>setSchool(e.target.value)}><option value="standard">Standard</option><option value="hanafi">Hanafi</option></select></label></div>
  <label>Appearance<select value={theme} onChange={e=>setTheme(e.target.value)}><option value="light">Light</option><option value="dark">Dark</option></select></label>
- {valid?<><div className="widget-preview"><strong>Live widget preview</strong><iframe title="Prayer time widget preview" src={relative} loading="lazy"/></div>
+ {valid?<><div className="widget-preview"><strong>Widget preview</strong><iframe title="Prayer time widget preview" src={relative} loading="lazy"/></div>
  <label>Embed code<textarea className="embed-code" value={html} readOnly rows={4}/></label>
  <button onClick={copy}>{copied?'✓ Copied code':'Copy embed code'}</button></>:<p className="warn">Please enter valid coordinates and an IANA timezone before generating your widget.</p>}
  <p className="warn">Times are calculated prayer starts, not verified mosque jamaat times. Choose the method used by your local authority and check dates against the mosque timetable before embedding.</p>
- <p className="small">Free to embed without a mandatory backlink. The widget does not require an API key or visitor location permission. External embedding may depend on your website's framing restrictions.</p>
+ 
  </div>;
 }

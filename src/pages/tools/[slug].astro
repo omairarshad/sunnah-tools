@@ -83,7 +83,7 @@ const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemL
  <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/#tools">All tools</a><span aria-hidden="true">›</span><span>{tool.category}</span><span aria-hidden="true">›</span><span aria-current="page">{tool.name}</span></nav>
  <div class="tool-topline">
   <div class="tool-titles">
-   <div class="tool-heading-identity"><span class="tool-heading-icon"><ToolIcon slug={slug} size={30}/></span><span class="eyebrow">{tool.category.toUpperCase()} / FREE ISLAMIC TOOL</span></div>
+   <div class="tool-heading-identity"><span class="tool-heading-icon"><ToolIcon slug={slug} size={30}/></span></div>
    <h1>{seo.h1}</h1><p class="tool-lead">{guide.intro}</p>
   </div>
   <div class="tool-actions">
@@ -93,33 +93,32 @@ const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemL
  </div>
  <div class="tool-layout">
   <div class="tool-main">
-   {slug==='hijri-converter'&&<div class="today-hijri" aria-live="polite"><strong>Today’s Hijri date</strong><p id="today-hijri-value">{renderedHijri} (calculated)</p><small id="today-hijri-note">HTML snapshot for {renderedDate} (UTC), refreshed to your local date when the tool loads. Umm al-Qura dates may differ from local moon sighting, especially after sunset.</small></div>}
-   <section aria-label={tool.name+' interactive calculator'} class="tool-panel">
-    <div class="tool-panel-heading"><div><span class="panel-status"><span class="status-dot"></span> INTERACTIVE TOOL</span><h2>Try it out</h2></div><span class="panel-privacy">No account required</span></div>
+   {slug==='hijri-converter'&&<div class="today-hijri" aria-live="polite"><strong>Today’s Hijri date</strong><p id="today-hijri-value">{renderedHijri} (calculated)</p><small id="today-hijri-note">Calculated for {renderedDate} (UTC) using Umm al-Qura. Local moon sighting and sunset may give a different date.</small></div>}
+   <section aria-label={tool.name} class="tool-panel">
     <div class="tool-inner"><ToolApp slug={slug} client:only="react"/></div>
    </section>
    <section class="explainer seo-explainer" id="how-it-works" aria-labelledby="how-label">
-    <div class="section-label"><h2 id="how-label">How to use the {tool.name.toLowerCase()}</h2><span>Step-by-step and method</span></div>
+    <div class="section-label"><h2 id="how-label">How to use {tool.name}</h2></div>
     <p>{seo.summary}</p><p>{seo.details}</p>
-    <h3>Calculation method and accuracy</h3><p>{guide.method}</p>
-    <h3>Important limitations</h3><p>{seo.caution}</p>
+    <h3>How it works</h3><p>{guide.method}</p>
+    <h3>What to check</h3><p>{seo.caution}</p>
     {guide.source&&<p class="source-note">Reference: <a href={guide.source.url} target="_blank" rel="noopener noreferrer">{guide.source.label}<span aria-hidden="true"> ↗</span></a></p>}
    </section>
    <section class="explainer" aria-labelledby="faq-label">
-    <div class="section-label"><h2 id="faq-label">Frequently asked questions about {tool.name.toLowerCase()}</h2><span>Answers and context</span></div>
+    <div class="section-label"><h2 id="faq-label">Common questions</h2></div>
     {faqItems.map(({question,answer})=><details class="faq-detail"><summary>{question}<span class="plus-symbol" aria-hidden="true">+</span></summary><p>{answer}</p></details>)}
    </section>
    <section class="explainer" aria-labelledby="related-guides-label">
-    <div class="section-label"><h2 id="related-guides-label">Related guides</h2><span>Learn the background</span></div>
+    <div class="section-label"><h2 id="related-guides-label">Related guides</h2></div>
     <ul class="related-guide-list">{relatedGuides.map(item=><li><a href={item.url}>{item.label} <span aria-hidden="true">→</span></a></li>)}</ul>
    </section>
-   <p class="tool-disclaimer"><span aria-hidden="true">ⓘ</span> Sunnah Tools provides informational calculations, not binding religious rulings. Dates and calculation methods vary by region. Confirm important worship decisions with trusted local guidance.</p>
+   
    <AdPlacement placement="tool"/>
   </div>
   <aside class="tool-aside" aria-label="Other useful Islamic tools">
-    <div class="aside-title"><span class="eyebrow">KEEP EXPLORING</span><h2>More useful tools</h2><p>You might also find these helpful.</p></div>
+    <div class="aside-title"><h2>Related tools</h2></div>
     <div class="aside-list">{related.map(other=><a href={`/tools/${other.slug}/`} class="aside-link" data-tone={toneForSlug(other.slug)}><span class="aside-icon"><ToolIcon slug={other.slug} size={21}/></span><span><strong>{other.name}</strong><small>{other.category}</small></span><span aria-hidden="true">↗</span></a>)}</div>
-    <div class="aside-care"><span aria-hidden="true">✦</span><strong>Made for simplicity</strong><p>Free tools, thoughtfully built. Transparent methods. No login required.</p><a href="/about/">Learn about Sunnah Tools →</a></div>
+    
   </aside>
  </div>
  <section class="related mobile-related"><div class="section-label"><h2>Explore more tools</h2></div><div class="related-links">{related.map(other=><a href={`/tools/${other.slug}/`}>{other.name}<span aria-hidden="true">↗</span></a>)}</div></section>
@@ -133,7 +132,7 @@ const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemL
   const formatter=new Intl.DateTimeFormat('en-GB-u-ca-islamic-umalqura',{day:'numeric',month:'long',year:'numeric'});
   const formatted=formatter.format(new Date());
   todayDate.textContent=(/\bAH\b/i.test(formatted)?formatted:formatted+' AH')+' (calculated)';
-  if(todayNote)todayNote.textContent='Updated for your device’s current civil date using Umm al-Qura. A local moon sighting or sunset boundary can change the religious date.';
+  if(todayNote)todayNote.textContent='Today's date is calculated using Umm al-Qura. Local moon sighting and sunset may give a different date.';
  }catch{todayDate.textContent='Use the date converter to check the current Hijri date.'}}
  const save=document.querySelector<HTMLButtonElement>('#save-current-tool');
  const share=document.querySelector<HTMLButtonElement>('#share-current-tool');
