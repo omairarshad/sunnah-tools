@@ -71,7 +71,8 @@ const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemL
  const todayDate=document.querySelector<HTMLElement>('#today-hijri-value');
  if(todayDate){try{
   const formatter=new Intl.DateTimeFormat('en-GB-u-ca-islamic-umalqura',{day:'numeric',month:'long',year:'numeric'});
-  todayDate.textContent=formatter.format(new Date())+' AH (calculated)';
+  const formatted=formatter.format(new Date());
+  todayDate.textContent=(/\bAH\b/i.test(formatted)?formatted:formatted+' AH')+' (calculated)';
  }catch{todayDate.textContent='Use the date converter to check the current Hijri date.'}}
  const save=document.querySelector<HTMLButtonElement>('#save-current-tool');
  const share=document.querySelector<HTMLButtonElement>('#share-current-tool');
