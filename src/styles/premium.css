@@ -21,7 +21,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,su
  box-shadow:0 3px 18px rgba(4,31,23,.12);
 }
 .site-header-inner{padding-top:12px;padding-bottom:12px;min-height:76px}
-.brand{font-size:26px;letter-spacing:-.038em;color:#fbf7ec;gap:9px;font-family:Georgia,"Times New Roman",serif;font-weight:700}
+.brand{font-size:26px;letter-spacing:-.038em;color:#fbf7ec;gap:9px;font-family:var(--font-display);font-weight:700}
 .brand-symbol{display:block;object-fit:contain;width:46px;height:46px;flex-shrink:0}
 .brand-wordmark{display:inline-flex;align-items:baseline;white-space:nowrap}
 .brand-sub{font-weight:650;color:#d5ad68;margin-left:4px}
@@ -118,7 +118,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,su
 .trust-inner strong{color:#21382b}
 .trust-inner p{color:#59695b}
 .site-footer{background:#102e26;color:#e5ece5}
-.footer-brand{display:inline-flex;align-items:center;gap:10px;font-family:Georgia,"Times New Roman",serif;font-size:20px}
+.footer-brand{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-display);font-size:20px}
 .footer-brand img{width:31px;height:31px}
 .footer-brand em{font-style:normal;color:#d7ad68}
 .footer-inner p{color:#bac9bd}
@@ -146,7 +146,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,su
 }
 .panel-status,.tool-screen[data-tone] .panel-status{color:#265c43;font-size:10px}
 .panel-privacy{color:#485b4c;background:#f2f3ed;border:1px solid #e4e8e0;padding:7px 10px;border-radius:7px}
-.tool-panel-heading h2{font-family:Georgia,"Times New Roman",serif;font-size:27px;font-weight:600;color:#152f25}
+.tool-panel-heading h2{font-family:var(--font-display);font-size:27px;font-weight:600;color:#152f25}
 .tool-inner{padding:25px 27px 28px}
 .tool-inner label{color:#23352b;font-weight:750}
 .tool-inner input:not([type=checkbox]),.tool-inner select,.tool-inner textarea{
@@ -292,7 +292,7 @@ th,td{border-bottom-color:#e2e6df}
 .growth-count-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:20px 0}
 .growth-count-card h3{font-size:19px;margin:10px 0}
 .growth-count{display:flex;align-items:baseline;justify-content:center;margin:18px 0}
-.growth-count strong{font-size:70px;line-height:1;font-family:Georgia,"Times New Roman",serif;color:#225c41}
+.growth-count strong{font-size:70px;line-height:1;font-family:var(--font-display);color:#225c41}
 .growth-count span{font-size:25px;color:#7a8d7f}
 .growth-count-card .action-row{justify-content:center}
 .growth-qada-list{display:grid;gap:11px;margin:18px 0}

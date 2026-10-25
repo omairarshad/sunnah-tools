@@ -2,7 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import '../../styles/font-lab.css';
 const choices=[
- {id:'petrona-karla',name:'Petrona + Karla',badge:'Recommended',tone:'A warm, independent editorial identity',description:'Petrona adds handcrafted bookish character; Karla keeps the form fields friendly and legible.',heading:'Petrona',body:'Karla',headingUrl:'https://fonts.google.com/specimen/Petrona',bodyUrl:'https://fonts.google.com/specimen/Karla'},
+ {id:'petrona-karla',name:'Petrona + Karla',badge:'Live default',tone:'A warm, independent editorial identity',description:'Petrona adds handcrafted bookish character; Karla keeps the form fields friendly and legible.',heading:'Petrona',body:'Karla',headingUrl:'https://fonts.google.com/specimen/Petrona',bodyUrl:'https://fonts.google.com/specimen/Karla'},
  {id:'alegreya-family',name:'Alegreya + Alegreya Sans',badge:'Bookish',tone:'Literary, human and quietly traditional',description:'The Alegreya family feels like a publication, not a dashboard, without using imitation calligraphy.',heading:'Alegreya',body:'Alegreya Sans',headingUrl:'https://fonts.google.com/specimen/Alegreya',bodyUrl:'https://fonts.google.com/specimen/Alegreya+Sans'},
  {id:'eczar-plex',name:'Eczar + IBM Plex Sans',badge:'Characterful',tone:'Expressive headings and precise utility text',description:'Eczar creates memorable headings, balanced by IBM Plex Sans in numbers and interactive controls.',heading:'Eczar',body:'IBM Plex Sans',headingUrl:'https://fonts.google.com/specimen/Eczar',bodyUrl:'https://fonts.google.com/specimen/IBM+Plex+Sans'}
 ];
@@ -12,8 +12,8 @@ const choices=[
   <div class="font-lab-intro">
    <span class="eyebrow">DESIGN EXPERIMENT / PRIVATE PREVIEW</span>
    <h1 id="font-lab-title">A new type of Sunnah Tools.</h1>
-   <p>Our current Inter and Georgia mix feels too much like a template. Compare three Google Fonts pairings below, then open the real site to see how they work across tool cards, forms, guides and headings.</p>
-   <div class="font-lab-note"><strong>Nothing has changed for regular visitors.</strong> “Try on the website” changes fonts only in this browser tab's session, even as you visit other tools. Choose “Exit preview” to restore the default. Fonts are requested from Google only while you use these previews.</div>
+   <p>The new default pairs Petrona's expressive editorial headings with Karla's clear interface text. Compare it with two alternatives and try each font pairing across the real site's cards, calculators and guides.</p>
+   <div class="font-lab-note"><strong>Petrona + Karla is the live default.</strong> Alternative pairings are temporary and apply only in this browser tab's session. Choose “Exit preview” to return to Petrona + Karla. The default fonts and optional alternatives are provided by Google Fonts.</div>
   </div>
   <div class="font-lab-showcase">
    {choices.map(c=><article class="font-lab-card" data-combo={c.id}>
@@ -41,7 +41,7 @@ const choices=[
      </div>
     </div>
     <div class="font-lab-card-actions">
-     <a class="font-lab-primary" href={'/?font-preview='+c.id+'#tools'}>Try on the website</a>
+     <a class="font-lab-primary" href={c.id==='petrona-karla'?'/?font-preview=off#tools':'/?font-preview='+c.id+'#tools'}>{c.id==='petrona-karla'?'See the live default':'Try on the website'}</a>
      <a href={'/tools/zakat-calculator/?font-preview='+c.id}>See a calculator</a>
      <a href={c.headingUrl} target="_blank" rel="noopener noreferrer">View {c.heading} on Google Fonts</a>
      <a href={c.bodyUrl} target="_blank" rel="noopener noreferrer">View {c.body}</a>
@@ -50,7 +50,7 @@ const choices=[
   </div>
   <div class="font-lab-compare-baseline">
    <h2>Compare with the original</h2>
-   <p>The published Inter + Georgia typography remains the default for everyone unless you choose a preview.</p>
+   <p>The published Petrona + Karla typography is the default. Other pairings are session-only previews and will not affect other visitors.</p>
    <a href="/?font-preview=off">Return to the current website</a>
   </div>
  </section>

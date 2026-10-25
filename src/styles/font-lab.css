@@ -1,9 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700;800&family=Petrona:wght@400;500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Alegreya+Sans:wght@400;500;600;700;800&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Eczar:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap");
 .font-lab{max-width:1130px;margin:0 auto;padding:44px 24px 100px}
 .font-lab-intro{max-width:780px;margin:0 0 30px}
-.font-lab-intro h1{font-family:Georgia,serif;font-size:clamp(36px,5vw,59px);font-weight:500;line-height:1.13;letter-spacing:-.035em;margin:15px 0}
+.font-lab-intro h1{font-family:var(--font-display);font-size:clamp(36px,5vw,59px);font-weight:500;line-height:1.13;letter-spacing:-.035em;margin:15px 0}
 .font-lab-intro p{font-size:15px;line-height:1.75}
 .font-lab-note{padding:14px 18px;background:#eaf2e9;border:1px solid #d5e5d4;border-left:3px solid #7f9f79;border-radius:10px;margin:24px 0 0;color:#234735;font-size:13px;line-height:1.7}
 .font-lab-showcase{display:grid;gap:26px}
