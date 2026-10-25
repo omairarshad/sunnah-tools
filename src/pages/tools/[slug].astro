@@ -7,6 +7,7 @@ import {toneForSlug} from '../../data/toolTones';
 import {tools,toolBySlug} from '../../data/tools';
 import {guides} from '../../data/guides';
 import {toolSeo} from '../../data/toolSeo';
+import {toolTopicBySlug} from '../../data/toolTopics';
 export function getStaticPaths(){return tools.map(tool=>({params:{slug:tool.slug}}))}
 const slug=Astro.params.slug as keyof typeof toolBySlug;
 const tool=toolBySlug[slug];
@@ -16,7 +17,7 @@ if(!seo)throw new Error(`Missing unique SEO entry for ${slug}`);
 const faqItems=[{question:guide.question,answer:guide.answer},...seo.faqs];
 const enrichedDescription=seo.description;
 const categoryGuide=tool.category==='Prayer'?{url:'/guides/prayer-time-methods/',label:'How prayer times are calculated'}:tool.category==='Ramadan'?{url:'/guides/ramadan-dates-and-timetables/',label:'Ramadan dates, Fajr and iftar explained'}:null;
-const related=tools.filter(x=>x.slug!==slug).sort((a,b)=>Number(b.category===tool.category)-Number(a.category===tool.category)).slice(0,4);
+const related=tools.filter(x=>x.slug!==slug).sort((a,b)=>Number(toolTopicBySlug[b.slug]===toolTopicBySlug[slug])-Number(toolTopicBySlug[a.slug]===toolTopicBySlug[slug])||Number(b.category===tool.category)-Number(a.category===tool.category)).slice(0,4);
 const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'All Islamic tools',item:'https://sunnah.tools/'},{'@type':'ListItem',position:2,name:tool.name,item:`https://sunnah.tools/tools/${slug}/`}]};
 ---
 <Base title={seo.title} description={enrichedDescription}>
