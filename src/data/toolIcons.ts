@@ -27,5 +27,14 @@ export const iconPaths:Record<string,string[]>={
 'fidya-calculator':['M3 17h18','M6 13h12l2 4H4z','M8 8h8','M12 4v4'],
 'kaffarah-calculator':['M12 3v18','M3 12h18','M6 6l12 12','M18 6 6 18'],
 'qurbani-share-calculator':['M4 6h16v12H4z','M4 11h16','M12 6v12','M7 15h2','M15 15h2'],
-'tawaf-sai-counter':['M4 4h16v16H4z','M8 8h8v8H8z','M3 12h-1','M22 12h-1']
+'tawaf-sai-counter':['M4 4h16v16H4z','M8 8h8v8H8z','M3 12h-1','M22 12h-1'],
+"prayer-rakats-chart":['M4 4h16v16H4z','M8 8h8v8H8z','M8 12h8'],
+"daily-adhkar":['M4 4h16v16H4z','M8 8h8v8H8z','M8 12h8'],
+"halal-additives-checker":['M4 4h16v16H4z','M8 8h8v8H8z','M8 12h8'],
+"zakat-anniversary-calculator":['M4 4h16v16H4z','M8 8h8v8H8z','M8 12h8'],
+"dhul-hijjah-planner":['M4 4h16v16H4z','M8 8h8v8H8z','M8 12h8'],
+"travel-prayer-guide":['M4 4h16v16H4z','M8 8h8v8H8z','M8 12h8'],
+"quran-juz-finder":['M4 4h16v16H4z','M8 8h8v8H8z','M8 12h8'],
+"zakat-stocks-crypto":['M4 4h16v16H4z','M8 8h8v8H8z','M8 12h8'],
+"hifz-tracker":['M4 4h16v16H4z','M8 8h8v8H8z','M8 12h8']
 };

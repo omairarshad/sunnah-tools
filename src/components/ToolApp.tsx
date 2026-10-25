@@ -3,6 +3,7 @@ import {GoldZakat,IslamicEvents,PrayerChart} from './NextTools';
 import CitySearch from './CitySearch';
 import {LaylatulQadrNights,FidyaCalculator,QadaPrayerCalculator,QurbaniShareCalculator,KaffarahCalculator,TawafSaiCounter} from './GrowthTools';
 import FitranaCalculator from './FitranaCalculator';
+import {ExpansionTool} from './ExpansionTools';
 import {ramadanDays,timetableCSV} from '../lib/ramadanHelpers.mjs';
 import {WhiteDaysCalendar,PrintableHijriCalendar,PrayerWidgetGenerator,UmrahPackingChecklist} from './BatchTools';
 import {CalculationMethod,Coordinates,Madhab,PrayerTimes,Qibla,HighLatitudeRule,PolarCircleResolution} from 'adhan';
@@ -166,6 +167,7 @@ function SalahTracker(){
 }
 
 export default function ToolApp({slug}:{slug:string}){
+ if(["prayer-rakats-chart","daily-adhkar","halal-additives-checker","zakat-anniversary-calculator","dhul-hijjah-planner","travel-prayer-guide","quran-juz-finder","zakat-stocks-crypto","hifz-tracker"].includes(slug))return <ExpansionTool slug={slug}/>;
  if(slug==='laylatul-qadr-nights')return <LaylatulQadrNights/>;
  if(slug==='fidya-calculator')return <FidyaCalculator/>;
  if(slug==='qada-prayer-calculator')return <QadaPrayerCalculator/>;

@@ -1,0 +1,26 @@
+/* Shared surface styles for focused tools. Keep body font and dark mode tokens. */
+.expansion-tool{display:grid;gap:16px;min-width:0}
+.expansion-tool>p{margin:0}
+.expansion-tool>label{display:grid;gap:7px}
+.expansion-reading{padding:18px 20px;border-radius:13px;background:#f6f9f4;border:1px solid #d8e4d8;display:grid;gap:12px}
+.expansion-reading p{margin:0}
+.expansion-arabic{font-family:serif;font-size:clamp(27px,3vw,39px);line-height:1.95;text-align:right;color:#173e2d}
+.expansion-results{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:12px}
+.expansion-result{padding:14px;border-radius:12px;border:1px solid #d6e4d7;background:#f8faf7}
+.expansion-result h3{font-size:16px;line-height:1.3;margin:0 0 8px}
+.expansion-result p{margin:8px 0 0}
+.expansion-note{border-left:3px solid #a4c5aa;padding:7px 11px;max-width:75ch}
+.expansion-table th,.expansion-table td{text-align:left}
+.expansion-tool progress{width:100%;height:12px}
+html[data-theme="dark"] .expansion-reading,html[data-theme="dark"] .expansion-result{background:#193025;border-color:#365342;color:#ecf3eb}
+html[data-theme="dark"] .expansion-arabic{color:#edf5dc}
+html[data-theme="dark"] .expansion-note{color:#bed6c1}
+@media print{.expansion-reading,.expansion-result{background:#fff!important;color:#000!important;border:1px solid #777}.expansion-tool button{display:none!important}}
+
+.city-prayer-page .city-index-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin:24px 0}
+.city-index-grid section{border:1px solid #d6e3d8;border-radius:12px;padding:16px 20px}
+.city-index-grid h2{margin:0 0 10px;font-size:19px}
+.city-index-grid ul,.city-prayer-page .tool-aside ul{list-style:none;padding:0;margin:0}
+.city-index-grid li,.city-prayer-page .tool-aside li{margin:8px 0}
+.city-prayer-page table th,.city-prayer-page table td{white-space:nowrap}
+html[data-theme="dark"] .city-index-grid section{background:#193025;border-color:#385844}

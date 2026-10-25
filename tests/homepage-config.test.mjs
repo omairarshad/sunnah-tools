@@ -27,10 +27,10 @@ test('homepage no longer includes the redundant featured mini-card section',()=>
  assert.deepEqual(page.layout.sectionOrder,['promotions','directory','guides']);
 });
 
-test('all 28 tool cards have unique, safe illustration paths and descriptive alt text',()=>{
+test('all 37 tool cards have unique, safe illustration paths and descriptive alt text',()=>{
  const cards=page.directory.cards;
- assert.equal(cards.length,28);
- assert.equal(new Set(cards.map(c=>c.image)).size,28);
+ assert.equal(cards.length,37);
+ assert.equal(new Set(cards.map(c=>c.image)).size,37);
  for(const card of cards){
   assert.ok(safeToolImage(card.image),'invalid tool artwork: '+card.slug);
   assert.ok(card.imageAlt.length>=22,'alt description must describe subject: '+card.slug);
@@ -44,5 +44,5 @@ test('tool imagery is restricted to local paths, not remote or executable URLs',
 
 test('tool directory defaults to six desktop columns for faster browsing',()=>{
  assert.equal(page.directory.columns,6);
- assert.equal(page.directory.cards.length,28);
+ assert.equal(page.directory.cards.length,37);
 });

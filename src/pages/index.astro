@@ -46,7 +46,7 @@ const categoryCounts=Object.fromEntries(categories.map(category=>[category,categ
  </section>}
  <section id="tools" class="section directory" data-columns={homepage.directory.columns} style={`order:${rank("directory")}`} aria-labelledby="directory-heading">
   <div class="directory-heading">
-   <div><h2 id="directory-heading">{homepage.directory.title}</h2>{homepage.directory.description&&<p>{homepage.directory.description}</p>}</div>
+   <div><h2 id="directory-heading">{homepage.directory.title}</h2><p class="small"><a href="/prayer-times/">Prayer times by city</a></p>{homepage.directory.description&&<p>{homepage.directory.description}</p>}</div>
   </div>
   <div class="directory-controls">
    <div class="tool-search"><label class="sr-only" for="tool-search-input">Search Islamic tools</label><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg><input id="tool-search-input" type="search" placeholder="Search tools, e.g. Zakat, Qibla, Ramadan..." autocomplete="off"/><kbd class="search-shortcut" aria-hidden="true">/</kbd></div>

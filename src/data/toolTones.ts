@@ -8,4 +8,5 @@ export const toneForSlug=(slug:string):string=>({
  'prayer-times-widget':'indigo','umrah-packing-checklist':'coral',
  'qada-prayer-calculator':'teal','laylatul-qadr-nights':'violet','fidya-calculator':'emerald',
  'kaffarah-calculator':'coral','qurbani-share-calculator':'amber','tawaf-sai-counter':'blue'
+,'prayer-rakats-chart':'blue','daily-adhkar':'indigo','halal-additives-checker':'mint','zakat-anniversary-calculator':'emerald','dhul-hijjah-planner':'amber','travel-prayer-guide':'teal','quran-juz-finder':'violet','zakat-stocks-crypto':'coral','hifz-tracker':'rose'
 } as Record<string,string>)[slug]??'teal';

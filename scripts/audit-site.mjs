@@ -104,3 +104,14 @@ if(process.env.PUBLIC_GA4_ENABLED!=='true')assert(!home.includes('googletagmanag
 assert(read('robots.txt').includes('sitemap-index.xml'),'Robots sitemap reference missing');
 assert(read('sitemap-index.xml').includes('sitemap-0.xml'),'Sitemap index child missing');
 console.log(`Static UX/SEO audit passed: homepage, ${slugs.length} tool routes, responsive shell and sitemap`);
+
+const cityPaths=["london","birmingham","manchester","bradford","leicester","leeds","newcastle","glasgow","edinburgh","cardiff","makkah","karachi","dubai","toronto","new-york"];
+for(const slug of cityPaths){
+ const p='prayer-times/'+slug+'/index.html';
+ const html=read(p);
+ assert(html.includes('Prayer times in ')&&html.includes('city-prayer-page'),'City prayer page missing or unhelpful: '+slug);
+ assert(html.includes('method')&&html.includes('Fajr')&&html.includes('Maghrib'),'City-specific calculator missing: '+slug);
+ assert(sitemap.includes('/prayer-times/'+slug+'/'),'City sitemap missing: '+slug);
+}
+assert(sitemap.includes('/prayer-times/'),'City index missing from sitemap');
+console.log('Verified '+cityPaths.length+' location-specific prayer pages');
