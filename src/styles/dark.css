@@ -99,8 +99,6 @@ html[data-theme="dark"] .directory .tool-card-category,
 html[data-theme="dark"] .directory .tool-card[data-tone] .tool-card-category{color:#a8c6b7}
 html[data-theme="dark"] .directory .tool-card-link,
 html[data-theme="dark"] .directory .tool-card[data-tone] .tool-card-link{color:#90d9b5}
-html[data-theme="dark"] .directory .favorite{background:#1d3629;border-color:#6b8372;color:#e4f0e6;box-shadow:0 2px 9px rgba(0,0,0,.28)}
-html[data-theme="dark"] .directory .favorite[aria-pressed=true]{background:#40351d;border-color:#c8a869;color:#f2cb7d}
 html[data-theme="dark"] .promo-banner{border-color:#426352;background:#172820}
 html[data-theme="dark"] .promo-banner-top{background:rgba(14,31,26,.92);color:#e8f4e9;border-color:#597564}
 html[data-theme="dark"] .promo-banner-cta{background:rgba(17,44,32,.96);color:#f4e4bc;border-color:#a99060}

@@ -18,7 +18,10 @@ test('tablet and small mobile cards use responsive columns and accessible contro
  for(const count of [5,4,3,2])assert.ok(css.includes('repeat('+count+',minmax(0,1fr))'),count+' column layout');
  assert.ok(css.includes('grid-template-columns:1fr'),'one-column small mobile layout');
  assert.match(css,/@media\(max-width:419px\)\{[\s\S]*?\.directory \.tool-card-main\{flex-direction:row/);
- assert.match(css,/\.directory \.favorite:focus-visible\{outline:3px/);
- assert.match(css,/\.directory \.favorite::before\{content:"";position:absolute;inset:-6px\}/);
+ assert.match(css,/\.directory \.tool-card-main:focus-visible\{outline:3px/);
+ assert.doesNotMatch(css,/\.directory \.favorite/);
+ assert.doesNotMatch(home,/class="favorite"|data-favorite=|data-filter="saved"/);
+ assert.match(home,/id="recent-section"/);
+ assert.match(home,/id="tool-search-input"/);
  assert.match(cms,/name: 6, label: Six columns/);
 });

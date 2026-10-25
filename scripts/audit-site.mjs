@@ -25,7 +25,9 @@ assert(home.includes('https://www.arabicalphabet.app/'),'Arabic learning promo m
 assert(home.includes('https://www.youtube.com/@IslamReact'),'IslamReact channel link missing');
 assert(home.includes('https://meemandmoon.com/'),'Meem & Moon promo missing');
 assert(home.includes('data-promo-id="arabic-alphabet"'),'Arabic promo event instrumentation missing');
-assert(home.includes('data-filter="saved"'),'Saved tools category unavailable');
+assert(!home.includes('data-filter="saved"')&&!home.includes('data-favorite=')&&!home.includes('sunnah-favorite-tools-v1'),'Obsolete favourites interface or state remains');
+assert(home.includes('id="recent-section"')&&home.includes('id="recent-links"'),'Recently opened links must be retained');
+assert(home.includes('id="tool-search-input"')&&home.includes('data-filter="prayer"'),'Search and category filters should remain');
 assert(!home.includes('class="hero"'),'Oversized old hero unexpectedly restored');
 const header=(html)=>html.includes('class="site-header"')&&html.includes('class="site-footer"');
 assert(header(home),'Shared site navigation and footer missing');
