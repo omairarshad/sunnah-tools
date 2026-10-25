@@ -55,7 +55,7 @@
   },
   "directory": {
     "title": "Find your next tool",
-    "description": "Everything in one place. Search by name or browse a category.",
+    "description": "Start with everyday prayer and Islamic dates, then explore Ramadan, Zakat and worship tools.",
     "columns": 4,
     "cards": [
       {
@@ -66,15 +66,6 @@
         "enabled": true,
         "image": "/tool-art/prayer-times.svg",
         "imageAlt": "A mosque at the hours of daily prayer, with a clear clock face"
-      },
-      {
-        "slug": "fasting-times",
-        "title": "Suhoor & Iftar Times",
-        "description": "See calculated fasting start, iftar and the next countdown.",
-        "tone": "amber",
-        "enabled": true,
-        "image": "/tool-art/fasting-times.svg",
-        "imageAlt": "Sunset dates, a drinking cup and a plate for Suhoor and Iftar"
       },
       {
         "slug": "qibla-finder",
@@ -95,112 +86,13 @@
         "imageAlt": "A night sky, crescent moon and prayer mat"
       },
       {
-        "slug": "ramadan-timetable",
-        "title": "Ramadan Timetable",
-        "description": "Generate and print Fajr and Maghrib timings.",
-        "tone": "coral",
-        "enabled": true,
-        "image": "/tool-art/ramadan-timetable.svg",
-        "imageAlt": "Ramadan calendar with marked fasting dates and prayer-time row"
-      },
-      {
-        "slug": "ramadan-countdown",
-        "title": "Ramadan Countdown",
-        "description": "Count down to an estimated first day of Ramadan.",
-        "tone": "rose",
-        "enabled": true,
-        "image": "/tool-art/ramadan-countdown.svg",
-        "imageAlt": "Flip-clock digits and a crescent showing a Ramadan countdown"
-      },
-      {
-        "slug": "zakat-calculator",
-        "title": "Zakat Calculator",
-        "description": "Estimate Zakat on savings, gold and investments.",
+        "slug": "salah-tracker",
+        "title": "Daily Salah Tracker",
+        "description": "Tick off your five daily prayers privately.",
         "tone": "emerald",
         "enabled": true,
-        "image": "/tool-art/zakat-calculator.svg",
-        "imageAlt": "A wallet, gold coin and 2.5 percent Zakat symbol"
-      },
-      {
-        "slug": "fitrana-calculator",
-        "title": "Fitrana Calculator",
-        "description": "Estimate Zakat al-Fitr for your household using a verified local rate.",
-        "tone": "coral",
-        "enabled": true,
-        "image": "/tool-art/fitrana-calculator.svg",
-        "imageAlt": "Staple-food sack, bowl of rice and a giving heart"
-      },
-      {
-        "slug": "gold-zakat-calculator",
-        "title": "Gold Zakat Calculator",
-        "description": "Estimate the value of 9k–24k gold and conditional Zakat.",
-        "tone": "amber",
-        "enabled": true,
-        "image": "/tool-art/gold-zakat-calculator.svg",
-        "imageAlt": "Gold bars and a gold ring"
-      },
-      {
-        "slug": "nisab-calculator",
-        "title": "Nisab Calculator",
-        "description": "Compare the gold and silver wealth thresholds.",
-        "tone": "violet",
-        "enabled": true,
-        "image": "/tool-art/nisab-calculator.svg",
-        "imageAlt": "Balanced scale comparing gold and silver"
-      },
-      {
-        "slug": "islamic-events-calendar",
-        "title": "Islamic Events Calendar",
-        "description": "Explore estimated dates for Ramadan, Eid, Ashura and Hajj.",
-        "tone": "blue",
-        "enabled": true,
-        "image": "/tool-art/islamic-events-calendar.svg",
-        "imageAlt": "Islamic events calendar with Eid and Hajj dates"
-      },
-      {
-        "slug": "hijri-converter",
-        "title": "Hijri Date Converter",
-        "description": "Check the Islamic date for a Gregorian date.",
-        "tone": "teal",
-        "enabled": true,
-        "image": "/tool-art/hijri-converter.svg",
-        "imageAlt": "Side-by-side Gregorian and Hijri calendars with exchange arrows"
-      },
-      {
-        "slug": "islamic-age",
-        "title": "Islamic Age Calculator",
-        "description": "Find your age in Islamic lunar years.",
-        "tone": "rose",
-        "enabled": true,
-        "image": "/tool-art/islamic-age.svg",
-        "imageAlt": "Birthday calendar with a lunar year age badge"
-      },
-      {
-        "slug": "tasbih-counter",
-        "title": "Digital Tasbih",
-        "description": "Count dhikr and save progress on this device.",
-        "tone": "coral",
-        "enabled": true,
-        "image": "/tool-art/tasbih-counter.svg",
-        "imageAlt": "Circular prayer beads around a digital dhikr count"
-      },
-      {
-        "slug": "quran-planner",
-        "title": "Quran Reading Planner",
-        "description": "Plan your daily reading to finish the Quran.",
-        "tone": "indigo",
-        "enabled": true,
-        "image": "/tool-art/quran-planner.svg",
-        "imageAlt": "Open Quran with bookmark and reading checklist"
-      },
-      {
-        "slug": "fasting-tracker",
-        "title": "Fasting Tracker",
-        "description": "Track completed and remaining make-up fasts.",
-        "tone": "mint",
-        "enabled": true,
-        "image": "/tool-art/fasting-tracker.svg",
-        "imageAlt": "Calendar with four checked fasting days and pending dates"
+        "image": "/tool-art/salah-tracker.svg",
+        "imageAlt": "Five labelled daily Salah tracker boxes with progress marks"
       },
       {
         "slug": "printable-prayer-chart",
@@ -212,13 +104,31 @@
         "imageAlt": "A printed prayer tracking checklist on a clipboard"
       },
       {
-        "slug": "salah-tracker",
-        "title": "Daily Salah Tracker",
-        "description": "Tick off your five daily prayers privately.",
-        "tone": "emerald",
+        "slug": "prayer-times-widget",
+        "title": "Prayer Times Website Widget",
+        "description": "Create an embeddable timetable for a mosque or community site.",
+        "tone": "indigo",
         "enabled": true,
-        "image": "/tool-art/salah-tracker.svg",
-        "imageAlt": "Five labelled daily Salah tracker boxes with progress marks"
+        "image": "/tool-art/prayer-times-widget.svg",
+        "imageAlt": "Computer screen with an embeddable prayer timetable"
+      },
+      {
+        "slug": "hijri-converter",
+        "title": "Hijri Date Converter",
+        "description": "Check the Islamic date for a Gregorian date.",
+        "tone": "teal",
+        "enabled": true,
+        "image": "/tool-art/hijri-converter.svg",
+        "imageAlt": "Side-by-side Gregorian and Hijri calendars with exchange arrows"
+      },
+      {
+        "slug": "islamic-events-calendar",
+        "title": "Islamic Events Calendar",
+        "description": "Explore estimated dates for Ramadan, Eid, Ashura and Hajj.",
+        "tone": "blue",
+        "enabled": true,
+        "image": "/tool-art/islamic-events-calendar.svg",
+        "imageAlt": "Islamic events calendar with Eid and Hajj dates"
       },
       {
         "slug": "white-days-calendar",
@@ -239,13 +149,103 @@
         "imageAlt": "A printer producing a Hijri calendar sheet"
       },
       {
-        "slug": "prayer-times-widget",
-        "title": "Prayer Times Website Widget",
-        "description": "Create an embeddable timetable for a mosque or community site.",
+        "slug": "islamic-age",
+        "title": "Islamic Age Calculator",
+        "description": "Find your age in Islamic lunar years.",
+        "tone": "rose",
+        "enabled": true,
+        "image": "/tool-art/islamic-age.svg",
+        "imageAlt": "Birthday calendar with a lunar year age badge"
+      },
+      {
+        "slug": "fasting-times",
+        "title": "Suhoor & Iftar Times",
+        "description": "See calculated fasting start, iftar and the next countdown.",
+        "tone": "amber",
+        "enabled": true,
+        "image": "/tool-art/fasting-times.svg",
+        "imageAlt": "Sunset dates, a drinking cup and a plate for Suhoor and Iftar"
+      },
+      {
+        "slug": "ramadan-timetable",
+        "title": "Ramadan Timetable",
+        "description": "Generate and print Fajr and Maghrib timings.",
+        "tone": "coral",
+        "enabled": true,
+        "image": "/tool-art/ramadan-timetable.svg",
+        "imageAlt": "Ramadan calendar with marked fasting dates and prayer-time row"
+      },
+      {
+        "slug": "ramadan-countdown",
+        "title": "Ramadan Countdown",
+        "description": "Count down to an estimated first day of Ramadan.",
+        "tone": "rose",
+        "enabled": true,
+        "image": "/tool-art/ramadan-countdown.svg",
+        "imageAlt": "Flip-clock digits and a crescent showing a Ramadan countdown"
+      },
+      {
+        "slug": "fasting-tracker",
+        "title": "Fasting Tracker",
+        "description": "Track completed and remaining make-up fasts.",
+        "tone": "mint",
+        "enabled": true,
+        "image": "/tool-art/fasting-tracker.svg",
+        "imageAlt": "Calendar with four checked fasting days and pending dates"
+      },
+      {
+        "slug": "zakat-calculator",
+        "title": "Zakat Calculator",
+        "description": "Estimate Zakat on savings, gold and investments.",
+        "tone": "emerald",
+        "enabled": true,
+        "image": "/tool-art/zakat-calculator.svg",
+        "imageAlt": "A wallet, gold coin and 2.5 percent Zakat symbol"
+      },
+      {
+        "slug": "nisab-calculator",
+        "title": "Nisab Calculator",
+        "description": "Compare the gold and silver wealth thresholds.",
+        "tone": "violet",
+        "enabled": true,
+        "image": "/tool-art/nisab-calculator.svg",
+        "imageAlt": "Balanced scale comparing gold and silver"
+      },
+      {
+        "slug": "gold-zakat-calculator",
+        "title": "Gold Zakat Calculator",
+        "description": "Estimate the value of 9k–24k gold and conditional Zakat.",
+        "tone": "amber",
+        "enabled": true,
+        "image": "/tool-art/gold-zakat-calculator.svg",
+        "imageAlt": "Gold bars and a gold ring"
+      },
+      {
+        "slug": "fitrana-calculator",
+        "title": "Fitrana Calculator",
+        "description": "Estimate Zakat al-Fitr for your household using a verified local rate.",
+        "tone": "coral",
+        "enabled": true,
+        "image": "/tool-art/fitrana-calculator.svg",
+        "imageAlt": "Staple-food sack, bowl of rice and a giving heart"
+      },
+      {
+        "slug": "tasbih-counter",
+        "title": "Digital Tasbih",
+        "description": "Count dhikr and save progress on this device.",
+        "tone": "coral",
+        "enabled": true,
+        "image": "/tool-art/tasbih-counter.svg",
+        "imageAlt": "Circular prayer beads around a digital dhikr count"
+      },
+      {
+        "slug": "quran-planner",
+        "title": "Quran Reading Planner",
+        "description": "Plan your daily reading to finish the Quran.",
         "tone": "indigo",
         "enabled": true,
-        "image": "/tool-art/prayer-times-widget.svg",
-        "imageAlt": "Computer screen with an embeddable prayer timetable"
+        "image": "/tool-art/quran-planner.svg",
+        "imageAlt": "Open Quran with bookmark and reading checklist"
       },
       {
         "slug": "umrah-packing-checklist",

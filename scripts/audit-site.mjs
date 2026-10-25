@@ -39,11 +39,14 @@ assert(home.includes('/guides/prayer-time-methods/'),'Contextual prayer method g
 assert(home.includes('/guides/ramadan-dates-and-timetables/'),'Contextual Ramadan guide missing');
 if(process.env.PUBLIC_ADSENSE_ADS_ENABLED!=='true')assert(!home.includes('pagead2.googlesyndication.com'),'Ads must not load when not enabled');
 const sitemap=read('sitemap-0.xml');
+assert((home.match(/class="directory-topic-heading"/g)||[]).length===5,'Homepage should explain five major tool topics');
 assert((home.match(/class="tool-card-visual"/g)||[]).length===slugs.length,'Every card must show a large illustration');
 for(const slug of slugs){
  const art=read('tool-art/'+slug+'.svg');
  assert(art.includes('<svg')&&art.includes('</svg>'),'Missing or invalid original SVG: '+slug);
  assert(art.includes('viewBox="0 0 600 360"'),'Illustration aspect ratio missing: '+slug);
+ assert(art.includes('low-poly illustration')&&((art.match(/<polygon/g)||[]).length>=8),'Low-poly geometric scene not found: '+slug);
+ assert(!/<script|https?:\/\//i.test(art.replace('http://www.w3.org/2000/svg','')),'Remote dependency or script in artwork: '+slug);
  assert(home.includes('/tool-art/'+slug+'.svg'),'Homepage card illustration missing: '+slug);
 }
 assert((home.match(/class="tool-card-description"/g)||[]).length===slugs.length,'Readable descriptions missing under illustrations');
@@ -57,11 +60,16 @@ for(const slug of slugs){
  assert(html.includes('class="tool-aside"'),`Related tools sidebar missing: ${slug}`);
  assert(html.includes(`https://sunnah.tools/tools/${slug}/`),`Canonical missing: ${slug}`);
  assert(sitemap.includes(`/tools/${slug}/`),`Sitemap missing: ${slug}`);
+ assert((html.match(/class="faq-detail"/g)||[]).length>=3,`Three visible FAQs missing: ${slug}`);
+ assert(html.includes('seo-explainer')&&html.includes('Important limitations'),`Unique explanation missing: ${slug}`);
+ assert(html.includes('meta name="description"'),`SEO meta description missing: ${slug}`);
+ assert(!html.includes('<title>'+slug+' | Sunnah Tools</title>'),`Generic metadata found: ${slug}`);
 }
 assert(read('guides/prayer-time-methods/index.html').includes('How are Islamic prayer times calculated?'),'Prayer method guide missing');
 assert(read('guides/ramadan-dates-and-timetables/index.html').includes('Planning a reliable Ramadan timetable'),'Ramadan guide missing');
 assert(sitemap.includes('/guides/prayer-time-methods/'),'Methodology guide missing from sitemap');
 assert(sitemap.includes('/guides/ramadan-dates-and-timetables/'),'Ramadan guide missing from sitemap');
+assert(read('tools/hijri-converter/index.html').includes('today-hijri-value'),'Current Hijri date answer missing');
 assert(read('admin/index.html').includes('noindex,nofollow'),'Admin shell must be noindexed');
 assert(read('admin/index.html').includes('Open Pages CMS'),'CMS launch portal missing');
 assert(!sitemap.includes('/admin/'),'Admin route must be excluded from sitemap');
