@@ -15,7 +15,8 @@ export function validateQuranPlan(v){
 }
 export function validateQadaPlan(v){
  if(!isRecord(v)||v.version!==2||!['days','years','range'].includes(v.mode)||!numericString(v.days,1,36525)||!numericString(v.years,.01,100)||!numericString(v.excluded,0,36525)||typeof v.start!=='string'||typeof v.end!=='string'||!optionalDate(v.start)||!optionalDate(v.end)||typeof v.witr!=='boolean'||!isRecord(v.overrides)||!isRecord(v.done))return null;
- const overrides={},done={};
+ /** @type {Record<string,string>} */ const overrides={};
+ /** @type {Record<string,number>} */ const done={};
  for(const key of Object.keys(v.overrides)){
   if(!PRAYER_NAMES.includes(key))return null;
   const entry=v.overrides[key];

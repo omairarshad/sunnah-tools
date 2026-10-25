@@ -24,3 +24,10 @@ html[data-theme="dark"] .expansion-note{color:#bed6c1}
 .city-index-grid li,.city-prayer-page .tool-aside li{margin:8px 0}
 .city-prayer-page table th,.city-prayer-page table td{white-space:nowrap}
 html[data-theme="dark"] .city-index-grid section{background:#193025;border-color:#385844}
+
+/* The orientation sensor is opt-in and only produces guidance with declination supplied. */
+.qibla-phone-sensor{margin-top:18px;padding:14px 17px;border:1px solid #d8e3d9;border-radius:11px}
+.qibla-phone-sensor .result{margin:12px 0}
+.qibla-phone-sensor label{max-width:440px}
+html[data-theme="dark"] .qibla-phone-sensor{border-color:#385b46}
+@media print{.qibla-phone-sensor{display:none}}
