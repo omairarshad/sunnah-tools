@@ -89,6 +89,11 @@ for(const guide of ['hijri-calendar-and-moon-sighting','zakat-nisab-and-fitrana'
 }
 assert(read('tools/hijri-converter/index.html').includes('today-hijri-value'),'Current Hijri date answer missing');
 assert(read('tools/hijri-converter/index.html').includes('HTML snapshot for'),'Calculated Hijri date must be present in static HTML');
+const typeLab=read('font-lab/index.html');
+assert(typeLab.includes('noindex,nofollow'),'Typography comparison must be noindexed');
+assert(typeLab.includes('font-preview=petrona-karla')&&typeLab.includes('font-preview=alegreya-family')&&typeLab.includes('font-preview=eczar-plex'),'Three typography previews must be linked');
+assert(!sitemap.includes('/font-lab/'),'Typography comparison must not be indexed');
+assert(read('font-preview.css').includes('data-font-preview'),'Font overlay missing');
 assert(read('admin/index.html').includes('noindex,nofollow'),'Admin shell must be noindexed');
 assert(read('admin/index.html').includes('Open Pages CMS'),'CMS launch portal missing');
 assert(!sitemap.includes('/admin/'),'Admin route must be excluded from sitemap');

@@ -23,6 +23,29 @@ const org={'@context':'https://schema.org','@type':'WebSite',name:'Sunnah Tools'
   document.documentElement.dataset.theme = stored === 'dark' || stored === 'light' ? stored : (prefersDark ? 'dark' : 'light');
  })();
 </script>
+<script is:inline>
+ (() => {
+  // Voluntary session-only font experiment; normal visitors use the existing design.
+  const fonts={
+   'petrona-karla':'https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700;800&family=Petrona:wght@400;500;600;700&display=swap',
+   'alegreya-family':'https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Alegreya+Sans:wght@400;500;600;700;800&display=swap',
+   'eczar-plex':'https://fonts.googleapis.com/css2?family=Eczar:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap'
+  };
+  const storageKey='sunnah-font-preview';
+  const selected=new URLSearchParams(location.search).get('font-preview');
+  const allowed=value=>typeof value==='string'&&Object.prototype.hasOwnProperty.call(fonts,value);
+  let choice='';
+  try {
+   if(selected==='off')sessionStorage.removeItem(storageKey);
+   else if(allowed(selected))sessionStorage.setItem(storageKey,selected);
+   choice=sessionStorage.getItem(storageKey)||'';
+  } catch {if(allowed(selected))choice=selected}
+  if(!allowed(choice))return;
+  document.documentElement.dataset.fontPreview=choice;
+  const fontsLink=document.createElement('link');fontsLink.rel='stylesheet';fontsLink.href=fonts[choice];document.head.appendChild(fontsLink);
+  const previewLink=document.createElement('link');previewLink.rel='stylesheet';previewLink.href='/font-preview.css';document.head.appendChild(previewLink);
+ })();
+</script>
 <meta name="description" content={description}/>
 {noindex&&<meta name="robots" content="noindex,nofollow"/>}<link rel="canonical" href={canonical.toString()}/>
 <meta property="og:type" content="website"/><meta property="og:site_name" content="Sunnah Tools"/><meta property="og:title" content={title+' | Sunnah Tools'}/><meta property="og:description" content={description}/><meta property="og:url" content={canonical.toString()}/>
@@ -91,6 +114,20 @@ const org={'@context':'https://schema.org','@type':'WebSite',name:'Sunnah Tools'
   syncThemeUI();
  });
  syncThemeUI();
+</script>
+<script is:inline>
+ (() => {
+  const choice=document.documentElement.dataset.fontPreview;
+  const labels={'petrona-karla':'Petrona + Karla','alegreya-family':'Alegreya + Alegreya Sans','eczar-plex':'Eczar + IBM Plex Sans'};
+  if(!Object.prototype.hasOwnProperty.call(labels,choice))return;
+  const bar=document.createElement('aside');
+  bar.className='font-preview-bar';
+  bar.setAttribute('aria-label','Temporary font preview controls');
+  const label=document.createElement('span');label.textContent='Font preview: '+labels[choice];
+  const compare=document.createElement('a');compare.textContent='Compare all fonts';compare.href='/font-lab/';
+  const exit=document.createElement('a');exit.textContent='Exit preview';exit.href='/?font-preview=off';
+  bar.append(label,compare,exit);document.body.appendChild(bar);
+ })();
 </script>
 </body>
 </html>
