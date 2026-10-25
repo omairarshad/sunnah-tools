@@ -15,7 +15,8 @@ test('six tools in each wide desktop row, with condensed imagery and useful summ
 });
 test('tablet and small mobile cards use responsive columns and accessible controls',()=>{
  for(const width of [1179,1023,819,619,419])assert.ok(css.includes('@media(max-width:'+width+'px)'),width+' breakpoint');
- for(const count of [5,4,3,2,1])assert.ok(css.includes('repeat('+count+',minmax(0,1fr))'),count+' column layout');
+ for(const count of [5,4,3,2])assert.ok(css.includes('repeat('+count+',minmax(0,1fr))'),count+' column layout');
+ assert.ok(css.includes('grid-template-columns:1fr'),'one-column small mobile layout');
  assert.match(css,/@media\(max-width:419px\)\{[\s\S]*?\.directory \.tool-card-main\{flex-direction:row/);
  assert.match(css,/\.directory \.favorite:focus-visible\{outline:3px/);
  assert.match(css,/\.directory \.favorite::before\{content:"";position:absolute;inset:-6px\}/);
