@@ -32,7 +32,7 @@ try{
  });
  assert.ok(galleryMetrics.ratio>.52,'Artwork should occupy most of every tool card, not be a small icon');
  assert.equal(galleryMetrics.imageFit,'contain','Artwork should not be cropped');
- const columns=async()=>page.locator('#tool-grid').evaluate(grid=>getComputedStyle(grid).gridTemplateColumns.trim().split(/\\s+/).length);
+ const columns=async()=>page.locator('#tool-grid').evaluate(grid=>getComputedStyle(grid).gridTemplateColumns.trim().split(/\s+/).length);
  assert.equal(await columns(),4,'Wide desktop should show four image-first tool cards per row');
  for(const [width,expected] of [[1000,3],[800,2],[500,1]]){
    await page.setViewportSize({width,height:1000});
