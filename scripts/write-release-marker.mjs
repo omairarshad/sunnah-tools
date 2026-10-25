@@ -5,8 +5,8 @@ const sha=String(process.env.GITHUB_SHA||'local').trim();
 const release={
   sourceCommit:/^[0-9a-f]{40}$/.test(sha)?sha:'local',
   sourceBranch:'feature/initial-site-and-tools',
-  design:'illustrated-22-tools',
-  toolCardCount:22,
+  design:'illustrated-28-tools',
+  toolCardCount:28,
   builtAt:new Date().toISOString()
 };
 mkdirSync(resolve('public'),{recursive:true});

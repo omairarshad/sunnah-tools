@@ -10,22 +10,22 @@ const slugs=[...tools.matchAll(/slug:'([a-z0-9-]+)'/g)].map(x=>x[1]);
 const home=JSON.parse(readFileSync(new URL('../src/data/homepage.json',import.meta.url),'utf8'));
 const topics=readFileSync(new URL('../src/data/toolTopics.ts',import.meta.url),'utf8');
 const grouped=[...topics.matchAll(/slugs:\[([^\]]+)\]/g)].flatMap(x=>[...x[1].matchAll(/'([^']+)'/g)].map(m=>m[1]));
-test('22 indexable tool pages have uniquely written, useful SEO briefs',()=>{
+test('28 indexable tool pages have uniquely written, useful SEO briefs',()=>{
  assert.deepEqual(Object.keys(seo).sort(),slugs.slice().sort());
- assert.equal(new Set(Object.values(seo).map(x=>x.title)).size,22);
+ assert.equal(new Set(Object.values(seo).map(x=>x.title)).size,28);
  for(const [slug,page] of Object.entries(seo)){
   assert.ok(page.title.length>=30&&page.title.length<90,slug+' concise title');
   assert.ok(page.h1.length>10,slug+' H1');
   assert.ok(page.description.length>=85&&page.description.length<210,slug+' accurate meta description');
   assert.ok(page.summary.length>=50&&page.details.length>=80&&page.caution.length>=60,slug+' helpfully explained');
-  assert.ok(Array.isArray(page.faqs)&&page.faqs.length===2,slug+' extra FAQs');
+  assert.ok(Array.isArray(page.faqs)&&page.faqs.length>=2,slug+' extra FAQs');
   for(const faq of page.faqs){assert.ok(faq.question.endsWith('?')&&faq.answer.length>=45,slug+' useful FAQ')}
  }
 });
 test('popular homepage tools keep prayer, Hijri, Ramadan and Zakat topics contiguous',()=>{
  const order=home.directory.cards.map(x=>x.slug);
  assert.deepEqual(order,grouped);
- assert.equal(new Set(order).size,22);
+ assert.equal(new Set(order).size,28);
  assert.deepEqual(order.slice(0,6),['prayer-times','qibla-finder','hijri-converter','tahajjud-time','printable-prayer-chart','prayer-times-widget']);
  assert.ok(order.indexOf('fasting-times')<order.indexOf('zakat-calculator'));
  assert.ok(order.indexOf('zakat-calculator')<order.indexOf('islamic-events-calendar'));

@@ -3,7 +3,10 @@ import {resolve} from 'node:path';
 const toolSource=readFileSync(resolve('src/data/tools.ts'),'utf8');
 const slugs=[...toolSource.matchAll(/slug:'([a-z0-9-]+)'/g)].map(m=>m[1]);
 const read=path=>readFileSync(resolve('dist',path),'utf8');
+const newSlugs=['laylatul-qadr-nights','fidya-calculator','qada-prayer-calculator','qurbani-share-calculator','kaffarah-calculator','tawaf-sai-counter'];
 const assert=(test,msg)=>{if(!test)throw new Error('Site audit failed: '+msg)};
+assert(slugs.length===28,'Expected 28 Islamic tools after release');
+for(const item of newSlugs)assert(slugs.includes(item),'New tool missing from registry: '+item);
 const home=read('index.html');
 assert(home.includes('id="tool-search-input"'),'Homepage search is missing');
 assert(home.includes('id="tool-grid"'),'Homepage directory grid missing');
@@ -75,6 +78,7 @@ for(const slug of slugs){
  assert(html.includes('meta name="description"'),`SEO meta description missing: ${slug}`);
  assert(!html.includes('<title>'+slug+' | Sunnah Tools</title>'),`Generic metadata found: ${slug}`);
 }
+for(const slug of newSlugs){const html=read(`tools/${slug}/index.html`);assert(html.includes('source-note'),`New tool needs a religious source: ${slug}`);assert(html.includes('Calculation method and accuracy')&&html.includes('Important limitations'),`New tool lacks accuracy notes: ${slug}`);}
 assert(read('guides/prayer-time-methods/index.html').includes('How are Islamic prayer times calculated?'),'Prayer method guide missing');
 assert(read('guides/ramadan-dates-and-timetables/index.html').includes('Planning a reliable Ramadan timetable'),'Ramadan guide missing');
 assert(sitemap.includes('/guides/prayer-time-methods/'),'Methodology guide missing from sitemap');

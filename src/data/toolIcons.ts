@@ -21,5 +21,11 @@ export const iconPaths:Record<string,string[]>={
 'white-days-calendar':['M20.9 13.1A9 9 0 0 1 10.9 3.1 9 9 0 1 0 20.9 13.1Z','M13 7v4','m11 3 1.5 1.5 3-3'],
 'printable-hijri-calendar':['M4 5h16v16H4z','M8 2v6','M16 2v6','M4 10h16','M8 14h3','M13 14h3'],
 'prayer-times-widget':['M3 4h18v13H3z','M8 21h8','M12 17v4','M7 9h3','M14 9h3','M7 13h10'],
-'umrah-packing-checklist':['M6 4h12v18H6z','M9 4V2h6v2','m9 13 2 2 4-4','M9 18h6']
+'umrah-packing-checklist':['M6 4h12v18H6z','M9 4V2h6v2','m9 13 2 2 4-4','M9 18h6'],
+'qada-prayer-calculator':['M4 5h16v15H4z','M4 10h16','m8 15 2 2 4-4'],
+'laylatul-qadr-nights':['M20 13a8 8 0 1 1-9-10 8 8 0 0 0 9 10Z','M16 3v4','M14 5h4'],
+'fidya-calculator':['M3 17h18','M6 13h12l2 4H4z','M8 8h8','M12 4v4'],
+'kaffarah-calculator':['M12 3v18','M3 12h18','M6 6l12 12','M18 6 6 18'],
+'qurbani-share-calculator':['M4 6h16v12H4z','M4 11h16','M12 6v12','M7 15h2','M15 15h2'],
+'tawaf-sai-counter':['M4 4h16v16H4z','M8 8h8v8H8z','M3 12h-1','M22 12h-1']
 };

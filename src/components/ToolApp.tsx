@@ -1,6 +1,7 @@
 import {useEffect,useState} from 'react';
 import {GoldZakat,IslamicEvents,PrayerChart} from './NextTools';
 import CitySearch from './CitySearch';
+import {LaylatulQadrNights,FidyaCalculator,QadaPrayerCalculator,QurbaniShareCalculator,KaffarahCalculator,TawafSaiCounter} from './GrowthTools';
 import FitranaCalculator from './FitranaCalculator';
 import {ramadanDays,timetableCSV} from '../lib/ramadanHelpers.mjs';
 import {WhiteDaysCalendar,PrintableHijriCalendar,PrayerWidgetGenerator,UmrahPackingChecklist} from './BatchTools';
@@ -147,6 +148,12 @@ function SalahTracker(){
 }
 
 export default function ToolApp({slug}:{slug:string}){
+ if(slug==='laylatul-qadr-nights')return <LaylatulQadrNights/>;
+ if(slug==='fidya-calculator')return <FidyaCalculator/>;
+ if(slug==='qada-prayer-calculator')return <QadaPrayerCalculator/>;
+ if(slug==='qurbani-share-calculator')return <QurbaniShareCalculator/>;
+ if(slug==='kaffarah-calculator')return <KaffarahCalculator/>;
+ if(slug==='tawaf-sai-counter')return <TawafSaiCounter/>;
  if(['prayer-times','qibla-finder','tahajjud-time','ramadan-timetable','fasting-times'].includes(slug))return <Prayer kind={slug}/>;
  if(slug==='white-days-calendar')return <WhiteDaysCalendar/>;
  if(slug==='printable-hijri-calendar')return <PrintableHijriCalendar/>;

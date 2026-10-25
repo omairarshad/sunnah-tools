@@ -55,7 +55,7 @@
   },
   "directory": {
     "title": "Find your next tool",
-    "description": "Start with the most-used prayer and Hijri essentials, then explore fasting, Zakat, calendars and everyday worship.",
+    "description": "Explore prayer, Qada, Ramadan nights, Fidya, Kaffarah, Qurbani and Hajj or Umrah essentials — all free.",
     "columns": 4,
     "cards": [
       {
@@ -122,6 +122,15 @@
         "imageAlt": "Five labelled daily Salah tracker boxes with progress marks"
       },
       {
+        "slug": "qada-prayer-calculator",
+        "title": "Missed Salah (Qada) Calculator",
+        "description": "Estimate and privately track make-up prayers.",
+        "tone": "teal",
+        "enabled": true,
+        "image": "/tool-art/qada-prayer-calculator.svg",
+        "imageAlt": "Prayer mat and individual Salah progress checklist"
+      },
+      {
         "slug": "fasting-times",
         "title": "Suhoor & Iftar Times",
         "description": "See calculated fasting start, iftar and the next countdown.",
@@ -147,6 +156,15 @@
         "enabled": true,
         "image": "/tool-art/ramadan-countdown.svg",
         "imageAlt": "Flip-clock digits and a crescent showing a Ramadan countdown"
+      },
+      {
+        "slug": "laylatul-qadr-nights",
+        "title": "Laylatul Qadr Odd Nights",
+        "description": "Find the 21st to 29th Ramadan nights.",
+        "tone": "violet",
+        "enabled": true,
+        "image": "/tool-art/laylatul-qadr-nights.svg",
+        "imageAlt": "Crescent above a Ramadan night calendar with five stars"
       },
       {
         "slug": "white-days-calendar",
@@ -203,6 +221,24 @@
         "imageAlt": "Balanced scale comparing gold and silver"
       },
       {
+        "slug": "fidya-calculator",
+        "title": "Fidya Calculator",
+        "description": "Estimate Fidya for eligible missed fasts at a verified rate.",
+        "tone": "emerald",
+        "enabled": true,
+        "image": "/tool-art/fidya-calculator.svg",
+        "imageAlt": "Food parcel and donation coins"
+      },
+      {
+        "slug": "kaffarah-calculator",
+        "title": "Kaffarah Calculator",
+        "description": "Explore conditional oath and Ramadan expiation costs.",
+        "tone": "coral",
+        "enabled": true,
+        "image": "/tool-art/kaffarah-calculator.svg",
+        "imageAlt": "Charitable food parcel and ten light-coloured circles"
+      },
+      {
         "slug": "islamic-events-calendar",
         "title": "Islamic Events Calendar",
         "description": "Explore estimated dates for Ramadan, Eid, Ashura and Hajj.",
@@ -255,6 +291,24 @@
         "enabled": true,
         "image": "/tool-art/quran-planner.svg",
         "imageAlt": "Open Quran with bookmark and reading checklist"
+      },
+      {
+        "slug": "qurbani-share-calculator",
+        "title": "Qurbani Share Calculator",
+        "description": "Split Udhiyah costs across animal shares.",
+        "tone": "amber",
+        "enabled": true,
+        "image": "/tool-art/qurbani-share-calculator.svg",
+        "imageAlt": "Seven Qurbani cost shares arranged around an animal silhouette"
+      },
+      {
+        "slug": "tawaf-sai-counter",
+        "title": "Tawaf & Sa’i Counter",
+        "description": "Count seven Tawaf circuits and Sa’i lengths.",
+        "tone": "blue",
+        "enabled": true,
+        "image": "/tool-art/tawaf-sai-counter.svg",
+        "imageAlt": "Kaaba and the seven circuits of Tawaf"
       }
     ]
   },

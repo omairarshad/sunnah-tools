@@ -66,13 +66,13 @@ jobs:
           cp public/.htaccess dist/.htaccess
           test -s dist/release.json
           test -s dist/.htaccess
-          grep -q 'illustrated-22-tools' dist/release.json
+          grep -q 'illustrated-28-tools' dist/release.json
 
       - name: Check deployable homepage exists
         shell: bash
         run: |
           test -s dist/index.html
-          test $(grep -o 'class="tool-card-visual"' dist/index.html | wc -l) -eq 22
+          test $(grep -o 'class="tool-card-visual"' dist/index.html | wc -l) -eq 28
           ! grep -q 'class="tool-card-icon"' dist/index.html
           test -s dist/tool-art/prayer-times.svg
           test -s dist/tool-art/umrah-packing-checklist.svg
@@ -101,6 +101,11 @@ jobs:
           grep -q 'islamic-events-calendar' dist/sitemap-0.xml
           grep -q 'printable-prayer-chart' dist/sitemap-0.xml
           test -f dist/robots.txt
+          for slug in laylatul-qadr-nights fidya-calculator qada-prayer-calculator qurbani-share-calculator kaffarah-calculator tawaf-sai-counter; do
+            test -s "dist/tools/$slug/index.html"
+            test -s "dist/tool-art/$slug.svg"
+            grep -q "$slug" dist/sitemap-0.xml
+          done
 
       - name: Publish generated files to Hostinger branch
         shell: bash
