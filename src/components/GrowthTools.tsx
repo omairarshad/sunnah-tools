@@ -17,7 +17,7 @@ export function LaylatulQadrNights(){
   if(!nights.length)return;
   const stamp=new Date().toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
   const events=nights.flatMap(item=>{
-   const start=item.evening.replaceAll('-',''),end=item.daytime.replaceAll('-','');
+   const start=item.evening!.replaceAll('-',''),end=item.daytime!.replaceAll('-','');
    return ['BEGIN:VEVENT','UID:ramadan-'+item.night+'-'+start+'@sunnah.tools','DTSTAMP:'+stamp,
     'DTSTART;VALUE=DATE:'+start,'DTEND;VALUE=DATE:'+end,
     'SUMMARY:Ramadan '+item.night+'th night - starts at sunset',
@@ -32,7 +32,7 @@ export function LaylatulQadrNights(){
   <p>Enter the <strong>first daytime fast</strong> announced by your local community. The tool lists the civil evenings when the commonly numbered odd nights begin.</p>
   <label>First day of Ramadan (Gregorian)<input type="date" value={first} onChange={e=>setFirst(e.target.value)}/></label>
   <p className="small">The prefilled 2027 date is an editable planning example, not a confirmed Ramadan announcement.</p>
-  {nights.length?<><div className="growth-night-grid">{nights.map(({night,evening,daytime})=><div className="growth-night" key={night}><span className="growth-eyebrow">NIGHT {night} OF RAMADAN</span><strong>{dateLabel(evening)}</strong><small>Begins at local sunset; continues into {dateLabel(daytime)} before dawn</small></div>)}</div>
+  {nights.length?<><div className="growth-night-grid">{nights.map(({night,evening,daytime})=><div className="growth-night" key={night}><span className="growth-eyebrow">NIGHT {night} OF RAMADAN</span><strong>{dateLabel(evening!)}</strong><small>Begins at local sunset; continues into {dateLabel(daytime!)} before dawn</small></div>)}</div>
   <div className="action-row print-hide"><button type="button" onClick={download}>Add evenings to calendar (.ics)</button><button type="button" className="secondary" onClick={()=>window.print()}>Print dates</button></div></>:<Notice>Enter a valid Gregorian start date.</Notice>}
   <Notice>The Islamic night begins at sunset, not midnight. Local moon-sighting announcements may change these dates. The odd-numbered nights are a planning aid; seek Laylatul Qadr throughout the last ten nights, not only these five.</Notice>
   <p className="small">Reference: <a href="https://sunnah.com/bukhari:2017" target="_blank" rel="noopener noreferrer">Sahih al-Bukhari 2017</a> on seeking Laylatul Qadr in the last ten nights.</p>
