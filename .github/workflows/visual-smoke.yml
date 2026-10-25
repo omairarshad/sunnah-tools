@@ -1,7 +1,7 @@
 name: Visual UI Smoke Test
 on:
   push:
-    branches: [feature/illustrated-tool-directory, fix/hostinger-stale-homepage-deploy, feature/reference-style-large-tool-illustrations]
+    branches: [feature/illustrated-tool-directory, fix/hostinger-stale-homepage-deploy, feature/reference-style-large-tool-illustrations, feature/lowpoly-tool-art-topic-seo]
   workflow_dispatch:
 permissions:
   contents: read
