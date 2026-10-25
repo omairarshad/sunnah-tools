@@ -56,7 +56,7 @@
   "directory": {
     "title": "Find your next tool",
     "description": "Everything in one place. Search by name or browse a category.",
-    "columns": 3,
+    "columns": 4,
     "cards": [
       {
         "slug": "prayer-times",

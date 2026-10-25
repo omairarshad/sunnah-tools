@@ -23,7 +23,22 @@ try{
   const caption=card.querySelector('.tool-card-description').getBoundingClientRect();
   return {imageHeight:picture.height,imageBottom:picture.bottom,headingTop:heading.top,captionTop:caption.top};
  });
- assert.ok(layout.imageHeight>=160&&layout.headingTop>layout.imageBottom&&layout.captionTop>layout.headingTop,'Tool visual should dominate above title and description');
+ assert.ok(layout.imageHeight>=205&&layout.headingTop>layout.imageBottom&&layout.captionTop>layout.headingTop,'Large gallery images must sit clearly above titles and descriptions');
+ const galleryMetrics=await page.locator('.tool-card').first().evaluate(card=>{
+  const cardBox=card.getBoundingClientRect(), visual=card.querySelector('.tool-card-visual').getBoundingClientRect();
+  const img=card.querySelector('.tool-card-visual img');
+  const styles=getComputedStyle(img);
+  return {ratio:visual.height/cardBox.height,width:visual.width,imageFit:styles.objectFit};
+ });
+ assert.ok(galleryMetrics.ratio>.52,'Artwork should occupy most of every tool card, not be a small icon');
+ assert.equal(galleryMetrics.imageFit,'contain','Artwork should not be cropped');
+ const columns=async()=>page.locator('#tool-grid').evaluate(grid=>getComputedStyle(grid).gridTemplateColumns.trim().split(/\s+/).length);
+ assert.equal(await columns(),4,'Wide desktop should show four image-first tool cards per row');
+ for(const [width,expected] of [[1000,3],[800,2],[500,1]]){
+   await page.setViewportSize({width,height:1000});
+   assert.equal(await columns(),expected,`Tool card layout should be ${expected} column(s) at ${width}px`);
+ }
+ await page.setViewportSize({width:1440,height:1000});
 
  assert.ok(await page.locator('.brand-symbol').evaluate(img=>img.complete && img.naturalWidth>0),'New branded header emblem must load');
  assert.equal(await page.locator('link[rel="icon"]').getAttribute('href'),'/favicon.svg','Brand favicon must be linked');
