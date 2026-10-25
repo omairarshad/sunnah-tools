@@ -9,6 +9,22 @@ try{
  const page=await desktop.newPage();
  await page.goto(root+'/',{waitUntil:'networkidle'});
  assert.equal(await page.locator('.tool-card').count(),22,'Homepage should expose 22 tools');
+ assert.equal(await page.locator('.tool-card-visual img').count(),22,'Every tool should have a large illustration');
+ const artPaths=await page.locator('.tool-card-visual img').evaluateAll(images=>images.map(img=>new URL(img.src).pathname));
+ assert.equal(new Set(artPaths).size,22,'Each card must have an original unique illustration');
+ for(const img of await page.locator('.tool-card-visual img').all()){
+  await img.scrollIntoViewIfNeeded();
+  await img.evaluate(image=>image.decode());
+ }
+ assert.ok(await page.locator('.tool-card-visual img').evaluateAll(images=>images.every(img=>img.complete&&img.naturalWidth>=500&&img.naturalHeight>=300&&img.alt.length>15)),'All 22 image assets must load at full resolution with accessible descriptions');
+ const layout=await page.locator('.tool-card').first().evaluate(card=>{
+  const picture=card.querySelector('.tool-card-visual').getBoundingClientRect();
+  const heading=card.querySelector('h3').getBoundingClientRect();
+  const caption=card.querySelector('.tool-card-description').getBoundingClientRect();
+  return {imageHeight:picture.height,imageBottom:picture.bottom,headingTop:heading.top,captionTop:caption.top};
+ });
+ assert.ok(layout.imageHeight>=160&&layout.headingTop>layout.imageBottom&&layout.captionTop>layout.headingTop,'Tool visual should dominate above title and description');
+
  assert.ok(await page.locator('.brand-symbol').evaluate(img=>img.complete && img.naturalWidth>0),'New branded header emblem must load');
  assert.equal(await page.locator('link[rel="icon"]').getAttribute('href'),'/favicon.svg','Brand favicon must be linked');
  const homeColors=await page.evaluate(()=>({
@@ -105,6 +121,10 @@ try{
  const dimensions=await m.evaluate(()=>({body:document.documentElement.scrollWidth,width:document.documentElement.clientWidth}));
  assert.ok(dimensions.body<=dimensions.width+2,'Mobile layout overflows horizontally: '+JSON.stringify(dimensions));
  assert.equal(await m.locator('.tool-card').count(),22);
+ assert.equal(await m.locator('.tool-card-visual img').count(),22,'Mobile cards should retain all artwork');
+ const mobileWidth=await m.locator('.tool-card').first().evaluate(card=>({card:card.getBoundingClientRect().width,picture:card.querySelector('.tool-card-visual').getBoundingClientRect().height}));
+ assert.ok(mobileWidth.card>320&&mobileWidth.picture>165,'Mobile illustration must remain large and distinguishable');
+
  await m.screenshot({path:'test-results/visual/home-mobile.png',fullPage:true});
  await m.goto(root+'/',{waitUntil:'networkidle'});
  assert.equal(await m.locator('.promo-banner').count(),3,'All three promotional banners remain on mobile');

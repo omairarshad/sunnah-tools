@@ -1,7 +1,7 @@
 name: Visual UI Smoke Test
 on:
   push:
-    branches: [feature/premium-dark-green-refresh]
+    branches: [feature/illustrated-tool-directory]
   workflow_dispatch:
 permissions:
   contents: read

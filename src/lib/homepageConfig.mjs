@@ -25,3 +25,11 @@ export function safePromoImage(raw){
  if(path.includes('..')||path.includes('//'))return null;
  return path;
 }
+
+/** Local-only image path used by homepage tool illustrations. */
+export function safeToolImage(raw){
+ const value=String(raw??'').trim();
+ if(!/^\/(?:tool-art|media)\/[A-Za-z0-9._\/-]+\.(?:svg|png|jpe?g|webp|avif)$/i.test(value))return null;
+ if(value.includes('..')||value.includes('//'))return null;
+ return value;
+}
