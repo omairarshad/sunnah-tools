@@ -45,7 +45,8 @@ for(const slug of slugs){
  const art=read('tool-art/'+slug+'.svg');
  assert(art.includes('<svg')&&art.includes('</svg>'),'Missing or invalid original SVG: '+slug);
  assert(art.includes('viewBox="0 0 600 360"'),'Illustration aspect ratio missing: '+slug);
- assert(art.includes('low-poly illustration')&&((art.match(/<polygon/g)||[]).length>=8),'Low-poly geometric scene not found: '+slug);
+ assert(art.includes('low-poly illustration')&&((art.match(/<polygon/g)||[]).length>=10),'Low-poly geometric scene not found: '+slug);
+ assert(!/NaN|Infinity|undefined/.test(art),'Malformed SVG polygon coordinates: '+slug);
  assert(!/<script|https?:\/\//i.test(art.replace('http://www.w3.org/2000/svg','')),'Remote dependency or script in artwork: '+slug);
  assert(home.includes('/tool-art/'+slug+'.svg'),'Homepage card illustration missing: '+slug);
 }
@@ -61,6 +62,8 @@ for(const slug of slugs){
  assert(html.includes(`https://sunnah.tools/tools/${slug}/`),`Canonical missing: ${slug}`);
  assert(sitemap.includes(`/tools/${slug}/`),`Sitemap missing: ${slug}`);
  assert((html.match(/class="faq-detail"/g)||[]).length>=3,`Three visible FAQs missing: ${slug}`);
+ assert(html.includes('"@type":"FAQPage"')&&html.includes('"@type":"WebApplication"')&&html.includes('"@type":"BreadcrumbList"'),`Schema markup incomplete: ${slug}`);
+ assert(html.includes('related-guide-list'),`Contextual related guides missing: ${slug}`);
  assert(html.includes('seo-explainer')&&html.includes('Important limitations'),`Unique explanation missing: ${slug}`);
  assert(html.includes('meta name="description"'),`SEO meta description missing: ${slug}`);
  assert(!html.includes('<title>'+slug+' | Sunnah Tools</title>'),`Generic metadata found: ${slug}`);
@@ -69,7 +72,12 @@ assert(read('guides/prayer-time-methods/index.html').includes('How are Islamic p
 assert(read('guides/ramadan-dates-and-timetables/index.html').includes('Planning a reliable Ramadan timetable'),'Ramadan guide missing');
 assert(sitemap.includes('/guides/prayer-time-methods/'),'Methodology guide missing from sitemap');
 assert(sitemap.includes('/guides/ramadan-dates-and-timetables/'),'Ramadan guide missing from sitemap');
+for(const guide of ['hijri-calendar-and-moon-sighting','zakat-nisab-and-fitrana','using-islamic-planning-tools']){
+ assert(read('guides/'+guide+'/index.html').includes('editorial-guide'),`Guide page missing: ${guide}`);
+ assert(sitemap.includes('/guides/'+guide+'/'),`Guide missing from sitemap: ${guide}`);
+}
 assert(read('tools/hijri-converter/index.html').includes('today-hijri-value'),'Current Hijri date answer missing');
+assert(read('tools/hijri-converter/index.html').includes('HTML snapshot for'),'Calculated Hijri date must be present in static HTML');
 assert(read('admin/index.html').includes('noindex,nofollow'),'Admin shell must be noindexed');
 assert(read('admin/index.html').includes('Open Pages CMS'),'CMS launch portal missing');
 assert(!sitemap.includes('/admin/'),'Admin route must be excluded from sitemap');

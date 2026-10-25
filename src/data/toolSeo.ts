@@ -3,8 +3,8 @@
 export type ToolSeoEntry={title:string;h1:string;description:string;summary:string;details:string;caution:string;faqs:{question:string;answer:string}[]};
 export const toolSeo:Record<string,ToolSeoEntry> = {
   "prayer-times": {
-    "title": "Prayer Times Today – Fajr, Dhuhr, Asr, Maghrib & Isha",
-    "h1": "Prayer Times Today",
+    "title": "Prayer Times for Your Location – Fajr to Isha",
+    "h1": "Prayer Times for Your Location",
     "description": "Check prayer times today for your chosen city or coordinates. View Fajr, sunrise, Dhuhr, Asr, Maghrib and Isha with adjustable calculation methods.",
     "summary": "Choose a location and calculation method to see today's estimated prayer beginnings.",
     "details": "Prayer times depend on the Sun's position, your latitude and longitude, your timezone and the calculation method. Fajr and Isha angles vary between authorities.",
@@ -21,9 +21,9 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
     ]
   },
   "qibla-finder": {
-    "title": "Qibla Finder – Find the Direction of the Kaaba",
-    "h1": "Qibla Direction Finder",
-    "description": "Find the Qibla direction from your city or current location. View the true-north bearing towards the Kaaba in Makkah with our free online compass.",
+    "title": "Qibla Finder Online – Find Direction from Your Location",
+    "h1": "Qibla Finder Online",
+    "description": "Find the Qibla direction online using your location or entered coordinates. See the great-circle bearing to the Kaaba from true north, without a compass sensor.",
     "summary": "Use your coordinates to calculate your Qibla bearing towards Makkah.",
     "details": "This tool calculates the shortest path over the Earth's surface, known as the great-circle bearing, rather than a straight line on a flat map.",
     "caution": "The bearing is measured clockwise from geographic north. A magnetic compass or phone sensor may point differently until properly calibrated.",
@@ -57,8 +57,8 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
     ]
   },
   "fasting-times": {
-    "title": "Suhoor and Iftar Times Today – Fajr & Maghrib",
-    "h1": "Suhoor and Iftar Times Today",
+    "title": "Suhoor & Iftar Times Today – Fajr and Maghrib",
+    "h1": "Suhoor & Iftar Times Today",
     "description": "Check today's estimated Suhoor cutoff and Iftar time for your location using Fajr and Maghrib. Choose a city, calculation method and timezone.",
     "summary": "Find today's Fajr reference for ending Suhoor and Maghrib reference for Iftar.",
     "details": "The start of the fast is associated with true dawn (Fajr) and the fast ends at sunset (Maghrib). The calculator uses your location and chosen astronomical convention.",
@@ -111,9 +111,9 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
     ]
   },
   "zakat-calculator": {
-    "title": "Zakat Calculator – Cash, Savings, Gold & Investments",
+    "title": "Zakat Calculator UK – Cash, Gold & Savings",
     "h1": "Zakat Calculator",
-    "description": "Estimate Zakat on savings, gold, investments and qualifying assets. Enter your own Nisab prices and liabilities to calculate a conditional 2.5% amount.",
+    "description": "Use our UK-friendly Zakat calculator for cash, gold, savings and investments. Enter your currency, asset values and metal prices to estimate conditional Zakat.",
     "summary": "Estimate Zakat payable on qualifying net wealth, subject to Nisab and hawl.",
     "details": "Add qualifying assets and permitted liabilities, then compare net wealth with a gold- or silver-based Nisab threshold using the prices you provide.",
     "caution": "The tool cannot determine whether jewellery, investments or every debt is included for your circumstances. Verify these treatments with qualified local guidance.",
@@ -129,7 +129,7 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
     ]
   },
   "fitrana-calculator": {
-    "title": "Fitrana Calculator – Zakat al-Fitr Per Person",
+    "title": "Fitrana Calculator – Zakat al-Fitr for Your Household",
     "h1": "Fitrana Calculator",
     "description": "Calculate a Fitrana total for your household using your mosque or charity's current Zakat al-Fitr rate per person. No assumed worldwide fixed amount.",
     "summary": "Calculate Zakat al-Fitr for multiple people using a verified local rate.",
@@ -183,9 +183,9 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
     ]
   },
   "hijri-converter": {
-    "title": "Hijri Date Today – Islamic Date & Date Converter",
-    "h1": "Hijri Date Today & Converter",
-    "description": "Check today's Hijri date and convert Gregorian to Islamic dates or Hijri to Gregorian. Uses the Umm al-Qura calendar with clear moon-sighting caveats.",
+    "title": "Hijri Date Today – Islamic Date Converter",
+    "h1": "Hijri Date Today",
+    "description": "Check today's Hijri date and convert Gregorian dates to Islamic dates or back. Free Umm al-Qura Hijri date converter with local moon-sighting caveats.",
     "summary": "See today's calculated Islamic date, then convert any Gregorian or Hijri date.",
     "details": "The Hijri calendar follows lunar months of 29 or 30 days. This converter uses the Umm al-Qura convention available in modern browsers.",
     "caution": "Different countries may observe a lunar month beginning on another civil date. Local religious dates are not guaranteed by a computed calendar.",
@@ -201,9 +201,9 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
     ]
   },
   "islamic-events-calendar": {
-    "title": "Islamic Calendar – Ramadan, Eid & Important Dates",
+    "title": "Islamic Events Calendar – Ramadan, Eid & Hajj Dates",
     "h1": "Islamic Events Calendar",
-    "description": "Explore estimated dates for Ramadan, Eid al-Fitr, Eid al-Adha, Ashura, Hajj and the Islamic New Year using the calculated Hijri calendar.",
+    "description": "See estimated Islamic calendar dates for Ramadan, Eid al-Fitr, Eid al-Adha, Ashura, Arafah and Hajj using the Umm al-Qura calculation.",
     "summary": "Browse upcoming major Islamic dates in a single calendar.",
     "details": "Important observances use Hijri dates and therefore move through the Gregorian year. The calendar converts them under the Umm al-Qura system.",
     "caution": "Estimated festival dates should not be interpreted as official announcements. Confirm Eid and Ramadan with relevant local authorities.",
@@ -219,9 +219,9 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
     ]
   },
   "white-days-calendar": {
-    "title": "White Days Fasting Calendar – 13th, 14th & 15th",
+    "title": "White Days Calendar – 13th, 14th & 15th Hijri",
     "h1": "White Days Fasting Calendar",
-    "description": "Find upcoming Ayyam al-Bid (White Days), the 13th, 14th and 15th Hijri dates. See exceptions and export reminders to your calendar.",
+    "description": "Find the next White Days fasting dates (13, 14 and 15 of the Hijri month), with calculated Gregorian dates, exceptions and calendar export.",
     "summary": "Find upcoming White Days for optional fasting and save the dates.",
     "details": "The calculator identifies the thirteenth, fourteenth and fifteenth dates of Hijri months in the Umm al-Qura calendar.",
     "caution": "Certain dates, such as the days of Tashreeq, need special treatment. Moon-sighting differences can also shift the civil dates.",

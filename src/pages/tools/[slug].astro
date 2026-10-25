@@ -15,13 +15,55 @@ const guide=guides[slug];
 const seo=toolSeo[slug];
 if(!seo)throw new Error(`Missing unique SEO entry for ${slug}`);
 const faqItems=[{question:guide.question,answer:guide.answer},...seo.faqs];
+const faqSchema={'@context':'https://schema.org','@type':'FAQPage',mainEntity:faqItems.map(item=>({'@type':'Question',name:item.question,acceptedAnswer:{'@type':'Answer',text:item.answer}}))};
+// Static hosting: publish a labelled UTC snapshot in HTML; the browser refreshes the local civil date.
+const renderedAt=new Date();
+const renderedDate=renderedAt.toISOString().slice(0,10);
+const renderedHijriRaw=new Intl.DateTimeFormat('en-GB-u-ca-islamic-umalqura',{timeZone:'UTC',day:'numeric',month:'long',year:'numeric'}).format(renderedAt);
+const renderedHijri=/\bAH\b/i.test(renderedHijriRaw)?renderedHijriRaw:renderedHijriRaw+' AH';
 const enrichedDescription=seo.description;
-const categoryGuide=tool.category==='Prayer'?{url:'/guides/prayer-time-methods/',label:'How prayer times are calculated'}:tool.category==='Ramadan'?{url:'/guides/ramadan-dates-and-timetables/',label:'Ramadan dates, Fajr and iftar explained'}:null;
-const related=tools.filter(x=>x.slug!==slug).sort((a,b)=>Number(toolTopicBySlug[b.slug]===toolTopicBySlug[slug])-Number(toolTopicBySlug[a.slug]===toolTopicBySlug[slug])||Number(b.category===tool.category)-Number(a.category===tool.category)).slice(0,4);
+const guideLinks:Record<string,{url:string;label:string}>={
+ prayer:{url:'/guides/prayer-time-methods/',label:'How are prayer times calculated?'},
+ ramadan:{url:'/guides/ramadan-dates-and-timetables/',label:'Ramadan dates and reliable fasting timetables'},
+ dates:{url:'/guides/hijri-calendar-and-moon-sighting/',label:'Hijri calendars and local moon sighting'},
+ zakat:{url:'/guides/zakat-nisab-and-fitrana/',label:'How Zakat, Nisab and Fitrana differ'},
+ everyday:{url:'/guides/using-islamic-planning-tools/',label:'Making the most of Islamic planning tools'}
+};
+const guidePriorities:Record<string,string[]>={
+ 'hijri-converter':['dates','ramadan'],
+ 'white-days-calendar':['dates','ramadan'],
+ 'islamic-events-calendar':['dates','ramadan'],
+ 'printable-hijri-calendar':['dates','ramadan'],
+ 'ramadan-countdown':['ramadan','dates'],
+ 'prayer-times':['prayer','ramadan'],
+ 'fasting-times':['ramadan','prayer'],
+ 'ramadan-timetable':['ramadan','prayer'],
+ 'zakat-calculator':['zakat'],
+ 'fitrana-calculator':['zakat']
+};
+const relatedGuides=[...new Set(guidePriorities[slug]??[toolTopicBySlug[slug]])].map(key=>guideLinks[key]).filter(Boolean);
+const relatedPriority:Record<string,string[]>={
+ 'prayer-times':['qibla-finder','tahajjud-time','prayer-times-widget','fasting-times'],
+ 'qibla-finder':['prayer-times','tahajjud-time','hijri-converter','prayer-times-widget'],
+ 'hijri-converter':['islamic-events-calendar','printable-hijri-calendar','ramadan-countdown','white-days-calendar'],
+ 'tahajjud-time':['prayer-times','qibla-finder','printable-prayer-chart','prayer-times-widget'],
+ 'fasting-times':['ramadan-timetable','prayer-times','ramadan-countdown','white-days-calendar'],
+ 'ramadan-timetable':['fasting-times','ramadan-countdown','white-days-calendar','prayer-times'],
+ 'ramadan-countdown':['ramadan-timetable','fasting-times','islamic-events-calendar','hijri-converter'],
+ 'white-days-calendar':['hijri-converter','islamic-events-calendar','printable-hijri-calendar','fasting-tracker'],
+ 'zakat-calculator':['gold-zakat-calculator','nisab-calculator','fitrana-calculator','hijri-converter'],
+ 'fitrana-calculator':['zakat-calculator','nisab-calculator','gold-zakat-calculator','ramadan-timetable'],
+ 'gold-zakat-calculator':['zakat-calculator','nisab-calculator','fitrana-calculator','hijri-converter'],
+ 'islamic-events-calendar':['hijri-converter','printable-hijri-calendar','white-days-calendar','ramadan-countdown'],
+ 'printable-hijri-calendar':['hijri-converter','islamic-events-calendar','white-days-calendar','islamic-age']
+};
+const relatedFallback=tools.filter(x=>x.slug!==slug).sort((a,b)=>Number(toolTopicBySlug[b.slug]===toolTopicBySlug[slug])-Number(toolTopicBySlug[a.slug]===toolTopicBySlug[slug])||Number(b.category===tool.category)-Number(a.category===tool.category)).map(x=>x.slug);
+const related=[...new Set([...(relatedPriority[slug]??[]),...relatedFallback])].filter(other=>other!==slug).slice(0,4).map(other=>toolBySlug[other as keyof typeof toolBySlug]);
 const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'All Islamic tools',item:'https://sunnah.tools/'},{'@type':'ListItem',position:2,name:tool.name,item:`https://sunnah.tools/tools/${slug}/`}]};
 ---
 <Base title={seo.title} description={enrichedDescription}>
 <script type="application/ld+json" set:html={JSON.stringify(breadcrumb)}/>
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)}/>
 <script type="application/ld+json" set:html={JSON.stringify({'@context':'https://schema.org','@type':'WebApplication',name:seo.title,description:enrichedDescription,url:`https://sunnah.tools/tools/${slug}/`,applicationCategory:'UtilitiesApplication',operatingSystem:'Web browser',offers:{'@type':'Offer',price:'0',priceCurrency:'GBP'}})}/>
 <section class="tool-screen" data-tone={toneForSlug(slug)}>
  <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/#tools">All tools</a><span aria-hidden="true">›</span><span>{tool.category}</span><span aria-hidden="true">›</span><span aria-current="page">{tool.name}</span></nav>
@@ -37,7 +79,7 @@ const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemL
  </div>
  <div class="tool-layout">
   <div class="tool-main">
-   {slug==='hijri-converter'&&<div class="today-hijri" aria-live="polite"><strong>Today’s Hijri date</strong><p id="today-hijri-value">See the current Islamic date for your device in the converter below.</p><small>Umm al-Qura calculation for your local civil date. Local moon sightings and the Islamic day beginning at sunset may give a different date.</small></div>}
+   {slug==='hijri-converter'&&<div class="today-hijri" aria-live="polite"><strong>Today’s Hijri date</strong><p id="today-hijri-value">{renderedHijri} (calculated)</p><small id="today-hijri-note">HTML snapshot for {renderedDate} (UTC), refreshed to your local date when the tool loads. Umm al-Qura dates may differ from local moon sighting, especially after sunset.</small></div>}
    <section aria-label={tool.name+' interactive calculator'} class="tool-panel">
     <div class="tool-panel-heading"><div><span class="panel-status"><span class="status-dot"></span> INTERACTIVE TOOL</span><h2>Try it out</h2></div><span class="panel-privacy">No account required</span></div>
     <div class="tool-inner"><ToolApp slug={slug} client:only="react"/></div>
@@ -53,7 +95,10 @@ const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemL
     <div class="section-label"><h2 id="faq-label">Frequently asked questions about {tool.name.toLowerCase()}</h2><span>Answers and context</span></div>
     {faqItems.map(({question,answer})=><details class="faq-detail"><summary>{question}<span class="plus-symbol" aria-hidden="true">+</span></summary><p>{answer}</p></details>)}
    </section>
-   {categoryGuide&&<p class="related-guide-link">Learn more: <a href={categoryGuide.url}>{categoryGuide.label} →</a></p>}
+   <section class="explainer" aria-labelledby="related-guides-label">
+    <div class="section-label"><h2 id="related-guides-label">Related guides</h2><span>Learn the background</span></div>
+    <ul class="related-guide-list">{relatedGuides.map(item=><li><a href={item.url}>{item.label} <span aria-hidden="true">→</span></a></li>)}</ul>
+   </section>
    <p class="tool-disclaimer"><span aria-hidden="true">ⓘ</span> Sunnah Tools provides informational calculations, not binding religious rulings. Dates and calculation methods vary by region. Confirm important worship decisions with trusted local guidance.</p>
    <AdPlacement placement="tool"/>
   </div>
@@ -69,10 +114,12 @@ const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemL
 </Base>
 <script>
  const todayDate=document.querySelector<HTMLElement>('#today-hijri-value');
+ const todayNote=document.querySelector<HTMLElement>('#today-hijri-note');
  if(todayDate){try{
   const formatter=new Intl.DateTimeFormat('en-GB-u-ca-islamic-umalqura',{day:'numeric',month:'long',year:'numeric'});
   const formatted=formatter.format(new Date());
   todayDate.textContent=(/\bAH\b/i.test(formatted)?formatted:formatted+' AH')+' (calculated)';
+  if(todayNote)todayNote.textContent='Updated for your device’s current civil date using Umm al-Qura. A local moon sighting or sunset boundary can change the religious date.';
  }catch{todayDate.textContent='Use the date converter to check the current Hijri date.'}}
  const save=document.querySelector<HTMLButtonElement>('#save-current-tool');
  const share=document.querySelector<HTMLButtonElement>('#share-current-tool');

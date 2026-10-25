@@ -223,3 +223,9 @@
 @media(max-width:410px){.promo-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.promo-banner-featured{grid-column:span 2;aspect-ratio:1.95}.promo-banner:not(.promo-banner-featured){aspect-ratio:1.02}.promo-banner-cta{font-size:9px;max-width:148px;gap:4px}.promo-banner-top{max-width:135px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}}
 @media(prefers-reduced-motion:reduce){.promo-banner,.promo-banner-image{transition:none!important}}
 @media print{.promo-section,.promo-banner{display:none!important}}
+
+/* Contextual guide links on every indexable tool page. */
+.related-guide-list{display:flex;flex-wrap:wrap;gap:10px;list-style:none;padding:0;margin:16px 0 4px}
+.related-guide-list li{margin:0}
+.related-guide-list a{display:inline-flex;align-items:center;gap:8px;padding:11px 15px;border:1px solid #d6e2d8;border-radius:9px;background:#f7faf7;color:#215b43;font-size:13px;font-weight:700;text-decoration:none}
+.related-guide-list a:hover,.related-guide-list a:focus-visible{border-color:#779e85;background:#edf5ee;text-decoration:underline;text-underline-offset:3px}

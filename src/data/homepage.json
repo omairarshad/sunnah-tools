@@ -55,7 +55,7 @@
   },
   "directory": {
     "title": "Find your next tool",
-    "description": "Start with everyday prayer and Islamic dates, then explore Ramadan, Zakat and worship tools.",
+    "description": "Start with the most-used prayer and Hijri essentials, then explore fasting, Zakat, calendars and everyday worship.",
     "columns": 4,
     "cards": [
       {
@@ -77,6 +77,15 @@
         "imageAlt": "A compass needle pointing to the Kaaba"
       },
       {
+        "slug": "hijri-converter",
+        "title": "Hijri Date Converter",
+        "description": "Check the Islamic date for a Gregorian date.",
+        "tone": "teal",
+        "enabled": true,
+        "image": "/tool-art/hijri-converter.svg",
+        "imageAlt": "Side-by-side Gregorian and Hijri calendars with exchange arrows"
+      },
+      {
         "slug": "tahajjud-time",
         "title": "Tahajjud Time Calculator",
         "description": "See when the final third of the night begins.",
@@ -84,15 +93,6 @@
         "enabled": true,
         "image": "/tool-art/tahajjud-time.svg",
         "imageAlt": "A night sky, crescent moon and prayer mat"
-      },
-      {
-        "slug": "salah-tracker",
-        "title": "Daily Salah Tracker",
-        "description": "Tick off your five daily prayers privately.",
-        "tone": "emerald",
-        "enabled": true,
-        "image": "/tool-art/salah-tracker.svg",
-        "imageAlt": "Five labelled daily Salah tracker boxes with progress marks"
       },
       {
         "slug": "printable-prayer-chart",
@@ -113,49 +113,13 @@
         "imageAlt": "Computer screen with an embeddable prayer timetable"
       },
       {
-        "slug": "hijri-converter",
-        "title": "Hijri Date Converter",
-        "description": "Check the Islamic date for a Gregorian date.",
-        "tone": "teal",
+        "slug": "salah-tracker",
+        "title": "Daily Salah Tracker",
+        "description": "Tick off your five daily prayers privately.",
+        "tone": "emerald",
         "enabled": true,
-        "image": "/tool-art/hijri-converter.svg",
-        "imageAlt": "Side-by-side Gregorian and Hijri calendars with exchange arrows"
-      },
-      {
-        "slug": "islamic-events-calendar",
-        "title": "Islamic Events Calendar",
-        "description": "Explore estimated dates for Ramadan, Eid, Ashura and Hajj.",
-        "tone": "blue",
-        "enabled": true,
-        "image": "/tool-art/islamic-events-calendar.svg",
-        "imageAlt": "Islamic events calendar with Eid and Hajj dates"
-      },
-      {
-        "slug": "white-days-calendar",
-        "title": "White Days Fasting Calendar",
-        "description": "See the upcoming 13th–15th Hijri dates and export reminders.",
-        "tone": "violet",
-        "enabled": true,
-        "image": "/tool-art/white-days-calendar.svg",
-        "imageAlt": "Three crescent-moon dates marked 13, 14 and 15"
-      },
-      {
-        "slug": "printable-hijri-calendar",
-        "title": "Printable Hijri Calendar",
-        "description": "Create an Islamic monthly calendar to print or save as PDF.",
-        "tone": "amber",
-        "enabled": true,
-        "image": "/tool-art/printable-hijri-calendar.svg",
-        "imageAlt": "A printer producing a Hijri calendar sheet"
-      },
-      {
-        "slug": "islamic-age",
-        "title": "Islamic Age Calculator",
-        "description": "Find your age in Islamic lunar years.",
-        "tone": "rose",
-        "enabled": true,
-        "image": "/tool-art/islamic-age.svg",
-        "imageAlt": "Birthday calendar with a lunar year age badge"
+        "image": "/tool-art/salah-tracker.svg",
+        "imageAlt": "Five labelled daily Salah tracker boxes with progress marks"
       },
       {
         "slug": "fasting-times",
@@ -185,6 +149,15 @@
         "imageAlt": "Flip-clock digits and a crescent showing a Ramadan countdown"
       },
       {
+        "slug": "white-days-calendar",
+        "title": "White Days Fasting Calendar",
+        "description": "See the upcoming 13th–15th Hijri dates and export reminders.",
+        "tone": "violet",
+        "enabled": true,
+        "image": "/tool-art/white-days-calendar.svg",
+        "imageAlt": "Three crescent-moon dates marked 13, 14 and 15"
+      },
+      {
         "slug": "fasting-tracker",
         "title": "Fasting Tracker",
         "description": "Track completed and remaining make-up fasts.",
@@ -203,13 +176,13 @@
         "imageAlt": "A wallet, gold coin and 2.5 percent Zakat symbol"
       },
       {
-        "slug": "nisab-calculator",
-        "title": "Nisab Calculator",
-        "description": "Compare the gold and silver wealth thresholds.",
-        "tone": "violet",
+        "slug": "fitrana-calculator",
+        "title": "Fitrana Calculator",
+        "description": "Estimate Zakat al-Fitr for your household using a verified local rate.",
+        "tone": "coral",
         "enabled": true,
-        "image": "/tool-art/nisab-calculator.svg",
-        "imageAlt": "Balanced scale comparing gold and silver"
+        "image": "/tool-art/fitrana-calculator.svg",
+        "imageAlt": "Staple-food sack, bowl of rice and a giving heart"
       },
       {
         "slug": "gold-zakat-calculator",
@@ -221,13 +194,49 @@
         "imageAlt": "Gold bars and a gold ring"
       },
       {
-        "slug": "fitrana-calculator",
-        "title": "Fitrana Calculator",
-        "description": "Estimate Zakat al-Fitr for your household using a verified local rate.",
+        "slug": "nisab-calculator",
+        "title": "Nisab Calculator",
+        "description": "Compare the gold and silver wealth thresholds.",
+        "tone": "violet",
+        "enabled": true,
+        "image": "/tool-art/nisab-calculator.svg",
+        "imageAlt": "Balanced scale comparing gold and silver"
+      },
+      {
+        "slug": "islamic-events-calendar",
+        "title": "Islamic Events Calendar",
+        "description": "Explore estimated dates for Ramadan, Eid, Ashura and Hajj.",
+        "tone": "blue",
+        "enabled": true,
+        "image": "/tool-art/islamic-events-calendar.svg",
+        "imageAlt": "Islamic events calendar with Eid and Hajj dates"
+      },
+      {
+        "slug": "printable-hijri-calendar",
+        "title": "Printable Hijri Calendar",
+        "description": "Create an Islamic monthly calendar to print or save as PDF.",
+        "tone": "amber",
+        "enabled": true,
+        "image": "/tool-art/printable-hijri-calendar.svg",
+        "imageAlt": "A printer producing a Hijri calendar sheet"
+      },
+      {
+        "slug": "islamic-age",
+        "title": "Islamic Age Calculator",
+        "description": "Find your age in Islamic lunar years.",
+        "tone": "rose",
+        "enabled": true,
+        "image": "/tool-art/islamic-age.svg",
+        "imageAlt": "Birthday calendar with a lunar year age badge"
+      },
+      {
+        "slug": "umrah-packing-checklist",
+        "title": "Hajj & Umrah Packing List",
+        "description": "Plan, tick off and print a practical journey checklist.",
         "tone": "coral",
         "enabled": true,
-        "image": "/tool-art/fitrana-calculator.svg",
-        "imageAlt": "Staple-food sack, bowl of rice and a giving heart"
+        "image": "/tool-art/umrah-packing-checklist.svg",
+        "imageAlt": "Pilgrimage travel suitcase with an Umrah passport"
       },
       {
         "slug": "tasbih-counter",
@@ -246,15 +255,6 @@
         "enabled": true,
         "image": "/tool-art/quran-planner.svg",
         "imageAlt": "Open Quran with bookmark and reading checklist"
-      },
-      {
-        "slug": "umrah-packing-checklist",
-        "title": "Hajj & Umrah Packing List",
-        "description": "Plan, tick off and print a practical journey checklist.",
-        "tone": "coral",
-        "enabled": true,
-        "image": "/tool-art/umrah-packing-checklist.svg",
-        "imageAlt": "Pilgrimage travel suitcase with an Umrah passport"
       }
     ]
   },

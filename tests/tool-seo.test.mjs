@@ -26,7 +26,25 @@ test('popular homepage tools keep prayer, Hijri, Ramadan and Zakat topics contig
  const order=home.directory.cards.map(x=>x.slug);
  assert.deepEqual(order,grouped);
  assert.equal(new Set(order).size,22);
- assert.deepEqual(order.slice(0,3),['prayer-times','qibla-finder','tahajjud-time']);
- assert.ok(order.indexOf('hijri-converter')<order.indexOf('ramadan-timetable'));
- assert.ok(order.indexOf('ramadan-timetable')<order.indexOf('zakat-calculator'));
+ assert.deepEqual(order.slice(0,6),['prayer-times','qibla-finder','hijri-converter','tahajjud-time','printable-prayer-chart','prayer-times-widget']);
+ assert.ok(order.indexOf('fasting-times')<order.indexOf('zakat-calculator'));
+ assert.ok(order.indexOf('zakat-calculator')<order.indexOf('islamic-events-calendar'));
+ assert.ok(order.indexOf('fitrana-calculator')<order.indexOf('nisab-calculator'));
+ assert.ok(order.indexOf('umrah-packing-checklist')<order.indexOf('tasbih-counter'));
+});
+
+test('every top-priority page has keyword-first title and a descriptive H1',()=>{
+ const priorities=['hijri-converter','prayer-times','qibla-finder','zakat-calculator','fasting-times','ramadan-timetable','tahajjud-time','islamic-events-calendar','white-days-calendar','fitrana-calculator'];
+ for(const slug of priorities){
+  const page=seo[slug];
+  assert.ok(page.title.length<65,slug+' short search title');
+  assert.ok(page.title.toLowerCase().startsWith(page.h1.toLowerCase().slice(0,Math.min(page.h1.length,11))),slug+' intent-first title');
+ }
+});
+test('tool page includes machine-readable FAQs and contextual guides',()=>{
+ const page=readFileSync(new URL('../src/pages/tools/[slug].astro',import.meta.url),'utf8');
+ assert.match(page,/FAQPage/);
+ assert.match(page,/mainEntity:faqItems/);
+ assert.match(page,/relatedGuides/);
+ assert.match(page,/HTML snapshot for \{renderedDate\}/);
 });

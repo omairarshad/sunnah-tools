@@ -1,9 +1,10 @@
-// User-oriented categories. Keep the homepage's CMS order aligned with these groups.
+// Primary user journeys, ordered by search intent and day-to-day usefulness.
+// Every slug belongs to exactly one group; homepage CMS ordering follows these groups.
 export const toolTopics=[
- {id:'prayer',label:'Prayer & daily Salah',description:'Prayer times, Qibla and tracking your daily prayers.',slugs:['prayer-times','qibla-finder','tahajjud-time','salah-tracker','printable-prayer-chart','prayer-times-widget']},
- {id:'dates',label:'Hijri dates & calendars',description:'Today’s Islamic date, lunar months and important events.',slugs:['hijri-converter','islamic-events-calendar','white-days-calendar','printable-hijri-calendar','islamic-age']},
- {id:'ramadan',label:'Ramadan & fasting',description:'Suhoor, Iftar, Ramadan dates and fasting progress.',slugs:['fasting-times','ramadan-timetable','ramadan-countdown','fasting-tracker']},
- {id:'zakat',label:'Zakat & giving',description:'Calculate Zakat, Nisab, gold and Fitrana.',slugs:['zakat-calculator','nisab-calculator','gold-zakat-calculator','fitrana-calculator']},
- {id:'everyday',label:'Worship & travel',description:'Dhikr, Quran reading and Hajj or Umrah preparation.',slugs:['tasbih-counter','quran-planner','umrah-packing-checklist']}
+ {id:'prayer',label:'Prayer & daily essentials',description:'Prayer times, Qibla, today’s Hijri date and daily Salah tools.',slugs:['prayer-times','qibla-finder','hijri-converter','tahajjud-time','printable-prayer-chart','prayer-times-widget','salah-tracker']},
+ {id:'ramadan',label:'Ramadan & fasting',description:'Suhoor, Iftar, Ramadan planning and White Days fasting.',slugs:['fasting-times','ramadan-timetable','ramadan-countdown','white-days-calendar','fasting-tracker']},
+ {id:'zakat',label:'Zakat & giving',description:'Zakat on savings, Fitrana, gold and Nisab thresholds.',slugs:['zakat-calculator','fitrana-calculator','gold-zakat-calculator','nisab-calculator']},
+ {id:'dates',label:'Islamic dates & calendars',description:'Important lunar dates, printable calendars and Hijri age.',slugs:['islamic-events-calendar','printable-hijri-calendar','islamic-age']},
+ {id:'everyday',label:'Hajj, Umrah & worship',description:'Packing, dhikr and daily Quran reading plans.',slugs:['umrah-packing-checklist','tasbih-counter','quran-planner']}
 ] as const;
 export const toolTopicBySlug:Record<string,string>=Object.fromEntries(toolTopics.flatMap(topic=>topic.slugs.map(slug=>[slug,topic.id])));
