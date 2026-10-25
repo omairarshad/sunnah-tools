@@ -21,7 +21,7 @@ test('font preview is opt-in and session-only, leaving existing typography untou
  assert.match(base,/sessionStorage\.setItem\(storageKey,selected\)/);
  assert.match(base,/sessionStorage\.removeItem\(storageKey\)/);
  assert.match(base,/if\(!allowed\(choice\)\)return/);
- assert.match(base,/data-font-preview/);
+ assert.match(base,/dataset\.fontPreview/);
  assert.match(base,/\/font-preview.css/);
  assert.doesNotMatch(base,/localStorage\.setItem\('sunnah-font-preview'/);
  assert.match(css,/html\[data-font-preview\]/);
