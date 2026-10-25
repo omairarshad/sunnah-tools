@@ -5,6 +5,7 @@ import {LaylatulQadrNights,FidyaCalculator,QadaPrayerCalculator,QurbaniShareCalc
 import FitranaCalculator from './FitranaCalculator';
 import {ExpansionTool} from './ExpansionTools';
 import {ramadanDays,timetableCSV} from '../lib/ramadanHelpers.mjs';
+import {makeRamadanIcs,validateQuranPlan,validateSalahHistory,downloadText} from '../lib/personalTools.mjs';
 import {WhiteDaysCalendar,PrintableHijriCalendar,PrayerWidgetGenerator,UmrahPackingChecklist} from './BatchTools';
 import {CalculationMethod,Coordinates,Madhab,PrayerTimes,Qibla,HighLatitudeRule,PolarCircleResolution} from 'adhan';
 import {localISODate,nisabAmounts,parseAmount,zakatEstimate,finalThirdStart,readingPlan,hijriToGregorian} from '../lib/calculations.mjs';
@@ -37,7 +38,17 @@ let times:PrayerTimes|null=null,bearing:number|null=null,lastThird:Date|null=nul
 try{new Intl.DateTimeFormat('en',{timeZone:tz});if(!valid)throw Error('Invalid coordinates');const d=date(day||dayAtZone(tz));if(!d)throw Error('Invalid date');times=calculate(d);bearing=Qibla(new Coordinates(latitude,longitude));const next=new Date(d);next.setDate(d.getDate()+1);following=calculate(next).fajr;lastThird=finalThirdStart(times.maghrib,following)}catch{}
 const locate=()=>navigator.geolocation?.getCurrentPosition(pos=>{setLat(String(pos.coords.latitude));setLon(String(pos.coords.longitude));setZone(Intl.DateTimeFormat().resolvedOptions().timeZone);setCustomLabel('Detected location');setError('')},()=>setError('Location permission declined or unavailable. Enter coordinates manually.'));
 const rows=kind==='ramadan-timetable'?(ramadanDays(start,ramadanLength)??[]).map(item=>{const d=date(item.iso);if(!d)return null;try{const t=calculate(d);return {day:item.day,date:item.iso,fajr:fmt(t.fajr,tz),maghrib:fmt(t.maghrib,tz)}}catch{return null}}).filter(x=>x!==null):[];
-const exportTimetable=()=>{
+const exportRamadanIcs=()=>{
+  const dates=ramadanDays(start,ramadanLength);
+  if(!dates||!valid)return;
+  try{
+    new Intl.DateTimeFormat('en',{timeZone:tz});
+    const items=dates.map(row=>{const d=date(row.iso);if(!d)throw new Error('Invalid day');const t=calculate(d);return {day:row.iso,fajr:t.fajr,maghrib:t.maghrib}});
+    downloadText('ramadan-times-'+start+'.ics',makeRamadanIcs(items),'text/calendar;charset=utf-8');
+    setError('');
+  }catch{setError('Could not create calendar. Check your location and dates.')}
+ };
+ const exportTimetable=()=>{
  if(!rows.length)return;
  const csv=timetableCSV(rows);
  const url=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'}));
@@ -51,7 +62,7 @@ return <div><p className="small">{customLabel?'Showing times for '+customLabel:'
  {times&&<details className="settings"><summary>Next 7 days</summary><div className="table-wrap"><table><thead><tr><th>Date</th>{labels.filter(x=>x!=='Sunrise').map(x=><th key={x}>{x}</th>)}</tr></thead><tbody>{Array.from({length:7},(_,i)=>{const base=date(day||dayAtZone(tz))!;const d=new Date(base.getFullYear(),base.getMonth(),base.getDate()+i);let t:PrayerTimes|null=null;try{t=calculate(d)}catch{}return <tr key={i}><td>{new Intl.DateTimeFormat('en-GB',{day:'numeric',month:'short'}).format(d)}</td>{labels.filter(x=>x!=='Sunrise').map(x=><td key={x}>{t?fmt(t[x.toLowerCase() as Lowercase<typeof x>],tz):'—'}</td>)}</tr>})}</tbody></table></div><p className="small">These are calculated start times, not local congregation times. The selected timezone accounts for daylight-saving changes.</p></details>}</>}
 {kind==='qibla-finder'&&<><p className="small">Find north using a calibrated compass or map, then turn clockwise by the bearing shown. Phone sensors may use magnetic north instead.</p><Block title="Qibla bearing clockwise from true north" value={bearing===null?'Check your location':bearing.toFixed(1)+'°'}/>{bearing!==null&&<div className="compass" role="img" aria-label={`Qibla is ${bearing.toFixed(1)} degrees clockwise from true north`}><span className="compass-n">N</span><span className="compass-arrow" style={{transform:`rotate(${bearing}deg)`}}>↑</span><span className="compass-s">S</span></div>}</>}
 {kind==='tahajjud-time'&&<>{times&&lastThird&&following?<><Block title="Maghrib" value={fmt(times.maghrib,tz)}/><Block title="Beginning of the final third of night" value={fmt(lastThird,tz)}/><Block title="Following Fajr" value={fmt(following,tz)}/></>:<p>Check your location.</p>}</>}
-{kind==='ramadan-timetable'&&<><div className="two"><Field label="Estimated first day of Ramadan (Gregorian)"><input type="date" value={start} onChange={e=>setStart(e.target.value)}/></Field><Field label="Timetable length"><select value={ramadanLength} onChange={e=>setRamadanLength(Number(e.target.value))}><option value={29}>29 days</option><option value={30}>30 days</option></select></Field></div><p className="small">The date and 29/30-day length are editable estimates. Verify your country's announcement before relying on the final calendar. Timezone: <strong>{tz}</strong>. Method: <strong>{method}</strong>.</p><div className="ramadan-print-heading"><h2>Ramadan timetable</h2><p>{customLabel||c[0]} · {tz} · {method} · {ramadanLength} days</p></div><div className="table-wrap"><table><thead><tr><th>Day</th><th>Date</th><th>Fajr</th><th>Maghrib</th></tr></thead><tbody>{rows.map(x=><tr key={x.day}><td>{x.day}</td><td>{x.date}</td><td>{x.fajr}</td><td>{x.maghrib}</td></tr>)}</tbody></table></div><div className="action-row print-hide"><button onClick={()=>window.print()}>Print / Save as PDF</button><button className="secondary" onClick={exportTimetable} disabled={!rows.length}>Download CSV</button></div></>}
+{kind==='ramadan-timetable'&&<><div className="two"><Field label="Estimated first day of Ramadan (Gregorian)"><input type="date" value={start} onChange={e=>setStart(e.target.value)}/></Field><Field label="Timetable length"><select value={ramadanLength} onChange={e=>setRamadanLength(Number(e.target.value))}><option value={29}>29 days</option><option value={30}>30 days</option></select></Field></div><p className="small">The date and 29/30-day length are editable estimates. Verify your country's announcement before relying on the final calendar. Timezone: <strong>{tz}</strong>. Method: <strong>{method}</strong>.</p><div className="ramadan-print-heading"><h2>Ramadan timetable</h2><p>{customLabel||c[0]} · {tz} · {method} · {ramadanLength} days</p></div><div className="table-wrap"><table><thead><tr><th>Day</th><th>Date</th><th>Fajr</th><th>Maghrib</th></tr></thead><tbody>{rows.map(x=><tr key={x.day}><td>{x.day}</td><td>{x.date}</td><td>{x.fajr}</td><td>{x.maghrib}</td></tr>)}</tbody></table></div><div className="action-row print-hide"><button onClick={()=>window.print()}>Print / Save as PDF</button><button className="secondary" onClick={exportTimetable} disabled={!rows.length}>Download CSV</button><button className="secondary" type="button" onClick={exportRamadanIcs} disabled={!rows.length}>Download calendar (.ics)</button></div></>}
 <p className="warn">These are calculated times, not mosque congregation times. Check local methodology, high-latitude conventions, and moon sighting before relying on a timetable.</p></div>
 }
 function Zakat(){
@@ -70,6 +81,7 @@ function Zakat(){
  <div className="two">{keys.map((x,i)=><Field label={x} key={x}><input type="number" inputMode="decimal" min="0" step="any" value={v[i]} onChange={e=>setV(v.map((y,j)=>j===i?e.target.value:y))} placeholder={i===3||i===4?'Required for Nisab calculation':'0'} /></Field>)}</div>
  <label className="check"><input type="checkbox" checked={hawl} onChange={e=>setHawl(e.target.checked)}/> I have checked the applicable lunar-year (hawl) requirement for my circumstances.</label>
  {result?<><div className="prayers"><div>Assets<strong>{money(assets)}</strong></div><div>After liabilities<strong>{money(result.net)}</strong></div><div>Selected Nisab<strong>{money(result.threshold)}</strong></div></div>
+  <details className="settings"><summary>See asset breakdown</summary><div className="table-wrap"><table><tbody><tr><th scope="row">Cash and savings</th><td>{money(a[0])}</td></tr><tr><th scope="row">Gold and silver</th><td>{money(a[1]*a[3]+a[2]*a[4])}</td></tr><tr><th scope="row">Eligible investments (as entered)</th><td>{money(a[5])}</td></tr><tr><th scope="row">Business/trading stock</th><td>{money(a[6])}</td></tr><tr><th scope="row">Other qualifying assets</th><td>{money(a[7])}</td></tr><tr><th scope="row">Immediate liabilities entered</th><td>{money(a[8])}</td></tr><tr><th scope="row">Net assets</th><td>{money(result.net)}</td></tr></tbody></table></div><p className="small">This reflects your entries, not a ruling on the treatment of individual assets, investments, pensions or debts. See <a href="/tools/zakat-stocks-crypto/">shares and crypto estimates</a> for further guidance.</p></details>
  <Block title="Estimated Zakat at 2.5%" value={result.eligible?money(result.amount):money(0)}/>
  {!result.eligible&&<p className="small">Your entered net assets are below the selected Nisab benchmark.</p>}
  {!hawl&&<p className="warn">Hawl and eligibility are not verified. This figure is only a conditional estimate, not a determination of what you owe.</p>}</>:<p className="warn">Enter valid non-negative amounts and a positive price for the selected Nisab metal before an estimate can be shown.</p>}
@@ -122,14 +134,27 @@ function Counter(){
  <p className="small">Press the Space key when not focused on a control. Your tally is saved in this browser.</p></>;
 }
 function Quran(){
- const [p,setP]=useState(604),[days,setDays]=useState(30),[done,setDone]=useState(0),[start,setStart]=useState(()=>localISODate());
+ const [p,setP]=useState(604),[days,setDays]=useState(30),[done,setDone]=useState(0),[start,setStart]=useState(()=>localISODate()),[ready,setReady]=useState(false),[backupStatus,setBackupStatus]=useState('');
+ useEffect(()=>{try{const val=validateQuranPlan(JSON.parse(localStorage.getItem('sunnah-quran-reading-v2')??'null'));if(val){setP(val.pages);setDays(val.days);setDone(val.done);setStart(val.start)}}catch{}setReady(true)},[]);
+ useEffect(()=>{if(ready){const val=validateQuranPlan({pages:p,days,done,start});if(val)try{localStorage.setItem('sunnah-quran-reading-v2',JSON.stringify(val))}catch{}}},[p,days,done,start,ready]);
+ const exportPlan=()=>{const val=validateQuranPlan({pages:p,days,done,start});if(val)downloadText('quran-reading-plan.json',JSON.stringify(val,null,2))};
+ const importPlan=async(e:React.ChangeEvent<HTMLInputElement>)=>{
+  const file=e.target.files?.[0];e.target.value='';if(!file)return;
+  if(file.size>32000){setBackupStatus('The file is too large.');return}
+  try{const val=validateQuranPlan(JSON.parse(await file.text()));if(!val){setBackupStatus('Not a valid Quran reading plan backup.');return}
+   if(!window.confirm('Replace your saved reading plan with this backup?'))return;
+   setP(val.pages);setDays(val.days);setDone(val.done);setStart(val.start);setBackupStatus('Plan restored on this device.');
+  }catch{setBackupStatus('Could not read that backup file.')}
+ };
  const plan=readingPlan(p,done,days);
  return <><div className="two"><Field label="Pages in your Mushaf"><input type="number" min="1" step="1" value={p} onChange={e=>setP(e.target.value===''?0:Number(e.target.value))}/></Field>
  <Field label="Days remaining"><input type="number" min="1" step="1" value={days} onChange={e=>setDays(e.target.value===''?0:Number(e.target.value))}/></Field></div>
  <Field label="Pages already read"><input type="number" min="0" step="1" value={done} onChange={e=>setDone(e.target.value===''?0:Number(e.target.value))}/></Field>
  <Field label="Plan start date"><input type="date" value={start} onChange={e=>setStart(e.target.value)}/></Field>
   {plan?<><div className="prayers"><div>Pages left<strong>{plan.remaining}</strong></div><div>Pages per day<strong>{plan.perDay}</strong></div><div>Pages per prayer<strong>{plan.perPrayer}</strong></div></div><label>Reading progress · {plan.percent}%</label><progress max={p} value={done}/>{date(start)&&<details className="settings" open><summary>Daily reading ranges</summary><div className="table-wrap"><table><thead><tr><th>Day</th><th>Date</th><th>Pages to read</th></tr></thead><tbody>{Array.from({length:Math.min(days,31)},(_,i)=>{const a=done+Math.floor(plan.remaining*i/days)+1,b=done+Math.floor(plan.remaining*(i+1)/days),d=date(start)!;d.setDate(d.getDate()+i);return <tr key={i}><td>{i+1}</td><td>{new Intl.DateTimeFormat('en-GB',{day:'numeric',month:'short',year:'numeric'}).format(d)}</td><td>{a<=b?a+'–'+b:'Rest / catch up'}</td></tr>})}</tbody></table></div>{days>31&&<p className="small">Showing the first 31 days of the plan.</p>}<button type="button" onClick={()=>window.print()} className="secondary">Print plan</button></details>}</>:<p className="warn">Enter positive whole-number page and day totals, with completed pages no greater than the total.</p>}
- <p className="small">604 pages is a common Mushaf layout. Change it to match your edition.</p></>;
+ <div className="action-row"><button className="secondary" type="button" onClick={exportPlan} disabled={!validateQuranPlan({pages:p,days,done,start})}>Download plan backup</button><label>Restore saved plan<input type="file" accept=".json,application/json" aria-label="Restore Quran reading plan from JSON" onChange={importPlan}/></label></div>
+ {backupStatus&&<p role="status" className="small">{backupStatus}</p>}
+ <p className="small">604 pages is a common Mushaf layout. Change it to match your edition. Your plan is saved on this device; download a backup before clearing browser data.</p></>;
 }
 function RamadanCountdown(){
  const [target,setTarget]=useState('2027-02-08'),[now,setNow]=useState(()=>Date.now());
@@ -151,7 +176,7 @@ function FastingTracker(){
 }
 function SalahTracker(){
  const prayers=['Fajr','Dhuhr','Asr','Maghrib','Isha'] as const;
- const [entries,setEntries]=useState<Record<string,string[]>>({}),[ready,setReady]=useState(false),[today,setToday]=useState(()=>localISODate());
+ const [entries,setEntries]=useState<Record<string,string[]>>({}),[ready,setReady]=useState(false),[today,setToday]=useState(()=>localISODate()),[restoreStatus,setRestoreStatus]=useState('');
  useEffect(()=>{try{const saved=JSON.parse(localStorage.getItem('sunnah-salah-history-v2')??'{}');if(saved&&typeof saved==='object'&&!Array.isArray(saved)){const records:Record<string,string[]>={};for(const [day,values] of Object.entries(saved)){if(/^\d{4}-\d{2}-\d{2}$/.test(day)&&Array.isArray(values)&&Object.keys(records).length<365)records[day]=values.filter((p:unknown)=>typeof p==='string'&&prayers.includes(p as typeof prayers[number])) as string[]}setEntries(records)}else{const older=JSON.parse(localStorage.getItem('sunnah-prayers')??'{}');if(older?.day===localISODate()&&Array.isArray(older.selected))setEntries({[older.day]:older.selected.filter((p:unknown)=>typeof p==='string'&&prayers.includes(p as typeof prayers[number]))})}}catch{}setReady(true)},[]);
  useEffect(()=>{if(ready)try{const cutoff=new Date();cutoff.setDate(cutoff.getDate()-90);const min=localISODate(cutoff);localStorage.setItem('sunnah-salah-history-v2',JSON.stringify(Object.fromEntries(Object.entries(entries).filter(([key])=>key>=min).slice(-120))))}catch{}},[entries,ready]);
  useEffect(()=>{const timer=window.setInterval(()=>{const d=localISODate();if(d!==today)setToday(d)},60000);return()=>window.clearInterval(timer)},[today]);
@@ -159,10 +184,24 @@ function SalahTracker(){
  const toggle=(prayer:string,on:boolean)=>setEntries(v=>({...v,[today]:on?[...(v[today]??[]).filter(p=>p!==prayer),prayer]:(v[today]??[]).filter(p=>p!==prayer)}));
  const past=Object.entries(entries).filter(([day])=>day!==today).sort(([a],[b])=>b.localeCompare(a)).slice(0,30);
  const exportCsv=()=>{const cells=[['Date',...prayers],...Object.entries(entries).sort(([a],[b])=>a.localeCompare(b)).map(([day,items])=>[day,...prayers.map(p=>items.includes(p)?'Yes':'')])];const blob=new Blob([cells.map(row=>row.join(',')).join('\r\n')],{type:'text/csv;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='salah-history.csv';a.click();window.setTimeout(()=>URL.revokeObjectURL(url),1000)};
+ const backupHistory=()=>downloadText('salah-history.json',JSON.stringify({version:1,entries},null,2));
+ const restoreHistory=async(event:React.ChangeEvent<HTMLInputElement>)=>{
+  const file=event.target.files?.[0];event.target.value='';if(!file)return;
+  if(file.size>60000){setRestoreStatus('Salah history backup is too large.');return}
+  try{
+   const parsed=validateSalahHistory(JSON.parse(await file.text()));
+   if(!parsed){setRestoreStatus('This is not a valid Salah history backup.');return}
+   if(!window.confirm('Replace the Salah history saved on this device?'))return;
+   const cutoff=new Date();cutoff.setDate(cutoff.getDate()-90);
+   const min=localISODate(cutoff),max=localISODate();
+   setEntries(Object.fromEntries(Object.entries(parsed.entries).filter(([date])=>date>=min&&date<=max)));
+   setRestoreStatus('History restored (latest 90 days).');
+  }catch{setRestoreStatus('Could not read this backup.')}
+ };
  return <><p>Today: <strong>{today}</strong></p><div className="tracker-checks">{prayers.map(prayer=><label className="check" key={prayer}><input type="checkbox" checked={selected.includes(prayer)} onChange={e=>toggle(prayer,e.target.checked)}/>{prayer}</label>)}</div>
  <Block title="Prayers ticked today" value={selected.length+' / 5'}/>
  <details className="settings"><summary>Previous days ({past.length})</summary>{past.length?<div className="table-wrap"><table><thead><tr><th>Date</th><th>Recorded prayers</th></tr></thead><tbody>{past.map(([day,items])=><tr key={day}><td>{day}</td><td>{items.join(', ')||'None ticked'}</td></tr>)}</tbody></table></div>:<p>No previous days recorded yet.</p>}</details>
- <button type="button" className="secondary" onClick={exportCsv} disabled={!Object.keys(entries).length}>Download prayer history (CSV)</button>
+ <div className="action-row"><button type="button" className="secondary" onClick={exportCsv} disabled={!Object.keys(entries).length}>Download prayer history (CSV)</button><button type="button" className="secondary" onClick={backupHistory} disabled={!Object.keys(entries).length}>Back up history (JSON)</button><label>Restore history<input type="file" accept=".json,application/json" aria-label="Restore Salah history JSON" onChange={restoreHistory}/></label></div>{restoreStatus&&<p role="status" className="small">{restoreStatus}</p>}
  <p className="small">A private checklist for personal reflection; not a measure of worship. Entries are saved only on this device for up to 90 days. Export before clearing browser data.</p></>;
 }
 

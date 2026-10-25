@@ -1,3 +1,4 @@
+import {validateQadaPlan} from '../lib/personalTools.mjs';
 import {useEffect,useState} from 'react';
 import {oddNightDates,qadaPlanningDays,simpleEstimate,qurbaniEstimate} from '../lib/growthCalculations.mjs';
 
@@ -54,6 +55,20 @@ export function FidyaCalculator(){
 
 const prayerNames=['Fajr','Dhuhr','Asr','Maghrib','Isha'] as const;
 export function QadaPrayerCalculator(){
+ const [restoreStatus,setRestoreStatus]=useState('');
+ const restorePlan=async(event:React.ChangeEvent<HTMLInputElement>)=>{
+  const file=event.target.files?.[0];event.target.value='';if(!file)return;
+  if(file.size>64000){setRestoreStatus('File is too large for a Qada plan.');return}
+  try{
+   const restored=validateQadaPlan(JSON.parse(await file.text()));
+   if(!restored){setRestoreStatus('This is not a valid Qada plan backup.');return}
+   if(!window.confirm('Replace your current Qada plan and completed counts?'))return;
+   setMode(restored.mode);setDays(restored.days);setYears(restored.years);setStart(restored.start);setEnd(restored.end);
+   setExcluded(restored.excluded);setWitr(restored.witr);setOverrides(restored.overrides);setDone(restored.done);
+   setRestoreStatus('Qada plan and progress restored on this device.');
+  }catch{setRestoreStatus('Could not read the backup file.')}
+ };
+
  const [mode,setMode]=useState<'days'|'years'|'range'>('days'),[days,setDays]=useState('30'),[years,setYears]=useState('1'),[start,setStart]=useState(''),[end,setEnd]=useState(''),[excluded,setExcluded]=useState('0'),[witr,setWitr]=useState(false);
  const [overrides,setOverrides]=useState<Record<string,string>>({}),[done,setDone]=useState<Record<string,number>>({}),[ready,setReady]=useState(false);
  const storageKey='sunnah-qada-plan-v2';
@@ -89,8 +104,9 @@ export function QadaPrayerCalculator(){
     <div><strong>{name}</strong><label>Estimated missed prayers<input aria-label={'Estimated missed '+name+' prayers'} type="number" min="0" max="1000000" step="1" value={overrides[name]??''} placeholder={String(base)} onChange={e=>setOverrides(v=>({...v,[name]:e.target.value}))}/></label></div>
     <div className="growth-qada-progress"><span>{Math.min(target,done[name]??0).toLocaleString('en-GB')} / {target.toLocaleString('en-GB')} made up</span><progress value={Math.min(target,done[name]??0)} max={Math.max(1,target)}/><div className="action-row"><button type="button" onClick={()=>adjust(name,1,target)} disabled={(done[name]??0)>=target}>+ 1 completed</button><button type="button" className="secondary" onClick={()=>adjust(name,-1,target)} disabled={(done[name]??0)<=0}>Undo</button></div></div>
    </div>)}</div>
-   <div className="action-row"><button type="button" className="secondary" onClick={backup}>Download plan backup (JSON)</button><button type="button" className="secondary" onClick={()=>{if(window.confirm('Clear saved Qada plan and progress on this device?')){setDone({});setOverrides({});setMode('days');setDays('30');setYears('1');setStart('');setEnd('');setExcluded('0');setWitr(false)}}}>Reset plan and progress</button></div>
+   <div className="action-row"><button type="button" className="secondary" onClick={backup}>Download plan backup (JSON)</button><label>Restore plan from JSON<input type="file" accept=".json,application/json" aria-label="Restore Qada plan and progress" onChange={restorePlan}/></label><button type="button" className="secondary" onClick={()=>{if(window.confirm('Clear saved Qada plan and progress on this device?')){setDone({});setOverrides({});setMode('days');setDays('30');setYears('1');setStart('');setEnd('');setExcluded('0');setWitr(false)}}}>Reset plan and progress</button></div>
   </>:<Notice>Enter a valid period and exclusions, and use non-negative whole numbers for individual prayer targets.</Notice>}
+  {restoreStatus&&<p role="status" className="small">{restoreStatus}</p>}
   <p className="small">This device now remembers both your estimated targets and recorded progress. Keep a downloaded backup before clearing browser data.</p><Notice>Scholars differ on making up deliberately missed prayers, Witr and other circumstances. This is a private organisational aid, not a fatwa or an automatic determination of liability. Seek qualified guidance before setting your targets.</Notice>
   <p className="small">Reference: <a href="https://sunnah.com/muslim:684a" target="_blank" rel="noopener noreferrer">Sahih Muslim 684a</a> on prayer missed through sleep or forgetfulness.</p>
  </div>;
