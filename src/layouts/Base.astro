@@ -3,6 +3,7 @@ import '../styles/global.css';
 import '../styles/premium.css';
 import '../styles/tool-cards.css';
 import '../styles/dark.css';
+import '../styles/typography.css';
 import AnalyticsConsent from '../components/AnalyticsConsent.astro';
 import {siteAnalytics} from '../lib/siteAnalytics';
 import {siteAds} from '../lib/siteAds';
@@ -46,6 +47,9 @@ const org={'@context':'https://schema.org','@type':'WebSite',name:'Sunnah Tools'
   const previewLink=document.createElement('link');previewLink.rel='stylesheet';previewLink.href='/font-preview.css';document.head.appendChild(previewLink);
  })();
 </script>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700;800&amp;family=Petrona:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&amp;display=swap"/>
 <meta name="description" content={description}/>
 {noindex&&<meta name="robots" content="noindex,nofollow"/>}<link rel="canonical" href={canonical.toString()}/>
 <meta property="og:type" content="website"/><meta property="og:site_name" content="Sunnah Tools"/><meta property="og:title" content={title+' | Sunnah Tools'}/><meta property="og:description" content={description}/><meta property="og:url" content={canonical.toString()}/>

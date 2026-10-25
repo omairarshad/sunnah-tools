@@ -94,6 +94,9 @@ assert(typeLab.includes('noindex,nofollow'),'Typography comparison must be noind
 assert(typeLab.includes('font-preview=petrona-karla')&&typeLab.includes('font-preview=alegreya-family')&&typeLab.includes('font-preview=eczar-plex'),'Three typography previews must be linked');
 assert(!sitemap.includes('/font-lab/'),'Typography comparison must not be indexed');
 assert(read('font-preview.css').includes('data-font-preview'),'Font overlay missing');
+assert(home.includes('fonts.googleapis.com/css2?family=Karla'),'Default Google Fonts stylesheet missing');
+assert(home.includes('Petrona'),'Petrona font loading missing');
+assert(read('privacy/index.html').includes('Website typography (Google Fonts)'),'Google Fonts disclosure missing');
 assert(read('admin/index.html').includes('noindex,nofollow'),'Admin shell must be noindexed');
 assert(read('admin/index.html').includes('Open Pages CMS'),'CMS launch portal missing');
 assert(!sitemap.includes('/admin/'),'Admin route must be excluded from sitemap');
