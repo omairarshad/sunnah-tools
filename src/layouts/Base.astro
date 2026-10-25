@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import '../styles/premium.css';
 import '../styles/tool-cards.css';
+import '../styles/dark.css';
 import AnalyticsConsent from '../components/AnalyticsConsent.astro';
 import {siteAnalytics} from '../lib/siteAnalytics';
 import {siteAds} from '../lib/siteAds';
@@ -14,6 +15,14 @@ const org={'@context':'https://schema.org','@type':'WebSite',name:'Sunnah Tools'
 <html lang="en">
 <head>
 <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<script is:inline>
+ (() => {
+  let stored = null;
+  try { stored = localStorage.getItem('sunnah-tools-theme'); } catch {}
+  const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false;
+  document.documentElement.dataset.theme = stored === 'dark' || stored === 'light' ? stored : (prefersDark ? 'dark' : 'light');
+ })();
+</script>
 <meta name="description" content={description}/>
 {noindex&&<meta name="robots" content="noindex,nofollow"/>}<link rel="canonical" href={canonical.toString()}/>
 <meta property="og:type" content="website"/><meta property="og:site_name" content="Sunnah Tools"/><meta property="og:title" content={title+' | Sunnah Tools'}/><meta property="og:description" content={description}/><meta property="og:url" content={canonical.toString()}/>
@@ -34,7 +43,14 @@ const org={'@context':'https://schema.org','@type':'WebSite',name:'Sunnah Tools'
    <a href="/tools/zakat-calculator/">Zakat</a>
    <a href="/about/">About</a>
   </nav>
-  <a href="/#tools" class="header-action">All tools <span aria-hidden="true">↗</span></a>
+  <div class="header-controls">
+   <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch to dark mode" aria-pressed="false" title="Toggle dark mode">
+    <svg class="theme-icon theme-icon-moon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 13.4A8.8 8.8 0 0 1 10.6 3.2 8.8 8.8 0 1 0 20.8 13.4Z"/></svg>
+    <svg class="theme-icon theme-icon-sun" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+    <span id="theme-toggle-label">Dark mode</span>
+   </button>
+   <a href="/#tools" class="header-action">All tools <span aria-hidden="true">↗</span></a>
+  </div>
  </div>
 </header>
 <main id="content"><slot/></main>
@@ -45,5 +61,36 @@ const org={'@context':'https://schema.org','@type':'WebSite',name:'Sunnah Tools'
  <p class="footer-bottom">© {new Date().getFullYear()} Sunnah Tools. Calculations are informational; follow trusted local guidance for religious decisions.</p>
 </div></footer>
 <AnalyticsConsent/>
+<script>
+ const themeButton=document.querySelector<HTMLButtonElement>('#theme-toggle');
+ const themeLabel=document.querySelector<HTMLElement>('#theme-toggle-label');
+ const themeStorageKey='sunnah-tools-theme';
+ const root=document.documentElement;
+ const themeMedia=window.matchMedia?.('(prefers-color-scheme: dark)');
+ const preferredTheme=(): 'dark'|'light'=>themeMedia?.matches?'dark':'light';
+ const activeTheme=(): 'dark'|'light'=>root.dataset.theme==='dark'?'dark':'light';
+ function syncThemeUI(){
+  const isDark=activeTheme()==='dark';
+  if(themeButton){
+   themeButton.setAttribute('aria-pressed',String(isDark));
+   themeButton.setAttribute('aria-label',isDark?'Switch to light mode':'Switch to dark mode');
+   themeButton.title=isDark?'Switch to light mode':'Switch to dark mode';
+  }
+  if(themeLabel)themeLabel.textContent=isDark?'Light mode':'Dark mode';
+  document.querySelector<HTMLMetaElement>('meta[name="theme-color"]')?.setAttribute('content',isDark?'#0d1714':'#102f28');
+ }
+ themeButton?.addEventListener('click',()=>{
+  const next=activeTheme()==='dark'?'light':'dark';
+  root.dataset.theme=next;
+  try{localStorage.setItem(themeStorageKey,next)}catch{}
+  syncThemeUI();
+ });
+ themeMedia?.addEventListener?.('change',()=>{
+  try{if(localStorage.getItem(themeStorageKey)==='dark'||localStorage.getItem(themeStorageKey)==='light')return}catch{}
+  root.dataset.theme=preferredTheme();
+  syncThemeUI();
+ });
+ syncThemeUI();
+</script>
 </body>
 </html>

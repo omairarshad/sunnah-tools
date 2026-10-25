@@ -7,6 +7,8 @@ const assert=(test,msg)=>{if(!test)throw new Error('Site audit failed: '+msg)};
 const home=read('index.html');
 assert(home.includes('id="tool-search-input"'),'Homepage search is missing');
 assert(home.includes('id="tool-grid"'),'Homepage directory grid missing');
+assert(home.includes('id="theme-toggle"')&&home.includes('aria-pressed="false"'),'Accessible theme toggle missing on homepage');
+assert(home.includes('sunnah-tools-theme')&&home.includes('prefers-color-scheme: dark'),'Theme preference bootstrap missing');
 assert(!home.includes('featured-grid'),'Redundant Start here cards must be removed');
 assert(!home.includes('id="featured-title"'),'Start here section heading must be removed');
 assert((home.match(/class="promo-banner/g)||[]).length>=3,'Three branded image banners missing');
@@ -34,6 +36,10 @@ assert(favicon.includes('#102F28'),'Favicon must match forest green brand');
 const theme=readFileSync(resolve('src/styles/premium.css'),'utf8');
 assert(theme.includes('.tool-inner .result')&&theme.includes('.tool-card[data-tone]'),'Palette does not cover cards and calculator results');
 assert(theme.includes('@media print'),'Print view override missing');
+const darkTheme=readFileSync(resolve('src/styles/dark.css'),'utf8');
+for(const essential of ['html[data-theme="dark"] body','html[data-theme="dark"] .tool-inner input','html[data-theme="dark"] .directory .tool-card','html[data-theme="dark"] .faq-detail','html[data-theme="dark"] .analytics-consent','@media print']){
+ assert(darkTheme.includes(essential),'Dark theme missing a critical surface: '+essential);
+}
 assert(home.includes('href="https://sunnah.tools/"'),'Home canonical URL missing');
 assert(home.includes('/guides/prayer-time-methods/'),'Contextual prayer method guide missing');
 assert(home.includes('/guides/ramadan-dates-and-timetables/'),'Contextual Ramadan guide missing');
@@ -56,6 +62,7 @@ for(const slug of slugs){
  const html=read(path);
  assert(statSync(resolve('dist',path)).size>1000,`Tool page is empty: ${slug}`);
  assert(header(html),`Shared chrome missing: ${slug}`);
+ assert(html.includes('id="theme-toggle"'),`Theme toggle missing on tool page: ${slug}`);
  assert(html.includes('class="tool-panel"'),`Interactive panel missing: ${slug}`);
  assert(html.includes('class="tool-disclaimer"'),`Method disclaimer missing: ${slug}`);
  assert(html.includes('class="tool-aside"'),`Related tools sidebar missing: ${slug}`);
