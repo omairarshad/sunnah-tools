@@ -31,3 +31,29 @@ html[data-theme="dark"] .city-index-grid section{background:#193025;border-color
 .qibla-phone-sensor label{max-width:440px}
 html[data-theme="dark"] .qibla-phone-sensor{border-color:#385b46}
 @media print{.qibla-phone-sensor{display:none}}
+
+/* Tahajjud: show the calculation before the educational content. */
+.tahajjud-calculator{display:grid;gap:15px}
+.tahajjud-calculator>p{margin:0}
+.tahajjud-switch{display:flex;gap:9px;flex-wrap:wrap}
+.tahajjud-primary{margin:8px 0 12px;text-align:center}
+.tahajjud-primary strong{font-size:clamp(30px,5vw,44px)}
+.tahajjud-primary small{display:block;margin-top:8px}
+.tahajjud-overview{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.tahajjud-overview>div{border:1px solid #d7e5d9;border-radius:11px;padding:12px;min-width:0}
+.tahajjud-overview span{display:block;font-size:11px;color:var(--muted,#667d70)}
+.tahajjud-overview strong{display:block;margin-top:5px;font-size:16px}
+.tahajjud-timeline{margin:18px 0}
+.tahajjud-segments{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;height:15px;border-radius:9px;overflow:hidden}
+.tahajjud-segments span{background:#b9d5ce}
+.tahajjud-segments .last{background:#be9454}
+.tahajjud-markers{display:flex;justify-content:space-between;margin-top:9px;gap:8px;font-size:11px}
+.tahajjud-markers span{min-width:0}
+.tahajjud-markers span:last-child{text-align:right}
+.tahajjud-markers span:nth-child(2),.tahajjud-markers span:nth-child(3){text-align:center}
+.tahajjud-advice{border-top:1px solid #dbe6de;padding-top:14px}
+.tahajjud-advice h3{font-size:17px;margin:18px 0 8px}
+.tahajjud-advice p{line-height:1.65;margin:8px 0}
+.tahajjud-note{border-left:3px solid #ba9958;padding:8px 12px}
+@media(max-width:650px){.tahajjud-overview{grid-template-columns:repeat(2,minmax(0,1fr))}.tahajjud-markers{font-size:9px}}
+@media print{.tahajjud-calculator .tahajjud-switch,.tahajjud-calculator .city-search,.tahajjud-calculator details,.tahajjud-calculator .action-row{display:none!important}}

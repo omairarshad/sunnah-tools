@@ -17,6 +17,10 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Do these times work worldwide?",
         "answer": "Use accurate coordinates and the right timezone. High-latitude locations may need special calculation settings."
+      },
+      {
+        "question": "Why do two prayer applications show different Fajr times?",
+        "answer": "They may use different dawn angles or local timetable adjustments. Check each calculation setting against the timetable followed by your local mosque."
       }
     ]
   },
@@ -35,16 +39,20 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Why does my compass point somewhere else?",
         "answer": "Physical compasses measure magnetic north and can be affected by declination and local interference."
+      },
+      {
+        "question": "Does the Qibla bearing use my phone's compass heading?",
+        "answer": "The fixed great-circle bearing is calculated from your location and geographic north. An optional device heading needs compatible sensors and correction for magnetic declination."
       }
     ]
   },
   "tahajjud-time": {
-    "title": "Tahajjud Time Calculator – Last Third of the Night",
+    "title": "Tahajjud Time Calculator – Last Third of Night",
     "h1": "Tahajjud Time Calculator",
-    "description": "Calculate the last third of the night between Maghrib and Fajr to plan Tahajjud prayer. Free, location-aware night prayer time calculator.",
-    "summary": "Find when the final third of tonight begins using local sunset and dawn estimates.",
-    "details": "The Islamic night is measured from sunset (Maghrib) to the next dawn (Fajr). Divide that interval into three equal lengths to find the last third.",
-    "caution": "Your calculated start can change if your mosque follows a different Fajr angle or local timetable.",
+    "description": "Calculate tonight’s last third by city or by entering your mosque’s Maghrib and following Fajr times. See the Tahajjud start, end, overnight timeline and calculation.",
+    "summary": "Find the last third of tonight’s night using local prayer calculations or your own mosque’s published Maghrib and Fajr times.",
+    "details": "Choose a city, date and calculation convention, or enter manual clock times from your local mosque. The tool measures the full interval between sunset and the following dawn, divides it into three equal portions, and shows the result alongside the night length.",
+    "caution": "The final third is not the only valid time for voluntary night prayer. If clocks change overnight, prefer the city calculation for the actual elapsed interval. Calculated Fajr times can differ from local timetables.",
     "faqs": [
       {
         "question": "What is the last third of the night?",
@@ -53,6 +61,10 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Can I pray Tahajjud earlier?",
         "answer": "Night prayer is not limited to the last third. This calculator identifies a commonly preferred period, not a rule for every circumstance."
+      },
+      {
+        "question": "Can I enter Maghrib and Fajr directly from my mosque?",
+        "answer": "Yes. Manual mode accepts tonight's Maghrib and the following morning's Fajr and divides that overnight interval into three equal portions."
       }
     ]
   },
@@ -71,6 +83,10 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Why does Iftar change every day?",
         "answer": "Sunset shifts through the year and depends on your location and timezone."
+      },
+      {
+        "question": "Does imsak always mean Fajr has begun?",
+        "answer": "No. Some calendars show an earlier precautionary imsak time. Check which entry your local religious authority uses as the beginning of the daily fast."
       }
     ]
   },
@@ -89,6 +105,10 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Will Ramadan always be 30 days?",
         "answer": "No. Lunar months are 29 or 30 days. Treat the 30-day output as a planning grid until local announcements confirm the month."
+      },
+      {
+        "question": "Can I download Ramadan dates for my calendar?",
+        "answer": "Yes. The timetable exports estimated Fajr and Maghrib reminders as calendar events. Confirm the location, calculation settings and announced fasting dates first."
       }
     ]
   },
@@ -107,6 +127,10 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Why might two countries start on different days?",
         "answer": "Religious authorities may follow different moon-sighting criteria and announcements."
+      },
+      {
+        "question": "Why can Ramadan countdowns disagree by a day?",
+        "answer": "Calendars and local moon-sighting decisions may establish different starting dates. Set the countdown to the announced date recognised by your community."
       }
     ]
   },
@@ -125,6 +149,10 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Which Nisab should I use?",
         "answer": "Gold and silver give different thresholds. Apply the approach recommended by a trusted scholar or your relevant institution."
+      },
+      {
+        "question": "Should I enter every pension balance as cash?",
+        "answer": "Not necessarily. Pension ownership, access and the guidance you follow can affect its Zakat treatment. Review those factors before entering a qualifying amount."
       }
     ]
   },
@@ -143,6 +171,10 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Can I calculate Fitrana for my whole household?",
         "answer": "Yes. Enter the number of people and the local rate to estimate your household total."
+      },
+      {
+        "question": "Can I use last year's Fitrana rate?",
+        "answer": "Check the current locally advised amount. Food prices and the rate selected by your mosque or charity may change between Ramadan seasons."
       }
     ]
   },
@@ -161,6 +193,10 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Is Zakat obligatory on all jewellery?",
         "answer": "Not universally. Views differ on personally worn jewellery; confirm your situation with a qualified scholar."
+      },
+      {
+        "question": "Why does jewellery purity affect the estimate?",
+        "answer": "Carat measures the proportion of fine gold in an item. Its market value can vary with purity even when gross weight is the same."
       }
     ]
   },
@@ -179,6 +215,10 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Does the threshold automatically mean I owe Zakat?",
         "answer": "No. Holding qualifying wealth, the passing of a lunar year, and other conditions still matter."
+      },
+      {
+        "question": "Why are gold and silver Nisab amounts so different?",
+        "answer": "The benchmark weights and market prices differ, giving different monetary amounts. Your school or trusted adviser can help determine which threshold to use."
       }
     ]
   },
@@ -197,6 +237,10 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Is the Hijri date the same worldwide?",
         "answer": "Not always. Regional observations and authorities may declare a different beginning to a lunar month."
+      },
+      {
+        "question": "Why might a Hijri conversion be one day different?",
+        "answer": "Published calendars may use different lunar month starts, and the Islamic day changes at sunset. A calculated date is not proof of a local moon sighting."
       }
     ]
   },
@@ -215,6 +259,10 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Can I book travel using these dates?",
         "answer": "Use them only for planning estimates until official dates and travel arrangements are confirmed."
+      },
+      {
+        "question": "Do major Islamic events fall on the same Gregorian day every year?",
+        "answer": "No. Islamic dates follow lunar months, which move through the solar year. Some observances can also differ locally because of moon-sighting conventions."
       }
     ]
   },
@@ -233,6 +281,10 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Should I fast on the 13th of Dhul Hijjah?",
         "answer": "The 13th of Dhul Hijjah is among the days of Tashreeq. Ordinary voluntary fasting is generally not performed then."
+      },
+      {
+        "question": "Do the White Days mean the 13th to 15th of every Gregorian month?",
+        "answer": "No. They refer to days 13, 14 and 15 of each lunar Hijri month, which move through the Gregorian calendar."
       }
     ]
   },
@@ -251,6 +303,10 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Does my birthday fall on the same date every year?",
         "answer": "A Hijri birthday falls on a different Gregorian date as lunar months move through the solar year."
+      },
+      {
+        "question": "Why is my Hijri age higher than my Gregorian age?",
+        "answer": "Hijri years are roughly eleven days shorter than Gregorian years, so more lunar anniversaries can have passed over the same lifetime."
       }
     ]
   },
@@ -269,6 +325,10 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Why do some Islamic months have 29 days?",
         "answer": "The lunar calendar alternates between months of 29 and 30 days according to its calendar rules and month-start determination."
+      },
+      {
+        "question": "Can a calculated calendar confirm Eid for my area?",
+        "answer": "Not by itself. Actual month starts may follow local moon sightings or an authorised religious calendar, which can differ from the printed estimate."
       }
     ]
   },
@@ -287,6 +347,10 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Does the counter store my dhikr on a server?",
         "answer": "No. The tally is stored locally in your browser, not in a user account."
+      },
+      {
+        "question": "What happens to my Tasbih count if I clear browser data?",
+        "answer": "Counts saved locally can be lost when site storage is deleted or a private session ends. A different device does not automatically share that progress."
       }
     ]
   },
@@ -305,6 +369,10 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Can I use this planner during Ramadan?",
         "answer": "Yes. Select the days remaining in Ramadan or any other personal goal period."
+      },
+      {
+        "question": "Can I enter a Quran edition with fewer than 604 pages?",
+        "answer": "Yes. The plan uses your chosen total page count, completed pages and target duration rather than assuming that every edition has the same layout."
       }
     ]
   },
@@ -323,6 +391,10 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Can I use it without an account?",
         "answer": "Yes. No sign-in is required, and progress is kept in local browser storage."
+      },
+      {
+        "question": "Does every missed fast require a Fidya payment?",
+        "answer": "No. Many missed fasts need to be made up instead; the appropriate treatment depends on why the fast was missed and qualified religious guidance."
       }
     ]
   },
@@ -341,6 +413,10 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "How do I save the chart as a PDF?",
         "answer": "Open your browser's Print dialogue and select Save as PDF."
+      },
+      {
+        "question": "Can children use this Salah chart?",
+        "answer": "A printed chart may help learners practise and remember prayer. It should not be treated as a ruling that all ages have identical obligations."
       }
     ]
   },
@@ -359,6 +435,10 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Is my Salah history private?",
         "answer": "The checklist remains in browser storage on your device unless you share or clear it."
+      },
+      {
+        "question": "Can I transfer my Salah history between devices?",
+        "answer": "You can export a JSON backup and restore it on another device. Review the replacement prompt because importing can overwrite the saved local history."
       }
     ]
   },
@@ -377,6 +457,10 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Will it show congregation times?",
         "answer": "No. It displays estimated prayer beginnings, not your mosque's scheduled congregation times."
+      },
+      {
+        "question": "Will a website widget show our mosque's iqamah schedule?",
+        "answer": "Not unless that information is separately configured. A calculation-based widget cannot know congregation times set by the mosque."
       }
     ]
   },
@@ -395,6 +479,10 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Can I print my Hajj or Umrah list?",
         "answer": "Yes. Use the print option for a physical copy to check before leaving."
+      },
+      {
+        "question": "Does a packing checklist verify my Hajj permit?",
+        "answer": "No. It helps organise belongings and documents but does not check eligibility, visa validity, or official travel authorisations."
       }
     ]
   },
@@ -417,6 +505,10 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Can I add Ramadan odd nights to my calendar?",
         "answer": "Yes. Download the calendar file to add all five evening dates, or print the result. Use your local sunset time when planning."
+      },
+      {
+        "question": "Why does the 21st night begin the evening before its daytime date?",
+        "answer": "An Islamic night begins at sunset, so a night's Gregorian evening precedes the corresponding daytime date. Check your locally announced Ramadan count."
       }
     ]
   },
@@ -439,6 +531,10 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Are Fidya, Fitrana and Kaffarah the same?",
         "answer": "No. These are distinct Islamic giving or expiation categories with different conditions and methods."
+      },
+      {
+        "question": "Is Fidya due for every fast I missed in Ramadan?",
+        "answer": "No. Many missed fasts must be made up instead. Circumstances and the school you follow determine when Fidya is appropriate."
       }
     ]
   },
@@ -461,6 +557,10 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Does the Qada tracker save my prayer records?",
         "answer": "It stores completed counts in local storage on that browser. There is no account or synchronisation, and clearing browser data may erase progress."
+      },
+      {
+        "question": "Does every make-up prayer plan have to include Witr?",
+        "answer": "Not necessarily. Different schools classify Witr and its make-up differently. Enable Witr only if it matches guidance you have chosen to follow."
       }
     ]
   },
@@ -483,6 +583,10 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Does this calculator include animal prices?",
         "answer": "No. Enter the actual total quoted by your chosen provider, including any costs you want to divide."
+      },
+      {
+        "question": "Can every Qurbani animal be split into seven shares?",
+        "answer": "No. The common seven-share arrangement applies to qualifying larger animals under relevant rulings, rather than every sheep or goat."
       }
     ]
   },
@@ -505,6 +609,10 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Do all broken Ramadan fasts require Kaffarah?",
         "answer": "No. The act, intention, exemptions and rulings followed determine whether expiation applies. Ask a qualified scholar about your situation."
+      },
+      {
+        "question": "Is Kaffarah always payable in money?",
+        "answer": "No. Depending on the type of case and applicable ruling, expiation can involve alternatives such as fasting or feeding. A cash estimate is conditional."
       }
     ]
   },
@@ -527,6 +635,10 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Will my Tawaf count stay if I close the tab?",
         "answer": "The counters are saved to browser storage on the current device, subject to your storage settings. You can also reset them manually."
+      },
+      {
+        "question": "Does seven Sa'i lengths mean seven round trips?",
+        "answer": "No. Each trip from Safa to Marwah or back counts as one length. Starting at Safa, the seventh length finishes at Marwah."
       }
     ]
   },
@@ -545,6 +657,10 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Does the chart include Witr and all Sunnah prayers?",
         "answer": "No. It lists the five obligatory prayers. Witr and recommended prayers require additional school-specific guidance."
+      },
+      {
+        "question": "Does the chart include every Sunnah prayer?",
+        "answer": "No. It displays the Fard units for the five obligatory prayers, rather than a complete schedule of recommended or Witr prayers."
       }
     ]
   },
@@ -563,6 +679,10 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Can I set my own repetition count?",
         "answer": "Yes. The counter is only a reading aid; it does not establish a Sunnah number of repetitions for any verse."
+      },
+      {
+        "question": "Is the Quranic Dua tool a complete morning and evening collection?",
+        "answer": "No. It currently contains a limited set of Quranic supplications, not a comprehensive authenticated daily adhkar compilation."
       }
     ]
   },
@@ -581,6 +701,10 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Does an E-number prove a food is haram?",
         "answer": "No. A code may identify a substance with multiple production sources. The finished food and relevant certification need checking."
+      },
+      {
+        "question": "Does the E471 code prove a product is forbidden?",
+        "answer": "No. That emulsifier can come from different sources. The code alone cannot establish origin or certify the complete finished product."
       }
     ]
   },
@@ -599,6 +723,10 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Does this date tell me exactly when I must pay Zakat?",
         "answer": "No. Nisab, ownership, hawl and school-specific rules determine liability. Use the date as a reminder and seek qualified guidance."
+      },
+      {
+        "question": "Is a Zakat anniversary always 365 days later?",
+        "answer": "No. Hijri years are around 354 or 355 days. Nisab and hawl conditions require separate religious assessment."
       }
     ]
   },
@@ -617,6 +745,10 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Can I fast on Eid al-Adha?",
         "answer": "No. Eid al-Adha, 10 Dhul Hijjah, is not a day for voluntary fasting. Seek guidance for special circumstances."
+      },
+      {
+        "question": "Does Arafah always fall on the same weekday?",
+        "answer": "No. The ninth of Dhul Hijjah moves through the Gregorian year, so its civil date and weekday change."
       }
     ]
   },
@@ -635,6 +767,10 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Does a particular travel distance always qualify for Qasr?",
         "answer": "No. Schools use differing measures and conditions. Check the criteria you follow, including when the journey begins and how long you intend to stay."
+      },
+      {
+        "question": "Is Maghrib shortened to two rakats while travelling?",
+        "answer": "No. Under the common Qasr framework Maghrib remains three Fard rakats. The shortening applies to qualifying four-rakat obligatory prayers."
       }
     ]
   },
@@ -653,6 +789,10 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Is one Juz always twenty pages long?",
         "answer": "No. Page counts vary with the printing and layout of a Mushaf. This index uses Surah and verse references."
+      },
+      {
+        "question": "Does every Juz begin at the start of a Surah?",
+        "answer": "No. Many Juz begin partway through a chapter. The tool provides starting verse references for navigating a Quran copy."
       }
     ]
   },
@@ -671,6 +811,10 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Does the calculator fetch live Bitcoin or share prices?",
         "answer": "No. Enter current valuations in the same currency from a source you trust. The calculation stays in your browser."
+      },
+      {
+        "question": "Is Zakat on long-term investments always the same as cash?",
+        "answer": "Not universally. Some approaches distinguish trading holdings and long-term investments or account for underlying assets. Check the method you follow."
       }
     ]
   },
@@ -689,6 +833,10 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Does a verse count mean I have mastered a Surah?",
         "answer": "No. Memorisation and revision need careful listening, repetition and correction with a teacher or reliable reciter."
+      },
+      {
+        "question": "Should I memorise a fixed number of verses every day?",
+        "answer": "Choose a sustainable target that includes revision. This tracker estimates progress but does not assess Tajwid, fluency or memorisation accuracy."
       }
     ]
   }

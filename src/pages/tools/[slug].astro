@@ -7,12 +7,15 @@ import {toneForSlug} from '../../data/toolTones';
 import {tools,toolBySlug} from '../../data/tools';
 import {guides} from '../../data/guides';
 import {toolSeo} from '../../data/toolSeo';
+import {toolInsights} from '../../data/toolInsights';
 import {toolTopicBySlug} from '../../data/toolTopics';
 export function getStaticPaths(){return tools.map(tool=>({params:{slug:tool.slug}}))}
 const slug=Astro.params.slug as keyof typeof toolBySlug;
 const tool=toolBySlug[slug];
 const guide=guides[slug];
 const seo=toolSeo[slug];
+const insight=toolInsights[slug];
+if(!insight)throw new Error(`Missing example for ${slug}`);
 if(!seo)throw new Error(`Missing unique SEO entry for ${slug}`);
 const faqItems=[{question:guide.question,answer:guide.answer},...seo.faqs];
 const faqSchema={'@context':'https://schema.org','@type':'FAQPage',mainEntity:faqItems.map(item=>({'@type':'Question',name:item.question,acceptedAnswer:{'@type':'Answer',text:item.answer}}))};
@@ -87,7 +90,6 @@ const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemL
    <h1>{seo.h1}</h1><p class="tool-lead">{guide.intro}</p>
   </div>
   <div class="tool-actions">
-   <button id="save-current-tool" type="button" class="tool-action" data-slug={slug} aria-pressed="false" aria-label="Save this tool to favourites"><span aria-hidden="true">☆</span> Save</button>
    <button id="share-current-tool" type="button" class="tool-action" aria-label="Share or copy this tool's link"><span aria-hidden="true">↗</span> Share</button>
   </div>
  </div>
@@ -100,9 +102,9 @@ const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemL
    {slug==='prayer-times'&&<p class="small"><a href="/prayer-times/">Browse city-specific prayer times</a> — select a major city or use the calculator above for any location.</p>}
    <section class="explainer seo-explainer" id="how-it-works" aria-labelledby="how-label">
     <div class="section-label"><h2 id="how-label">How to use {tool.name}</h2></div>
-    <p>{seo.summary}</p><p>{seo.details}</p>
+    <p>{seo.summary}</p><p>{seo.details}</p><p class="tool-practical-tip"><strong>Example:</strong> {insight.example}</p>
     <h3>How it works</h3><p>{guide.method}</p>
-    <h3>What to check</h3><p>{seo.caution}</p>
+    <h3>What to check</h3><p>{seo.caution}</p><p>{insight.check}</p>
     {guide.source&&<p class="source-note">Reference: <a href={guide.source.url} target="_blank" rel="noopener noreferrer">{guide.source.label}<span aria-hidden="true"> ↗</span></a></p>}
    </section>
    <section class="explainer" aria-labelledby="faq-label">
@@ -135,15 +137,9 @@ const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemL
   todayDate.textContent=(/\bAH\b/i.test(formatted)?formatted:formatted+' AH')+' (calculated)';
   if(todayNote)todayNote.textContent="The date is calculated using Umm al-Qura. Local moon sighting and sunset may give a different date.";
  }catch{todayDate.textContent='Use the date converter to check the current Hijri date.'}}
- const save=document.querySelector<HTMLButtonElement>('#save-current-tool');
  const share=document.querySelector<HTMLButtonElement>('#share-current-tool');
  const feedback=document.querySelector<HTMLElement>('#share-feedback');
- const key='sunnah-favorite-tools-v1';
- const slug=save?.dataset.slug??'';
- const get=():string[]=>{try{const data=JSON.parse(localStorage.getItem(key)??'[]');return Array.isArray(data)?data.filter((s:unknown)=>typeof s==='string') as string[]:[]}catch{return []}};
- function update(){if(!save)return;const active=get().includes(slug);save.innerHTML=(active?'★ Saved':'☆ Save');save.setAttribute('aria-pressed',String(active));save.setAttribute('aria-label',active?'Remove this tool from favourites':'Save this tool to favourites')}
- save?.addEventListener('click',()=>{const current=get();try{localStorage.setItem(key,JSON.stringify(current.includes(slug)?current.filter(x=>x!==slug):[...current,slug]))}catch{}update()});
+ const slug=window.location.pathname.split('/').filter(Boolean).pop()??'';
  share?.addEventListener('click',async()=>{const url=window.location.href;try{if(navigator.share){await navigator.share({title:document.title,url});if(feedback)feedback.textContent='Sharing options opened'}else if(navigator.clipboard){await navigator.clipboard.writeText(url);if(feedback)feedback.textContent='Link copied';share.textContent='✓ Copied'}else{if(feedback)feedback.textContent='Copy the URL from your browser address bar'}}catch(e){if(feedback)feedback.textContent='Share cancelled or unavailable'}});
  try{const recentKey='sunnah-recent-tools-v1';const recents=JSON.parse(localStorage.getItem(recentKey)??'[]');const safe=Array.isArray(recents)?recents.filter((s:unknown)=>typeof s==='string'&&s!==slug) as string[]:[];localStorage.setItem(recentKey,JSON.stringify([slug,...safe].slice(0,4)))}catch{}
- update();
 </script>
