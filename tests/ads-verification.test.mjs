@@ -9,6 +9,8 @@ test('site verification uses the publisher ID provided by the owner',()=>{
  assert.equal(normalizePublisherId(ADSENSE_SITE_PUBLISHER_ID),ADSENSE_SITE_PUBLISHER_ID);
  assert.equal(adsTxtLine(ADSENSE_SITE_PUBLISHER_ID),'google.com, pub-5803311676381609, DIRECT, f08c47fec0942fa0\n');
  assert.match(read('src/lib/siteAds.ts'),/ADSENSE_SITE_PUBLISHER_ID/);
+ assert.match(read('src/lib/siteAds.ts'),/normalizePublisherId\(import\.meta\.env\.PUBLIC_ADSENSE_PUBLISHER_ID\)/);
+ assert.equal(normalizePublisherId('pub-5803311676381609'),null);
  assert.match(read('scripts/prepare-ads.mjs'),/ADSENSE_SITE_PUBLISHER_ID/);
 });
 test('verification never activates ads while consent and ad slots are unset',()=>{

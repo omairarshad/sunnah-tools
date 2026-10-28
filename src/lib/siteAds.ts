@@ -1,8 +1,8 @@
-import {decideAds} from './adsConfig.mjs';
+import {decideAds,normalizePublisherId} from './adsConfig.mjs';
 import {ADSENSE_SITE_PUBLISHER_ID} from './adsIdentity.mjs';
 /** Compile-time advertising configuration. No third-party ad request unless fully enabled. */
 export const siteAds=decideAds({
- publisherId:import.meta.env.PUBLIC_ADSENSE_PUBLISHER_ID || ADSENSE_SITE_PUBLISHER_ID,
+ publisherId:normalizePublisherId(import.meta.env.PUBLIC_ADSENSE_PUBLISHER_ID) || ADSENSE_SITE_PUBLISHER_ID,
  adsEnabled:import.meta.env.PUBLIC_ADSENSE_ADS_ENABLED,
  cmpReady:import.meta.env.PUBLIC_ADSENSE_CMP_READY,
  homeSlot:import.meta.env.PUBLIC_ADSENSE_HOME_SLOT,
