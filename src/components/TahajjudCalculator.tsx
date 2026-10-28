@@ -1,7 +1,7 @@
 import {useEffect,useMemo,useState} from 'react';
 import {CalculationMethod,Coordinates,PrayerTimes,HighLatitudeRule,PolarCircleResolution} from 'adhan';
 import CitySearch from './CitySearch';
-import {calculatedNightWindow,manualNightWindow,timeOnClock} from '../lib/tahajjud.mjs';
+import {calculatedNightWindow,manualNightWindow} from '../lib/tahajjud.mjs';
 type Method='mwl'|'karachi'|'makkah'|'na'|'singapore'|'turkey'|'dubai'|'egypt';
 const presets=[
  {name:'London',lat:51.5072,lon:-.1276,zone:'Europe/London',method:'mwl' as Method},

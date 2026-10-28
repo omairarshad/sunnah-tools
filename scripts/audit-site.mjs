@@ -69,7 +69,10 @@ for(const slug of slugs){
  assert(header(html),`Shared chrome missing: ${slug}`);
  assert(html.includes('id="theme-toggle"'),`Theme toggle missing on tool page: ${slug}`);
  assert(html.includes('class="tool-panel"'),`Interactive panel missing: ${slug}`);
- assert(html.includes('What to check')&&html.includes('How it works'),`Tool guidance missing: ${slug}`);
+ const guidanceOK=slug==='tahajjud-time'
+  ?html.includes('What to check')&&html.includes('Tahajjud prayer: a practical guide')&&html.includes('id="tahajjud-how-to-pray"')
+  :html.includes('What to check')&&html.includes('How it works');
+ assert(guidanceOK,`Tool guidance missing: ${slug}`);
  assert(html.includes('class="tool-aside"'),`Related tools sidebar missing: ${slug}`);
  assert(html.includes(`https://sunnah.tools/tools/${slug}/`),`Canonical missing: ${slug}`);
  assert(sitemap.includes(`/tools/${slug}/`),`Sitemap missing: ${slug}`);
