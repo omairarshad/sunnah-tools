@@ -8,6 +8,7 @@ This is an internal review register for the publicly available tools. It is not 
 
 | Tool or topic | Review needed | Current guardrail |
 | --- | --- | --- |
+| Tahajjud prayer guide and duas | Check step-by-step Salah wording, Witr differences between schools, Arabic spelling and transliteration of four Quranic duas and the waking supplication | Sources linked to Quran.com and numbered hadith; no prescribed Tahajjud-only dua or compulsory rak’ah total claimed |
 | Prayer Rakats Chart | Fard/Sunnah/Witr scope and different schools | Fard counts displayed; school-specific Sunnah not inferred |
 | Travel Prayer (Qasr) | Madhhab differences: distance, beginning of travel, length of stay, joining prayers | Education only, no yes/no travel eligibility verdict |
 | Zakat Calculator and Stocks/Crypto | Ownership, pensions, shares, investment funds, qualifying debts, Nisab and hawl | Illustrative entered values, no binding Zakat determination |

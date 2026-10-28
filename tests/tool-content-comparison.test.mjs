@@ -29,7 +29,7 @@ test('Tahajjud interface supports manual mosque times and nightly date-sensitive
  const app=read('src/components/ToolApp.tsx');
  const ui=read('src/components/TahajjudCalculator.tsx');
  assert.match(app,/if\(slug==='tahajjud-time'\)return <TahajjudCalculator\/>/);
- for(const expected of ['Enter mosque times','following morning','calculatedNightWindow','manualNightWindow','last third','Sahih al-Bukhari 1145'])assert.ok(ui.includes(expected),expected);
+ for(const expected of ['Enter mosque times','following morning','calculatedNightWindow','manualNightWindow','last third'])assert.ok(ui.includes(expected),expected);
  const seo=JSON.parse(read('src/data/toolSeo.ts').match(/export const toolSeo:Record<string,ToolSeoEntry> = (\{[\s\S]*\});/)[1]);
  for(const slug of slugs)assert.equal(seo[slug].faqs.length>=3,true,slug+' additional question');
 });

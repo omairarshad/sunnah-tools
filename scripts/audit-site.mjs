@@ -132,3 +132,12 @@ for(const slug of slugs){
 }
 assert(read('tools/tahajjud-time/index.html').includes('Sahih al-Bukhari 1145'),'Tahajjud source reference missing');
 console.log('All 37 tool pages include original comparison-led practical notes');
+
+// The Tahajjud page includes an indexable, source-linked guide, not only a client-rendered calculator.
+{
+ const html=read('tools/tahajjud-time/index.html');
+ for(const required of ['Tahajjud prayer: a practical guide','How to pray Tahajjud, step by step','Duas you can make during the night','Quran 2:201','Quran 3:8','Quran 21:87','Quran 20:114','Sahih al-Bukhari 1137','Sahih Muslim 755b','tahajjud-arabic','id="tahajjud-duas"']){
+  assert(html.includes(required),'Tahajjud guide missing source or section: '+required);
+ }
+ assert((html.match(/class="tahajjud-dua"/g)||[]).length===4,'Four Quranic duas must be rendered in HTML');
+}

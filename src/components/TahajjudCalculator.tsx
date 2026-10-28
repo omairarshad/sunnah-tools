@@ -75,13 +75,6 @@ export default function TahajjudCalculator(){
     <div className="action-row"><button type="button" className="secondary" onClick={()=>void copy()}>Copy night times</button><button type="button" className="secondary" onClick={()=>window.print()}>Print times</button></div>
    </section>:<p className="warn" role="alert">{mode==='manual'?'Enter valid times where Fajr is the next morning and the night is between 2 and 22 hours.':'These times could not be calculated. Check location, timezone, date and high-latitude conditions, or use your mosque times.'}</p>}
   {feedback&&<p role="status" className="small">{feedback}</p>}
-  <div className="tahajjud-advice">
-   <h3>How the last third is found</h3>
-   <p>The night for this calculation starts at <strong>Maghrib</strong> and finishes at the <strong>next Fajr</strong>. Take the complete interval, divide it into three equal parts, and count two parts after Maghrib. The remaining part is the final third.</p>
-   <p>For instance, Maghrib at <strong>18:00</strong> and next Fajr at <strong>05:00</strong> gives an eleven-hour night. The last third starts at approximately <strong>01:20</strong>.</p>
-   <h3>Does Tahajjud have to be in the final third?</h3>
-   <p>No. Voluntary night prayer may be offered after Isha and before Fajr. The final third is especially encouraged in narrations, but the displayed time is not the only valid period for night prayer. Many scholars use Tahajjud more specifically for prayer after waking from sleep.</p>
-   <p className="small">Read <a href="https://quran.com/17/79" target="_blank" rel="noopener noreferrer">Quran 17:79</a>, <a href="https://sunnah.com/bukhari:1145" target="_blank" rel="noopener noreferrer">Sahih al-Bukhari 1145</a> (the last third), and <a href="https://sunnah.com/bukhari:1146" target="_blank" rel="noopener noreferrer">1146</a> (sleeping and rising at night). Check your mosque's Fajr convention for local accuracy.</p>
-  </div>
+
  </div>;
 }

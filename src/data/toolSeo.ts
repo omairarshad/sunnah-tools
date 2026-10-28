@@ -47,12 +47,12 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
     ]
   },
   "tahajjud-time": {
-    "title": "Tahajjud Time Calculator – Last Third of Night",
+    "title": "Tahajjud Time Calculator, How to Pray & Duas",
     "h1": "Tahajjud Time Calculator",
-    "description": "Calculate tonight’s last third by city or by entering your mosque’s Maghrib and following Fajr times. See the Tahajjud start, end, overnight timeline and calculation.",
-    "summary": "Find the last third of tonight’s night using local prayer calculations or your own mosque’s published Maghrib and Fajr times.",
-    "details": "Choose a city, date and calculation convention, or enter manual clock times from your local mosque. The tool measures the full interval between sunset and the following dawn, divides it into three equal portions, and shows the result alongside the night length.",
-    "caution": "The final third is not the only valid time for voluntary night prayer. If clocks change overnight, prefer the city calculation for the actual elapsed interval. Calculated Fajr times can differ from local timetables.",
+    "description": "Calculate Tahajjud time and the last third of the night. Learn how to pray Tahajjud step by step, how many rak'ahs, Witr guidance and Quranic duas with sources.",
+    "summary": "Calculate tonight’s last third, then read a step-by-step guide to Tahajjud prayer, rak'ahs, Witr, and four Quranic duas with Arabic and meanings.",
+    "details": "Choose your city and calculation method or use your mosque’s Maghrib and following Fajr times. Below the timing calculator, learn the sequence of voluntary night prayer, the place of two-rak'ah units and Witr, and sourced supplications for guidance, repentance and wellbeing.",
+    "caution": "Tahajjud is voluntary and the last third is a recommended period, not its only valid time. Schools differ on details of Witr. Use your mosque’s Fajr method and check the scholarly guidance you follow.",
     "faqs": [
       {
         "question": "What is the last third of the night?",
@@ -65,6 +65,22 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Can I enter Maghrib and Fajr directly from my mosque?",
         "answer": "Yes. Manual mode accepts tonight's Maghrib and the following morning's Fajr and divides that overnight interval into three equal portions."
+      },
+      {
+        "question": "How do you pray Tahajjud step by step?",
+        "answer": "After Isha, prepare with wudu, face the Qibla and pray two voluntary rak'ahs in the familiar form of Salah, reciting al-Fatihah and Quran you know. Finish with salam; you may add more pairs and make personal dua afterward."
+      },
+      {
+        "question": "How many rak'ahs should I pray for Tahajjud?",
+        "answer": "Two voluntary rak'ahs are an accessible starting point. Night prayer is described as being performed two at a time in Sahih al-Bukhari 1137; no single number should be presented as an obligation for everyone."
+      },
+      {
+        "question": "Which dua should I recite after Tahajjud?",
+        "answer": "There is no single required Tahajjud-only dua. You may ask Allah sincerely for your needs. Examples of Quranic supplication include Quran 2:201 for goodness, 3:8 for steadfastness, 21:87 for repentance and 20:114 for knowledge."
+      },
+      {
+        "question": "Should I pray Witr before or after Tahajjud?",
+        "answer": "If you expect to wake for night prayer, Witr is often planned toward its end; if you fear sleeping through, praying Witr earlier is supported by a narration in Sahih Muslim 755b. Witr details differ by school, and it should not be repeated twice in the same night."
       }
     ]
   },
