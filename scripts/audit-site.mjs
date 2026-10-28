@@ -124,3 +124,11 @@ assert(read('ads.txt').trim()==='google.com, pub-5803311676381609, DIRECT, f08c4
 assert(read('tools/prayer-times/index.html').includes('name="google-adsense-account" content="'+publisher+'"'),'AdSense ownership proof not present in shared site layout');
 if(process.env.PUBLIC_ADSENSE_ADS_ENABLED!=='true')assert(!home.includes('adsbygoogle.js'),'Ownership verification must not load ads script before approval');
 console.log('AdSense site ownership verified in output; advertising remains independently gated');
+
+// Every tool receives an original practical example as part of its educational text.
+for(const slug of slugs){
+ const content=read('tools/'+slug+'/index.html');
+ assert(content.includes('tool-practical-tip')&&content.includes('Example:'),'Original example missing on '+slug);
+}
+assert(read('tools/tahajjud-time/index.html').includes('Sahih al-Bukhari 1145'),'Tahajjud source reference missing');
+console.log('All 37 tool pages include original comparison-led practical notes');

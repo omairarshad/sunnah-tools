@@ -5,6 +5,7 @@ import {LaylatulQadrNights,FidyaCalculator,QadaPrayerCalculator,QurbaniShareCalc
 import FitranaCalculator from './FitranaCalculator';
 import {ExpansionTool} from './ExpansionTools';
 import QiblaOrientation from './QiblaOrientation';
+import TahajjudCalculator from './TahajjudCalculator';
 import {ramadanDays,timetableCSV} from '../lib/ramadanHelpers.mjs';
 import {makeRamadanIcs,validateQuranPlan,validateSalahHistory,downloadText} from '../lib/personalTools.mjs';
 import {WhiteDaysCalendar,PrintableHijriCalendar,PrayerWidgetGenerator,UmrahPackingChecklist} from './BatchTools';
@@ -214,7 +215,8 @@ export default function ToolApp({slug}:{slug:string}){
  if(slug==='qurbani-share-calculator')return <QurbaniShareCalculator/>;
  if(slug==='kaffarah-calculator')return <KaffarahCalculator/>;
  if(slug==='tawaf-sai-counter')return <TawafSaiCounter/>;
- if(['prayer-times','qibla-finder','tahajjud-time','ramadan-timetable','fasting-times'].includes(slug))return <Prayer kind={slug}/>;
+ if(slug==='tahajjud-time')return <TahajjudCalculator/>;
+ if(['prayer-times','qibla-finder','ramadan-timetable','fasting-times'].includes(slug))return <Prayer kind={slug}/>;
  if(slug==='white-days-calendar')return <WhiteDaysCalendar/>;
  if(slug==='printable-hijri-calendar')return <PrintableHijriCalendar/>;
  if(slug==='prayer-times-widget')return <PrayerWidgetGenerator/>;
