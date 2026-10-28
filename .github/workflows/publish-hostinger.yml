@@ -72,6 +72,9 @@ jobs:
         shell: bash
         run: |
           test -s dist/index.html
+          test -s dist/ads.txt
+          grep -q 'google.com, pub-5803311676381609, DIRECT, f08c47fec0942fa0' dist/ads.txt
+          grep -q 'name="google-adsense-account" content="ca-pub-5803311676381609"' dist/index.html
           test $(grep -o 'class="tool-card-visual"' dist/index.html | wc -l) -eq 37
           ! grep -q 'class="tool-card-icon"' dist/index.html
           test -s dist/tool-art/prayer-times.svg

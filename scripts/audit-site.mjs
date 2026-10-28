@@ -117,3 +117,10 @@ for(const slug of cityPaths){
 }
 assert(sitemap.includes('/prayer-times/'),'City index missing from sitemap');
 console.log('Verified '+cityPaths.length+' location-specific prayer pages');
+
+const publisher='ca-pub-5803311676381609';
+assert(home.includes('name="google-adsense-account" content="'+publisher+'"'),'Google AdSense ownership meta tag missing');
+assert(read('ads.txt').trim()==='google.com, pub-5803311676381609, DIRECT, f08c47fec0942fa0','AdSense seller authorisation file incorrect');
+assert(read('tools/prayer-times/index.html').includes('name="google-adsense-account" content="'+publisher+'"'),'AdSense ownership proof not present in shared site layout');
+if(process.env.PUBLIC_ADSENSE_ADS_ENABLED!=='true')assert(!home.includes('adsbygoogle.js'),'Ownership verification must not load ads script before approval');
+console.log('AdSense site ownership verified in output; advertising remains independently gated');
