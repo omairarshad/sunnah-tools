@@ -14,7 +14,7 @@ test('comparison differences are signed, rounded and reject invalid dates',()=>{
  assert.equal(differenceLabel(null),'Unavailable');
 });
 test('changing only Fajr/Isha convention changes those values for a fixed city and date',()=>{
- const c=new Coordinates(51.5072,-.1276),d=new Date(2027,3,16);
+ const c=new Coordinates(21.4225,39.8262),d=new Date(2027,3,16);
  const standard=CalculationMethod.MuslimWorldLeague(),isna=CalculationMethod.NorthAmerica();
  standard.highLatitudeRule=HighLatitudeRule.recommended(c);
  isna.highLatitudeRule=HighLatitudeRule.recommended(c);
