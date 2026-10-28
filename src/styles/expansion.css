@@ -57,3 +57,61 @@ html[data-theme="dark"] .qibla-phone-sensor{border-color:#385b46}
 .tahajjud-note{border-left:3px solid #ba9958;padding:8px 12px}
 @media(max-width:650px){.tahajjud-overview{grid-template-columns:repeat(2,minmax(0,1fr))}.tahajjud-markers{font-size:9px}}
 @media print{.tahajjud-calculator .tahajjud-switch,.tahajjud-calculator .city-search,.tahajjud-calculator details,.tahajjud-calculator .action-row{display:none!important}}
+
+
+/* An in-depth, server-rendered guide sits below (never ahead of) the calculator. */
+.tahajjud-shortcuts{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.tahajjud-shortcuts a,.tahajjud-guide-nav a{display:inline-flex;align-items:center;padding:9px 12px;border-radius:9px;text-decoration:none;font-size:12px;font-weight:700;border:1px solid #cddfd2;background:#f6faf7;color:#285a45}
+.tahajjud-shortcuts a:hover,.tahajjud-guide-nav a:hover{background:#dceee1}
+.tahajjud-guide{border:1px solid #dbe5dd;border-radius:16px;background:#fff;margin:24px 0 0;padding:clamp(18px,3vw,30px);line-height:1.7;color:#263e32}
+.tahajjud-guide h2{font-size:clamp(23px,2.7vw,30px);line-height:1.3;margin:0 0 12px}
+.tahajjud-guide h3{font-size:clamp(18px,2.1vw,23px);line-height:1.35;margin:0 0 12px}
+.tahajjud-guide h4{font-size:15px;line-height:1.4;margin:0 0 10px}
+.tahajjud-guide p{margin:10px 0;max-width:74ch}
+.tahajjud-guide a{color:#266d50;text-underline-offset:3px}
+.tahajjud-guide-heading>p{margin:0 0 20px}
+.tahajjud-key-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:19px 0}
+.tahajjud-key-facts>div{padding:15px;border:1px solid #dce6dc;border-radius:10px;background:#f6faf7;min-width:0}
+.tahajjud-key-facts span{display:block;color:#67836c;font-size:11px;letter-spacing:.03em}
+.tahajjud-key-facts strong{display:block;margin:5px 0;font-size:15px}
+.tahajjud-key-facts p{font-size:12px;margin:5px 0 0;line-height:1.55}
+.tahajjud-guide-nav{display:flex;flex-wrap:wrap;gap:8px;padding-bottom:18px;border-bottom:1px solid #dce8df}
+.tahajjud-guide-nav a{background:transparent}
+.tahajjud-guide-section{padding:27px 0 6px;scroll-margin-top:25px}
+.tahajjud-guide-section+.tahajjud-guide-section{border-top:1px solid #e2e9e2}
+.tahajjud-steps{list-style:none;counter-reset:tahajjud;display:grid;gap:13px;padding:0;margin:18px 0}
+.tahajjud-steps li{counter-increment:tahajjud;position:relative;padding:14px 15px 14px 53px;border:1px solid #e2e9e2;border-radius:10px;background:#fafcf9}
+.tahajjud-steps li::before{content:counter(tahajjud);position:absolute;top:14px;left:13px;border:1px solid #8ba99a;background:#edf6ee;color:#205740;font-size:12px;font-weight:800;width:25px;height:25px;display:grid;place-items:center;border-radius:50%}
+.tahajjud-source-line{font-size:12px;color:#607b68}
+.tahajjud-witr-notes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:17px 0}
+.tahajjud-witr-notes>div{border:1px solid #dce5db;border-radius:10px;padding:16px;background:#f8faf7}
+.tahajjud-witr-notes p{margin:0}
+.tahajjud-caution{border-left:3px solid #a98a48;padding:10px 13px;background:#fffaf0;border-radius:3px;font-size:13px}
+.tahajjud-dua-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:20px 0}
+.tahajjud-dua{min-width:0;padding:17px 17px 12px;border:1px solid #dce5dc;border-radius:11px;background:#fbfdfb}
+.tahajjud-dua h4{margin:0 0 11px}
+.tahajjud-guide .tahajjud-arabic{font-family:"Noto Naskh Arabic","Amiri",serif;line-height:2.1;font-size:clamp(21px,2.1vw,27px);text-align:right;max-width:none;overflow-wrap:normal}
+.tahajjud-transliteration{font-style:italic;font-size:13px}
+.tahajjud-meaning{font-size:13px}
+.tahajjud-reference{font-size:12px;font-weight:700}
+.tahajjud-waking{margin:16px 0 7px;background:#eff7f1;border-radius:12px;border:1px solid #d1e3d6;padding:19px}
+.tahajjud-waking p{margin:7px 0}
+.tahajjud-practice-faq details{padding:13px 0;border-bottom:1px solid #dce6dd}
+.tahajjud-practice-faq summary{font-weight:700;cursor:pointer;color:inherit}
+.tahajjud-practice-faq details p{padding-left:8px}
+.tahajjud-references ul{margin:12px 0;padding-left:21px}
+.tahajjud-references li{margin:7px 0}
+html[data-theme="dark"] .tahajjud-guide{background:#162920;border-color:#365342;color:#e4f2e7}
+html[data-theme="dark"] .tahajjud-guide a{color:#a5ddbd}
+html[data-theme="dark"] .tahajjud-guide-nav a,html[data-theme="dark"] .tahajjud-shortcuts a{background:#203b2c;border-color:#446b51;color:#dbeddd}
+html[data-theme="dark"] .tahajjud-guide-nav a:hover,html[data-theme="dark"] .tahajjud-shortcuts a:hover{background:#2c4b38}
+html[data-theme="dark"] .tahajjud-guide .tahajjud-key-facts>div,
+html[data-theme="dark"] .tahajjud-guide .tahajjud-steps li,
+html[data-theme="dark"] .tahajjud-guide .tahajjud-witr-notes>div,
+html[data-theme="dark"] .tahajjud-guide .tahajjud-dua{background:#1d3528;border-color:#395645}
+html[data-theme="dark"] .tahajjud-guide .tahajjud-key-facts span,html[data-theme="dark"] .tahajjud-guide .tahajjud-source-line{color:#a7c8af}
+html[data-theme="dark"] .tahajjud-guide .tahajjud-steps li::before{background:#305d45;border-color:#70997e;color:#fff}
+html[data-theme="dark"] .tahajjud-guide .tahajjud-caution{background:#372d21;color:#f4deb6}
+html[data-theme="dark"] .tahajjud-guide .tahajjud-waking{background:#203c2b;border-color:#4b7255}
+@media(max-width:750px){.tahajjud-key-facts{grid-template-columns:1fr}.tahajjud-dua-grid,.tahajjud-witr-notes{grid-template-columns:1fr}.tahajjud-guide{padding:17px}.tahajjud-guide-nav a{font-size:11px}.tahajjud-steps li{padding:12px 12px 12px 49px}}
+@media print{.tahajjud-guide,.tahajjud-shortcuts{display:none!important}}

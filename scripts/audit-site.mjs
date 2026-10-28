@@ -69,7 +69,10 @@ for(const slug of slugs){
  assert(header(html),`Shared chrome missing: ${slug}`);
  assert(html.includes('id="theme-toggle"'),`Theme toggle missing on tool page: ${slug}`);
  assert(html.includes('class="tool-panel"'),`Interactive panel missing: ${slug}`);
- assert(html.includes('What to check')&&html.includes('How it works'),`Tool guidance missing: ${slug}`);
+ const guidanceOK=slug==='tahajjud-time'
+  ?html.includes('What to check')&&html.includes('Tahajjud prayer: a practical guide')&&html.includes('id="tahajjud-how-to-pray"')
+  :html.includes('What to check')&&html.includes('How it works');
+ assert(guidanceOK,`Tool guidance missing: ${slug}`);
  assert(html.includes('class="tool-aside"'),`Related tools sidebar missing: ${slug}`);
  assert(html.includes(`https://sunnah.tools/tools/${slug}/`),`Canonical missing: ${slug}`);
  assert(sitemap.includes(`/tools/${slug}/`),`Sitemap missing: ${slug}`);
@@ -132,3 +135,12 @@ for(const slug of slugs){
 }
 assert(read('tools/tahajjud-time/index.html').includes('Sahih al-Bukhari 1145'),'Tahajjud source reference missing');
 console.log('All 37 tool pages include original comparison-led practical notes');
+
+// The Tahajjud page includes an indexable, source-linked guide, not only a client-rendered calculator.
+{
+ const html=read('tools/tahajjud-time/index.html');
+ for(const required of ['Tahajjud prayer: a practical guide','How to pray Tahajjud, step by step','Duas you can make during the night','Quran 2:201','Quran 3:8','Quran 21:87','Quran 20:114','Sahih al-Bukhari 1137','Sahih Muslim 755b','tahajjud-arabic','id="tahajjud-duas"']){
+  assert(html.includes(required),'Tahajjud guide missing source or section: '+required);
+ }
+ assert((html.match(/class="tahajjud-dua"/g)||[]).length===4,'Four Quranic duas must be rendered in HTML');
+}
