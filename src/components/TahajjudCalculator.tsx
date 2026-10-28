@@ -12,7 +12,7 @@ const presets=[
  {name:'Dubai',lat:25.2048,lon:55.2708,zone:'Asia/Dubai',method:'dubai' as Method}
 ];
 const methods:[Method,string][]=[['mwl','Muslim World League'],['karachi','Karachi'],['makkah','Umm al-Qura'],['na','ISNA / North America'],['singapore','Singapore'],['turkey','Turkey'],['dubai','Dubai'],['egypt','Egypt']];
-const civilDate=(zone:string)=>{const p=new Intl.DateTimeFormat('en-GB',{timeZone:zone,year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date()),get=k=>p.find(x=>x.type===k)?.value??'';return get('year')+'-'+get('month')+'-'+get('day')};
+const civilDate=(zone:string)=>{const p=new Intl.DateTimeFormat('en-GB',{timeZone:zone,year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date()),get=(k:string)=>p.find(x=>x.type===k)?.value??'';return get('year')+'-'+get('month')+'-'+get('day')};
 const parseCivil=(s:string)=>{if(!/^\d{4}-\d\d-\d\d$/.test(s))return null;const [y,m,d]=s.split('-').map(Number);const x=new Date(y,m-1,d);return x.getFullYear()===y&&x.getMonth()===m-1&&x.getDate()===d?x:null};
 const minutesLabel=(n:number)=>{const h=Math.floor(n/60),m=Math.round(n%60);return (h?h+' hr'+(h===1?'':'s'):'')+(m?' '+m+' min':'')||'0 min'};
 function Notice({children}:{children:React.ReactNode}){return <p className="small tahajjud-note">{children}</p>}
