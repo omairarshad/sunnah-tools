@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import AdPlacement from '../../components/AdPlacement.astro';
 import ToolApp from '../../components/ToolApp';
 import TahajjudGuide from '../../components/TahajjudGuide.astro';
+import PrayerTimesGuide from '../../components/PrayerTimesGuide.astro';
 import ToolIcon from '../../components/ToolIcon.astro';
 import {toneForSlug} from '../../data/toolTones';
 import {tools,toolBySlug} from '../../data/tools';
@@ -96,6 +97,12 @@ const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemL
  </div>
  <div class="tool-layout">
   <div class="tool-main">
+   {slug==='prayer-times'&&<nav class="prayer-knowledge-shortcuts" aria-label="Prayer times quick links">
+    <a href="#prayer-calculator">Calculate prayer times</a>
+    <a href="#prayer-five-windows">Five prayer windows</a>
+    <a href="#prayer-methods-explained">Calculation methods</a>
+    <a href="#prayer-high-latitude">UK summer times</a>
+   </nav>}
    {slug==='tahajjud-time'&&<nav class="tahajjud-shortcuts" aria-label="Tahajjud quick links">
     <a href="#tahajjud-calculator">Calculate time</a>
     <a href="#tahajjud-how-to-pray">How to pray</a>
@@ -103,13 +110,14 @@ const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemL
     <a href="#tahajjud-rakats">Witr and rak'ahs</a>
    </nav>}
    {slug==='hijri-converter'&&<div class="today-hijri" aria-live="polite"><strong>Today’s Hijri date</strong><p id="today-hijri-value">{renderedHijri} (calculated)</p><small id="today-hijri-note">Calculated for {renderedDate} (UTC) using Umm al-Qura. Local moon sighting and sunset may give a different date.</small></div>}
-   <section id={slug==='tahajjud-time'?'tahajjud-calculator':undefined} aria-label={tool.name} class="tool-panel">
+   <section id={slug==='tahajjud-time'?'tahajjud-calculator':slug==='prayer-times'?'prayer-calculator':undefined} aria-label={tool.name} class="tool-panel">
     <div class="tool-inner"><ToolApp slug={slug} client:only="react"/></div>
    </section>
    {slug==='tahajjud-time'&&<TahajjudGuide/>}
+   {slug==='prayer-times'&&<PrayerTimesGuide/>}
    {slug==='prayer-times'&&<p class="small"><a href="/prayer-times/">Browse city-specific prayer times</a> — select a major city or use the calculator above for any location.</p>}
    <section class="explainer seo-explainer" id="how-it-works" aria-labelledby="how-label">
-    <div class="section-label"><h2 id="how-label">{slug==='tahajjud-time'?'How the Tahajjud timing is calculated':`How to use ${tool.name}`}</h2></div>
+    <div class="section-label"><h2 id="how-label">{slug==='tahajjud-time'?'How the Tahajjud timing is calculated':slug==='prayer-times'?'How the prayer-time calculator works':`How to use ${tool.name}`}</h2></div>
     <p>{seo.summary}</p><p>{seo.details}</p><p class="tool-practical-tip"><strong>Example:</strong> {insight.example}</p>
     <h3>{slug==='tahajjud-time'?'Calculation method':'How it works'}</h3><p>{guide.method}</p>
     <h3>What to check</h3><p>{seo.caution}</p><p>{insight.check}</p>

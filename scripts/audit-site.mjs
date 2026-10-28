@@ -144,3 +144,11 @@ console.log('All 37 tool pages include original comparison-led practical notes')
  }
  assert((html.match(/class="tahajjud-dua"/g)||[]).length===4,'Four Quranic duas must be rendered in HTML');
 }
+
+// Static knowledge base for the site's primary prayer-time utility.
+{
+ const content=read('tools/prayer-times/index.html');
+ for(const phrase of ['Understanding the five daily prayer times','When does each prayer begin and end?','Standard and Hanafi Asr','UK summer, Scotland','How to compare your mosque','Sahih Muslim 612a','Quran 4:103','id="prayer-high-latitude"','id="prayer-methods-explained"'])
+  assert(content.includes(phrase),'Prayer Times knowledge base missing '+phrase);
+ assert((content.match(/class="prayer-knowledge-section/g)||[]).length>=6,'Prayer Times guide is incomplete');
+}

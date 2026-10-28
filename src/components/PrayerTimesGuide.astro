@@ -1,0 +1,107 @@
+---
+/* The guide is server-rendered so that primary references and explanations remain indexable. */
+const prayers=[
+ {name:'Fajr',start:'True dawn',meaning:'The first light of dawn, before sunrise.',end:'Sunrise',detail:'The prayer window ends when the Sun begins rising. Sunrise itself is shown as a boundary, not as a sixth obligatory prayer.'},
+ {name:'Dhuhr',start:'After the Sun passes its highest point',meaning:'Solar noon has passed and the afternoon begins.',end:'Start of Asr',detail:'The clock time depends on longitude, date and the solar-noon calculation. Local mosques may add a precautionary interval.'},
+ {name:'Asr',start:'Afternoon shadow criterion',meaning:'The earlier standard rule and later Hanafi rule use different shadow-length thresholds.',end:'Before sunset',detail:'The exact limits and late-prayer considerations require scholarly detail. Do not treat the sunset boundary as a reason to delay intentionally.'},
+ {name:'Maghrib',start:'Sunset',meaning:'The Sun has disappeared below the horizon.',end:'Nightfall / Isha',detail:'Maghrib starts at sunset. In Ramadan, it is also the ordinary reference for iftar.'},
+ {name:'Isha',start:'Nightfall, after twilight',meaning:'The relevant dusk criterion can differ between methods and schools.',end:'Scholarly details vary',detail:'Isha is not simply a universal fixed number of minutes after Maghrib. Umm al-Qura uses a fixed interval for its calculation, with a Ramadan variation in the convention.'}
+];
+const conventions=[
+ {name:'Muslim World League',fajr:'18°',isha:'17°',note:'Common international convention, including some European timetables.'},
+ {name:'ISNA / North America',fajr:'15°',isha:'15°',note:'A commonly available North American preset. Regional scholarly recommendations can differ.'},
+ {name:'Karachi',fajr:'18°',isha:'18°',note:'Often encountered in South Asian prayer-time software.'},
+ {name:'Egyptian',fajr:'19.5°',isha:'17.5°',note:'A preset based on the Egyptian surveying convention.'},
+ {name:'Umm al-Qura',fajr:'18.5°',isha:'90 minutes after Maghrib*',note:'A fixed-interval model for Isha; Ramadan commonly has an additional interval adjustment.'}
+];
+---
+<section class="prayer-knowledge" aria-labelledby="prayer-knowledge-title" id="prayer-knowledge">
+ <header>
+  <h2 id="prayer-knowledge-title">Understanding the five daily prayer times</h2>
+  <p>Find the time your prayer begins, understand why different mosques publish different timetables, and learn how the five windows relate to dawn, the Sun and twilight. This guide explains the calculator above rather than replacing your mosque's local timetable.</p>
+ </header>
+ <nav class="prayer-knowledge-nav" aria-label="Prayer times guide sections">
+  <a href="#prayer-five-windows">Five prayer windows</a>
+  <a href="#prayer-methods-explained">Calculation methods</a>
+  <a href="#prayer-asr-differences">Asr differences</a>
+  <a href="#prayer-high-latitude">UK summer times</a>
+  <a href="#prayer-mosque-times">Mosque timetables</a>
+  <a href="#prayer-sources">Sources</a>
+ </nav>
+ <div class="prayer-knowledge-summary">
+  <p><strong>Prayer begins</strong> when its window opens, which is what the calculator estimates. <strong>Jama'ah / iqamah</strong> is the later congregation time set by each mosque. <strong>Sunrise</strong> marks the end of the Fajr window; it is not a sixth obligatory prayer.</p>
+ </div>
+ <section id="prayer-five-windows" class="prayer-knowledge-section" aria-labelledby="prayer-five-title">
+  <h3 id="prayer-five-title">When does each prayer begin and end?</h3>
+  <p>The five daily prayers have appointed periods (<a href="https://quran.com/4/103" target="_blank" rel="noopener noreferrer">Quran 4:103</a>). The table describes the major solar markers; there are additional differences of interpretation about some boundaries, especially Asr and Isha.</p>
+  <div class="table-wrap"><table class="prayer-knowledge-table">
+   <thead><tr><th scope="col">Prayer</th><th scope="col">Begins</th><th scope="col">What it means</th><th scope="col">End / next boundary</th></tr></thead>
+   <tbody>{prayers.map(p=><tr><th scope="row">{p.name}</th><td>{p.start}</td><td>{p.meaning}</td><td>{p.end}</td></tr>)}</tbody>
+  </table></div>
+  <div class="prayer-knowledge-cards">
+   {prayers.map(p=><article><h4>{p.name}</h4><p>{p.detail}</p></article>)}
+  </div>
+  <p class="prayer-knowledge-source">The limits of the prayers are discussed in <a href="https://sunnah.com/muslim:612a" target="_blank" rel="noopener noreferrer">Sahih Muslim 612a</a>. The narration also underscores that not every prayer's preferred or permitted end can be reduced to a single clock figure.</p>
+ </section>
+ <section id="prayer-methods-explained" class="prayer-knowledge-section" aria-labelledby="prayer-methods-title">
+  <h3 id="prayer-methods-title">Why Fajr and Isha differ between apps and mosques</h3>
+  <p>At dawn and dusk the Sun is still below the horizon. Many prayer timetables estimate the start of Fajr or Isha from the <strong>Sun's angle below the horizon</strong>. A larger Fajr angle generally produces an earlier dawn estimate. Different Isha angles and fixed-interval methods can produce noticeably different evening times.</p>
+  <p>The table shows examples of well-known software presets. The figures are <em>method parameters</em>, not exact religious or observational guarantees for every region and date.</p>
+  <div class="table-wrap"><table class="prayer-knowledge-table">
+   <thead><tr><th scope="col">Convention</th><th scope="col">Fajr</th><th scope="col">Isha</th><th scope="col">Context</th></tr></thead>
+   <tbody>{conventions.map(m=><tr><th scope="row">{m.name}</th><td>{m.fajr}</td><td>{m.isha}</td><td>{m.note}</td></tr>)}</tbody>
+  </table></div>
+  <p class="prayer-knowledge-source">*The published Umm al-Qura convention includes a longer Isha interval during Ramadan. The underlying library may not automatically apply that seasonal adjustment; use an authoritative local timetable during Ramadan. See the <a href="https://github.com/batoulapps/adhan-js/blob/develop/METHODS.md" target="_blank" rel="noopener noreferrer">Adhan calculation parameters</a>, <a href="https://fiqhcouncil.org/the-suggested-calculation-method-for-fajr-and-isha/" target="_blank" rel="noopener noreferrer">Fiqh Council of North America</a> and <a href="https://praytimes.org/docs/methods" target="_blank" rel="noopener noreferrer">PrayTimes method comparisons</a>.</p>
+  <h4>Which method should I choose?</h4>
+  <p>Start with the method published by the mosque or religious authority you follow. Check the selected city, date, time zone and Asr setting first. Then use <strong>Compare calculation methods</strong> above to see how another convention would affect Fajr and Isha on the same day. When a high-latitude rule limits twilight times, both methods may even return the same time despite having different angles. A displayed difference does not by itself prove that either authority is wrong.</p>
+ </section>
+ <section id="prayer-asr-differences" class="prayer-knowledge-section" aria-labelledby="prayer-asr-title">
+  <h3 id="prayer-asr-title">Standard and Hanafi Asr — why are there two times?</h3>
+  <div class="prayer-asr-grid">
+   <div><h4>Standard Asr</h4><p>Uses a shadow length equivalent to the object's length <strong>in addition to</strong> its shadow at solar noon. This convention is associated with Shafi'i, Maliki and Hanbali calculations.</p></div>
+   <div><h4>Hanafi Asr</h4><p>Uses a shadow length equivalent to <strong>twice</strong> the object's length in addition to its noon shadow. This gives a later calculated Asr start.</p></div>
+  </div>
+  <p>Choose the Asr school followed by your mosque. Changing this option does not require changing your Fajr/Isha twilight convention. Details of scholarly interpretation go beyond a numerical timetable; compare the <a href="https://praytimes.org/docs/manual" target="_blank" rel="noopener noreferrer">PrayTimes Asr rules</a>.</p>
+ </section>
+ <section id="prayer-high-latitude" class="prayer-knowledge-section" aria-labelledby="prayer-lat-title">
+  <h3 id="prayer-lat-title">UK summer, Scotland and very high latitudes</h3>
+  <p>In northern Britain and other high-latitude regions, the Sun may not reach the usual twilight angle on some summer nights. A normal Fajr or Isha calculation can therefore become impractical or undefined. Apps use different approximation rules for these conditions.</p>
+  <ul>
+   <li><strong>Seventh of the night:</strong> Uses a seventh of the sunset-to-sunrise interval near dawn or dusk.</li>
+   <li><strong>Middle of the night:</strong> Uses the midpoint of that overnight interval as an alternative limit.</li>
+   <li><strong>Twilight-angle fraction:</strong> Uses the selected Fajr and Isha angles to form an appropriate portion of the night.</li>
+   <li><strong>Polar regions:</strong> When sunrise or sunset itself is absent, another special fallback may be needed. The calculator leaves such results unavailable unless you explicitly choose a fallback.</li>
+  </ul>
+  <p>Our calculator offers these settings under <strong>High-latitude and polar calculation settings</strong>. Its default uses the Adhan library's location-based recommended rule, but that is not a declaration that the method matches the religious authority in your area. In Newcastle, Glasgow, Edinburgh, Aberdeen and further north, check your local mosque's summer timetable before relying on a calculated Fajr or Isha estimate.</p>
+  <p class="prayer-knowledge-source">Reference: <a href="https://praytimes.org/docs/calculation" target="_blank" rel="noopener noreferrer">PrayTimes higher-latitude explanations</a> and <a href="https://github.com/batoulapps/adhan-js/blob/develop/METHODS.md" target="_blank" rel="noopener noreferrer">Adhan high-latitude options</a>.</p>
+ </section>
+ <section id="prayer-mosque-times" class="prayer-knowledge-section" aria-labelledby="prayer-mosque-title">
+  <h3 id="prayer-mosque-title">How to compare your mosque's timetable</h3>
+  <ol class="prayer-checklist">
+   <li><strong>Match the location and date.</strong> Even nearby towns may have slightly different solar times, and daylight-saving changes affect the clock.</li>
+   <li><strong>Look for the column heading.</strong> A mosque may publish separate times for the prayer <em>beginning</em>, the <em>adhan</em> and the <em>iqamah / jama'ah</em>. Compare like with like.</li>
+   <li><strong>Check the calculation convention.</strong> Compare Fajr and Isha angles or fixed-interval settings with those displayed by the calculator.</li>
+   <li><strong>Check the Asr school.</strong> A standard/Hanafi mismatch can explain a large part of the afternoon difference.</li>
+   <li><strong>Check seasonal and safety adjustments.</strong> Local authorities may use special Ramadan, high-latitude or precautionary timetables rather than a generic app preset.</li>
+   <li><strong>Use the mosque's announcement for congregational prayer.</strong> Our calculator does not obtain or validate live mosque iqamah times.</li>
+  </ol>
+  <h4>How do time zones and daylight saving affect the result?</h4>
+  <p>A proper solar calculation returns an instant in time; the selected location's time zone determines its wall-clock display. For example, <code>Europe/London</code> changes between GMT and BST. Do not manually add an hour to an already correctly formatted result. Travellers should choose the location where they will actually pray.</p>
+  <h4>Are sunrise and Jumu'ah included?</h4>
+  <p>Sunrise is provided as the end marker for Fajr, not another one of the five obligatory prayers. Friday Jumu'ah is not a separate astronomical event: the congregation and khutbah time is set by your mosque, usually within the Dhuhr period, with further religious conditions.</p>
+  <h4>Can I print or download prayer times?</h4>
+  <p>Use the calculator's <strong>Next 7 days</strong> section for a dated table, and its <strong>Download CSV</strong> option to keep or print the estimated times. If you share a timetable with a group, include the city, method and date, and do not label the calculated entries as official mosque jama'ah times.</p>
+ </section>
+ <section id="prayer-sources" class="prayer-knowledge-section prayer-knowledge-sources" aria-labelledby="prayer-sources-title">
+  <h3 id="prayer-sources-title">Sources and further reading</h3>
+  <ul>
+   <li><a href="https://quran.com/4/103" target="_blank" rel="noopener noreferrer">Quran 4:103</a> — prayer is appointed at specified times.</li>
+   <li><a href="https://quran.com/17/78" target="_blank" rel="noopener noreferrer">Quran 17:78</a> — worship around the solar day and dawn recitation.</li>
+   <li><a href="https://sunnah.com/muslim:612a" target="_blank" rel="noopener noreferrer">Sahih Muslim 612a</a> — the periods of the five prayers.</li>
+   <li><a href="https://github.com/batoulapps/adhan-js/blob/develop/METHODS.md" target="_blank" rel="noopener noreferrer">Adhan methods documentation</a> — the parameters and high-latitude approaches behind the calculation library used on this website.</li>
+   <li><a href="https://fiqhcouncil.org/fifteen-or-eighteen-degrees-calculating-prayer-fasting-times-in-islam/" target="_blank" rel="noopener noreferrer">Fiqh Council of North America</a> — a scholarly discussion of Fajr/Isha angle differences.</li>
+   <li><a href="https://praytimes.org/docs/calculation" target="_blank" rel="noopener noreferrer">PrayTimes calculation guide</a> — solar-time formulas and high-latitude models.</li>
+  </ul>
+  <p class="prayer-knowledge-caution">This guide explains common calculations, not a religious ruling on the start or last valid moment of every prayer in every school. For worship decisions in unusual conditions, follow trusted qualified local scholarly guidance.</p>
+ </section>
+</section>
