@@ -1,0 +1,24 @@
+# Default-branch entrypoint: makes "Run workflow" visible in GitHub Actions.
+# Website source is intentionally NOT on main; it lives on feature/initial-site-and-tools.
+# The full build and Hostinger publishing workflow is defined on that source branch.
+name: Build static site for Hostinger
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: write
+
+jobs:
+  trigger-website-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Start Hostinger build from website source branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          gh workflow run publish-hostinger.yml \
+            --repo "${GITHUB_REPOSITORY}" \
+            --ref feature/initial-site-and-tools
+          echo "Dispatched Hostinger publishing build from feature/initial-site-and-tools."
