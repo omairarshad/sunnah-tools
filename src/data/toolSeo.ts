@@ -3,12 +3,12 @@
 export type ToolSeoEntry={title:string;h1:string;description:string;summary:string;details:string;caution:string;faqs:{question:string;answer:string}[]};
 export const toolSeo:Record<string,ToolSeoEntry> = {
   "prayer-times": {
-    "title": "Prayer Times for Your Location – Fajr to Isha",
+    "title": "Prayer Times Today – Fajr, Dhuhr, Asr, Maghrib, Isha",
     "h1": "Prayer Times for Your Location",
-    "description": "Check prayer times today for your chosen city or coordinates. View Fajr, sunrise, Dhuhr, Asr, Maghrib and Isha with adjustable calculation methods.",
-    "summary": "Choose a location and calculation method to see today's estimated prayer beginnings.",
-    "details": "Prayer times depend on the Sun's position, your latitude and longitude, your timezone and the calculation method. Fajr and Isha angles vary between authorities.",
-    "caution": "These are estimated start times, not the congregational (jamaat) schedule posted by your local mosque.",
+    "description": "Find today's prayer times for your city, compare Fajr and Isha calculation methods, download a 7-day timetable and learn the five prayer windows and Asr differences.",
+    "summary": "See the calculated starts of the five daily prayers and sunrise, compare methods for Fajr and Isha, and download a dated weekly timetable.",
+    "details": "Choose a location, calculation convention and Asr school to see today's estimates. The expanded guide explains the five prayer windows, shadow-based Asr differences, dawn and dusk angles, UK summer high-latitude adjustments and the difference between prayer starts and mosque jama'ah times.",
+    "caution": "Calculated prayer starts are not an official local mosque timetable or a guarantee of the last permissible moment for worship. Fajr and Isha conventions and high-latitude rulings can differ; use the guidance followed by your local mosque.",
     "faqs": [
       {
         "question": "Why does Fajr change each day?",
@@ -21,6 +21,26 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Why do two prayer applications show different Fajr times?",
         "answer": "They may use different dawn angles or local timetable adjustments. Check each calculation setting against the timetable followed by your local mosque."
+      },
+      {
+        "question": "What is the difference between prayer start and jama'ah time?",
+        "answer": "The calculated start shows when a prayer's window opens. Jama'ah or iqamah is the congregation time set by the mosque, often later than the prayer start and not available from an astronomical calculator."
+      },
+      {
+        "question": "Why does the Hanafi Asr time come later?",
+        "answer": "The Hanafi calculation commonly uses a shadow length of twice the object's length plus its noon shadow, rather than the earlier one-length standard rule. Select the school followed by your mosque."
+      },
+      {
+        "question": "Why can Fajr and Isha be difficult to calculate in UK summer?",
+        "answer": "In northern areas summer twilight may persist all night. Apps use high-latitude approximation rules such as one-seventh of the night or a fraction based on the twilight angle. Verify locally."
+      },
+      {
+        "question": "Does sunrise mean I should start Fajr prayer?",
+        "answer": "No. Sunrise is displayed as the end boundary for Fajr, not its start and not a separate sixth obligatory prayer. The Fajr window begins at true dawn, with its estimated opening shown in the Fajr entry."
+      },
+      {
+        "question": "Can I download weekly prayer times?",
+        "answer": "Open Next 7 days beneath today's timetable and choose Download 7-day CSV. The export includes the selected location, time zone, calculation convention, Asr setting, date and six daily solar and prayer-time values."
       }
     ]
   },

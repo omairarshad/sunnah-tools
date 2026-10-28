@@ -8,6 +8,7 @@ This is an internal review register for the publicly available tools. It is not 
 
 | Tool or topic | Review needed | Current guardrail |
 | --- | --- | --- |
+| Prayer Times comprehensive guide | Verify five prayer window explanations, Asr standard/Hanafi comparison, UK high-latitude approximation advice and seasonal Umm al-Qura Isha caveat with a qualified reviewer | Links to Quran 4:103, Muslim 612a, FCNA, Adhan and PrayTimes; no claim to provide official mosque iqamah times |
 | Tahajjud prayer guide and duas | Check step-by-step Salah wording, Witr differences between schools, Arabic spelling and transliteration of four Quranic duas and the waking supplication | Sources linked to Quran.com and numbered hadith; no prescribed Tahajjud-only dua or compulsory rak’ah total claimed |
 | Prayer Rakats Chart | Fard/Sunnah/Witr scope and different schools | Fard counts displayed; school-specific Sunnah not inferred |
 | Travel Prayer (Qasr) | Madhhab differences: distance, beginning of travel, length of stay, joining prayers | Education only, no yes/no travel eligibility verdict |

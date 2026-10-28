@@ -115,3 +115,46 @@ html[data-theme="dark"] .tahajjud-guide .tahajjud-caution{background:#372d21;col
 html[data-theme="dark"] .tahajjud-guide .tahajjud-waking{background:#203c2b;border-color:#4b7255}
 @media(max-width:750px){.tahajjud-key-facts{grid-template-columns:1fr}.tahajjud-dua-grid,.tahajjud-witr-notes{grid-template-columns:1fr}.tahajjud-guide{padding:17px}.tahajjud-guide-nav a{font-size:11px}.tahajjud-steps li{padding:12px 12px 12px 49px}}
 @media print{.tahajjud-guide,.tahajjud-shortcuts{display:none!important}}
+
+
+/* Prayer Times guide: static, accessible and compact enough for browsing after the calculator. */
+.prayer-knowledge{background:#fff;color:#283b31;border:1px solid #dbe5dd;border-radius:16px;margin:24px 0 0;padding:clamp(18px,3vw,30px);line-height:1.66;min-width:0}
+.prayer-knowledge h2{font-size:clamp(23px,2.7vw,30px);line-height:1.3;margin:0 0 12px}
+.prayer-knowledge h3{font-size:clamp(18px,2.1vw,23px);margin:0 0 12px;line-height:1.35}
+.prayer-knowledge h4{font-size:15px;margin:13px 0 6px}
+.prayer-knowledge p{margin:10px 0;max-width:75ch}
+.prayer-knowledge a{color:#256c4d;text-underline-offset:3px}
+.prayer-knowledge-nav,.prayer-knowledge-shortcuts{display:flex;flex-wrap:wrap;gap:8px;margin:17px 0}
+.prayer-knowledge-nav a,.prayer-knowledge-shortcuts a{border:1px solid #d2e0d4;background:#f2f8f3;border-radius:9px;padding:9px 12px;font-size:12px;text-decoration:none;font-weight:700;color:#245b40}
+.prayer-knowledge-nav a:hover,.prayer-knowledge-shortcuts a:hover{background:#dfeee1}
+.prayer-knowledge-summary{border-left:3px solid #9dbba2;background:#f6faf6;padding:10px 15px;border-radius:3px;margin:18px 0}
+.prayer-knowledge-section{padding:25px 0 10px;scroll-margin-top:28px}
+.prayer-knowledge-section+.prayer-knowledge-section{border-top:1px solid #e1e9e2}
+.prayer-knowledge-table{width:100%;border-collapse:collapse;font-size:13px;line-height:1.5}
+.prayer-knowledge-table th,.prayer-knowledge-table td{border-bottom:1px solid #dde7df;text-align:left;vertical-align:top;padding:12px 10px}
+.prayer-knowledge-table th{font-weight:700}
+.prayer-knowledge-table thead th{background:#f0f6f1}
+.prayer-knowledge-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:17px 0}
+.prayer-knowledge-cards article,.prayer-asr-grid>div{padding:14px;border:1px solid #dde7de;border-radius:10px;background:#f9fcf9}
+.prayer-knowledge-cards article h4{margin:0 0 5px}
+.prayer-knowledge-cards article p{font-size:13px;margin:0}
+.prayer-knowledge-source{font-size:12px;color:#627a6b}
+.prayer-asr-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:15px 0}
+.prayer-asr-grid p{margin:7px 0}
+.prayer-knowledge ul,.prayer-knowledge ol{padding-left:22px;margin:12px 0}
+.prayer-knowledge li{margin:9px 0}
+.prayer-knowledge-caution{border-left:3px solid #a58c56;background:#fffbf0;padding:12px 15px;border-radius:3px;font-size:13px}
+.prayer-method-compare{padding:13px 0;margin-top:12px}
+.prayer-method-compare label{display:grid;gap:8px}
+.prayer-method-compare .table-wrap{margin:12px 0}
+.prayer-method-compare table{font-size:13px}
+html[data-theme="dark"] .prayer-knowledge{background:#162920;color:#e4f2e7;border-color:#365342}
+html[data-theme="dark"] .prayer-knowledge a{color:#a5ddbd}
+html[data-theme="dark"] .prayer-knowledge-nav a,html[data-theme="dark"] .prayer-knowledge-shortcuts a{background:#203b2c;color:#d3edd8;border-color:#496a51}
+html[data-theme="dark"] .prayer-knowledge-summary,html[data-theme="dark"] .prayer-knowledge-cards article,html[data-theme="dark"] .prayer-asr-grid>div{background:#1d3528;border-color:#3a5945}
+html[data-theme="dark"] .prayer-knowledge-table thead th{background:#24412e}
+html[data-theme="dark"] .prayer-knowledge-table th,html[data-theme="dark"] .prayer-knowledge-table td{border-color:#3b5c46}
+html[data-theme="dark"] .prayer-knowledge-source{color:#b5d0bd}
+html[data-theme="dark"] .prayer-knowledge-caution{background:#372d21;color:#f4deb6}
+@media(max-width:720px){.prayer-asr-grid{grid-template-columns:1fr}.prayer-knowledge{padding:17px}.prayer-knowledge-table{font-size:12px}}
+@media print{.prayer-knowledge,.prayer-knowledge-nav,.prayer-knowledge-shortcuts,.prayer-method-compare{display:none!important}}
