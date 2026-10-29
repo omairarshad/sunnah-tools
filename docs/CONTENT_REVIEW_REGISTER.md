@@ -17,6 +17,7 @@ This is an internal review register for the publicly available tools. It is not 
 | Quranic Duas & Adhkar | Independently check Arabic against a vetted Quran edition; validate translation licence and source references | Small Quranic verse selection only; no prescribed morning/evening repetition counts |
 | Juz Finder | Independent check of all 30 division boundaries against an authoritative Quran edition | Surah/Ayah starts only; no assumed Mushaf page counts |
 | High-latitude prayer times | Local authority's seasonal Fajr/Isha methods in northern latitudes and polar conditions | Configurable calculation, caveats, and no claim of mosque approval |
+| Qibla Finder comprehensive guide and magnetic conversion | Independently check spherical Qibla bearings, very near-Kaaba and antipodal limits, compass orientation and fiqh of reasonable directional effort | Uses Google Qibla Finder reference coordinates, NOAA declination convention and Quran 2:144; verified user-entered correction; independent religious review pending |
 | Qibla phone sensor | Device-specific accuracy and magnetic declination; verify iOS/browser support | Requires an explicit tap, optional local declination, shows uncertainty and never replaces true-north bearing |
 
 ## Reference trail

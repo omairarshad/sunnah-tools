@@ -1,0 +1,103 @@
+---
+/* Server-rendered, original reference guide; Qibla calculation stays above. */
+const compass=[
+ {angle:'0°',point:'N',meaning:'North'},
+ {angle:'45°',point:'NE',meaning:'North-east'},
+ {angle:'90°',point:'E',meaning:'East'},
+ {angle:'135°',point:'SE',meaning:'South-east'},
+ {angle:'180°',point:'S',meaning:'South'},
+ {angle:'225°',point:'SW',meaning:'South-west'},
+ {angle:'270°',point:'W',meaning:'West'},
+ {angle:'315°',point:'NW',meaning:'North-west'}
+];
+---
+<section class="prayer-knowledge qibla-guide" id="qibla-guide" aria-labelledby="qibla-guide-heading">
+ <header>
+  <h2 id="qibla-guide-heading">How to find the Qibla direction accurately</h2>
+  <p>The Qibla is the direction Muslims face towards the Sacred Mosque in Makkah when praying. This guide explains how to use the bearing above, locate north without a phone compass, understand magnetic readings and handle unreliable sensors or unfamiliar places.</p>
+ </header>
+ <nav class="prayer-knowledge-nav qibla-guide-nav" aria-label="Qibla guide sections">
+  <a href="#qibla-how-to-use">Use the bearing</a>
+  <a href="#qibla-without-compass">Without a compass</a>
+  <a href="#qibla-true-magnetic">True &amp; magnetic north</a>
+  <a href="#qibla-geography">How it is calculated</a>
+  <a href="#qibla-accuracy">Accuracy &amp; troubleshooting</a>
+  <a href="#qibla-references">Sources</a>
+ </nav>
+ <div class="prayer-knowledge-summary">
+  <p><strong>Quick answer:</strong> Choose your location above, read the number of degrees <em>clockwise from true north</em>, and use a map or appropriately corrected compass to turn that many degrees. A phone sensor is optional and may not be reliable indoors.</p>
+ </div>
+
+ <section class="prayer-knowledge-section" id="qibla-how-to-use" aria-labelledby="qibla-use-heading">
+  <h3 id="qibla-use-heading">How to use your Qibla bearing</h3>
+  <ol class="qibla-guide-steps">
+   <li><strong>Set your location.</strong> Search for your city, enter accurate latitude and longitude, or allow the browser to obtain your position. A city preset is an approximate centre, not your exact building.</li>
+   <li><strong>Read the angle.</strong> The result gives the initial direction towards the Kaaba, measured clockwise from <em>geographic north</em>. It is not a number measured from east or the nearest coastline.</li>
+   <li><strong>Establish north.</strong> With a north-up map or a calibrated compass, first identify geographic north. If you use an ordinary magnetic compass, read the correction guidance below.</li>
+   <li><strong>Turn through the angle.</strong> Face the direction indicated by the result. If the bearing is 119°, turn 119° clockwise from true north: slightly south of due east, in the east-south-east part of the compass.</li>
+   <li><strong>Check the result.</strong> Keep electronic devices and magnets away from a compass, and compare with a trustworthy mosque orientation or another independent method when unsure.</li>
+  </ol>
+  <p>The diagram on the calculator is a <strong>static north-up direction diagram</strong>, not a live sensor pointing wherever you move the phone. The optional phone-compass control separately explains its supported sensor requirements.</p>
+  <h4>What do 0°, 90°, 180° and 270° mean?</h4>
+  <div class="table-wrap"><table class="prayer-knowledge-table qibla-compass-table">
+   <thead><tr><th scope="col">Bearing</th><th scope="col">Compass point</th><th scope="col">Direction</th></tr></thead>
+   <tbody>{compass.map(item=><tr><td>{item.angle}</td><th scope="row">{item.point}</th><td>{item.meaning}</td></tr>)}</tbody>
+  </table></div>
+  <p>The calculator also shows an approximate sixteen-point compass label such as ESE or WNW. That label is a broad orientation aid; use the numerical bearing if you need greater precision.</p>
+ </section>
+
+ <section class="prayer-knowledge-section" id="qibla-without-compass" aria-labelledby="qibla-without-heading">
+  <h3 id="qibla-without-heading">Find Qibla without a phone compass</h3>
+  <div class="prayer-knowledge-cards">
+   <article><h4>Use a map with north indicated</h4><p>Look for a map's north arrow and a reliable bearing/measurement feature. From your location, establish the direction of the reported great-circle bearing. Be aware that a straight line drawn on a flat map is not necessarily the shortest route over the Earth.</p></article>
+   <article><h4>Use a trustworthy mosque orientation</h4><p>If a nearby mosque's prayer area has a clear Qibla orientation, it can provide a useful independent reference. Confirm with its staff if the building or prayer space has unusual geometry.</p></article>
+   <article><h4>Use a separate calibrated compass</h4><p>With a magnetic compass, find local magnetic north. Then apply a <em>verified</em> declination correction to obtain the magnetic heading corresponding to the true-north Qibla bearing.</p></article>
+  </div>
+  <p>Knowing that the Sun generally rises in the east is not a sufficiently precise Qibla method: the sunrise direction changes with season and latitude. Likewise, a building wall or road is not guaranteed to be aligned with north. For reliable orientation, verify the north reference.</p>
+ </section>
+
+ <section class="prayer-knowledge-section" id="qibla-true-magnetic" aria-labelledby="qibla-magnetic-heading">
+  <h3 id="qibla-magnetic-heading">True north versus magnetic north</h3>
+  <p><strong>True north</strong> follows the Earth's geographic pole. <strong>Magnetic north</strong> follows the horizontal local magnetic field, which does not point exactly in the same direction everywhere. The difference is called <strong>magnetic declination</strong>. It depends on location and date and can change over time. <a href="https://www.ncei.noaa.gov/products/magnetic-declination" target="_blank" rel="noopener noreferrer">NOAA explains the difference and provides calculation resources</a>.</p>
+  <div class="qibla-example">
+   <h4>Worked example: converting a bearing</h4>
+   <p>If your calculated Qibla is <strong>119° from true north</strong> and a verified local magnetic declination is <strong>2° east</strong>, the corresponding magnetic-compass target is <strong>117°</strong>.</p>
+   <p>If the declination is <strong>3° west</strong> (−3°), the magnetic target is <strong>122°</strong>. The rule is: <strong>magnetic bearing = true bearing − east-positive declination</strong>.</p>
+   <p class="prayer-knowledge-source">These values illustrate the maths; they are <em>not</em> actual current declination values for your city. For the applicable correction, check your location and date using <a href="https://www.ngdc.noaa.gov/geomag/declination.shtml" target="_blank" rel="noopener noreferrer">NOAA's magnetic declination service</a>.</p>
+  </div>
+  <p>The calculator offers a manual converter beneath the main result. It does not fetch or guess your magnetic declination, and the optional phone sensor can behave differently depending on browser and whether its heading is already corrected. Never apply a correction twice.</p>
+ </section>
+
+ <section class="prayer-knowledge-section" id="qibla-geography" aria-labelledby="qibla-geography-heading">
+  <h3 id="qibla-geography-heading">How the Qibla direction is calculated</h3>
+  <p>The calculator takes your geographic latitude and longitude and the Kaaba's coordinates in Makkah. It calculates an <strong>initial great-circle bearing</strong>: the direction you would set out in along the shortest route over a spherical Earth towards the destination. It is measured clockwise from true north, between 0° and 360°.</p>
+  <p>That is why the Qibla is not “always east”, “always south-east” or the same bearing for everyone in the United Kingdom. It varies by where you are, and a direct line on a flat rectangular world map may show a different direction because the map projection distorts spherical geometry.</p>
+  <p>The distance shown in the calculator is an <strong>approximate great-circle surface distance</strong>, not a walking/driving distance or a substitute for geographic surveying. It is supplied for context rather than as a religious measure.</p>
+  <p>The Kaaba lies at approximately <strong>21.42248° N, 39.82518° E</strong>, following <a href="https://support.google.com/faqs/answer/7364753" target="_blank" rel="noopener noreferrer">Google Qibla Finder's published coordinates and great-circle explanation</a>. At the Kaaba itself, a numerical direction towards its centre is not meaningful; at the exact opposite point on Earth, the shortest-path direction is ambiguous. This website suppresses misleading bearings at those unusual locations.</p>
+ </section>
+
+ <section class="prayer-knowledge-section" id="qibla-accuracy" aria-labelledby="qibla-accuracy-heading">
+  <h3 id="qibla-accuracy-heading">Accuracy, phone sensors and common problems</h3>
+  <div class="qibla-guide-faq">
+   <details open><summary>Why does the compass arrow stay fixed when I rotate my phone?</summary><p>The diagram points to the Qibla relative to true north and is intentionally static. The separate optional phone-heading helper is available only when the browser exposes a suitable sensor and permission is granted. Even then, its heading may be affected by magnets or local magnetic conditions.</p></details>
+   <details><summary>Why is my direction different from another Qibla app?</summary><p>Check that both apps use the same starting coordinates, true versus magnetic north, and great-circle calculation. A map-projection line, an uncorrected compass, a nearby magnetic object or a location several kilometres away can produce a different apparent direction.</p></details>
+   <details><summary>Does the Qibla bearing change when I move?</summary><p>Yes, the initial bearing changes as your coordinates change. Within one building the difference is usually much smaller than ordinary device-compass uncertainty, but a city-centre preset is not a guarantee of your exact position.</p></details>
+   <details><summary>What if my phone compass is unreliable?</summary><p>Try a different location away from metal, magnets, vehicles and large electrical equipment, and follow your device's calibration instructions. If the browser cannot provide a magnetic heading, use the true-north bearing with a map or suitable physical compass instead.</p></details>
+   <details><summary>Does this website need my camera or location permission?</summary><p>No camera access is needed. Location access is optional: search for a place or enter coordinates instead. If you grant location permission, the selected coordinates may be remembered in browser storage by the site's prayer and Qibla tools so your chosen location persists. You can change the location or clear site storage.</p></details>
+   <details><summary>How precise must my prayer direction be?</summary><p>The Quran instructs believers to face the Sacred Mosque (<a href="https://quran.com/2/144" target="_blank" rel="noopener noreferrer">Quran 2:144</a>). Detailed rulings on reasonable directional effort, sight of the Kaaba, uncertainty and special circumstances vary by scholarly school. A bearing or sensor reading alone cannot establish a ruling about an individual's prayer; ask a qualified local scholar if unsure.</p></details>
+  </div>
+  <p class="prayer-knowledge-caution">A displayed decimal does not guarantee that a magnetic compass or phone can achieve that precision. Near metal or the magnetic poles, compass reliability can deteriorate sharply. Use another trusted reference if your devices disagree.</p>
+ </section>
+
+ <section class="prayer-knowledge-section" id="qibla-references" aria-labelledby="qibla-reference-heading">
+  <h3 id="qibla-reference-heading">Quran and technical sources</h3>
+  <ul>
+   <li><a href="https://quran.com/2/144" target="_blank" rel="noopener noreferrer">Quran 2:144</a> — facing towards al-Masjid al-Haram in prayer.</li>
+   <li><a href="https://quran.com/2/150" target="_blank" rel="noopener noreferrer">Quran 2:150</a> — the instruction to turn towards the Sacred Mosque.</li>
+   <li><a href="https://support.google.com/faqs/answer/7364753" target="_blank" rel="noopener noreferrer">Google Qibla Finder — How it works</a> — great-circle calculation and reference coordinates.</li>
+   <li><a href="https://www.ncei.noaa.gov/products/magnetic-declination" target="_blank" rel="noopener noreferrer">NOAA magnetic declination</a> — true versus magnetic north and the east-positive correction convention.</li>
+   <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/DeviceOrientationEvent/requestPermission_static" target="_blank" rel="noopener noreferrer">MDN DeviceOrientation permission</a> — sensor access on compatible devices and browsers.</li>
+  </ul>
+  <p class="prayer-knowledge-source">The calculation and navigation guidance is for general use. It is not a certified compass, a geographic surveying instrument or a qualified religious ruling.</p>
+ </section>
+</section>
