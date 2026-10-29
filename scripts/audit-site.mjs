@@ -184,6 +184,22 @@ for(const [slug,required] of deepDives){
 }
 console.log('Three Ramadan-season guides include static deep dives, references, FAQ and Article schema');
 
+// The next three must likewise offer indexable, source-aligned knowledge bases without React hydration.
+const qadaFidyaKaffarah=[
+ ['fasting-tracker',['Fasting tracker and Qada fasts: complete planning','What is Qada fasting','Worked example: tracking twelve make-up fasts','Sahih al-Bukhari 1950','Quran 2:185','id="fasting-history-qada"','id="fasting-history-example"']],
+ ['fidya-calculator',['Fidya for missed Ramadan fasts: eligibility, calculation','Who may owe Fidya','Worked Fidya example: two people, ten eligible days','Sahih al-Bukhari 4505','Quran 2:184','id="fidya-who"','id="fidya-example"']],
+ ['kaffarah-calculator',['Kaffarah calculator guide: broken oaths','Kaffarah for breaking an oath','Kaffarah for a specific Ramadan fast violation','Sahih al-Bukhari 1936','Quran 5:89','id="kaffarah-oaths"','id="kaffarah-ramadan"']]
+];
+for(const [slug,required] of qadaFidyaKaffarah){
+ const html=read(`tools/${slug}/index.html`);
+ for(const phrase of required)assert(html.includes(phrase),`${slug} comprehensive guide lacks: ${phrase}`);
+ assert((html.match(/class="three-tool-section/g)||[]).length>=7,`Incomplete server-rendered reference sections: ${slug}`);
+ assert(html.includes('"@type":"Article"')&&html.includes('"citation":['),`Missing visible-reference-aligned Article schema: ${slug}`);
+ assert(html.includes('class="three-tool-nav'),`Quick links missing: ${slug}`);
+ assert(sitemap.includes(`/tools/${slug}/`),`Missing sitemap entry: ${slug}`);
+}
+console.log('Three further fasting-related guides include full static sources, FAQs, examples and Article schema');
+
 
 // Fasting Times source-backed guide must be static and independently indexable.
 {

@@ -196,8 +196,8 @@ export const toolInsights:Record<string,ToolInsight> = {
     }
   },
   "fasting-tracker": {
-    "example": "Tick completed make-up fasts and review the remaining target.",
-    "check": "Tracking missed fasts does not determine whether Fidya or Kaffarah applies.",
+    "example": "With a self-established Qada target of 12, four older undated completions and three newly recorded Qada dates, five remain. Two voluntary dates do not reduce that five.",
+    "check": "Dates reflect self-reported completions; browser storage can be lost, so download a backup. Qualified guidance determines the true Qada target, not the tracker.",
     "benchmark": {
       "site": "Humble Halal",
       "url": "https://www.humblehalal.com/tools",
@@ -313,8 +313,8 @@ export const toolInsights:Record<string,ToolInsight> = {
     }
   },
   "fidya-calculator": {
-    "example": "Multiply eligible days by a per-day feeding rate verified with your mosque or charity.",
-    "check": "Not every missed fast qualifies for compensatory feeding.",
+    "example": "For a purely hypothetical £6 rate, seven eligible days for Person 1 and three for Person 2 produce £42 + £18 = £60, if Fidya was independently confirmed as applicable.",
+    "check": "The £6 example is not a verified current rate, and eligibility, recipient rules and cash substitution cannot be determined by arithmetic.",
     "benchmark": {
       "site": "ToolNova",
       "url": "https://www.toolnova.org/islamic-tools",
@@ -326,8 +326,8 @@ export const toolInsights:Record<string,ToolInsight> = {
     }
   },
   "kaffarah-calculator": {
-    "example": "Select an oath or a Ramadan fast case before exploring possible feeding estimates.",
-    "check": "The legal conditions and expiation alternatives differ between cases.",
+    "example": "Two hypothetical distinct oath-feeding cases involve 20 recipients; at an illustrative £7 each, the arithmetic is £140. A particular 60-recipient Ramadan feeding case would be £420 at that same invented rate.",
+    "check": "Neither scenario confirms liability, the correct alternative, distinctness of repeated oaths or permissibility of a monetary payment. Ramadan fasting in Bukhari 1936 is two successive lunar months, not a flat 60-day rule.",
     "benchmark": {
       "site": "Islamic Relief Kaffarah",
       "url": "https://www.islamic-relief.org.uk/giving/islamic-giving/ramadan/kaffarah/kaffarah-calculator/",

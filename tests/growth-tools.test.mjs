@@ -32,14 +32,20 @@ test('qurbani restricts small animals to one share and large animals to seven',(
  assert.equal(qurbaniEstimate('cow',7,1400)?.perPerson,200);
  assert.equal(qurbaniEstimate('camel',3,900)?.perPerson,300);
 });
-test('all six tools have interactive components and responsible sources',()=>{
+test('all growth tools keep interactive components and responsible sources',()=>{
  const source=readFileSync(new URL('../src/components/GrowthTools.tsx',import.meta.url),'utf8');
- for(const name of ['FidyaCalculator','QadaPrayerCalculator','QurbaniShareCalculator','KaffarahCalculator','TawafSaiCounter'])assert.match(source,new RegExp('export function '+name+'\\('));
+ for(const name of ['QadaPrayerCalculator','QurbaniShareCalculator','TawafSaiCounter'])assert.match(source,new RegExp('export function '+name+'\\('));
+ const fidya=readFileSync(new URL('../src/components/FidyaPlanner.tsx',import.meta.url),'utf8');
+ const kaffarah=readFileSync(new URL('../src/components/KaffarahPlanner.tsx',import.meta.url),'utf8');
+ assert.match(fidya,/export default function FidyaPlanner/);
+ assert.match(kaffarah,/export default function KaffarahPlanner/);
+ assert.match(kaffarah,/sunnah\.com\/bukhari:1936/);
  const newPlanner=readFileSync(new URL('../src/components/LaylatulQadrPlanner.tsx',import.meta.url),'utf8');
  const newGuide=readFileSync(new URL('../src/components/LaylatulQadrGuide.astro',import.meta.url),'utf8');
  assert.match(newPlanner,/export default function LaylatulQadrPlanner/);
  assert.match(source,/localStorage/);
- assert.match(source,/quran\.com\/5\/89/);
+ const oathGuide=readFileSync(new URL('../src/components/KaffarahGuide.astro',import.meta.url),'utf8');
+ assert.match(oathGuide,/quran\.com\/5\/89/);
  assert.match(newGuide,/sunnah\.com\/bukhari:2017/);
 });
 

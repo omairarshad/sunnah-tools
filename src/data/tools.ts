@@ -14,7 +14,7 @@ export const tools = [
  {slug:'islamic-age',name:'Islamic Age Calculator',desc:'Find your age in Islamic lunar years.',icon:'✧',category:'Dates',keywords:'hijri birthday lunar age'},
  {slug:'tasbih-counter',name:'Digital Tasbih',desc:'Count dhikr and save progress on this device.',icon:'◎',category:'Everyday',keywords:'online dhikr counter'},
  {slug:'quran-planner',name:'Quran Reading Planner',desc:'Plan your daily reading to finish the Quran.',icon:'▤',category:'Everyday',keywords:'quran khatm ramadan reading pages'},
- {slug:'fasting-tracker',name:'Fasting Tracker',desc:'Track completed and remaining make-up fasts.',icon:'✓',category:'Ramadan',keywords:'qada missed fasts Ramadan'},
+ {slug:'fasting-tracker',name:'Fasting Tracker',desc:'Private Qada and voluntary fasting log with dates, targets and portable backups.',icon:'✓',category:'Ramadan',keywords:'qada fasting tracker missed Ramadan make up fast log voluntary private CSV backup'},
  {slug:'printable-prayer-chart',name:'Printable Prayer Chart',desc:'Make a free 7, 14 or 30 day Salah checklist PDF.',icon:'☷',category:'Everyday',keywords:'prayer tracker chart printable kids daily prayer pdf'},
  {slug:'salah-tracker',name:'Daily Salah Tracker',desc:'Tick off your five daily prayers privately.',icon:'□',category:'Everyday',keywords:'daily prayer tracker checklist'},
  {slug:'white-days-calendar',name:'White Days Fasting Calendar',desc:'Find Hijri days 13–15 across 3–12 months, exceptions and exports.',icon:'☾',category:'Dates',keywords:'ayyam al bid white days fasting calendar 13 14 15 hijri tashreeq'},
@@ -23,8 +23,8 @@ export const tools = [
  {slug:'umrah-packing-checklist',name:'Hajj & Umrah Packing List',desc:'Plan, tick off and print a practical journey checklist.',icon:'✓',category:'Everyday',keywords:'hajj umrah travel packing checklist printable'}
 , {slug:'qada-prayer-calculator',name:'Missed Salah (Qada) Calculator',desc:'Estimate and privately track make-up prayers.',icon:'☷',category:'Prayer',keywords:'qaza namaz missed salah prayer calculator make up witr tracker'},
  {slug:'laylatul-qadr-nights',name:'Laylatul Qadr Odd Nights',desc:'Plan every last-ten Ramadan night with odd-night highlights.',icon:'☾',category:'Ramadan',keywords:'laylatul qadr 2027 last ten nights dua 21 23 25 27 29 calendar'},
- {slug:'fidya-calculator',name:'Fidya Calculator',desc:'Estimate Fidya for eligible missed fasts at a verified rate.',icon:'◇',category:'Zakat',keywords:'fidyah fidya calculator 2027 missed fast charity cost per day'},
- {slug:'kaffarah-calculator',name:'Kaffarah Calculator',desc:'Explore conditional oath and Ramadan expiation costs.',icon:'◈',category:'Zakat',keywords:'kaffarah kaffara calculator broken oath fast expiation'},
+ {slug:'fidya-calculator',name:'Fidya Calculator',desc:'Compare verified eligible days for multiple people using your local Fidya rate.',icon:'◇',category:'Zakat',keywords:'fidya calculator Ramadan 2027 fidyah eligible days feeding poor person local rate qada difference'},
+ {slug:'kaffarah-calculator',name:'Kaffarah Calculator',desc:'Explore distinct oath and Ramadan expiation remedies with conditional feeding costs.',icon:'◈',category:'Zakat',keywords:'kaffarah calculator broken oath ten needy Ramadan expiation sixty feeding clothing fasting'},
  {slug:'qurbani-share-calculator',name:'Qurbani Share Calculator',desc:'Split Udhiyah costs across animal shares.',icon:'◈',category:'Everyday',keywords:'qurbani udhiyah cow seven shares calculator cost 2027'},
  {slug:'tawaf-sai-counter',name:'Tawaf & Sa’i Counter',desc:'Count seven Tawaf circuits and Sa’i lengths.',icon:'◎',category:'Everyday',keywords:'tawaf counter sai safa marwah umrah hajj rounds'}
 ,

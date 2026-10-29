@@ -1,7 +1,10 @@
 import {useEffect,useState} from 'react';
 import {GoldZakat,IslamicEvents,PrayerChart} from './NextTools';
 import CitySearch from './CitySearch';
-import {FidyaCalculator,QadaPrayerCalculator,QurbaniShareCalculator,KaffarahCalculator,TawafSaiCounter} from './GrowthTools';
+import {QadaPrayerCalculator,QurbaniShareCalculator,TawafSaiCounter} from './GrowthTools';
+import FastingTracker from './FastingTracker';
+import FidyaPlanner from './FidyaPlanner';
+import KaffarahPlanner from './KaffarahPlanner';
 import FitranaCalculator from './FitranaCalculator';
 import ZakatCalculator from './ZakatCalculator';
 import {ExpansionTool} from './ExpansionTools';
@@ -142,14 +145,6 @@ function Counter(){
  <div className="action-row"><button onClick={()=>setN(v=>v+1)}>+ Count</button><button className="secondary" onClick={()=>{if(window.confirm('Reset the current count?'))setN(0)}}>Reset</button></div>
  <p className="small">Press the Space key when not focused on a control. Your tally is saved in this browser.</p></>;
 }
-function FastingTracker(){
- const [total,setTotal]=useState(0),[done,setDone]=useState(0),[ready,setReady]=useState(false);
- useEffect(()=>{try{const v=JSON.parse(localStorage.getItem('sunnah-fasts')??'{}');if(Number.isSafeInteger(v.total)&&v.total>=0)setTotal(v.total);if(Number.isSafeInteger(v.done)&&v.done>=0)setDone(v.done)}catch{}setReady(true)},[]);
- useEffect(()=>{if(ready){try{localStorage.setItem('sunnah-fasts',JSON.stringify({total,done}))}catch{}}},[total,done,ready]);
- return <><Field label="Fasting days you intend to complete"><input type="number" min="0" step="1" value={total} onChange={e=>{const n=Number(e.target.value);if(Number.isSafeInteger(n)&&n>=0){setTotal(n);setDone(d=>Math.min(d,n))}}}/></Field>
- <div className="two"><Block title="Completed" value={done}/><Block title="Remaining" value={Math.max(0,total-done)}/></div>
- <div className="action-row"><button disabled={done>=total} onClick={()=>setDone(v=>Math.min(total,v+1))}>Mark one fast completed</button><button className="secondary" disabled={done===0} onClick={()=>setDone(v=>Math.max(0,v-1))}>Undo</button></div><progress value={done} max={Math.max(1,total)}/><p className="small">Stored only on this device. This tool does not determine how many make-up fasts you owe.</p></>;
-}
 function SalahTracker(){
  const prayers=['Fajr','Dhuhr','Asr','Maghrib','Isha'] as const;
  const [entries,setEntries]=useState<Record<string,string[]>>({}),[ready,setReady]=useState(false),[today,setToday]=useState(()=>localISODate()),[restoreStatus,setRestoreStatus]=useState('');
@@ -184,10 +179,10 @@ function SalahTracker(){
 export default function ToolApp({slug}:{slug:string}){
  if(["prayer-rakats-chart","daily-adhkar","halal-additives-checker","zakat-anniversary-calculator","dhul-hijjah-planner","travel-prayer-guide","quran-juz-finder","zakat-stocks-crypto","hifz-tracker"].includes(slug))return <ExpansionTool slug={slug}/>;
  if(slug==='laylatul-qadr-nights')return <LaylatulQadrPlanner/>;
- if(slug==='fidya-calculator')return <FidyaCalculator/>;
+ if(slug==='fidya-calculator')return <FidyaPlanner/>;
  if(slug==='qada-prayer-calculator')return <QadaPrayerCalculator/>;
  if(slug==='qurbani-share-calculator')return <QurbaniShareCalculator/>;
- if(slug==='kaffarah-calculator')return <KaffarahCalculator/>;
+ if(slug==='kaffarah-calculator')return <KaffarahPlanner/>;
  if(slug==='tawaf-sai-counter')return <TawafSaiCounter/>;
  if(slug==='tahajjud-time')return <TahajjudCalculator/>;
  if(['prayer-times','qibla-finder','fasting-times'].includes(slug))return <Prayer kind={slug}/>;
