@@ -177,3 +177,12 @@ console.log('All 37 tool pages include original comparison-led practical notes')
  }
  assert((html.match(/class="fasting-guide-section"/g)||[]).length>=7,'Comprehensive fasting guide is incomplete');
 }
+
+// Hijri Converter guide must be indexable and separate calculated calendars from moon sighting.
+{
+ const html=read('tools/hijri-converter/index.html');
+ for(const required of ['Hijri date conversion: a complete practical guide','Umm al-Qura versus civil','Does the Hijri date change at midnight or sunset?','The twelve Hijri months','Worked conversion example','Quran 2:189','Sahih al-Bukhari 1909','Unicode CLDR calendar identifiers','id="hijri-calendars"','id="hijri-sunset"','id="hijri-sources"']){
+  assert(html.includes(required),'Hijri knowledge base missing '+required);
+ }
+ assert((html.match(/class="hijri-guide-section"/g)||[]).length>=7,'Hijri guide needs substantial sections');
+}

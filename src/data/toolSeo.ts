@@ -335,24 +335,52 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
     ]
   },
   "hijri-converter": {
-    "title": "Hijri Date Today – Islamic Date Converter",
-    "h1": "Hijri Date Today",
-    "description": "Check today's Hijri date and convert Gregorian dates to Islamic dates or back. Free Umm al-Qura Hijri date converter with local moon-sighting caveats.",
-    "summary": "See today's calculated Islamic date, then convert any Gregorian or Hijri date.",
-    "details": "The Hijri calendar follows lunar months of 29 or 30 days. This converter uses the Umm al-Qura convention available in modern browsers.",
-    "caution": "Different countries may observe a lunar month beginning on another civil date. Local religious dates are not guaranteed by a computed calendar.",
+    "title": "Hijri Date Converter – Today, Umm al-Qura & Civil Calendar",
+    "h1": "Hijri Date Today & Islamic Date Converter",
+    "description": "Convert Gregorian and Hijri dates both ways. Compare Umm al-Qura with tabular Islamic calendars, inspect lunar month lengths, and learn about sunset and moon sighting.",
+    "summary": "Check today's calculated Hijri date, convert in both directions, compare Umm al-Qura with civil Hijri, and explore the date's lunar month boundaries.",
+    "details": "Choose a Gregorian day or a Hijri year, named month and day. The converter explicitly compares two calendar conventions, rejects impossible lunar dates and offers an optional illustrative after-sunset view. Its sourced guide covers the twelve months, 29/30-day cycles, calendar variants and local crescent announcements.",
+    "caution": "Neither calculated method establishes a local crescent sighting, the actual sunset at your location, or official Ramadan and Eid dates. Umm al-Qura comparisons are limited to the supported 1300–1600 AH range. Check relevant announcements with a trusted religious authority.",
     "faqs": [
       {
         "question": "What is the Hijri date today?",
-        "answer": "The date shown above uses your device's current local date and the Umm al-Qura calendar; check your local mosque for sighting-based differences."
+        "answer": "The date shown uses your device's current local civil day and the calculated Umm al-Qura system. The converter also shows tabular Hijri. After sunset or under local sighting conventions, the religious date may differ."
       },
       {
-        "question": "Is the Hijri date the same worldwide?",
-        "answer": "Not always. Regional observations and authorities may declare a different beginning to a lunar month."
+        "question": "What is the difference between Umm al-Qura and civil Hijri?",
+        "answer": "Umm al-Qura uses a defined calculated month sequence, while civil/tabular Hijri follows a mathematical leap-year and month-length cycle. Neither is a live local crescent report."
       },
       {
         "question": "Why might a Hijri conversion be one day different?",
-        "answer": "Published calendars may use different lunar month starts, and the Islamic day changes at sunset. A calculated date is not proof of a local moon sighting."
+        "answer": "Different month-start algorithms, local sighting decisions, and the traditional sunset rather than midnight boundary can all affect the result."
+      },
+      {
+        "question": "When does the Islamic date change?",
+        "answer": "In traditional Islamic reckoning a new religious day begins at sunset. The optional switch illustrates the next lunar day but does not calculate sunset for your location."
+      },
+      {
+        "question": "Can I convert Hijri to Gregorian?",
+        "answer": "Yes. Select Hijri to Gregorian, then enter the year, named month and day. The reverse converter validates the date under the chosen calculation system."
+      },
+      {
+        "question": "Can a Hijri month have 30 days?",
+        "answer": "Yes. In the converter a calculated lunar month has either 29 or 30 days. A non-existent 30th day is rejected instead of being silently moved to the next month."
+      },
+      {
+        "question": "Does Umm al-Qura confirm Ramadan and Eid?",
+        "answer": "No. It is useful for planning, but lunar month announcements and the religious guidance adopted by a local community may differ."
+      },
+      {
+        "question": "Which historical dates are supported?",
+        "answer": "The two-way comparison is limited to 1300–1600 AH, roughly late 1882 through 2174 CE, the defined Umm al-Qura data range."
+      },
+      {
+        "question": "Can I compare calendar methods?",
+        "answer": "Yes. The result shows Umm al-Qura and civil/tabular Hijri side by side, and the month panel shows the selected method's first and last Gregorian dates."
+      },
+      {
+        "question": "Are my entered dates saved?",
+        "answer": "No. Conversion inputs stay in the current browser page. Copy comparison or Download text summary creates an export only when you request it."
       }
     ]
   },

@@ -144,8 +144,8 @@ export const toolInsights:Record<string,ToolInsight> = {
     }
   },
   "hijri-converter": {
-    "example": "Convert a Gregorian birth date, then compare the displayed Hijri day with local observation if needed.",
-    "check": "The lunar day begins at sunset rather than midnight.",
+    "example": "Choose 14 October 2017: Umm al-Qura gives 24 Muharram 1439 AH, while the civil/tabular method gives 23 Muharram 1439 AH. Both are calculated conventions, not local sighting reports.",
+    "check": "Check the calendar convention, sunset boundary and community announcement. The after-sunset switch is an illustration and cannot detect sunset or confirm a crescent.",
     "benchmark": {
       "site": "Falah",
       "url": "https://falah.io/en/",
