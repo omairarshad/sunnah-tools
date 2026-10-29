@@ -6,6 +6,7 @@ const positive = (x,max=1e9) => good(x,max) && x>0;
 export const GOLD_KARATS = Object.freeze([24,22,21,18,14,9]);
 
 /** User-verified unit cost; never a fabricated rate or remote quote. */
+/** @param {{people:number,rate:number,extra?:number,comparisonRate?:number|null}} input */
 export function fitranaBreakdown({people,rate,extra=0,comparisonRate=null}){
  if(!Number.isInteger(people)||people<1||people>500||!positive(rate,1e6)||!good(extra,1e6))return null;
  if(comparisonRate!==null&&!positive(comparisonRate,1e6))return null;
@@ -14,6 +15,7 @@ export function fitranaBreakdown({people,rate,extra=0,comparisonRate=null}){
  return {people,rate,base,extra,total,comparison:comparisonRate===null?null:{rate:comparisonRate,base:round(people*comparisonRate),difference:round(people*(comparisonRate-rate))}};
 }
 /** This estimates metal-content value, not jewellery resale value or an obligation. */
+/** @param {{items:Array<{weight:number,karat:number}>,price24k:number,otherAssets?:number,liabilities?:number,benchmark?:'gold'|'silver',silverPrice?:number|null}} input */
 export function goldPortfolioEstimate({items,price24k,otherAssets=0,liabilities=0,benchmark='gold',silverPrice=null}){
  if(!Array.isArray(items)||items.length<1||items.length>12||!positive(price24k,1e7)||
  !good(otherAssets,1e9)||!good(liabilities,1e9)||!['gold','silver'].includes(benchmark)||
@@ -35,6 +37,7 @@ export function goldPortfolioEstimate({items,price24k,otherAssets=0,liabilities=
  return {lines,fineGold,goldValue,gross,net,threshold,benchmark,meetsThreshold:net>=threshold,
   conditionalTotal:net>=threshold?round(net*0.025):0,illustrativeGoldShare:round(goldValue*0.025)};
 }
+/** @param {{goldPrice:number,silverPrice:number,wealth?:number|null,liabilities?:number}} input */
 export function nisabComparison({goldPrice,silverPrice,wealth=null,liabilities=0}){
  if(!positive(goldPrice,1e7)||!positive(silverPrice,1e7)||!good(liabilities,1e9))return null;
  if(wealth!==null&&!good(wealth,1e11))return null;
