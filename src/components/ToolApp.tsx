@@ -1,7 +1,10 @@
 import {useEffect,useState} from 'react';
 import {IslamicEvents,PrayerChart} from './NextTools';
 import CitySearch from './CitySearch';
-import {QadaPrayerCalculator,QurbaniShareCalculator,TawafSaiCounter} from './GrowthTools';
+import {QadaPrayerCalculator,TawafSaiCounter} from './GrowthTools';
+import HawlDeep from './HawlDeep';
+import InvestmentZakatDeep from './InvestmentZakatDeep';
+import QurbaniDeep from './QurbaniDeep';
 import FastingTracker from './FastingTracker';
 import FidyaPlanner from './FidyaPlanner';
 import KaffarahPlanner from './KaffarahPlanner';
@@ -168,11 +171,13 @@ function SalahTracker(){
 }
 
 export default function ToolApp({slug}:{slug:string}){
- if(["prayer-rakats-chart","daily-adhkar","halal-additives-checker","zakat-anniversary-calculator","dhul-hijjah-planner","travel-prayer-guide","quran-juz-finder","zakat-stocks-crypto","hifz-tracker"].includes(slug))return <ExpansionTool slug={slug}/>;
+ if(["prayer-rakats-chart","daily-adhkar","halal-additives-checker","dhul-hijjah-planner","travel-prayer-guide","quran-juz-finder","hifz-tracker"].includes(slug))return <ExpansionTool slug={slug}/>;
  if(slug==='laylatul-qadr-nights')return <LaylatulQadrPlanner/>;
  if(slug==='fidya-calculator')return <FidyaPlanner/>;
  if(slug==='qada-prayer-calculator')return <QadaPrayerCalculator/>;
- if(slug==='qurbani-share-calculator')return <QurbaniShareCalculator/>;
+ if(slug==='qurbani-share-calculator')return <QurbaniDeep/>;
+ if(slug==='zakat-anniversary-calculator')return <HawlDeep/>;
+ if(slug==='zakat-stocks-crypto')return <InvestmentZakatDeep/>;
  if(slug==='kaffarah-calculator')return <KaffarahPlanner/>;
  if(slug==='tawaf-sai-counter')return <TawafSaiCounter/>;
  if(slug==='tahajjud-time')return <TahajjudCalculator/>;

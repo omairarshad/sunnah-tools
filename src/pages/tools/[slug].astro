@@ -19,6 +19,9 @@ import KaffarahGuide from '../../components/KaffarahGuide.astro';
 import FitranaDeepGuide from '../../components/FitranaDeepGuide.astro';
 import GoldZakatDeepGuide from '../../components/GoldZakatDeepGuide.astro';
 import NisabDeepGuide from '../../components/NisabDeepGuide.astro';
+import HawlDeepGuide from '../../components/HawlDeepGuide.astro';
+import InvestmentZakatDeepGuide from '../../components/InvestmentZakatDeepGuide.astro';
+import QurbaniDeepGuide from '../../components/QurbaniDeepGuide.astro';
 import ToolIcon from '../../components/ToolIcon.astro';
 import {toneForSlug} from '../../data/toolTones';
 import {tools,toolBySlug} from '../../data/tools';
@@ -46,7 +49,10 @@ const editorialSources:Record<string,{topic:string;citations:string[]}>= {
  'kaffarah-calculator':{topic:'Kaffarah for deliberate oaths and certain Ramadan cases',citations:['https://quran.com/5/89','https://sunnah.com/bukhari:1936','https://quran.com/2/185']},
  'fitrana-calculator':{topic:'Zakat al-Fitr household calculation and Eid timing',citations:['https://sunnah.com/bukhari:1503','https://sunnah.com/abudawud:1609','https://www.islamic-relief.org.uk/giving/islamic-giving/ramadan/zakat-al-fitr/']},
  'gold-zakat-calculator':{topic:'Gold Zakat jewellery purity and wealth assessment',citations:['https://quran.com/9/34','https://sunnah.com/bukhari:1405','https://www.islamic-relief.org.uk/giving/islamic-giving/zakat/zakat-on-jewellery/']},
- 'nisab-calculator':{topic:'Gold and silver Nisab thresholds for Zakat',citations:['https://sunnah.com/bukhari:1405','https://www.islamic-relief.org.uk/giving/islamic-giving/zakat/nisab/']}
+ 'nisab-calculator':{topic:'Gold and silver Nisab thresholds for Zakat',citations:['https://sunnah.com/bukhari:1405','https://www.islamic-relief.org.uk/giving/islamic-giving/zakat/nisab/']},
+ 'zakat-anniversary-calculator':{topic:'Hawl and annual Zakat review dates',citations:['https://sunnah.com/abudawud:1573','https://www.islamic-relief.org.uk/giving/islamic-giving/zakat/hawl/','https://www.islamic-relief.org.uk/giving/islamic-giving/zakat/when-to-pay-zakat/']},
+ 'zakat-stocks-crypto':{topic:'Zakat on trading stocks, long-term shares and crypto',citations:['https://quran.com/9/60','https://www.islamic-relief.org.uk/giving/islamic-giving/zakat/zakat-and-investment/','https://www.islamic-relief.org.uk/giving/islamic-giving/zakat/zakat-and-cryptocurrency/']},
+ 'qurbani-share-calculator':{topic:'Udhiyah sacrificial animal shares and cost planning',citations:['https://sunnah.com/muslim:1318a','https://quran.com/22/36','https://www.islamic-relief.org.uk/giving/islamic-giving/qurbani/qurbani-animals/']}
 };
 const editorial=editorialSources[slug];
 const articleSchema=editorial?{'@context':'https://schema.org','@type':'Article',headline:seo.h1,description:seo.description,mainEntityOfPage:`https://sunnah.tools/tools/${slug}/`,author:{'@type':'Organization',name:'Sunnah Tools',url:'https://sunnah.tools/'},publisher:{'@type':'Organization',name:'Sunnah Tools',url:'https://sunnah.tools/'},about:editorial.topic,citation:editorial.citations,inLanguage:'en',isAccessibleForFree:true}:null;
@@ -80,6 +86,8 @@ const guidePriorities:Record<string,string[]>={
  'fidya-calculator':['zakat','ramadan'],
  'qada-prayer-calculator':['prayer','everyday'],
  'qurbani-share-calculator':['everyday','zakat'],
+ 'zakat-anniversary-calculator':['zakat','dates'],
+ 'zakat-stocks-crypto':['zakat'],
  'kaffarah-calculator':['zakat','ramadan'],
  'tawaf-sai-counter':['everyday']
 };
@@ -163,6 +171,9 @@ const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemL
    {slug==='fitrana-calculator'&&<nav class="three-tool-nav three-tool-shortcuts" aria-label="Fitrana quick links"><a href="#fitrana-deep-calculator">Calculate Fitrana</a><a href="#fitrana-people">Household</a><a href="#fitrana-example">Worked example</a><a href="#fitrana-sources">Sources</a></nav>}
    {slug==='gold-zakat-calculator'&&<nav class="three-tool-nav three-tool-shortcuts" aria-label="Gold Zakat quick links"><a href="#gold-deep-calculator">Value gold</a><a href="#gold-purity">Purity</a><a href="#gold-example">Worked example</a><a href="#gold-sources">Sources</a></nav>}
    {slug==='nisab-calculator'&&<nav class="three-tool-nav three-tool-shortcuts" aria-label="Nisab quick links"><a href="#nisab-deep-calculator">Compare Nisab</a><a href="#nisab-metals">Gold and silver</a><a href="#nisab-example">Worked example</a><a href="#nisab-sources">Sources</a></nav>}
+   {slug==='zakat-anniversary-calculator'&&<nav class="three-tool-nav three-tool-shortcuts" aria-label="Zakat anniversary quick links"><a href="#hawl-deep-calculator">Calculate dates</a><a href="#hawl-start">Choose starting date</a><a href="#hawl-example">Example</a><a href="#hawl-sources">Sources</a></nav>}
+   {slug==='zakat-stocks-crypto'&&<nav class="three-tool-nav three-tool-shortcuts" aria-label="Stocks and crypto quick links"><a href="#invest-deep-calculator">Assess holdings</a><a href="#invest-shares">Shares</a><a href="#invest-crypto">Crypto</a><a href="#invest-example">Example</a></nav>}
+   {slug==='qurbani-share-calculator'&&<nav class="three-tool-nav three-tool-shortcuts" aria-label="Qurbani quick links"><a href="#qurbani-deep-calculator">Calculate shares</a><a href="#qurbani-shares">Share rules</a><a href="#qurbani-example">Example</a><a href="#qurbani-sources">Sources</a></nav>}
    {slug==='zakat-calculator'&&<nav class="zakat-guide-nav" aria-label="Zakat Calculator quick links">
     <a href="#zakat-calculator">Calculate Zakat</a>
     <a href="#zakat-how-to-calculate">How to calculate</a>
@@ -188,7 +199,7 @@ const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemL
     <a href="#tahajjud-rakats">Witr and rak'ahs</a>
    </nav>}
    {slug==='hijri-converter'&&<div class="today-hijri" aria-live="polite"><strong>Today’s Hijri date</strong><p id="today-hijri-value">{renderedHijri} (calculated)</p><small id="today-hijri-note">Calculated for {renderedDate} (UTC) using Umm al-Qura. Local moon sighting and sunset may give a different date.</small></div>}
-   <section id={slug==='tahajjud-time'?'tahajjud-calculator':slug==='prayer-times'?'prayer-calculator':slug==='qibla-finder'?'qibla-calculator':slug==='zakat-calculator'?'zakat-calculator':slug==='fasting-times'?'fasting-calculator':slug==='hijri-converter'?'hijri-calculator':slug==='quran-planner'?'quran-calculator':slug==='ramadan-timetable'?'ramadan-calendar':slug==='ramadan-countdown'?'countdown-calculator':slug==='laylatul-qadr-nights'?'qadr-calculator':slug==='white-days-calendar'?'white-calculator':slug==='fasting-tracker'?'fasting-history-calculator':slug==='fidya-calculator'?'fidya-calculator-panel':slug==='kaffarah-calculator'?'kaffarah-calculator-panel':slug==='fitrana-calculator'?'fitrana-deep-calculator':slug==='gold-zakat-calculator'?'gold-deep-calculator':slug==='nisab-calculator'?'nisab-deep-calculator':undefined} aria-label={tool.name} class="tool-panel">
+   <section id={slug==='tahajjud-time'?'tahajjud-calculator':slug==='prayer-times'?'prayer-calculator':slug==='qibla-finder'?'qibla-calculator':slug==='zakat-calculator'?'zakat-calculator':slug==='fasting-times'?'fasting-calculator':slug==='hijri-converter'?'hijri-calculator':slug==='quran-planner'?'quran-calculator':slug==='ramadan-timetable'?'ramadan-calendar':slug==='ramadan-countdown'?'countdown-calculator':slug==='laylatul-qadr-nights'?'qadr-calculator':slug==='white-days-calendar'?'white-calculator':slug==='fasting-tracker'?'fasting-history-calculator':slug==='fidya-calculator'?'fidya-calculator-panel':slug==='kaffarah-calculator'?'kaffarah-calculator-panel':slug==='fitrana-calculator'?'fitrana-deep-calculator':slug==='gold-zakat-calculator'?'gold-deep-calculator':slug==='nisab-calculator'?'nisab-deep-calculator':slug==='zakat-anniversary-calculator'?'hawl-deep-calculator':slug==='zakat-stocks-crypto'?'invest-deep-calculator':slug==='qurbani-share-calculator'?'qurbani-deep-calculator':undefined} aria-label={tool.name} class="tool-panel">
     <div class="tool-inner"><ToolApp slug={slug} client:only="react"/></div>
    </section>
    {slug==='tahajjud-time'&&<TahajjudGuide/>}
@@ -208,6 +219,9 @@ const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemL
    {slug==='fitrana-calculator'&&<FitranaDeepGuide/>}
    {slug==='gold-zakat-calculator'&&<GoldZakatDeepGuide/>}
    {slug==='nisab-calculator'&&<NisabDeepGuide/>}
+   {slug==='zakat-anniversary-calculator'&&<HawlDeepGuide/>}
+   {slug==='zakat-stocks-crypto'&&<InvestmentZakatDeepGuide/>}
+   {slug==='qurbani-share-calculator'&&<QurbaniDeepGuide/>}
    {slug==='prayer-times'&&<p class="small"><a href="/prayer-times/">Browse city-specific prayer times</a> — select a major city or use the calculator above for any location.</p>}
    <section class="explainer seo-explainer" id="how-it-works" aria-labelledby="how-label">
     <div class="section-label"><h2 id="how-label">{slug==='tahajjud-time'?'How the Tahajjud timing is calculated':slug==='prayer-times'?'How the prayer-time calculator works':slug==='qibla-finder'?'How the Qibla bearing is calculated':slug==='zakat-calculator'?'How the Zakat estimate is calculated':slug==='fasting-times'?'How Suhoor and Iftar times are calculated':`How to use ${tool.name}`}</h2></div>

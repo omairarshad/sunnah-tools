@@ -215,6 +215,21 @@ for(const [slug,phrases] of givingGuides){
 }
 console.log('Fitrana, Gold Zakat and Nisab have full static guides and source-aligned Article schema');
 
+// Three additional deep dives must be indexable without React hydration.
+const nextGivingGuides=[
+ ['zakat-anniversary-calculator',['Zakat anniversary calculator: hawl, lunar-year dates and complete guide','Worked example: why a lunar-year anniversary moves earlier','Sunan Abi Dawud 1573','id="hawl-example"','id="hawl-sources"']],
+ ['zakat-stocks-crypto',['Zakat on stocks, shares and cryptocurrency: full calculation guide','Worked example: trading shares, long-term shares and crypto','Investment Zakat','id="invest-example"','id="invest-sources"']],
+ ['qurbani-share-calculator',['Qurbani share calculator: cow, camel, sheep and complete Udhiyah guide','Worked Qurbani example: three of seven shares','Sahih Muslim 1318a','id="qurbani-example"','id="qurbani-sources"']]
+];
+for(const [slug,phrases] of nextGivingGuides){
+ const html=read('tools/'+slug+'/index.html');
+ for(const phrase of phrases)assert(html.includes(phrase),'Missing sourced reference guide: '+slug+' / '+phrase);
+ assert((html.match(/class="three-tool-section/g)||[]).length>=8,'Guide lacks substantial static sections: '+slug);
+ assert(html.includes('"@type":"Article"')&&html.includes('"citation":['),'Article schema missing citations: '+slug);
+ assert(sitemap.includes('/tools/'+slug+'/'),'Missing sitemap entry for '+slug);
+}
+console.log('Zakat anniversary, investment Zakat and Qurbani guides include full static content and Article citations');
+
 
 // Fasting Times source-backed guide must be static and independently indexable.
 {

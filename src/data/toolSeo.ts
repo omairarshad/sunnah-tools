@@ -762,9 +762,9 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
   "qurbani-share-calculator": {
     "title": "Qurbani Share Calculator – Cow, Sheep & Udhiyah Costs",
     "h1": "Qurbani Share Calculator",
-    "description": "Split Qurbani (Udhiyah) costs for a cow, camel, buffalo, sheep or goat. Work out each participant's contribution with up to seven shares.",
-    "summary": "Calculate the equal contribution for each participant in a Qurbani using your actual quoted animal cost.",
-    "details": "Select an animal, number of participating shares and quoted total price. For a sheep or goat, the calculator allows a single share. For cattle, buffalo or camel, it allows up to seven participants under a commonly cited ruling. It divides your entered total cost by the number selected and shows the result in your chosen currency.",
+    "description": "Calculate one to seven Qurbani shares in a cow, buffalo or camel, or a single sheep or goat. Compare buying seventh-shares versus funding the entire animal, with a sourced guide.",
+    "summary": "Choose whether you are reserving selected religious shares of a larger animal or financing the entire animal with a group, then enter the provider's total quote.",
+    "details": "For share reservations, cost is allocated across the animal's seven available shares and unused shares remain visible. For whole-animal funding, the full quoted cost is divided among contributors. Penny-safe rounding avoids misleading totals. Neither financial split determines religious intentions.",
     "caution": "Payment splitting is not proof that a sacrifice is valid. Animal age, eligibility, ownership, intention and allocation of shares depend on scholarly guidance and local arrangements. Prices are entered by you and not checked against a provider.",
     "faqs": [
       {
@@ -911,9 +911,9 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
   "zakat-anniversary-calculator": {
     "title": "Zakat Anniversary Calculator – Hawl Date",
     "h1": "Zakat Anniversary Calculator",
-    "description": "Estimate when one Islamic lunar year has passed after a selected date using the Umm al-Qura Hijri calendar, for Zakat planning.",
+    "description": "Plan your next Islamic lunar-year Zakat review with Hijri anniversary dates, 29/30-day month adjustments and private calendar reminders. Hawl guide and sources.",
     "summary": "Enter a reference date to estimate the next anniversary in the Islamic lunar calendar and help organise a Zakat review.",
-    "details": "The tool converts your selected Gregorian date to Umm al-Qura Hijri, advances one Hijri year and converts back. Exceptional month lengths can change the matching day.",
+    "details": "The tool converts your reference date to Umm al-Qura Hijri and lists the next 1, 3 or 5 annual matching dates, with 30-day fallback, a labelled local-date illustration and downloadable calendar markers.",
     "caution": "The calculator does not decide when you became liable for Zakat, how interrupted Nisab affects hawl, or which method of reckoning applies to you.",
     "faqs": [
       {
@@ -999,9 +999,9 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
   "zakat-stocks-crypto": {
     "title": "Zakat on Shares & Crypto – Conditional 2.5% Estimate",
     "h1": "Shares and Crypto Zakat Estimate",
-    "description": "Calculate a conditional 2.5 percent Zakat estimate from entered share and cryptocurrency values, with clear warnings about differing scholarly treatments.",
-    "summary": "Enter investments and digital asset values yourself to see a conditional estimate after any deductible liabilities.",
-    "details": "The calculator sums the values you enter and subtracts an eligible debt amount, then shows 2.5% of the nonnegative balance for illustration.",
+    "description": "Calculate conditional Zakat on trading shares, long-term investments and cryptocurrencies with asset categories, underlying percentages, optional 25% proxy and Nisab checks.",
+    "summary": "Classify each investment by its ownership and intention, then calculate a transparent assessed portion and conditional Zakat after eligible liabilities and a verified Nisab.",
+    "details": "Trading shares and assessed currency-like crypto may use full market value, while long-term shares can use a user-supplied underlying asset percentage or an explicitly selected 25% proxy. Utility tokens require a separately assessed portion; 2.5% remains conditional on Nisab and hawl.",
     "caution": "Business ownership, intention, trading stock, investment funds, pensions and cryptocurrency have school- and asset-specific rules. This is not a definitive amount due.",
     "faqs": [
       {
