@@ -2,6 +2,8 @@ import {validateQadaPlan} from '../lib/personalTools.mjs';
 import {useEffect,useState} from 'react';
 import {qadaPlanningDays,qurbaniEstimate} from '../lib/growthCalculations.mjs';
 import {qadaPace} from '../lib/prayerFive.mjs';
+import {saiDirection} from '../lib/finalSeven.mjs';
+import {downloadText} from '../lib/personalTools.mjs';
 
 const currencies=['GBP','USD','EUR','PKR','INR','SAR','AED','CAD','AUD','MYR'];
 const money=(n:number,currency:string)=>new Intl.NumberFormat('en-GB',{style:'currency',currency,maximumFractionDigits:2}).format(n);
@@ -91,7 +93,7 @@ export function QurbaniShareCalculator(){
 
 type RoundType='tawaf'|'sai';
 export function TawafSaiCounter(){
- const [rounds,setRounds]=useState<Record<RoundType,number>>({tawaf:0,sai:0}),[ready,setReady]=useState(false);
+ const [rounds,setRounds]=useState<Record<RoundType,number>>({tawaf:0,sai:0}),[ready,setReady]=useState(false),[message,setMessage]=useState('');
  const storageKey='sunnah-tawaf-sai-v1';
  useEffect(()=>{try{const saved=JSON.parse(localStorage.getItem(storageKey)??'{}');const safe=(n:unknown)=>Number.isSafeInteger(n)&&typeof n==='number'&&n>=0&&n<=7?n:0;setRounds({tawaf:safe(saved.tawaf),sai:safe(saved.sai)})}catch{}setReady(true)},[]);
  useEffect(()=>{if(ready)try{localStorage.setItem(storageKey,JSON.stringify(rounds))}catch{}},[rounds,ready]);
@@ -106,11 +108,12 @@ export function TawafSaiCounter(){
     <div className="growth-count" aria-live="polite"><strong>{rounds[type]}</strong><span> / 7</span></div>
     <progress value={rounds[type]} max={7}/>
     <p className="small">{type==='tawaf'?(rounds.tawaf===7?'Seven circuits recorded.':'Each complete circuit starts and ends at the Black Stone.'):
-      (rounds.sai===7?'Seven lengths recorded; finish at Marwah.':rounds.sai%2===0?'Next length: Safa → Marwah':'Next length: Marwah → Safa')}</p>
+      (rounds.sai===7?'Seven one-way lengths recorded; finish at Marwah.':'Next one-way length: '+saiDirection(rounds.sai))}</p>
     <div className="action-row"><button type="button" disabled={rounds[type]>=7} onClick={()=>change(type,1)}>+ Completed one</button><button type="button" className="secondary" disabled={rounds[type]===0} onClick={()=>change(type,-1)}>Undo</button><button type="button" className="secondary" onClick={()=>reset(type)}>Reset</button></div>
    </section>)}
   </div>
-  <Notice>Sa'i consists of seven one-way lengths, starting at Safa and ending at Marwah — not seven return journeys. These counters are reminders, not a verification of ritual validity. Follow a qualified guide for the rites and applicable rules.</Notice>
+  <div className="action-row print-hide"><button type="button" className="secondary" onClick={()=>{downloadText('tawaf-sai-progress.json',JSON.stringify({version:1,tawaf:rounds.tawaf,sai:rounds.sai},null,2));setMessage('Downloaded a private progress snapshot, not proof of ritual validity.');}}>Download progress snapshot</button></div>{message&&<p role="status" className="small">{message}</p>}
+ <Notice>Sa'i consists of seven one-way lengths, starting at Safa and ending at Marwah — not seven return journeys. These counters are reminders, not a verification of ritual validity. Follow a qualified guide for the rites and applicable rules.</Notice>
   <p className="small">Reference: <a href="https://quran.com/2/158" target="_blank" rel="noopener noreferrer">Quran 2:158</a> on Safa and Marwah. Progress is stored in this browser only.</p>
  </div>;
 }

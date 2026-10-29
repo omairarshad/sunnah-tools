@@ -32,6 +32,13 @@ import HifzDeepGuide from '../../components/HifzDeepGuide.astro';
 import DailyAdhkarDeepGuide from '../../components/DailyAdhkarDeepGuide.astro';
 import TasbihDeepGuide from '../../components/TasbihDeepGuide.astro';
 import IslamicAgeDeepGuide from '../../components/IslamicAgeDeepGuide.astro';
+import TravelPrayerDeepGuide from '../../components/TravelPrayerDeepGuide.astro';
+import IslamicEventsDeepGuide from '../../components/IslamicEventsDeepGuide.astro';
+import PrintableHijriDeepGuide from '../../components/PrintableHijriDeepGuide.astro';
+import DhulHijjahDeepGuide from '../../components/DhulHijjahDeepGuide.astro';
+import HalalAdditivesDeepGuide from '../../components/HalalAdditivesDeepGuide.astro';
+import UmrahPackingDeepGuide from '../../components/UmrahPackingDeepGuide.astro';
+import TawafSaiDeepGuide from '../../components/TawafSaiDeepGuide.astro';
 import ToolIcon from '../../components/ToolIcon.astro';
 import {toneForSlug} from '../../data/toolTones';
 import {tools,toolBySlug} from '../../data/tools';
@@ -72,7 +79,14 @@ const editorialSources:Record<string,{topic:string;citations:string[]}>= {
  'hifz-tracker':{topic:'Quran memorisation and revision planning',citations:['https://sunnah.com/bukhari:5027','https://sunnah.com/bukhari:5033','https://quran.com/73/4']},
  'daily-adhkar':{topic:'Quranic supplications and authentic Sunnah remembrance references',citations:['https://quran.com/13/28','https://quran.com/20/114','https://sunnah.com/abudawud:5082','https://sunnah.com/muslim:597a']},
  'tasbih-counter':{topic:'Post-prayer Dhikr counting patterns and their sources',citations:['https://quran.com/33/41','https://sunnah.com/muslim:596a','https://sunnah.com/muslim:597a']},
- 'islamic-age':{topic:'Gregorian and Islamic lunar age, anniversaries and sunset boundaries',citations:['https://quran.com/9/36','https://quran.com/2/189','https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat']}
+ 'islamic-age':{topic:'Gregorian and Islamic lunar age, anniversaries and sunset boundaries',citations:['https://quran.com/9/36','https://quran.com/2/189','https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat']},
+ 'travel-prayer-guide':{topic:'Qasr and Jam in travel across Sunni legal schools',citations:['https://quran.com/4/101','https://sunnah.com/bukhari:1081']},
+ 'islamic-events-calendar':{topic:'Lunar observance dates, Ramadan, Eid and Hajj',citations:['https://quran.com/2/189','https://quran.com/9/36','https://sunnah.com/bukhari:1909']},
+ 'printable-hijri-calendar':{topic:'Islamic lunar-month and Gregorian printed calendar',citations:['https://quran.com/2/189','https://sunnah.com/abudawud:2449']},
+ 'dhul-hijjah-planner':{topic:'First ten Dhul Hijjah, Arafah, Eid and Tashreeq',citations:['https://sunnah.com/bukhari:969','https://quran.com/89/1-2','https://sunnah.com/muslim:1141a']},
+ 'halal-additives-checker':{topic:'UK food additive E-numbers and source verification',citations:['https://www.gov.uk/government/publications/approved-additives-and-e-numbers/approved-additives-and-e-numbers','https://www.food.gov.uk/safety-hygiene/food-additives']},
+ 'umrah-packing-checklist':{topic:'Umrah and Hajj packing preparations and official travel requirements',citations:['https://umrah.nusuk.sa/','https://www.gov.uk/foreign-travel-advice/saudi-arabia','https://quran.com/2/158']},
+ 'tawaf-sai-counter':{topic:'Tawaf seven circuits and Sai Safa to Marwah lengths',citations:['https://quran.com/2/158','https://sunnah.com/muslim:1218a']}
 };
 const editorial=editorialSources[slug];
 const articleSchema=editorial?{'@context':'https://schema.org','@type':'Article',headline:seo.h1,description:seo.description,mainEntityOfPage:`https://sunnah.tools/tools/${slug}/`,author:{'@type':'Organization',name:'Sunnah Tools',url:'https://sunnah.tools/'},publisher:{'@type':'Organization',name:'Sunnah Tools',url:'https://sunnah.tools/'},about:editorial.topic,citation:editorial.citations,inLanguage:'en',isAccessibleForFree:true}:null;
@@ -118,7 +132,13 @@ const guidePriorities:Record<string,string[]>={
  'zakat-anniversary-calculator':['zakat','dates'],
  'zakat-stocks-crypto':['zakat'],
  'kaffarah-calculator':['zakat','ramadan'],
- 'tawaf-sai-counter':['everyday']
+ 'tawaf-sai-counter':['everyday'],
+ 'travel-prayer-guide':['prayer'],
+ 'islamic-events-calendar':['dates'],
+ 'printable-hijri-calendar':['dates'],
+ 'dhul-hijjah-planner':['dates'],
+ 'halal-additives-checker':['everyday'],
+ 'umrah-packing-checklist':['everyday']
 };
 const relatedGuides=[...new Set(guidePriorities[slug]??[toolTopicBySlug[slug]])].map(key=>guideLinks[key]).filter(Boolean);
 const relatedPriority:Record<string,string[]>={
@@ -213,6 +233,13 @@ const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemL
    {slug==='daily-adhkar'&&<nav class="three-tool-nav three-tool-shortcuts" aria-label="Adhkar quick links"><a href="#adhkar-guide-calculator">Read duas</a><a href="#adhkar-guide-quran">Quranic Duas</a><a href="#adhkar-guide-morning">Morning</a><a href="#adhkar-guide-sources">Sources</a></nav>}
    {slug==='tasbih-counter'&&<nav class="three-tool-nav three-tool-shortcuts" aria-label="Tasbih quick links"><a href="#tasbih-guide-calculator">Count Dhikr</a><a href="#tasbih-guide-patterns">33/33/34</a><a href="#tasbih-guide-example">Example</a><a href="#tasbih-guide-sources">Sources</a></nav>}
    {slug==='islamic-age'&&<nav class="three-tool-nav three-tool-shortcuts" aria-label="Islamic age quick links"><a href="#age-guide-calculator">Calculate age</a><a href="#age-guide-calculation">Calculation</a><a href="#age-guide-example">Example</a><a href="#age-guide-sources">Sources</a></nav>}
+   {slug==='travel-prayer-guide'&&<nav class="three-tool-nav three-tool-shortcuts" aria-label="Qasr table guide"><a href="#travel-deep-calculator">Qasr table</a><a href="#travel-deep-schools">How it works</a><a href="#travel-deep-example">Example</a><a href="#travel-deep-sources">Sources</a></nav>}
+   {slug==='islamic-events-calendar'&&<nav class="three-tool-nav three-tool-shortcuts" aria-label="View events guide"><a href="#events-deep-calculator">View events</a><a href="#events-deep-moon">How it works</a><a href="#events-deep-example">Example</a><a href="#events-deep-sources">Sources</a></nav>}
+   {slug==='printable-hijri-calendar'&&<nav class="three-tool-nav three-tool-shortcuts" aria-label="Print calendar guide"><a href="#hijri-print-deep-calculator">Print calendar</a><a href="#hijri-print-deep-white">How it works</a><a href="#hijri-print-deep-example">Example</a><a href="#hijri-print-deep-sources">Sources</a></nav>}
+   {slug==='dhul-hijjah-planner'&&<nav class="three-tool-nav three-tool-shortcuts" aria-label="View Dhul Hijjah guide"><a href="#dhul-deep-calculator">View Dhul Hijjah</a><a href="#dhul-deep-day">How it works</a><a href="#dhul-deep-example">Example</a><a href="#dhul-deep-sources">Sources</a></nav>}
+   {slug==='halal-additives-checker'&&<nav class="three-tool-nav three-tool-shortcuts" aria-label="Check sources guide"><a href="#additives-deep-calculator">Check sources</a><a href="#additives-deep-source">How it works</a><a href="#additives-deep-example">Example</a><a href="#additives-deep-sources">Sources</a></nav>}
+   {slug==='umrah-packing-checklist'&&<nav class="three-tool-nav three-tool-shortcuts" aria-label="Packing checklist guide"><a href="#packing-deep-calculator">Packing checklist</a><a href="#packing-deep-documents">How it works</a><a href="#packing-deep-example">Example</a><a href="#packing-deep-sources">Sources</a></nav>}
+   {slug==='tawaf-sai-counter'&&<nav class="three-tool-nav three-tool-shortcuts" aria-label="Count rounds guide"><a href="#tawaf-deep-calculator">Count rounds</a><a href="#tawaf-deep-sai">How it works</a><a href="#tawaf-deep-example">Example</a><a href="#tawaf-deep-sources">Sources</a></nav>}
    {slug==='zakat-calculator'&&<nav class="zakat-guide-nav" aria-label="Zakat Calculator quick links">
     <a href="#zakat-calculator">Calculate Zakat</a>
     <a href="#zakat-how-to-calculate">How to calculate</a>
@@ -238,7 +265,7 @@ const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemL
     <a href="#tahajjud-rakats">Witr and rak'ahs</a>
    </nav>}
    {slug==='hijri-converter'&&<div class="today-hijri" aria-live="polite"><strong>Today’s Hijri date</strong><p id="today-hijri-value">{renderedHijri} (calculated)</p><small id="today-hijri-note">Calculated for {renderedDate} (UTC) using Umm al-Qura. Local moon sighting and sunset may give a different date.</small></div>}
-   <section id={slug==='tahajjud-time'?'tahajjud-calculator':slug==='prayer-times'?'prayer-calculator':slug==='qibla-finder'?'qibla-calculator':slug==='zakat-calculator'?'zakat-calculator':slug==='fasting-times'?'fasting-calculator':slug==='hijri-converter'?'hijri-calculator':slug==='quran-planner'?'quran-calculator':slug==='ramadan-timetable'?'ramadan-calendar':slug==='ramadan-countdown'?'countdown-calculator':slug==='laylatul-qadr-nights'?'qadr-calculator':slug==='white-days-calendar'?'white-calculator':slug==='fasting-tracker'?'fasting-history-calculator':slug==='fidya-calculator'?'fidya-calculator-panel':slug==='kaffarah-calculator'?'kaffarah-calculator-panel':slug==='fitrana-calculator'?'fitrana-deep-calculator':slug==='gold-zakat-calculator'?'gold-deep-calculator':slug==='nisab-calculator'?'nisab-deep-calculator':slug==='zakat-anniversary-calculator'?'hawl-deep-calculator':slug==='zakat-stocks-crypto'?'invest-deep-calculator':slug==='qurbani-share-calculator'?'qurbani-deep-calculator':slug==='prayer-times-widget'?'widget-deep-calculator':slug==='printable-prayer-chart'?'chart-deep-calculator':slug==='salah-tracker'?'salah-deep-calculator':slug==='qada-prayer-calculator'?'qada-deep-calculator':slug==='prayer-rakats-chart'?'rakats-deep-calculator':slug==='quran-juz-finder'?'juz-guide-calculator':slug==='hifz-tracker'?'hifz-guide-calculator':slug==='daily-adhkar'?'adhkar-guide-calculator':slug==='tasbih-counter'?'tasbih-guide-calculator':slug==='islamic-age'?'age-guide-calculator':undefined} aria-label={tool.name} class="tool-panel">
+   <section id={slug==='tahajjud-time'?'tahajjud-calculator':slug==='prayer-times'?'prayer-calculator':slug==='qibla-finder'?'qibla-calculator':slug==='zakat-calculator'?'zakat-calculator':slug==='fasting-times'?'fasting-calculator':slug==='hijri-converter'?'hijri-calculator':slug==='quran-planner'?'quran-calculator':slug==='ramadan-timetable'?'ramadan-calendar':slug==='ramadan-countdown'?'countdown-calculator':slug==='laylatul-qadr-nights'?'qadr-calculator':slug==='white-days-calendar'?'white-calculator':slug==='fasting-tracker'?'fasting-history-calculator':slug==='fidya-calculator'?'fidya-calculator-panel':slug==='kaffarah-calculator'?'kaffarah-calculator-panel':slug==='fitrana-calculator'?'fitrana-deep-calculator':slug==='gold-zakat-calculator'?'gold-deep-calculator':slug==='nisab-calculator'?'nisab-deep-calculator':slug==='zakat-anniversary-calculator'?'hawl-deep-calculator':slug==='zakat-stocks-crypto'?'invest-deep-calculator':slug==='qurbani-share-calculator'?'qurbani-deep-calculator':slug==='prayer-times-widget'?'widget-deep-calculator':slug==='printable-prayer-chart'?'chart-deep-calculator':slug==='salah-tracker'?'salah-deep-calculator':slug==='qada-prayer-calculator'?'qada-deep-calculator':slug==='prayer-rakats-chart'?'rakats-deep-calculator':slug==='quran-juz-finder'?'juz-guide-calculator':slug==='hifz-tracker'?'hifz-guide-calculator':slug==='daily-adhkar'?'adhkar-guide-calculator':slug==='tasbih-counter'?'tasbih-guide-calculator':slug==='islamic-age'?'age-guide-calculator':slug==='travel-prayer-guide'?'travel-deep-calculator':slug==='islamic-events-calendar'?'events-deep-calculator':slug==='printable-hijri-calendar'?'hijri-print-deep-calculator':slug==='dhul-hijjah-planner'?'dhul-deep-calculator':slug==='halal-additives-checker'?'additives-deep-calculator':slug==='umrah-packing-checklist'?'packing-deep-calculator':slug==='tawaf-sai-counter'?'tawaf-deep-calculator':undefined} aria-label={tool.name} class="tool-panel">
     <div class="tool-inner"><ToolApp slug={slug} client:only="react"/></div>
    </section>
    {slug==='tahajjud-time'&&<TahajjudGuide/>}
@@ -271,6 +298,13 @@ const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemL
    {slug==='daily-adhkar'&&<DailyAdhkarDeepGuide/>}
    {slug==='tasbih-counter'&&<TasbihDeepGuide/>}
    {slug==='islamic-age'&&<IslamicAgeDeepGuide/>}
+   {slug==='travel-prayer-guide'&&<TravelPrayerDeepGuide/>}
+   {slug==='islamic-events-calendar'&&<IslamicEventsDeepGuide/>}
+   {slug==='printable-hijri-calendar'&&<PrintableHijriDeepGuide/>}
+   {slug==='dhul-hijjah-planner'&&<DhulHijjahDeepGuide/>}
+   {slug==='halal-additives-checker'&&<HalalAdditivesDeepGuide/>}
+   {slug==='umrah-packing-checklist'&&<UmrahPackingDeepGuide/>}
+   {slug==='tawaf-sai-counter'&&<TawafSaiDeepGuide/>}
    {slug==='prayer-times'&&<p class="small"><a href="/prayer-times/">Browse city-specific prayer times</a> — select a major city or use the calculator above for any location.</p>}
    <section class="explainer seo-explainer" id="how-it-works" aria-labelledby="how-label">
     <div class="section-label"><h2 id="how-label">{slug==='tahajjud-time'?'How the Tahajjud timing is calculated':slug==='prayer-times'?'How the prayer-time calculator works':slug==='qibla-finder'?'How the Qibla bearing is calculated':slug==='zakat-calculator'?'How the Zakat estimate is calculated':slug==='fasting-times'?'How Suhoor and Iftar times are calculated':`How to use ${tool.name}`}</h2></div>

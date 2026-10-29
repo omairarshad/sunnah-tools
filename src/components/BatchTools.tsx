@@ -1,6 +1,7 @@
 import {useEffect,useState} from 'react';
 import CitySearch from './CitySearch';
 import {adjacentMonth,hijriMonth,hijriParts,HIJRI_MONTHS} from '../lib/hijriCalendars.mjs';
+import {downloadText} from '../lib/personalTools.mjs';
 
 const readable=(iso:string)=>new Intl.DateTimeFormat('en-GB',{weekday:'short',day:'numeric',month:'short',year:'numeric',timeZone:'UTC'}).format(new Date(iso+'T12:00:00Z'));
 const todayHijri=()=>hijriParts(new Date())??{year:1448,month:4,day:1};
@@ -29,24 +30,27 @@ export function PrintableHijriCalendar(){
 
 type Pack={category:string;items:string[]};
 const PACKING:Pack[]=[
- {category:'Documents & travel',items:['Passport and any required travel permissions','Travel bookings and accommodation details','Emergency contact information','Health/medication documentation where needed','Phone charger and travel adapter']},
- {category:'Clothing & comfort',items:['Comfortable modest clothing','Suitable footwear for long walks','Lightweight reusable water bottle','Weather-appropriate outerwear','Small day bag and toiletries']},
- {category:'Worship & practical items',items:['Prayer essentials and personal dua notes','Your own ihram clothing if applicable','Unscented toiletries for ihram as appropriate','Prayer-time and Qibla tools saved offline','Small personal first-aid supplies']},
- {category:'Before leaving',items:['Review official travel and entry requirements','Review rites with a qualified guide','Confirm bookings and meeting points','Arrange medication and mobility needs','Share travel plan with a trusted contact']}
+ {category:'Documents & travel',items:['Passport and any required travel permissions','Travel bookings and accommodation details','Emergency contact information','Health/medication documentation where needed','Phone charger and travel adapter','Confirm current visa and Nusuk requirements','Check airline baggage and liquids limits']},
+ {category:'Clothing & comfort',items:['Comfortable modest clothing','Suitable footwear for long walks','Lightweight reusable water bottle','Weather-appropriate outerwear','Small day bag and toiletries','Sun protection compatible with ihram restrictions']},
+ {category:'Worship & practical items',items:['Prayer essentials and personal dua notes','Your own ihram clothing if applicable','Unscented toiletries for ihram as appropriate','Prayer-time and Qibla tools saved offline','Small personal first-aid supplies','Check fragrances and footwear restrictions before ihram']},
+ {category:'Before leaving',items:['Review official travel and entry requirements','Review rites with a qualified guide','Confirm bookings and meeting points','Arrange medication and mobility needs','Share travel plan with a trusted contact','Check current vaccination and health guidance','Make a hydration and mobility plan']}
 ];
 export function UmrahPackingChecklist(){
- const [trip,setTrip]=useState<'Umrah'|'Hajj'>('Umrah'),[checked,setChecked]=useState<string[]>([]),[ready,setReady]=useState(false);
+ const [trip,setTrip]=useState<'Umrah'|'Hajj'>('Umrah'),[checked,setChecked]=useState<string[]>([]),[ready,setReady]=useState(false),[message,setMessage]=useState('');
  const key='sunnah-journey-packing-v1';
  useEffect(()=>{setChecked(safeStorage(key));setReady(true)},[]);
  useEffect(()=>{if(ready)try{localStorage.setItem(key,JSON.stringify(checked))}catch{}},[checked,ready]);
  const all=PACKING.flatMap(group=>group.items);
+ const safeChecked=checked.filter(v=>all.includes(v));
+ const exportCSV=()=>{const rows=[['Category','Suggested item','Packed'],...PACKING.flatMap(group=>group.items.map(item=>[group.category,item,safeChecked.includes(item)?'Yes':'No']))];downloadText('umrah-hajj-packing.csv','\uFEFF'+rows.map(r=>r.map(v=>'"'+v.replaceAll('"','""')+'"').join(',')).join('\r\n')+'\r\n','text/csv;charset=utf-8');setMessage('Downloaded a local checklist; no travel information was submitted.');};
  return <div className="batch-tool">
  <label>Preparing for<select value={trip} onChange={e=>setTrip(e.target.value as 'Umrah'|'Hajj')}><option>Umrah</option><option>Hajj</option></select></label>
  <p className="small">Practical suggestions only, not an official Hajj/Umrah requirements list. Consult recognised operators and current official travel guidance.</p>
- <div className="result"><span>{trip} packing progress</span><strong>{checked.length} / {all.length} items</strong><progress value={checked.length} max={all.length}/></div>
+ <div className="result"><span>{trip} packing progress</span><strong>{safeChecked.length} / {all.length} items</strong><progress value={safeChecked.length} max={all.length}/></div>
  {PACKING.map(group=><section className="pack-group" key={group.category}><h3>{group.category}</h3>{group.items.map(item=><label className="check" key={item}><input type="checkbox" checked={checked.includes(item)} onChange={e=>setChecked(current=>e.target.checked?[...current,item]:current.filter(x=>x!==item))}/>{item}</label>)}</section>)}
- <div className="action-row print-hide"><button onClick={()=>window.print()}>Print checklist</button><button className="secondary" onClick={()=>{if(window.confirm('Clear every tick in this checklist?'))setChecked([])}}>Reset ticks</button></div>
- <p className="small">Your list is saved on this device. Check current visa, vaccination, permit and airline requirements before travelling.</p>
+ <div className="action-row print-hide"><button type="button" onClick={exportCSV}>Download checklist CSV</button><button onClick={()=>window.print()}>Print checklist</button><button className="secondary" onClick={()=>{if(window.confirm('Clear every tick in this checklist?'))setChecked([])}}>Reset ticks</button></div>
+ {message&&<p role="status" className="small">{message}</p>}
+ <p className="small">Your existing checklist is preserved on this device. Additions are voluntary planning suggestions, not official visa or health requirements. Check current Saudi, airline, Nusuk and travel health guidance before travelling.</p>
  </div>;
 }
 
