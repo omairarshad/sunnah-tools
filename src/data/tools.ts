@@ -3,7 +3,7 @@ export const tools = [
  {slug:'fasting-times',name:'Suhoor & Iftar Times',desc:'See calculated fasting start, iftar and the next countdown.',icon:'◴',category:'Ramadan',keywords:'sehri imsak iftar maghrib fajr times fasting'},
  {slug:'qibla-finder',name:'Qibla Finder',desc:'Calculate the direction of the Kaaba from anywhere.',icon:'➤',category:'Prayer',keywords:'mecca compass direction'},
  {slug:'tahajjud-time',name:'Tahajjud Time Calculator',desc:'See when the final third of the night begins.',icon:'☾',category:'Prayer',keywords:'tahajjud time night prayer calculator'},
- {slug:'ramadan-timetable',name:'Ramadan Timetable',desc:'Generate and print Fajr and Maghrib timings.',icon:'▦',category:'Ramadan',keywords:'suhoor iftar calendar pdf 2027'},
+ {slug:'ramadan-timetable',name:'Ramadan Timetable',desc:'Plan, print or export a local 29/30-day Suhoor and Iftar calendar.',icon:'▦',category:'Ramadan',keywords:'ramadan calendar suhoor iftar fajr maghrib times download print csv ics'},
  {slug:'ramadan-countdown',name:'Ramadan Countdown',desc:'Count down to an estimated first day of Ramadan.',icon:'◴',category:'Ramadan',keywords:'ramadan 2027 days remaining'},
  {slug:'zakat-calculator',name:'Zakat Calculator',desc:'Estimate Zakat on savings, gold and investments.',icon:'◈',category:'Zakat',keywords:'zakat calculator gold cash business'},
  {slug:'fitrana-calculator',name:'Fitrana Calculator',desc:'Estimate Zakat al-Fitr for your household using a verified local rate.',icon:'◈',category:'Zakat',keywords:'fitrana zakat al fitr amount household calculator 2027 ramadan'},

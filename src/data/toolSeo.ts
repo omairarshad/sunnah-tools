@@ -179,24 +179,52 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
     ]
   },
   "ramadan-timetable": {
-    "title": "Ramadan Timetable – Printable Suhoor & Iftar Times",
+    "title": "Ramadan Timetable – 29/30-Day Suhoor & Iftar Calendar",
     "h1": "Ramadan Timetable",
-    "description": "Generate a free printable Ramadan timetable for your city with daily Fajr and Maghrib estimates. Choose an expected start date and calculation method.",
-    "summary": "Create a day-by-day Ramadan timetable for your selected location.",
-    "details": "Enter the anticipated Ramadan start and location to see Fajr and Maghrib estimates across the following 30 days. Print the results or save them as a PDF.",
-    "caution": "The first day and month length depend on local moon sighting. Recheck official announcements and mosque schedules before relying on a printed copy.",
+    "description": "Make a printable Ramadan calendar with 29 or 30 days of Suhoor (Fajr) and Iftar (Maghrib) estimates. Compare methods and export CSV, PDF or .ics.",
+    "summary": "Plan the whole Ramadan month with calculated dawn and sunset estimates for your chosen place and time zone.",
+    "details": "Choose a location, method and first fasting day, then generate all 29 or 30 dated entries. See approximate durations, optional preparation reminders, high-latitude settings, day-by-day DST-aware clocks and downloadable exports.",
+    "caution": "An Umm al-Qura calendar suggestion is not a confirmed moon sighting. Check the first and last day of Ramadan, local Fajr conventions and Maghrib estimates with the recognised authority you follow.",
     "faqs": [
       {
-        "question": "Can I print a timetable for my city?",
-        "answer": "Yes. Choose your city and method, generate the timetable, then use your browser print or save-as-PDF option."
+        "question": "Does the timetable tell me when Ramadan officially starts?",
+        "answer": "No. You can edit the algorithmic suggested date to match your recognised local moon-sighting or calendar announcement."
       },
       {
-        "question": "Will Ramadan always be 30 days?",
-        "answer": "No. Lunar months are 29 or 30 days. Treat the 30-day output as a planning grid until local announcements confirm the month."
+        "question": "What is the difference between Fajr and imsak?",
+        "answer": "Fajr estimates true dawn and the start of fasting. An optional earlier reminder may help with meal preparation but does not establish another universal religious cutoff."
       },
       {
-        "question": "Can I download Ramadan dates for my calendar?",
-        "answer": "Yes. The timetable exports estimated Fajr and Maghrib reminders as calendar events. Confirm the location, calculation settings and announced fasting dates first."
+        "question": "Can Ramadan be 29 rather than 30 days?",
+        "answer": "Yes. Select either length, then update it after your local Shawwal announcement confirms the end of the month."
+      },
+      {
+        "question": "Does the printable calendar show daylight-saving time changes?",
+        "answer": "Yes. Each day's actual calculated UTC instants are displayed in the selected place's timezone, including relevant clock changes."
+      },
+      {
+        "question": "Can I save a Ramadan timetable as PDF?",
+        "answer": "Use Print / Save PDF and choose Save as PDF in your browser's print dialog. The print layout contains the month and its settings."
+      },
+      {
+        "question": "What is included in the Ramadan CSV?",
+        "answer": "All dates, Fajr, Maghrib, estimated fasting duration, optional reminder and the calculation location, time zone and method are included. Unavailable times are identified."
+      },
+      {
+        "question": "Can I download an ICS Ramadan calendar?",
+        "answer": "Yes, when all daily times are valid. Calendar events contain actual UTC instants, but imported events do not update when a sighting announcement or setting changes."
+      },
+      {
+        "question": "Why does my mosque's Fajr differ from the table?",
+        "answer": "It may use a different twilight angle, local observation, high-latitude convention or adjustment. Select the matching convention and consult your mosque for authoritative times."
+      },
+      {
+        "question": "How does this work at high latitudes?",
+        "answer": "You can select an astronomical fallback, but impossible or inconsistent results are labelled unavailable. Follow local scholarly guidance for polar or persistent-twilight situations."
+      },
+      {
+        "question": "Is my Ramadan timetable saved online?",
+        "answer": "No. Calculations run in your browser. Shared location and method preferences may be stored locally, while calendar and CSV downloads happen only when you choose them."
       }
     ]
   },

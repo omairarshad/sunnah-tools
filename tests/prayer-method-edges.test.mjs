@@ -36,7 +36,9 @@ test('private plans can be restored and calendar export relies on UTC date objec
  const quran=readFileSync(new URL('../src/components/QuranPlanner.tsx',import.meta.url),'utf8');
  const qada=readFileSync(new URL('../src/components/GrowthTools.tsx',import.meta.url),'utf8');
  const compass=readFileSync(new URL('../src/components/QiblaOrientation.tsx',import.meta.url),'utf8');
- for(const expected of ['validateSalahHistory','makeRamadanIcs','Restore history'])assert.ok(tool.includes(expected),expected);
+ for(const expected of ['validateSalahHistory','Restore history'])assert.ok(tool.includes(expected),expected);
+ const ramadan=readFileSync(new URL('../src/components/RamadanTimetable.tsx',import.meta.url),'utf8');
+ for(const expected of ['makeRamadanIcs','buildRamadanTimetable','Download calendar (.ics)'])assert.ok(ramadan.includes(expected),expected);
  for(const expected of ['upgradeQuranBackup','Restore an earlier or current plan backup','sunnah-quran-reading-v3'])assert.ok(quran.includes(expected),expected);
  const zakat=readFileSync(new URL('../src/components/ZakatCalculator.tsx',import.meta.url),'utf8');
  assert.match(zakat,/See the calculation breakdown/);

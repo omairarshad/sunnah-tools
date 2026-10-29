@@ -53,8 +53,8 @@ export const toolInsights:Record<string,ToolInsight> = {
     }
   },
   "ramadan-timetable": {
-    "example": "Set the expected first fasting day and create a 29- or 30-day table for your city.",
-    "check": "The month's start and end depend on local announcements.",
+    "example": "Enter an illustrative first fast on 8 February 2027: a 29-day table ends on 8 March and a 30-day table on 9 March. Neither is an official moon-sighting announcement.",
+    "check": "Compare your mosque's calendar method and high-latitude practice. Check every exported date against announcements; imported calendar files do not update automatically.",
     "benchmark": {
       "site": "IslamicFinder",
       "url": "https://www.islamicfinder.org/world/united-kingdom/2643743/london-prayer-times/",
