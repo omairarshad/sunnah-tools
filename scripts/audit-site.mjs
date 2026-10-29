@@ -200,6 +200,21 @@ for(const [slug,required] of qadaFidyaKaffarah){
 }
 console.log('Three further fasting-related guides include full static sources, FAQs, examples and Article schema');
 
+// Zakat-and-Fitrana batch: require real crawlable content, source trail and schema.
+const givingGuides=[
+ ['fitrana-calculator',['Fitrana calculator and Zakat al-Fitr: complete household guide','Worked example: Fitrana for a family of four','Sahih al-Bukhari 1503','id="fitrana-example"','id="fitrana-sources"']],
+ ['gold-zakat-calculator',['Gold Zakat calculator: purity, jewellery, Nisab and a complete guide','Worked example: mixed 22k and 18k gold','Sahih al-Bukhari 1405','id="gold-example"','id="gold-sources"']],
+ ['nisab-calculator',['Nisab calculator: gold versus silver thresholds, hawl and complete guide','Worked example: a household','Sahih al-Bukhari 1405','id="nisab-example"','id="nisab-sources"']]
+];
+for(const [slug,phrases] of givingGuides){
+ const html=read('tools/'+slug+'/index.html');
+ for(const phrase of phrases)assert(html.includes(phrase),'Missing source-backed deep-dive content: '+slug+' / '+phrase);
+ assert((html.match(/class="three-tool-section/g)||[]).length>=8,'Insufficient static guide sections: '+slug);
+ assert(html.includes('"@type":"Article"')&&html.includes('"citation":['),'Missing Article citations: '+slug);
+ assert(sitemap.includes('/tools/'+slug+'/'),'Missing sitemap route: '+slug);
+}
+console.log('Fitrana, Gold Zakat and Nisab have full static guides and source-aligned Article schema');
+
 
 // Fasting Times source-backed guide must be static and independently indexable.
 {

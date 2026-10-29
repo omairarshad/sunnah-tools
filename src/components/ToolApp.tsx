@@ -1,11 +1,13 @@
 import {useEffect,useState} from 'react';
-import {GoldZakat,IslamicEvents,PrayerChart} from './NextTools';
+import {IslamicEvents,PrayerChart} from './NextTools';
 import CitySearch from './CitySearch';
 import {QadaPrayerCalculator,QurbaniShareCalculator,TawafSaiCounter} from './GrowthTools';
 import FastingTracker from './FastingTracker';
 import FidyaPlanner from './FidyaPlanner';
 import KaffarahPlanner from './KaffarahPlanner';
-import FitranaCalculator from './FitranaCalculator';
+import FitranaDeep from './FitranaDeep';
+import GoldZakatDeep from './GoldZakatDeep';
+import NisabDeep from './NisabDeep';
 import ZakatCalculator from './ZakatCalculator';
 import {ExpansionTool} from './ExpansionTools';
 import QiblaOrientation from './QiblaOrientation';
@@ -23,7 +25,7 @@ import {validateSalahHistory,downloadText} from '../lib/personalTools.mjs';
 import {differenceMinutes,differenceLabel,prayerWeekCSV} from '../lib/prayerKnowledge.mjs';
 import {PrintableHijriCalendar,PrayerWidgetGenerator,UmrahPackingChecklist} from './BatchTools';
 import {CalculationMethod,Coordinates,Madhab,PrayerTimes,Qibla,HighLatitudeRule,PolarCircleResolution} from 'adhan';
-import {localISODate,nisabAmounts,parseAmount,finalThirdStart,hijriToGregorian} from '../lib/calculations.mjs';
+import {localISODate,parseAmount,finalThirdStart,hijriToGregorian} from '../lib/calculations.mjs';
 const cities=[['Newcastle upon Tyne','Europe/London',54.9783,-1.6178],['London','Europe/London',51.5072,-0.1276],['Makkah','Asia/Riyadh',21.4225,39.8262],['Madinah','Asia/Riyadh',24.4672,39.6111],['New York','America/New_York',40.7128,-74.006],['Karachi','Asia/Karachi',24.8607,67.0011],['Lahore','Asia/Karachi',31.5204,74.3587],['Dubai','Asia/Dubai',25.2048,55.2708],['Kuala Lumpur','Asia/Kuala_Lumpur',3.139,101.6869],['Jakarta','Asia/Jakarta',-6.2088,106.8456],['Istanbul','Europe/Istanbul',41.0082,28.9784],['Toronto','America/Toronto',43.6532,-79.3832],['Sydney','Australia/Sydney',-33.8688,151.2093]] as const;
 const labels=['Fajr','Sunrise','Dhuhr','Asr','Maghrib','Isha'] as const;
 function fmt(d:Date,zone:string){return !(d instanceof Date)||Number.isNaN(d.getTime())?'—':new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',timeZone:zone,hour12:false}).format(d)}
@@ -99,17 +101,6 @@ return <div><p className="small">{customLabel?'Showing times for '+customLabel:'
 {kind==='qibla-finder'&&<><p className="small">Find true north on a map or calibrated compass, then turn clockwise by the bearing shown. Phone sensors may use magnetic north.</p><Block title="Qibla bearing clockwise from true north" value={bearing===null?'Check your location':qiblaContext(latitude,longitude,bearing)?.status==='ok'?bearing.toFixed(1)+'°':'Bearing undefined at these coordinates'}/>{bearing!==null&&qiblaContext(latitude,longitude,bearing)?.status==='ok'&&<div className="compass" role="img" aria-label={`Qibla is ${bearing.toFixed(1)} degrees clockwise from true north`}><span className="compass-n">N</span><span className="compass-arrow" style={{transform:`rotate(${bearing}deg)`}}>↑</span><span className="compass-s">S</span></div>}{bearing!==null&&<QiblaDetails bearing={bearing} latitude={latitude} longitude={longitude} locationLabel={customLabel||c[0]}/>}{bearing!==null&&qiblaContext(latitude,longitude,bearing)?.status==='ok'&&<QiblaOrientation bearing={bearing}/>}</>}
 {kind==='tahajjud-time'&&<>{times&&lastThird&&following?<><Block title="Maghrib" value={fmt(times.maghrib,tz)}/><Block title="Beginning of the final third of night" value={fmt(lastThird,tz)}/><Block title="Following Fajr" value={fmt(following,tz)}/></>:<p>Check your location.</p>}</>}
 <p className="warn">These are calculated times, not mosque congregation times. Check local methodology, high-latitude conventions, and moon sighting before relying on a timetable.</p></div>
-}
-function Nisab(){
- const [gold,setGold]=useState(''),[silver,setSilver]=useState(''),[currency,setCurrency]=useState('GBP');
- const gp=parseAmount(gold),sp=parseAmount(silver),valid=Number.isFinite(gp)&&Number.isFinite(sp);
- const money=(n:number)=>new Intl.NumberFormat('en-GB',{style:'currency',currency,maximumFractionDigits:2}).format(n);
- const v=nisabAmounts(gp,sp);
- return <><p>Type verified gold and silver prices per gram in the <strong>same currency</strong>.</p>
- <Field label="Currency"><select value={currency} onChange={e=>setCurrency(e.target.value)}>{['GBP','USD','EUR','PKR','SAR','AED','CAD','AUD','INR'].map(x=><option key={x}>{x}</option>)}</select></Field>
- <div className="two"><Field label="24k gold price / gram"><input type="number" inputMode="decimal" min="0" step="any" placeholder="Enter current price" value={gold} onChange={e=>setGold(e.target.value)}/></Field><Field label="Silver price / gram"><input type="number" inputMode="decimal" min="0" step="any" placeholder="Enter current price" value={silver} onChange={e=>setSilver(e.target.value)}/></Field></div>
- {valid?<div className="two"><Block title="Gold Nisab · 87.48 g" value={gp>0?money(v.gold):'Enter gold price'}/><Block title="Silver Nisab · 612.36 g" value={sp>0?money(v.silver):'Enter silver price'}/></div>:<p className="warn">Prices must be non-negative numbers.</p>}
- <p className="warn">These values are based on the prices you enter. Check current prices and seek guidance on which Nisab threshold applies.</p></>;
 }
 function Hijri({age=false}:{age?:boolean}){
  const [value,setValue]=useState(()=>age?'2000-01-01':localISODate());
@@ -192,11 +183,11 @@ export default function ToolApp({slug}:{slug:string}){
  if(slug==='prayer-times-widget')return <PrayerWidgetGenerator/>;
  if(slug==='umrah-packing-checklist')return <UmrahPackingChecklist/>;
  if(slug==='zakat-calculator')return <ZakatCalculator/>;
- if(slug==='fitrana-calculator')return <FitranaCalculator/>;
- if(slug==='gold-zakat-calculator')return <GoldZakat/>;
+ if(slug==='fitrana-calculator')return <FitranaDeep/>;
+ if(slug==='gold-zakat-calculator')return <GoldZakatDeep/>;
  if(slug==='islamic-events-calendar')return <IslamicEvents/>;
  if(slug==='printable-prayer-chart')return <PrayerChart/>;
- if(slug==='nisab-calculator')return <Nisab/>;
+ if(slug==='nisab-calculator')return <NisabDeep/>;
  if(slug==='hijri-converter')return <HijriConverter/>;
  if(slug==='islamic-age')return <Hijri age/>;
  if(slug==='tasbih-counter')return <Counter/>;
