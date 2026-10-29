@@ -1,5 +1,5 @@
 import {useEffect,useState} from 'react';
-import {TravelPrayerDeep,IslamicEventsDeep,PrintableHijriDeep,DhulHijjahDeep,HalalAdditivesDeep} from './FinalSevenTools';
+import {IslamicEvents} from './NextTools';
 import CitySearch from './CitySearch';
 import {QadaPrayerCalculator,TawafSaiCounter} from './GrowthTools';
 import PrayerWidgetDeep from './PrayerWidgetDeep';
@@ -21,7 +21,7 @@ import FitranaDeep from './FitranaDeep';
 import GoldZakatDeep from './GoldZakatDeep';
 import NisabDeep from './NisabDeep';
 import ZakatCalculator from './ZakatCalculator';
-
+import {ExpansionTool} from './ExpansionTools';
 import QiblaOrientation from './QiblaOrientation';
 import QiblaDetails from './QiblaDetails';
 import {qiblaContext} from '../lib/qiblaDetails.mjs';
@@ -35,7 +35,7 @@ import LaylatulQadrPlanner from './LaylatulQadrPlanner';
 import WhiteDaysPlanner from './WhiteDaysPlanner';
 import {validateSalahHistory,downloadText} from '../lib/personalTools.mjs';
 import {differenceMinutes,differenceLabel,prayerWeekCSV} from '../lib/prayerKnowledge.mjs';
-import {UmrahPackingChecklist} from './BatchTools';
+import {PrintableHijriCalendar,UmrahPackingChecklist} from './BatchTools';
 import {CalculationMethod,Coordinates,Madhab,PrayerTimes,Qibla,HighLatitudeRule,PolarCircleResolution} from 'adhan';
 import {localISODate,finalThirdStart,hijriToGregorian} from '../lib/calculations.mjs';
 const cities=[['Newcastle upon Tyne','Europe/London',54.9783,-1.6178],['London','Europe/London',51.5072,-0.1276],['Makkah','Asia/Riyadh',21.4225,39.8262],['Madinah','Asia/Riyadh',24.4672,39.6111],['New York','America/New_York',40.7128,-74.006],['Karachi','Asia/Karachi',24.8607,67.0011],['Lahore','Asia/Karachi',31.5204,74.3587],['Dubai','Asia/Dubai',25.2048,55.2708],['Kuala Lumpur','Asia/Kuala_Lumpur',3.139,101.6869],['Jakarta','Asia/Jakarta',-6.2088,106.8456],['Istanbul','Europe/Istanbul',41.0082,28.9784],['Toronto','America/Toronto',43.6532,-79.3832],['Sydney','Australia/Sydney',-33.8688,151.2093]] as const;
@@ -180,11 +180,7 @@ function SalahTracker(){
 }
 
 export default function ToolApp({slug}:{slug:string}){
- if(slug==='travel-prayer-guide')return <TravelPrayerDeep/>;
- if(slug==='islamic-events-calendar')return <IslamicEventsDeep/>;
- if(slug==='printable-hijri-calendar')return <PrintableHijriDeep/>;
- if(slug==='dhul-hijjah-planner')return <DhulHijjahDeep/>;
- if(slug==='halal-additives-checker')return <HalalAdditivesDeep/>;
+ if(["halal-additives-checker","dhul-hijjah-planner","travel-prayer-guide"].includes(slug))return <ExpansionTool slug={slug}/>;
  if(slug==='quran-juz-finder')return <QuranJuzDeep/>;
  if(slug==='hifz-tracker')return <HifzDeep/>;
  if(slug==='daily-adhkar')return <DailyAdhkarDeep/>;
@@ -206,13 +202,13 @@ export default function ToolApp({slug}:{slug:string}){
  if(['prayer-times','qibla-finder','fasting-times'].includes(slug))return <Prayer kind={slug}/>;
  if(slug==='ramadan-timetable')return <RamadanTimetable/>;
  if(slug==='white-days-calendar')return <WhiteDaysPlanner/>;
- 
+ if(slug==='printable-hijri-calendar')return <PrintableHijriCalendar/>;
  
  if(slug==='umrah-packing-checklist')return <UmrahPackingChecklist/>;
  if(slug==='zakat-calculator')return <ZakatCalculator/>;
  if(slug==='fitrana-calculator')return <FitranaDeep/>;
  if(slug==='gold-zakat-calculator')return <GoldZakatDeep/>;
- 
+ if(slug==='islamic-events-calendar')return <IslamicEvents/>;
  
  if(slug==='nisab-calculator')return <NisabDeep/>;
  if(slug==='hijri-converter')return <HijriConverter/>;

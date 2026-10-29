@@ -296,21 +296,3 @@ console.log('Five Quran, remembrance and Islamic age guides rendered with source
  for(const phrase of ['Ramadan timetables: the complete planning guide','When does Ramadan begin and end?','How to create a reliable 29- or 30-day timetable','Suhoor, imsak, Fajr and Iftar','Why do Ramadan schedules differ','Worked example: planning a provisional','Printing, CSV and calendar events','Quran 2:185','Quran 2:187','Sahih al-Bukhari 1909','Sahih al-Bukhari 1957','id="ramadan-dates"','id="ramadan-dawn"','id="ramadan-sources"'])assert(html.includes(phrase),'Ramadan Timetable guide missing '+phrase);
  assert((html.match(/class="ramadan-guide-section/g)||[]).length>=8,'Ramadan Timetable needs substantial sections');
 }
-
-// The final seven pages require crawlable, original, independently sourced guides.
-const finalSevenGuides=[
- ['travel-prayer-guide','Travel Prayer Guide: Qasr','travel-deep'],
- ['islamic-events-calendar','Islamic Events Calendar: Ramadan','events-deep'],
- ['printable-hijri-calendar','Printable Hijri Calendar: Islamic month','hijri-print-deep'],
- ['dhul-hijjah-planner','Dhul Hijjah Planner: first ten days','dhul-deep'],
- ['halal-additives-checker','Halal E-Number Checker: additives','additives-deep'],
- ['umrah-packing-checklist','Umrah and Hajj Packing List: complete','packing-deep'],
- ['tawaf-sai-counter','Tawaf and Sa\'i Counter: seven circuits','tawaf-deep']
-];
-for(const [slug,title,id] of finalSevenGuides){
- const html=read('tools/'+slug+'/index.html');
- for(const text of [title,'id="'+id+'-sources"','id="'+id+'-example"','Frequently asked questions','"@type":"Article"','"citation":['])assert(html.includes(text),'Final seven static guide missing '+slug+': '+text);
- assert((html.match(/class="three-tool-section/g)||[]).length>=9,'Insufficient static guide content '+slug);
- assert(sitemap.includes('/tools/'+slug+'/'),'Sitemap missing '+slug);
-}
-console.log('Final seven comprehensive guides are indexed with Article citations and FAQs');
