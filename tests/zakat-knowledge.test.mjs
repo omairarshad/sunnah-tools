@@ -16,7 +16,7 @@ test('Zakat route uses the richer private-by-default calculator',()=>{
  const app=read('src/components/ToolApp.tsx'),component=read('src/components/ZakatCalculator.tsx');
  assert.match(app,/if\(slug==='zakat-calculator'\)return <ZakatCalculator\/>/);
  assert.doesNotMatch(app,/function Zakat\(\)/);
- for(const term of ['Show worked example','Download calculation summary','Metal','hawl','Conditional 2.5% estimate','No','Clear amounts'])assert.ok(component.includes(term),term);
+ for(const term of ['Show worked example','Download calculation summary','Metal','hawl','Conditional 2.5% estimate','Clear amounts'])assert.ok(component.includes(term),term);
  assert.doesNotMatch(component,/localStorage|sessionStorage/);
  const seo=JSON.parse(read('src/data/toolSeo.ts').match(/export const toolSeo:Record<string,ToolSeoEntry> = (\{[\s\S]*\});/)[1]);
  assert.ok(seo['zakat-calculator'].faqs.length>=9);

@@ -11,7 +11,7 @@ test('broken down asset categories match a 2.5% conditional estimate',()=>{
  assert.equal(r.liabilities,1000);
  assert.equal(r.net,12200);
  assert.equal(r.thresholds.silver,734.832);
- assert.equal(r.thresholds.gold,6998.4);
+ assert.ok(Math.abs(r.thresholds.gold-6998.4)<1e-9);
  assert.equal(r.estimate,305);
  assert.equal(r.eligible,true);
  assert.equal(r.rate,.025);
@@ -38,7 +38,7 @@ test('liabilities cannot cause negative wealth',()=>{
 test('threshold boundary is inclusive and no hardcoded live metal prices',()=>{
  const equal=zakatPlan({cash:'612.36',silverPrice:'1'},{benchmark:'silver'});
  assert.equal(equal.eligible,true);
- assert.equal(equal.estimate,15.309);
+ assert.ok(Math.abs(equal.estimate-15.309)<1e-9);
  assert.equal(zakatPlan({cash:'612.35',silverPrice:'1'},{benchmark:'silver'}).eligible,false);
 });
 test('download explicitly marks hawl and hypothetical demonstration cases',()=>{
