@@ -229,25 +229,22 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
     ]
   },
   "ramadan-countdown": {
-    "title": "Ramadan Countdown – Days Until Ramadan",
+    "title": "Ramadan Countdown – Time Until First Sunset & Fast",
     "h1": "Ramadan Countdown",
-    "description": "See how many days remain until an estimated Ramadan start date. Adjust the expected first day to match your local moon-sighting announcement.",
-    "summary": "Track the days remaining until your estimated first day of Ramadan.",
-    "details": "The countdown works from the Gregorian date selected in your browser and decreases as the date approaches.",
-    "caution": "Because Ramadan begins after a lunar month is confirmed, estimated start dates can differ by country and religious authority.",
+    "description": "Countdown to the estimated sunset before your first Ramadan fast. Choose your city, date and time zone, compare one-day alternatives and learn about moon sightings.",
+    "summary": "Count down to the calculated Maghrib sunset marking Ramadan's first evening, before the first daytime fast.",
+    "details": "Enter an expected first Gregorian fast date and actual location. A UTC-based sunset countdown updates in the browser and separates the first evening from the following Fajr. Compare possible neighbouring dates and download an estimated calendar event.",
+    "caution": "An algorithmic Umm al-Qura calendar estimate or calculated sunset is not an observed crescent or a binding local announcement. Confirm dates and Fajr/Maghrib with a recognised authority.",
     "faqs": [
-      {
-        "question": "Is the countdown an official Ramadan announcement?",
-        "answer": "No. It is an editable estimate; follow local lunar-sighting announcements."
-      },
-      {
-        "question": "Why might two countries start on different days?",
-        "answer": "Religious authorities may follow different moon-sighting criteria and announcements."
-      },
-      {
-        "question": "Why can Ramadan countdowns disagree by a day?",
-        "answer": "Calendars and local moon-sighting decisions may establish different starting dates. Set the countdown to the announced date recognised by your community."
-      }
+      {"question":"Does Ramadan start at midnight or sunset?","answer":"A new Hijri day begins at sunset. If Monday is the first daytime fast, the first Ramadan evening begins at local sunset on Sunday."},
+      {"question":"Is this an official Ramadan moon-sighting countdown?","answer":"No. It counts to a calculated sunset before your entered first fast; local crescent announcements may change that date."},
+      {"question":"Why does Ramadan begin on different days in different places?","answer":"Communities may follow different crescent observations or calendar criteria, and sunrise/sunset vary by location. Follow your recognised local authority."},
+      {"question":"How is Ramadan sunset calculated?","answer":"The Adhan astronomical calculation yields a UTC Maghrib instant for the chosen location. It is displayed in the selected IANA timezone."},
+      {"question":"When is Ramadan 2027 expected?","answer":"Calendar calculations suggest possible dates, but they are not an official announcement. Enter the first fasting date recognised by your local community before relying on the countdown."},
+      {"question":"What if my community announces the first fast a day later?","answer":"Change the entered Gregorian first fasting day. Update any previously downloaded calendar event; it does not change automatically."},
+      {"question":"Does the countdown adjust for daylight saving time?","answer":"Yes. It counts to an absolute UTC instant, displayed using the selected location's IANA timezone."},
+      {"question":"Why might sunset be unavailable?","answer":"Invalid coordinates/timezone or unusual polar conditions may prevent a valid calculation. The tool does not replace an unavailable result with an invented time."},
+      {"question":"Does reaching zero prove Ramadan started?","answer":"No. It only means the chosen estimated sunset instant passed. It cannot observe the crescent or establish a religious date."}
     ]
   },
   "zakat-calculator": {
@@ -435,25 +432,23 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
     ]
   },
   "white-days-calendar": {
-    "title": "White Days Calendar – 13th, 14th & 15th Hijri",
+    "title": "White Days Fasting Calendar – 13, 14, 15 Hijri Dates",
     "h1": "White Days Fasting Calendar",
-    "description": "Find the next White Days fasting dates (13, 14 and 15 of the Hijri month), with calculated Gregorian dates, exceptions and calendar export.",
-    "summary": "Find upcoming White Days for optional fasting and save the dates.",
-    "details": "The calculator identifies the thirteenth, fourteenth and fifteenth dates of Hijri months in the Umm al-Qura calendar.",
-    "caution": "Certain dates, such as the days of Tashreeq, need special treatment. Moon-sighting differences can also shift the civil dates.",
+    "description": "Find the next 3, 6 or 12 months of White Days (Ayyam al-Bid): Hijri 13, 14 and 15. Check Ramadan and Tashreeq exceptions, print or export dates.",
+    "summary": "View the 13th, 14th and 15th days of upcoming Hijri months, with relevant fasting exceptions and Gregorian date conversions.",
+    "details": "Choose a reference date, number of months and optional illustrative ±1 day comparison. Each month shows the full set of days, passed dates and fasting status. Download a complete CSV, eligible all-day calendar markers or a PDF printout.",
+    "caution": "Umm al-Qura calculations do not establish local moon sightings. Ramadan fasts are obligatory, and the 13th of Dhul Hijjah falls during Tashreeq, not an ordinary optional fast.",
     "faqs": [
-      {
-        "question": "What are the White Days?",
-        "answer": "They are the 13th, 14th and 15th days of each lunar Hijri month, traditionally associated with voluntary fasting."
-      },
-      {
-        "question": "Should I fast on the 13th of Dhul Hijjah?",
-        "answer": "The 13th of Dhul Hijjah is among the days of Tashreeq. Ordinary voluntary fasting is generally not performed then."
-      },
-      {
-        "question": "Do the White Days mean the 13th to 15th of every Gregorian month?",
-        "answer": "No. They refer to days 13, 14 and 15 of each lunar Hijri month, which move through the Gregorian calendar."
-      }
+      {"question":"Which Hijri dates are the White Days?","answer":"The 13th, 14th and 15th of each lunar Hijri month, not the corresponding dates of the Gregorian month."},
+      {"question":"Is White Days fasting compulsory?","answer":"It is ordinarily a recommended voluntary practice outside Ramadan and dates with separate rulings. The calendar does not decide personal eligibility."},
+      {"question":"Can I fast any three days of the month?","answer":"Sahih Muslim 1160 discusses monthly three-day fasting without making a specific set of days exclusive; White Days form a named recommended pattern."},
+      {"question":"Should I fast on 13 Dhul Hijjah?","answer":"It is a day of Tashreeq, not an ordinary voluntary fast. Specific Hajj-related circumstances may need separate qualified guidance."},
+      {"question":"What about White Days during Ramadan?","answer":"The 13th–15th remain Hijri calendar dates, but those fasts belong to obligatory Ramadan fasting, not an additional optional routine."},
+      {"question":"Why do White Days move across Gregorian dates?","answer":"Hijri months follow a lunar calendar and contain 29 or 30 days. Local sighting conventions can also shift corresponding civil dates."},
+      {"question":"What does the ±1 day selector mean?","answer":"It displays neighbouring Gregorian dates for comparison and does not confirm a local moon sighting or decree the correct calendar."},
+      {"question":"Can I download 12 months as a CSV?","answer":"Yes. The full CSV includes each month’s three dates and labels for Ramadan, Tashreeq, past and potential voluntary days."},
+      {"question":"Does the .ics file include prohibited or obligatory fasts?","answer":"It exports only upcoming dates labelled potential ordinary voluntary days; Ramadan and Dhul Hijjah 13 are excluded."},
+      {"question":"Does the calendar tell me Fajr and iftar times?","answer":"No. It produces all-day date markers. Use Suhoor & Iftar Times for local dawn and sunset estimates."}
     ]
   },
   "islamic-age": {
@@ -683,29 +678,22 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
     ]
   },
   "laylatul-qadr-nights": {
-    "title": "Laylatul Qadr Odd Nights Calculator – Ramadan Dates",
-    "h1": "Laylatul Qadr Odd Nights Calculator",
-    "description": "Find Ramadan's 21st, 23rd, 25th, 27th and 29th nights from your local start date. View, print and export dates for the last ten nights.",
-    "summary": "Choose your community's announced first fasting day to work out when the odd-numbered nights in the last ten nights of Ramadan begin.",
-    "details": "The Islamic night begins at sunset before its corresponding daytime fast. Our calculator places the 21st night on the civil evening after the 20th day of fasting, then lists the 23rd, 25th, 27th and 29th nights. Add the dates to your calendar with a downloadable ICS file or print them for your Ramadan plan.",
-    "caution": "This is not an official Ramadan start announcement or a predictor of Laylatul Qadr. Night dates can change with local moon sighting. Worship throughout the last ten nights, not solely the odd-numbered ones. Sunset varies by location and is not calculated on this page.",
+    "title": "Laylatul Qadr Dates – Last Ten & Odd Nights Planner",
+    "h1": "Laylatul Qadr & Last Ten Nights Planner",
+    "description": "Plan the last ten Ramadan nights, highlight 21, 23, 25, 27 and 29, compare 29/30-night months and learn the authentic Laylatul Qadr dua.",
+    "summary": "Work out the civil evenings of all ten final Ramadan nights, with odd-numbered highlights and explicit 29- versus 30-night planning differences.",
+    "details": "Enter the locally announced first fasting date and choose provisional month length. The tool lists when every numbered Islamic night begins at sunset, with printable and calendar-marker exports. A source-linked guide covers Quran 97, authentic hadith, the dua and practical worship.",
+    "caution": "Laylatul Qadr cannot be predicted for a specific numbered or Gregorian night. The 27th is not guaranteed. Moon sightings and month length can change dates; all-day event markers are not sunset alarms.",
     "faqs": [
-      {
-        "question": "When is the 27th night of Ramadan 2027?",
-        "answer": "It starts at sunset after the 26th daytime fast. Enter the first Ramadan fasting day announced by your local community to see the corresponding civil evening; it can differ between locations."
-      },
-      {
-        "question": "Does the 21st night begin on the 21st day?",
-        "answer": "The 21st Islamic night begins the previous civil evening, after the 20th daytime fast, because Islamic dates change at sunset."
-      },
-      {
-        "question": "Can I add Ramadan odd nights to my calendar?",
-        "answer": "Yes. Download the calendar file to add all five evening dates, or print the result. Use your local sunset time when planning."
-      },
-      {
-        "question": "Why does the 21st night begin the evening before its daytime date?",
-        "answer": "An Islamic night begins at sunset, so a night's Gregorian evening precedes the corresponding daytime date. Check your locally announced Ramadan count."
-      }
+      {"question":"When is Laylatul Qadr in 2027?","answer":"No calendar can identify it with certainty. Enter your locally announced Ramadan start to see the potential final ten evenings and commonly highlighted odd-numbered nights."},
+      {"question":"Is Laylatul Qadr always on the 27th night?","answer":"No. Sahih al-Bukhari 2017 encourages seeking it in the odd nights of the final ten; a particular numbered night is not guaranteed."},
+      {"question":"Which are the five odd-numbered Ramadan nights?","answer":"When numbered from the beginning: nights 21, 23, 25, 27 and 29. Worship throughout the final ten rather than only these five."},
+      {"question":"When does the 21st night start?","answer":"It starts at local sunset after the twentieth daytime fast, before the civil daytime date of Ramadan 21."},
+      {"question":"How do the final ten differ in a 29-day Ramadan?","answer":"In a 29-night month the final ten are nights 20–29; in a 30-night month they are nights 21–30."},
+      {"question":"What does counting odd nights from the end mean?","answer":"Some hadith wording refers to nights remaining until the end. Parity can differ from numbering forward, depending on whether the month has 29 or 30 nights."},
+      {"question":"Which Laylatul Qadr dua is reported?","answer":"Jami at-Tirmidhi 3513 reports a dua asking Allah for pardon; the guide gives a sourced Arabic text, transliteration and meaning."},
+      {"question":"Can I download all the last ten nights?","answer":"Yes. Export all ten or only the five odd-numbered evening markers, but these are all-day dates rather than accurate sunset-time alarms."},
+      {"question":"Do I need my local Ramadan first fast date?","answer":"Yes. The planner uses that date to count nights; a computed Umm al-Qura suggestion cannot establish your community's moon-sighting decision."}
     ]
   },
   "fidya-calculator": {

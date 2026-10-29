@@ -1,6 +1,6 @@
 # Religious content and calculation review
 
-Updated: 25 October 2026
+Updated: 29 October 2026
 
 This is an internal review register for the publicly available tools. It is not a certification or scholarly endorsement. Technical tests confirm computations and website routes; they do **not** validate a religious ruling or product certification.
 
@@ -8,6 +8,9 @@ This is an internal review register for the publicly available tools. It is not 
 
 | Tool or topic | Review needed | Current guardrail |
 | --- | --- | --- |
+| Ramadan Countdown comprehensive guide and sunset-based planner | Independently verify Hijri religious-day boundary wording, moon-sighting policy differences, local sunset calculations and high-latitude/polar advice | Uses previous-evening computed Maghrib, first-fast Fajr and strict IANA timezone; ±1-day scenarios are not probabilities; UTC .ics event is labelled estimated; no live crescent claim |
+| Laylatul Qadr Nights comprehensive guide, dua and night planner | Qualified scholar to review 29-night versus 30-night numbering, forward/backward odd-night interpretation, the exact reported Arabic dua/transliteration and hadith grading | Shows all final ten evenings and marks commonly highlighted odd nights; no claim to identify the actual night; all-day exports explicitly not sunset alerts; primary sources visible |
+| White Days Calendar comprehensive guide and fasting exceptions | Qualified scholar to review 13/14/15 date practice, Dhul Hijjah Tashreeq restrictions and contextual exceptions, local moon-sighting shifts and fasting eligibility | Shows full 13–15 dates even for Ramadan and Dhul Hijjah; excludes Ramadan/13 Dhul Hijjah from optional fast .ics; ±1 day only illustrative; CSV retains status flags |
 | Suhoor & Iftar Times comprehensive guide | Verify dawn cutoff vs precautionary imsak, prompt sunset iftar, authentic wording and grading of Abi Dawud 2357, and UK high-latitude guidance with a qualified scholar | Quran 2:187 and numbered hadith links; no binding imsak rule, explicit calculation-method disclaimers, optional reminder cannot change Fajr, no fake live mosque integration |
 | Ramadan Timetable comprehensive guide and export workflow | Review moon-sighting versus algorithmic first-fast dates, sunset start of the Hijri day, 29/30 day endings, imsak and dawn wording, and high-latitude fasting conventions | Source-linked Quran/hadith guidance, strict dates and timezone, full 29/30-day rows, no automatic moon-sighting claim, unresolved days visibly marked, no fabricated calendar entries, DST-aware UTC events; human scholarly review remains pending |
 | Hijri Converter comprehensive guide and two-method comparison | Confirm religious-day sunset explanation, local crescent practices, twelve-month and sacred-month content, and how calendar differences should be communicated | Strict date validation, named Umm al-Qura and civil calendar algorithms, transparent 1300–1600 AH scope, source-linked guide, no claim of a live moon-sighting result or automatic sunset detection |

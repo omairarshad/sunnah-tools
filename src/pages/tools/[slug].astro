@@ -10,6 +10,9 @@ import FastingTimesGuide from '../../components/FastingTimesGuide.astro';
 import HijriConverterGuide from '../../components/HijriConverterGuide.astro';
 import QuranPlannerGuide from '../../components/QuranPlannerGuide.astro';
 import RamadanTimetableGuide from '../../components/RamadanTimetableGuide.astro';
+import RamadanCountdownGuide from '../../components/RamadanCountdownGuide.astro';
+import LaylatulQadrGuide from '../../components/LaylatulQadrGuide.astro';
+import WhiteDaysGuide from '../../components/WhiteDaysGuide.astro';
 import ToolIcon from '../../components/ToolIcon.astro';
 import {toneForSlug} from '../../data/toolTones';
 import {tools,toolBySlug} from '../../data/tools';
@@ -27,6 +30,14 @@ if(!insight)throw new Error(`Missing example for ${slug}`);
 if(!seo)throw new Error(`Missing unique SEO entry for ${slug}`);
 const faqItems=[{question:guide.question,answer:guide.answer},...seo.faqs];
 const faqSchema={'@context':'https://schema.org','@type':'FAQPage',mainEntity:faqItems.map(item=>({'@type':'Question',name:item.question,acceptedAnswer:{'@type':'Answer',text:item.answer}}))};
+// Editorial references are visible in the corresponding server-rendered guides.
+const editorialSources:Record<string,{topic:string;citations:string[]}>= {
+ 'ramadan-countdown':{topic:'Ramadan start date and sunset countdown',citations:['https://quran.com/2/185','https://quran.com/2/187','https://sunnah.com/bukhari:1909','https://github.com/batoulapps/adhan-js']},
+ 'laylatul-qadr-nights':{topic:'Laylatul Qadr and the final ten nights of Ramadan',citations:['https://quran.com/97','https://sunnah.com/bukhari:2017','https://sunnah.com/bukhari:2021','https://sunnah.com/tirmidhi:3513']},
+ 'white-days-calendar':{topic:'Ayyam al-Bid White Days fasting calendar',citations:['https://sunnah.com/abudawud:2449','https://sunnah.com/muslim:1160','https://sunnah.com/muslim:1141a','https://quran.com/2/185']}
+};
+const editorial=editorialSources[slug];
+const articleSchema=editorial?{'@context':'https://schema.org','@type':'Article',headline:seo.h1,description:seo.description,mainEntityOfPage:`https://sunnah.tools/tools/${slug}/`,author:{'@type':'Organization',name:'Sunnah Tools',url:'https://sunnah.tools/'},publisher:{'@type':'Organization',name:'Sunnah Tools',url:'https://sunnah.tools/'},about:editorial.topic,citation:editorial.citations,inLanguage:'en',isAccessibleForFree:true}:null;
 // Static hosting: publish a labelled UTC snapshot in HTML; the browser refreshes the local civil date.
 const renderedAt=new Date();
 const renderedDate=renderedAt.toISOString().slice(0,10);
@@ -89,6 +100,7 @@ const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemL
 <Base title={seo.title} description={enrichedDescription}>
 <script type="application/ld+json" set:html={JSON.stringify(breadcrumb)}/>
 <script type="application/ld+json" set:html={JSON.stringify(faqSchema)}/>
+{articleSchema&&<script type="application/ld+json" set:html={JSON.stringify(articleSchema)}/>}
 <script type="application/ld+json" set:html={JSON.stringify({'@context':'https://schema.org','@type':'WebApplication',name:seo.title,description:enrichedDescription,url:`https://sunnah.tools/tools/${slug}/`,applicationCategory:'UtilitiesApplication',operatingSystem:'Web browser',offers:{'@type':'Offer',price:'0',priceCurrency:'GBP'}})}/>
 <section class="tool-screen" data-tone={toneForSlug(slug)}>
  <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/#tools">All tools</a><span aria-hidden="true">›</span><span>{tool.category}</span><span aria-hidden="true">›</span><span aria-current="page">{tool.name}</span></nav>
@@ -127,6 +139,9 @@ const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemL
     <a href="#ramadan-dawn">Suhoor &amp; Iftar</a>
     <a href="#ramadan-example">Worked example</a>
    </nav>}
+   {slug==='ramadan-countdown'&&<nav class="three-tool-nav three-tool-shortcuts" aria-label="Ramadan Countdown quick links"><a href="#countdown-calculator">Live countdown</a><a href="#countdown-meaning">Sunset or midnight?</a><a href="#countdown-example">Worked example</a><a href="#countdown-sources">Sources</a></nav>}
+   {slug==='laylatul-qadr-nights'&&<nav class="three-tool-nav three-tool-shortcuts" aria-label="Laylatul Qadr quick links"><a href="#qadr-calculator">Plan the last ten</a><a href="#qadr-count">29 vs 30 nights</a><a href="#qadr-dua">Authentic dua</a><a href="#qadr-sources">Sources</a></nav>}
+   {slug==='white-days-calendar'&&<nav class="three-tool-nav three-tool-shortcuts" aria-label="White Days quick links"><a href="#white-calculator">See upcoming dates</a><a href="#white-exceptions">Fasting exceptions</a><a href="#white-example">Worked example</a><a href="#white-sources">Sources</a></nav>}
    {slug==='zakat-calculator'&&<nav class="zakat-guide-nav" aria-label="Zakat Calculator quick links">
     <a href="#zakat-calculator">Calculate Zakat</a>
     <a href="#zakat-how-to-calculate">How to calculate</a>
@@ -152,7 +167,7 @@ const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemL
     <a href="#tahajjud-rakats">Witr and rak'ahs</a>
    </nav>}
    {slug==='hijri-converter'&&<div class="today-hijri" aria-live="polite"><strong>Today’s Hijri date</strong><p id="today-hijri-value">{renderedHijri} (calculated)</p><small id="today-hijri-note">Calculated for {renderedDate} (UTC) using Umm al-Qura. Local moon sighting and sunset may give a different date.</small></div>}
-   <section id={slug==='tahajjud-time'?'tahajjud-calculator':slug==='prayer-times'?'prayer-calculator':slug==='qibla-finder'?'qibla-calculator':slug==='zakat-calculator'?'zakat-calculator':slug==='fasting-times'?'fasting-calculator':slug==='hijri-converter'?'hijri-calculator':slug==='quran-planner'?'quran-calculator':slug==='ramadan-timetable'?'ramadan-calendar':undefined} aria-label={tool.name} class="tool-panel">
+   <section id={slug==='tahajjud-time'?'tahajjud-calculator':slug==='prayer-times'?'prayer-calculator':slug==='qibla-finder'?'qibla-calculator':slug==='zakat-calculator'?'zakat-calculator':slug==='fasting-times'?'fasting-calculator':slug==='hijri-converter'?'hijri-calculator':slug==='quran-planner'?'quran-calculator':slug==='ramadan-timetable'?'ramadan-calendar':slug==='ramadan-countdown'?'countdown-calculator':slug==='laylatul-qadr-nights'?'qadr-calculator':slug==='white-days-calendar'?'white-calculator':undefined} aria-label={tool.name} class="tool-panel">
     <div class="tool-inner"><ToolApp slug={slug} client:only="react"/></div>
    </section>
    {slug==='tahajjud-time'&&<TahajjudGuide/>}
@@ -163,6 +178,9 @@ const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemL
    {slug==='hijri-converter'&&<HijriConverterGuide/>}
    {slug==='quran-planner'&&<QuranPlannerGuide/>}
    {slug==='ramadan-timetable'&&<RamadanTimetableGuide/>}
+   {slug==='ramadan-countdown'&&<RamadanCountdownGuide/>}
+   {slug==='laylatul-qadr-nights'&&<LaylatulQadrGuide/>}
+   {slug==='white-days-calendar'&&<WhiteDaysGuide/>}
    {slug==='prayer-times'&&<p class="small"><a href="/prayer-times/">Browse city-specific prayer times</a> — select a major city or use the calculator above for any location.</p>}
    <section class="explainer seo-explainer" id="how-it-works" aria-labelledby="how-label">
     <div class="section-label"><h2 id="how-label">{slug==='tahajjud-time'?'How the Tahajjud timing is calculated':slug==='prayer-times'?'How the prayer-time calculator works':slug==='qibla-finder'?'How the Qibla bearing is calculated':slug==='zakat-calculator'?'How the Zakat estimate is calculated':slug==='fasting-times'?'How Suhoor and Iftar times are calculated':`How to use ${tool.name}`}</h2></div>

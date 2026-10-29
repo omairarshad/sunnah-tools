@@ -1,44 +1,14 @@
 import {validateQadaPlan} from '../lib/personalTools.mjs';
 import {useEffect,useState} from 'react';
-import {oddNightDates,qadaPlanningDays,simpleEstimate,qurbaniEstimate} from '../lib/growthCalculations.mjs';
+import {qadaPlanningDays,simpleEstimate,qurbaniEstimate} from '../lib/growthCalculations.mjs';
 
 const currencies=['GBP','USD','EUR','PKR','INR','SAR','AED','CAD','AUD','MYR'];
 const money=(n:number,currency:string)=>new Intl.NumberFormat('en-GB',{style:'currency',currency,maximumFractionDigits:2}).format(n);
-const dateLabel=(iso:string)=>new Intl.DateTimeFormat('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(iso+'T12:00:00Z'));
 const intValue=(value:string)=>/^\d+$/.test(value)?Number(value):NaN;
 function Currency({value,onChange}:{value:string;onChange:(value:string)=>void}){
  return <label>Currency<select value={value} onChange={e=>onChange(e.target.value)}>{currencies.map(code=><option key={code} value={code}>{code}</option>)}</select></label>;
 }
 function Notice({children}:{children:React.ReactNode}){return <p className="warn">{children}</p>}
-
-export function LaylatulQadrNights(){
- const [first,setFirst]=useState('2027-02-08');
- const nights=oddNightDates(first);
- const download=()=>{
-  if(!nights.length)return;
-  const stamp=new Date().toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
-  const events=nights.flatMap(item=>{
-   const start=item.evening!.replaceAll('-',''),end=item.daytime!.replaceAll('-','');
-   return ['BEGIN:VEVENT','UID:ramadan-'+item.night+'-'+start+'@sunnah.tools','DTSTAMP:'+stamp,
-    'DTSTART;VALUE=DATE:'+start,'DTEND;VALUE=DATE:'+end,
-    'SUMMARY:Ramadan '+item.night+'th night - starts at sunset',
-    'DESCRIPTION:Planning reminder only. Night starts at local sunset. Confirm the first fast with your local community and seek Laylatul Qadr throughout the last ten nights.',
-    'END:VEVENT'];
-  });
-  const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Sunnah Tools//Ramadan Night Planner//EN','CALSCALE:GREGORIAN',...events,'END:VCALENDAR'].join('\r\n')+'\r\n';
-  const url=URL.createObjectURL(new Blob([ics],{type:'text/calendar;charset=utf-8'}));
-  const a=document.createElement('a');a.href=url;a.download='ramadan-odd-nights.ics';a.click();window.setTimeout(()=>URL.revokeObjectURL(url),2000);
- };
- return <div className="growth-tool">
-  <p>Enter the <strong>first daytime fast</strong> announced by your local community. The tool lists the civil evenings when the commonly numbered odd nights begin.</p>
-  <label>First day of Ramadan (Gregorian)<input type="date" value={first} onChange={e=>setFirst(e.target.value)}/></label>
-  <p className="small">The example date is not a confirmed Ramadan start. Use the date announced in your area.</p>
-  {nights.length?<><div className="growth-night-grid">{nights.map(({night,evening,daytime})=><div className="growth-night" key={night}><span className="growth-eyebrow">NIGHT {night} OF RAMADAN</span><strong>{dateLabel(evening!)}</strong><small>Begins at local sunset; continues into {dateLabel(daytime!)} before dawn</small></div>)}</div>
-  <div className="action-row print-hide"><button type="button" onClick={download}>Add evenings to calendar (.ics)</button><button type="button" className="secondary" onClick={()=>window.print()}>Print dates</button></div></>:<Notice>Enter a valid Gregorian start date.</Notice>}
-  <Notice>The Islamic night begins at sunset, not midnight. Local moon-sighting announcements may change these dates. The odd-numbered nights are a planning aid; seek Laylatul Qadr throughout the last ten nights, not only these five.</Notice>
-  <p className="small">Reference: <a href="https://sunnah.com/bukhari:2017" target="_blank" rel="noopener noreferrer">Sahih al-Bukhari 2017</a> on seeking Laylatul Qadr in the last ten nights.</p>
- </div>;
-}
 
 export function FidyaCalculator(){
  const [days,setDays]=useState(''),[rate,setRate]=useState(''),[currency,setCurrency]=useState('GBP');

@@ -66,8 +66,8 @@ export const toolInsights:Record<string,ToolInsight> = {
     }
   },
   "ramadan-countdown": {
-    "example": "Adjust the target date if your community announces Ramadan a day later than the example.",
-    "check": "Calculated lunar dates are not official announcements.",
+    "example": "An illustrative first daytime fast on 8 February 2027 puts the opening Ramadan evening at sunset on 7 February; the actual sunset clock time depends on the place.",
+    "check": "The calculated UTC countdown target is not an observed crescent. Confirm the date locally, and replace an exported event if an announcement changes it.",
     "benchmark": {
       "site": "Falah",
       "url": "https://falah.io/en/",
@@ -235,8 +235,8 @@ export const toolInsights:Record<string,ToolInsight> = {
     }
   },
   "white-days-calendar": {
-    "example": "Export the estimated 13th, 14th and 15th Hijri dates for a month you intend to fast.",
-    "check": "Check local month starts because calculated dates can shift by a day.",
+    "example": "Plan six Hijri months, review every 13th–15th date and notice that Ramadan is obligatory and Dhul Hijjah 13 is Tashreeq, not an ordinary optional fast.",
+    "check": "Umm al-Qura and ±1-day alternatives are not observed sightings; only future, potential voluntary dates enter the .ics download.",
     "benchmark": {
       "site": "Falah",
       "url": "https://falah.io/en/",
@@ -300,8 +300,8 @@ export const toolInsights:Record<string,ToolInsight> = {
     }
   },
   "laylatul-qadr-nights": {
-    "example": "Use the locally confirmed first fasting date to display the evenings of the last ten nights.",
-    "check": "No calculator can identify Laylatul Qadr with certainty.",
+    "example": "With an illustrative 8 February first fast, night 21 begins at sunset on 27 February; a 29-night month includes night 20 in its final ten.",
+    "check": "No calculator can identify Laylatul Qadr with certainty. Calendar files mark civil evenings only; they do not know local Maghrib times.",
     "benchmark": {
       "site": "Falah",
       "url": "https://falah.io/en/",
