@@ -410,7 +410,7 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
     ]
   },
   "islamic-events-calendar": {
-    "title": "Islamic Events Calendar – Ramadan, Eid & Hajj 2027 Dates",
+    "title": "Islamic Events Calendar – Ramadan, Eid & Hajj Dates",
     "h1": "Islamic Events Calendar",
     "description": "Find calculated Ramadan, Eid, Ashura and Arafah dates by Hijri year. Compare calendar conventions and download provisional CSV or ICS dates.",
     "summary": "Browse seven major observances by Hijri year and topic with calculated, clearly provisional Gregorian dates.",
