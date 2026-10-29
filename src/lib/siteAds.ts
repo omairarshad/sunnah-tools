@@ -1,8 +1,12 @@
-import {decideAds,normalizePublisherId} from './adsConfig.mjs';
+import {decideAds} from './adsConfig.mjs';
 import {ADSENSE_SITE_PUBLISHER_ID} from './adsIdentity.mjs';
-/** Compile-time advertising configuration. No third-party ad request unless fully enabled. */
+/** Single publisher identity for verification and later advertising.
+ * A stale GitHub variable from a previous rejected application must never
+ * silently override the verified AdSense for YouTube publisher ID.
+ * No third-party ad request unless all ad-serving prerequisites are enabled.
+ */
 export const siteAds=decideAds({
- publisherId:normalizePublisherId(import.meta.env.PUBLIC_ADSENSE_PUBLISHER_ID) || ADSENSE_SITE_PUBLISHER_ID,
+ publisherId:ADSENSE_SITE_PUBLISHER_ID,
  adsEnabled:import.meta.env.PUBLIC_ADSENSE_ADS_ENABLED,
  cmpReady:import.meta.env.PUBLIC_ADSENSE_CMP_READY,
  homeSlot:import.meta.env.PUBLIC_ADSENSE_HOME_SLOT,
