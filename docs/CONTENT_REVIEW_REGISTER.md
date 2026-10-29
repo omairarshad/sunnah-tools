@@ -14,6 +14,16 @@ This is an internal review register for the publicly available tools. It is not 
 | Qada Prayer Calculator | School-specific obligations, exemptions, deliberate omissions and Witr | Existing backups and progress retained; new pacing is purely mathematical and not a deadline or religious ruling |
 | Prayer Rakats Chart | Fard numbers, recommended Rawatib and Witr status across schools | 17 normal Fard units separated from optional Sunnah examples; Qasr caveat |
 
+## Quran, remembrance and Islamic age — pending qualified review
+
+| Tool | Qualified review requested | Current safeguards |
+| --- | --- | --- |
+| Juz finder | Verify all thirty Juz conventional verse starts, next-exclusive boundary wording and Juz Amma final verse | Quran.com links to textual verse starts; no unverified edition page claims |
+| Hifz tracker | Check verse totals for eleven supported Surahs, recitation and revision advice, meaningful legacy migration | Rejects invalid Surah ranges; only unambiguously matched valid v1 plans migrate; no Tajwid certification |
+| Daily Adhkar | Verify Quranic Arabic excerpts and source context, morning/evening reports and grading | Quranic duas separate from hadith-specific counts; sources linked and no invented repetitions |
+| Tasbih counter | Verify two cited 33/33/34 and 33/33/33+final declaration variants and final formula | Source-defined stages and explicit advance; free targets not described as prescribed |
+| Islamic Age | Check Umm al-Qura date/year conventions, day-30 fallback, Gregorian Feb 29 treatment and legal/fiqh caveats | No stored DOB or rulings on puberty, marriage, responsibility; local sunset adjustment explicitly not inferred |
+
 ## Pending qualified review
 
 | Zakat Anniversary guide and lunar-calendar review planner | Verify hawl start and interruption distinctions, 30th-day fallback, Umm al-Qura versus local dates, and the wording of Sunan Abi Dawud 1573 | Up to 5 all-day reminders, not automatic due dates or liabilities; local calendar difference labelled illustrative; no balances stored |

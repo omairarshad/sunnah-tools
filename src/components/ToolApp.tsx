@@ -6,6 +6,11 @@ import PrayerWidgetDeep from './PrayerWidgetDeep';
 import PrayerChartDeep from './PrayerChartDeep';
 import SalahTrackerDeep from './SalahTrackerDeep';
 import PrayerRakatsDeep from './PrayerRakatsDeep';
+import QuranJuzDeep from './QuranJuzDeep';
+import HifzDeep from './HifzDeep';
+import DailyAdhkarDeep from './DailyAdhkarDeep';
+import TasbihDeep from './TasbihDeep';
+import IslamicAgeDeep from './IslamicAgeDeep';
 import HawlDeep from './HawlDeep';
 import InvestmentZakatDeep from './InvestmentZakatDeep';
 import QurbaniDeep from './QurbaniDeep';
@@ -175,7 +180,12 @@ function SalahTracker(){
 }
 
 export default function ToolApp({slug}:{slug:string}){
- if(["daily-adhkar","halal-additives-checker","dhul-hijjah-planner","travel-prayer-guide","quran-juz-finder","hifz-tracker"].includes(slug))return <ExpansionTool slug={slug}/>;
+ if(["halal-additives-checker","dhul-hijjah-planner","travel-prayer-guide"].includes(slug))return <ExpansionTool slug={slug}/>;
+ if(slug==='quran-juz-finder')return <QuranJuzDeep/>;
+ if(slug==='hifz-tracker')return <HifzDeep/>;
+ if(slug==='daily-adhkar')return <DailyAdhkarDeep/>;
+ if(slug==='tasbih-counter')return <TasbihDeep/>;
+ if(slug==='islamic-age')return <IslamicAgeDeep/>;
  if(slug==='prayer-times-widget')return <PrayerWidgetDeep/>;
  if(slug==='printable-prayer-chart')return <PrayerChartDeep/>;
  if(slug==='salah-tracker')return <SalahTrackerDeep/>;
@@ -202,8 +212,8 @@ export default function ToolApp({slug}:{slug:string}){
  
  if(slug==='nisab-calculator')return <NisabDeep/>;
  if(slug==='hijri-converter')return <HijriConverter/>;
- if(slug==='islamic-age')return <Hijri age/>;
- if(slug==='tasbih-counter')return <Counter/>;
+ 
+ 
  if(slug==='quran-planner')return <QuranPlanner/>;
  if(slug==='ramadan-countdown')return <RamadanCountdown/>;
  if(slug==='fasting-tracker')return <FastingTracker/>;

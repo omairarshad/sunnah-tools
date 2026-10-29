@@ -27,6 +27,11 @@ import PrayerChartDeepGuide from '../../components/PrayerChartDeepGuide.astro';
 import SalahTrackerDeepGuide from '../../components/SalahTrackerDeepGuide.astro';
 import QadaPrayerDeepGuide from '../../components/QadaPrayerDeepGuide.astro';
 import PrayerRakatsDeepGuide from '../../components/PrayerRakatsDeepGuide.astro';
+import QuranJuzDeepGuide from '../../components/QuranJuzDeepGuide.astro';
+import HifzDeepGuide from '../../components/HifzDeepGuide.astro';
+import DailyAdhkarDeepGuide from '../../components/DailyAdhkarDeepGuide.astro';
+import TasbihDeepGuide from '../../components/TasbihDeepGuide.astro';
+import IslamicAgeDeepGuide from '../../components/IslamicAgeDeepGuide.astro';
 import ToolIcon from '../../components/ToolIcon.astro';
 import {toneForSlug} from '../../data/toolTones';
 import {tools,toolBySlug} from '../../data/tools';
@@ -62,7 +67,12 @@ const editorialSources:Record<string,{topic:string;citations:string[]}>= {
  'printable-prayer-chart':{topic:'Printable five-prayer daily checklist',citations:['https://quran.com/4/103','https://sunnah.com/bukhari:631']},
  'salah-tracker':{topic:'Private daily five-prayer Salah recordkeeping',citations:['https://quran.com/4/103','https://sunnah.com/bukhari:631','https://sunnah.com/muslim:684a']},
  'qada-prayer-calculator':{topic:'Making up missed prayers and differences among Sunni legal schools',citations:['https://sunnah.com/muslim:684a','https://quran.com/4/103','https://seekersguidance.org/answers/living-religion/do-pass-missed-prayers-have-to-be-made-up/']},
- 'prayer-rakats-chart':{topic:'Fard rakats and Sunnah Rawatib reference',citations:['https://sunnah.com/muslim:728c','https://sunnah.com/bukhari:631','https://quran.com/4/101']}
+ 'prayer-rakats-chart':{topic:'Fard rakats and Sunnah Rawatib reference',citations:['https://sunnah.com/muslim:728c','https://sunnah.com/bukhari:631','https://quran.com/4/101']},
+ 'quran-juz-finder':{topic:'All thirty Quran Juz and their verse boundaries',citations:['https://quran.com/73/4','https://sunnah.com/bukhari:5027','https://quran.com/78/1']},
+ 'hifz-tracker':{topic:'Quran memorisation and revision planning',citations:['https://sunnah.com/bukhari:5027','https://sunnah.com/bukhari:5033','https://quran.com/73/4']},
+ 'daily-adhkar':{topic:'Quranic supplications and authentic Sunnah remembrance references',citations:['https://quran.com/13/28','https://quran.com/20/114','https://sunnah.com/abudawud:5082','https://sunnah.com/muslim:597a']},
+ 'tasbih-counter':{topic:'Post-prayer Dhikr counting patterns and their sources',citations:['https://quran.com/33/41','https://sunnah.com/muslim:596a','https://sunnah.com/muslim:597a']},
+ 'islamic-age':{topic:'Gregorian and Islamic lunar age, anniversaries and sunset boundaries',citations:['https://quran.com/9/36','https://quran.com/2/189','https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat']}
 };
 const editorial=editorialSources[slug];
 const articleSchema=editorial?{'@context':'https://schema.org','@type':'Article',headline:seo.h1,description:seo.description,mainEntityOfPage:`https://sunnah.tools/tools/${slug}/`,author:{'@type':'Organization',name:'Sunnah Tools',url:'https://sunnah.tools/'},publisher:{'@type':'Organization',name:'Sunnah Tools',url:'https://sunnah.tools/'},about:editorial.topic,citation:editorial.citations,inLanguage:'en',isAccessibleForFree:true}:null;
@@ -99,6 +109,11 @@ const guidePriorities:Record<string,string[]>={
  'printable-prayer-chart':['prayer'],
  'salah-tracker':['prayer','everyday'],
  'prayer-rakats-chart':['prayer'],
+ 'quran-juz-finder':['quran'],
+ 'hifz-tracker':['quran'],
+ 'daily-adhkar':['quran','everyday'],
+ 'tasbih-counter':['everyday'],
+ 'islamic-age':['dates'],
  'qurbani-share-calculator':['everyday','zakat'],
  'zakat-anniversary-calculator':['zakat','dates'],
  'zakat-stocks-crypto':['zakat'],
@@ -193,6 +208,11 @@ const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemL
    {slug==='salah-tracker'&&<nav class="three-tool-nav three-tool-shortcuts" aria-label="Salah tracker guide"><a href="#salah-deep-calculator">Track Salah</a><a href="#salah-deep-unknown">Unknown dates</a><a href="#salah-deep-example">Example</a><a href="#salah-deep-sources">Sources</a></nav>}
    {slug==='qada-prayer-calculator'&&<nav class="three-tool-nav three-tool-shortcuts" aria-label="Qada guide"><a href="#qada-deep-calculator">Qada plan</a><a href="#qada-deep-schools">School differences</a><a href="#qada-deep-example">Example</a><a href="#qada-deep-sources">Sources</a></nav>}
    {slug==='prayer-rakats-chart'&&<nav class="three-tool-nav three-tool-shortcuts" aria-label="Rakat guide"><a href="#rakats-deep-calculator">Rakat chart</a><a href="#rakats-deep-fard">Fard</a><a href="#rakats-deep-example">Example</a><a href="#rakats-deep-sources">Sources</a></nav>}
+   {slug==='quran-juz-finder'&&<nav class="three-tool-nav three-tool-shortcuts" aria-label="Juz quick links"><a href="#juz-guide-calculator">Find Juz</a><a href="#juz-guide-boundaries">Boundaries</a><a href="#juz-guide-example">Example</a><a href="#juz-guide-sources">Sources</a></nav>}
+   {slug==='hifz-tracker'&&<nav class="three-tool-nav three-tool-shortcuts" aria-label="Hifz quick links"><a href="#hifz-guide-calculator">Hifz plan</a><a href="#hifz-guide-revision">Revision</a><a href="#hifz-guide-example">Example</a><a href="#hifz-guide-sources">Sources</a></nav>}
+   {slug==='daily-adhkar'&&<nav class="three-tool-nav three-tool-shortcuts" aria-label="Adhkar quick links"><a href="#adhkar-guide-calculator">Read duas</a><a href="#adhkar-guide-quran">Quranic Duas</a><a href="#adhkar-guide-morning">Morning</a><a href="#adhkar-guide-sources">Sources</a></nav>}
+   {slug==='tasbih-counter'&&<nav class="three-tool-nav three-tool-shortcuts" aria-label="Tasbih quick links"><a href="#tasbih-guide-calculator">Count Dhikr</a><a href="#tasbih-guide-patterns">33/33/34</a><a href="#tasbih-guide-example">Example</a><a href="#tasbih-guide-sources">Sources</a></nav>}
+   {slug==='islamic-age'&&<nav class="three-tool-nav three-tool-shortcuts" aria-label="Islamic age quick links"><a href="#age-guide-calculator">Calculate age</a><a href="#age-guide-calculation">Calculation</a><a href="#age-guide-example">Example</a><a href="#age-guide-sources">Sources</a></nav>}
    {slug==='zakat-calculator'&&<nav class="zakat-guide-nav" aria-label="Zakat Calculator quick links">
     <a href="#zakat-calculator">Calculate Zakat</a>
     <a href="#zakat-how-to-calculate">How to calculate</a>
@@ -218,7 +238,7 @@ const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemL
     <a href="#tahajjud-rakats">Witr and rak'ahs</a>
    </nav>}
    {slug==='hijri-converter'&&<div class="today-hijri" aria-live="polite"><strong>Today’s Hijri date</strong><p id="today-hijri-value">{renderedHijri} (calculated)</p><small id="today-hijri-note">Calculated for {renderedDate} (UTC) using Umm al-Qura. Local moon sighting and sunset may give a different date.</small></div>}
-   <section id={slug==='tahajjud-time'?'tahajjud-calculator':slug==='prayer-times'?'prayer-calculator':slug==='qibla-finder'?'qibla-calculator':slug==='zakat-calculator'?'zakat-calculator':slug==='fasting-times'?'fasting-calculator':slug==='hijri-converter'?'hijri-calculator':slug==='quran-planner'?'quran-calculator':slug==='ramadan-timetable'?'ramadan-calendar':slug==='ramadan-countdown'?'countdown-calculator':slug==='laylatul-qadr-nights'?'qadr-calculator':slug==='white-days-calendar'?'white-calculator':slug==='fasting-tracker'?'fasting-history-calculator':slug==='fidya-calculator'?'fidya-calculator-panel':slug==='kaffarah-calculator'?'kaffarah-calculator-panel':slug==='fitrana-calculator'?'fitrana-deep-calculator':slug==='gold-zakat-calculator'?'gold-deep-calculator':slug==='nisab-calculator'?'nisab-deep-calculator':slug==='zakat-anniversary-calculator'?'hawl-deep-calculator':slug==='zakat-stocks-crypto'?'invest-deep-calculator':slug==='qurbani-share-calculator'?'qurbani-deep-calculator':slug==='prayer-times-widget'?'widget-deep-calculator':slug==='printable-prayer-chart'?'chart-deep-calculator':slug==='salah-tracker'?'salah-deep-calculator':slug==='qada-prayer-calculator'?'qada-deep-calculator':slug==='prayer-rakats-chart'?'rakats-deep-calculator':undefined} aria-label={tool.name} class="tool-panel">
+   <section id={slug==='tahajjud-time'?'tahajjud-calculator':slug==='prayer-times'?'prayer-calculator':slug==='qibla-finder'?'qibla-calculator':slug==='zakat-calculator'?'zakat-calculator':slug==='fasting-times'?'fasting-calculator':slug==='hijri-converter'?'hijri-calculator':slug==='quran-planner'?'quran-calculator':slug==='ramadan-timetable'?'ramadan-calendar':slug==='ramadan-countdown'?'countdown-calculator':slug==='laylatul-qadr-nights'?'qadr-calculator':slug==='white-days-calendar'?'white-calculator':slug==='fasting-tracker'?'fasting-history-calculator':slug==='fidya-calculator'?'fidya-calculator-panel':slug==='kaffarah-calculator'?'kaffarah-calculator-panel':slug==='fitrana-calculator'?'fitrana-deep-calculator':slug==='gold-zakat-calculator'?'gold-deep-calculator':slug==='nisab-calculator'?'nisab-deep-calculator':slug==='zakat-anniversary-calculator'?'hawl-deep-calculator':slug==='zakat-stocks-crypto'?'invest-deep-calculator':slug==='qurbani-share-calculator'?'qurbani-deep-calculator':slug==='prayer-times-widget'?'widget-deep-calculator':slug==='printable-prayer-chart'?'chart-deep-calculator':slug==='salah-tracker'?'salah-deep-calculator':slug==='qada-prayer-calculator'?'qada-deep-calculator':slug==='prayer-rakats-chart'?'rakats-deep-calculator':slug==='quran-juz-finder'?'juz-guide-calculator':slug==='hifz-tracker'?'hifz-guide-calculator':slug==='daily-adhkar'?'adhkar-guide-calculator':slug==='tasbih-counter'?'tasbih-guide-calculator':slug==='islamic-age'?'age-guide-calculator':undefined} aria-label={tool.name} class="tool-panel">
     <div class="tool-inner"><ToolApp slug={slug} client:only="react"/></div>
    </section>
    {slug==='tahajjud-time'&&<TahajjudGuide/>}
@@ -246,6 +266,11 @@ const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemL
    {slug==='salah-tracker'&&<SalahTrackerDeepGuide/>}
    {slug==='qada-prayer-calculator'&&<QadaPrayerDeepGuide/>}
    {slug==='prayer-rakats-chart'&&<PrayerRakatsDeepGuide/>}
+   {slug==='quran-juz-finder'&&<QuranJuzDeepGuide/>}
+   {slug==='hifz-tracker'&&<HifzDeepGuide/>}
+   {slug==='daily-adhkar'&&<DailyAdhkarDeepGuide/>}
+   {slug==='tasbih-counter'&&<TasbihDeepGuide/>}
+   {slug==='islamic-age'&&<IslamicAgeDeepGuide/>}
    {slug==='prayer-times'&&<p class="small"><a href="/prayer-times/">Browse city-specific prayer times</a> — select a major city or use the calculator above for any location.</p>}
    <section class="explainer seo-explainer" id="how-it-works" aria-labelledby="how-label">
     <div class="section-label"><h2 id="how-label">{slug==='tahajjud-time'?'How the Tahajjud timing is calculated':slug==='prayer-times'?'How the prayer-time calculator works':slug==='qibla-finder'?'How the Qibla bearing is calculated':slug==='zakat-calculator'?'How the Zakat estimate is calculated':slug==='fasting-times'?'How Suhoor and Iftar times are calculated':`How to use ${tool.name}`}</h2></div>
