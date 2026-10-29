@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import '../../styles/tool-accordion.css';
 import AdPlacement from '../../components/AdPlacement.astro';
 import ToolApp from '../../components/ToolApp';
 import TahajjudGuide from '../../components/TahajjudGuide.astro';
@@ -266,6 +267,7 @@ const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemL
    <section id={slug==='tahajjud-time'?'tahajjud-calculator':slug==='prayer-times'?'prayer-calculator':slug==='qibla-finder'?'qibla-calculator':slug==='zakat-calculator'?'zakat-calculator':slug==='fasting-times'?'fasting-calculator':slug==='hijri-converter'?'hijri-calculator':slug==='quran-planner'?'quran-calculator':slug==='ramadan-timetable'?'ramadan-calendar':slug==='ramadan-countdown'?'countdown-calculator':slug==='laylatul-qadr-nights'?'qadr-calculator':slug==='white-days-calendar'?'white-calculator':slug==='fasting-tracker'?'fasting-history-calculator':slug==='fidya-calculator'?'fidya-calculator-panel':slug==='kaffarah-calculator'?'kaffarah-calculator-panel':slug==='fitrana-calculator'?'fitrana-deep-calculator':slug==='gold-zakat-calculator'?'gold-deep-calculator':slug==='nisab-calculator'?'nisab-deep-calculator':slug==='zakat-anniversary-calculator'?'hawl-deep-calculator':slug==='zakat-stocks-crypto'?'invest-deep-calculator':slug==='qurbani-share-calculator'?'qurbani-deep-calculator':slug==='prayer-times-widget'?'widget-deep-calculator':slug==='printable-prayer-chart'?'chart-deep-calculator':slug==='salah-tracker'?'salah-deep-calculator':slug==='qada-prayer-calculator'?'qada-deep-calculator':slug==='prayer-rakats-chart'?'rakats-deep-calculator':slug==='quran-juz-finder'?'juz-guide-calculator':slug==='hifz-tracker'?'hifz-guide-calculator':slug==='daily-adhkar'?'adhkar-guide-calculator':slug==='tasbih-counter'?'tasbih-guide-calculator':slug==='islamic-age'?'age-guide-calculator':slug==='travel-prayer-guide'?'travel-deep-calculator':slug==='islamic-events-calendar'?'events-deep-calculator':slug==='printable-hijri-calendar'?'hijri-print-deep-calculator':slug==='dhul-hijjah-planner'?'dhul-deep-calculator':slug==='halal-additives-checker'?'additives-deep-calculator':slug==='umrah-packing-checklist'?'packing-deep-calculator':slug==='tawaf-sai-counter'?'tawaf-deep-calculator':undefined} aria-label={tool.name} class="tool-panel">
     <div class="tool-inner"><ToolApp slug={slug} client:only="react"/></div>
    </section>
+   <div class="tool-knowledge-area" id="tool-knowledge" aria-label="Detailed reference guide">
    {slug==='tahajjud-time'&&<TahajjudGuide/>}
    {slug==='prayer-times'&&<PrayerTimesGuide/>}
    {slug==='qibla-finder'&&<QiblaGuide/>}
@@ -303,6 +305,7 @@ const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemL
    {slug==='halal-additives-checker'&&<HalalAdditivesDeepGuide/>}
    {slug==='umrah-packing-checklist'&&<UmrahPackingDeepGuide/>}
    {slug==='tawaf-sai-counter'&&<TawafSaiDeepGuide/>}
+   </div>
    {slug==='prayer-times'&&<p class="small"><a href="/prayer-times/">Browse city-specific prayer times</a> — select a major city or use the calculator above for any location.</p>}
    <section class="explainer seo-explainer" id="how-it-works" aria-labelledby="how-label">
     <div class="section-label"><h2 id="how-label">{slug==='tahajjud-time'?'How the Tahajjud timing is calculated':slug==='prayer-times'?'How the prayer-time calculator works':slug==='qibla-finder'?'How the Qibla bearing is calculated':slug==='zakat-calculator'?'How the Zakat estimate is calculated':slug==='fasting-times'?'How Suhoor and Iftar times are calculated':`How to use ${tool.name}`}</h2></div>
@@ -333,6 +336,8 @@ const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemL
 </section>
 </Base>
 <script>
+ import {enhanceToolKnowledge} from '../../scripts/toolAccordion.js';
+ enhanceToolKnowledge(document);
  const todayDate=document.querySelector<HTMLElement>('#today-hijri-value');
  const todayNote=document.querySelector<HTMLElement>('#today-hijri-note');
  if(todayDate){try{

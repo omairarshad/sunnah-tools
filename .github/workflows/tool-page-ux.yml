@@ -1,0 +1,41 @@
+name: Playwright tool-page UX audit
+on:
+  push:
+    branches: ['feature/tool-page-ux-accordions-*']
+  workflow_dispatch:
+jobs:
+  screenshot-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install site dependencies
+        run: npm install --no-audit --no-fund
+      - name: Build the production website
+        run: |
+          npm run prepare:cities
+          npm run prepare:ads
+          npm run build
+      - name: Install Playwright browser
+        run: |
+          npm install --no-save --no-package-lock playwright
+          npx playwright install --with-deps chromium
+      - name: Audit 37 pages at mobile and desktop widths
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 4321 >/tmp/astro-preview.log 2>&1 &
+          for i in $(seq 1 30); do
+            if curl --silent --fail http://127.0.0.1:4321/tools/tahajjud-time/ >/dev/null; then break; fi
+            sleep 1
+          done
+          node scripts/audit-tool-ux.mjs
+      - name: Upload Playwright screenshots and measurements
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tool-pages-ux-screenshots
+          path: artifacts/tool-ux/
+          if-no-files-found: warn
+          retention-days: 14

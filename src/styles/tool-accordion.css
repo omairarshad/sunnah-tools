@@ -1,0 +1,78 @@
+/* Tool knowledge UX: accessible native disclosures, original crawlable HTML. */
+.tool-knowledge-area{min-width:0}
+.tool-guide-controls{display:flex;flex-direction:column;gap:14px;border:1px solid #d4e3d6;background:linear-gradient(115deg,#f2f8f2,#fcfefb);border-radius:16px;padding:19px 21px;margin:22px 0 4px;min-width:0}
+.tool-guide-controls-heading h2{font-size:clamp(18px,2.2vw,23px);line-height:1.3;margin:0 0 5px;color:#193f2f}
+.tool-guide-controls-heading p{font-size:13px;color:#55715e;margin:0;line-height:1.6}
+.tool-guide-controls-actions{display:flex;align-items:center;flex-wrap:wrap;gap:9px}
+.tool-guide-utility,.tool-guide-index>summary{border:1px solid #b9d4c1;border-radius:10px;background:white;color:#1c5639;min-height:43px;padding:10px 15px;font:inherit;font-size:13px;font-weight:750;line-height:1.35;cursor:pointer}
+.tool-guide-utility:hover,.tool-guide-index>summary:hover{background:#eaf5ed;border-color:#74a58a}
+.tool-guide-utility:focus-visible,.tool-guide-index>summary:focus-visible,.tool-guide-fold>summary:focus-visible,.tool-guide-index-links a:focus-visible{outline:3px solid #be9b47;outline-offset:3px}
+.tool-guide-index{position:relative;min-width:0}
+.tool-guide-index>summary{list-style:none;display:flex;align-items:center;gap:10px}
+.tool-guide-index>summary::after{content:"▾";font-size:13px;margin-left:5px}
+.tool-guide-index[open]>summary::after{content:"▴"}
+.tool-guide-index>summary::-webkit-details-marker{display:none}
+.tool-guide-index-links{position:relative;z-index:5;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;margin-top:8px;background:white;border:1px solid #dae6dc;border-radius:12px;padding:10px;box-shadow:0 12px 26px #1c473119;max-height:340px;overflow-y:auto;overscroll-behavior:contain}
+.tool-guide-index-links a{display:block;padding:10px 12px;border-radius:8px;text-decoration:none;color:#265f43;font-size:13px;line-height:1.45;min-width:0;overflow-wrap:anywhere}
+.tool-guide-index-links a:hover{background:#edf6ef}
+.tool-guide-enhanced .tool-main>nav:not(.breadcrumb){display:none}
+.tool-guide-enhanced .tool-knowledge-area nav:not(.tool-guide-index-links){display:none}
+.tool-guide-enhanced .tool-guide-fold-section{padding:0!important;margin:10px 0!important;border:0!important;background:transparent;scroll-margin-top:18px;min-width:0}
+.tool-guide-enhanced .tool-guide-fold-section+.tool-guide-fold-section{border:0!important}
+.tool-guide-fold{display:block;min-width:0;overflow:clip;border:1px solid #d9e4db;border-radius:13px;background:white;box-shadow:0 2px 8px #18412b08;transition:border-color .16s ease,box-shadow .16s ease}
+.tool-guide-fold[open]{border-color:#9cc6ab;box-shadow:0 7px 20px #18412b0e}
+.tool-guide-fold>summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:62px;padding:16px 19px;cursor:pointer;background:#f9fcf9;color:#1b5038;user-select:none}
+.tool-guide-fold>summary::-webkit-details-marker{display:none}
+.tool-guide-fold>summary:hover{background:#f0f7f1}
+.tool-guide-fold[open]>summary{background:#edf5ef;border-bottom:1px solid #d7e5da}
+.tool-guide-fold>summary h2,.tool-guide-fold>summary h3{font-family:inherit;font-size:clamp(15px,1.6vw,17px)!important;line-height:1.45!important;font-weight:750!important;letter-spacing:0;margin:0!important;color:inherit!important;text-align:left;flex:1;min-width:0;overflow-wrap:anywhere}
+.tool-guide-chevron{flex:0 0 26px;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;background:#e6f1e9;border:1px solid #d1e4d7;border-radius:50%;color:#276747}
+.tool-guide-chevron::after{content:"+";font-size:18px;font-weight:650;line-height:1}
+.tool-guide-fold[open] .tool-guide-chevron::after{content:"−"}
+.tool-guide-fold-body{padding:19px clamp(17px,3vw,25px) 23px;min-width:0;overflow-wrap:anywhere}
+.tool-guide-fold-body>p,.tool-guide-fold-body>ul,.tool-guide-fold-body>ol{max-width:78ch;line-height:1.75}
+.tool-guide-fold-body>p:first-child{margin-top:0}
+.tool-guide-fold-body>.table-wrap{max-width:100%;overflow-x:auto}
+.tool-guide-enhanced .tool-knowledge-area>section{min-width:0;margin-top:16px}
+.tool-guide-enhanced .tool-knowledge-area>section>h2{margin-top:0}
+.tool-guide-enhanced .tool-knowledge-area>section .three-tool-facts{grid-template-columns:repeat(3,minmax(0,1fr))}
+.tool-extra-fold-section{padding:0!important;border:0!important;margin:12px 0!important}
+.tool-extra-fold-section>.tool-guide-fold>summary{background:#f5f8f4}
+.tool-extra-fold-section .tool-guide-fold-body .faq-detail{margin-bottom:8px}
+.tool-guide-enhanced .tool-knowledge-area .faq-detail{max-width:100%}
+@media (max-width:760px){
+ .tool-guide-controls{padding:15px 14px;margin:16px 0 8px}
+ .tool-guide-controls-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ .tool-guide-index{grid-column:1/-1}
+ .tool-guide-index>summary{width:100%;justify-content:space-between}
+ .tool-guide-index-links{grid-template-columns:1fr}
+ .tool-guide-utility{width:100%;padding:11px 10px}
+ .tool-guide-fold>summary{padding:14px 13px;min-height:60px}
+ .tool-guide-fold-body{padding:16px 14px 20px}
+ .tool-guide-enhanced .tool-knowledge-area .three-tool-facts{grid-template-columns:1fr!important}
+ .tool-guide-fold>summary h2,.tool-guide-fold>summary h3{font-size:15px!important}
+}
+html[data-theme="dark"] .tool-guide-controls{background:linear-gradient(120deg,#21392c,#192d24);border-color:#496a53}
+html[data-theme="dark"] .tool-guide-controls-heading h2{color:#ebf5e8}
+html[data-theme="dark"] .tool-guide-controls-heading p{color:#b9ceb9}
+html[data-theme="dark"] .tool-guide-index-links{background:#1f3529;border-color:#47654c}
+html[data-theme="dark"] .tool-guide-index-links a{color:#def2df}
+html[data-theme="dark"] .tool-guide-index-links a:hover{background:#30513b}
+html[data-theme="dark"] .tool-guide-utility,html[data-theme="dark"] .tool-guide-index>summary{background:#294738;color:#f2f9ef;border-color:#597864}
+html[data-theme="dark"] .tool-guide-utility:hover,html[data-theme="dark"] .tool-guide-index>summary:hover{background:#365d47}
+html[data-theme="dark"] .tool-guide-fold{background:#1c3026;border-color:#496b54;box-shadow:none}
+html[data-theme="dark"] .tool-guide-fold[open]{border-color:#8caf92}
+html[data-theme="dark"] .tool-guide-fold>summary{background:#264132;color:#eef7e8}
+html[data-theme="dark"] .tool-guide-fold[open]>summary{background:#30523d;border-bottom-color:#496b54}
+html[data-theme="dark"] .tool-guide-fold>summary:hover{background:#375745}
+html[data-theme="dark"] .tool-guide-chevron{background:#3b5b47;border-color:#5d7c64;color:#f0f8e8}
+html[data-theme="dark"] .tool-guide-fold-body{color:#e0ebe0}
+@media print{
+ .tool-guide-controls{display:none!important}
+ .tool-guide-enhanced .tool-main>nav:not(.breadcrumb){display:none!important}
+ .tool-guide-fold{display:block!important;overflow:visible!important;box-shadow:none!important;border-color:#bbb!important;break-inside:avoid-page}
+ .tool-guide-fold>summary{background:#fff!important;color:#111!important;min-height:auto;padding:9px!important}
+ .tool-guide-fold-body{display:block!important;color:#111!important;padding:8px 14px!important}
+ .tool-guide-chevron{display:none!important}
+ .tool-guide-fold:not([open])>.tool-guide-fold-body{display:block!important}
+}
