@@ -31,11 +31,14 @@ export function monthCalendar(year,month,shift=0){
 }
 export function dhulDays(year,shift=0){
  if(!Number.isInteger(year)||year<1300||year>1599||![-1,0,1].includes(shift))return null;
- const days=Array.from({length:13},(_,i)=>{
- const d=hijriToGregorian(year,12,i+1);if(!d)return null;
- const day=i+1;return {day,iso:iso(d),displayISO:shiftDate(iso(d),shift),
- label:day===9?'Arafah (estimate)':day===10?'Eid al-Adha — no voluntary fast':day>=11?'Tashreeq — no ordinary voluntary fast':'First ten days'};});
- return days.every(Boolean)?days:null;
+ const days=[];
+ for(let day=1;day<=13;day++){
+  const d=hijriToGregorian(year,12,day);if(!d)return null;
+  const canonical=iso(d),displayISO=shiftDate(canonical,shift);
+  if(!displayISO)return null;
+  days.push({day,iso:canonical,displayISO,label:day===9?'Arafah (estimate)':day===10?'Eid al-Adha — no voluntary fast':day>=11?'Tashreeq — no ordinary voluntary fast':'First ten days'});
+ }
+ return days;
 }
 export function calendarCSV(records){
  if(!Array.isArray(records)||!records.length)return null;
