@@ -24,7 +24,7 @@ test('image banners require safe, self-hosted media assets',()=>{
 });
 test('homepage no longer includes the redundant featured mini-card section',()=>{
  assert.equal('featured' in page,false);
- assert.deepEqual(page.layout.sectionOrder,['promotions','directory','guides']);
+ assert.deepEqual(page.layout.sectionOrder,['directory','promotions','guides']);
 });
 
 test('all 37 tool cards have unique, safe illustration paths and descriptive alt text',()=>{

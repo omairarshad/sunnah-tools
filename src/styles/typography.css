@@ -2,8 +2,8 @@
    Deliberately editorial headings, practical and approachable interface text.
    This is the permanent default, with system fallbacks while Google Fonts load. */
 :root {
- --font-body:"Karla","Trebuchet MS",Arial,sans-serif;
- --font-display:"Petrona","Iowan Old Style","Baskerville",Georgia,serif;
+ --font-body:"IBM Plex Sans","Segoe UI",Arial,sans-serif;
+ --font-display:"Newsreader","Iowan Old Style","Baskerville",Georgia,serif;
  font-family:var(--font-body);
 }
 html,body{font-family:var(--font-body)}

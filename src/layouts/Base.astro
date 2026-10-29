@@ -5,6 +5,7 @@ import '../styles/tool-cards.css';
 import '../styles/dark.css';
 import '../styles/typography.css';
 import '../styles/expansion.css';
+import '../styles/identity-2026.css';
 import AnalyticsConsent from '../components/AnalyticsConsent.astro';
 import {siteAnalytics} from '../lib/siteAnalytics';
 import {siteAds} from '../lib/siteAds';
@@ -50,13 +51,13 @@ const org={'@context':'https://schema.org','@type':'WebSite',name:'Sunnah Tools'
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700;800&amp;family=Petrona:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&amp;display=swap"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&amp;display=swap"/>
 <meta name="description" content={description}/>
 {noindex&&<meta name="robots" content="noindex,nofollow"/>}<link rel="canonical" href={canonical.toString()}/>
 <meta property="og:type" content="website"/><meta property="og:site_name" content="Sunnah Tools"/><meta property="og:title" content={title+' | Sunnah Tools'}/><meta property="og:description" content={description}/><meta property="og:url" content={canonical.toString()}/>
 {siteAds.canVerify&&<meta name="google-adsense-account" content={siteAds.client}/>}
 {siteAds.enabled&&<script async src={'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client='+siteAds.client} crossorigin="anonymous"></script>}
-<meta name="twitter:card" content="summary"/><link rel="icon" href="/favicon.svg"/><meta name="theme-color" content="#102f28"/>
+<meta name="twitter:card" content="summary"/><link rel="icon" href="/favicon.svg"/><meta name="theme-color" content="#F8F7F3"/>
 {home&&<script type="application/ld+json" set:html={JSON.stringify(org)}/>}
 <title>{title} | Sunnah Tools</title>
 </head>
@@ -105,7 +106,7 @@ const org={'@context':'https://schema.org','@type':'WebSite',name:'Sunnah Tools'
    themeButton.title=isDark?'Switch to light mode':'Switch to dark mode';
   }
   if(themeLabel)themeLabel.textContent=isDark?'Light mode':'Dark mode';
-  document.querySelector<HTMLMetaElement>('meta[name="theme-color"]')?.setAttribute('content',isDark?'#0d1714':'#102f28');
+  document.querySelector<HTMLMetaElement>('meta[name="theme-color"]')?.setAttribute('content',isDark?'#101916':'#F8F7F3');
  }
  themeButton?.addEventListener('click',()=>{
   const next=activeTheme()==='dark'?'light':'dark';

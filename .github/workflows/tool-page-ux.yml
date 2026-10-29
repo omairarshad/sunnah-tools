@@ -1,7 +1,7 @@
 name: Playwright tool-page UX audit
 on:
   push:
-    branches: ['feature/tool-page-ux-accordions-*']
+    branches: ['feature/tool-page-ux-accordions-*', 'feature/editorial-branding-*']
   workflow_dispatch:
 jobs:
   screenshot-audit:
@@ -31,11 +31,14 @@ jobs:
             sleep 1
           done
           node scripts/audit-tool-ux.mjs
+          node scripts/audit-brand-ux.mjs
       - name: Upload Playwright screenshots and measurements
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: tool-pages-ux-screenshots
-          path: artifacts/tool-ux/
+          path: |
+            artifacts/tool-ux/
+            artifacts/brand-ux/
           if-no-files-found: warn
           retention-days: 14
