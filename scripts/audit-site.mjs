@@ -246,6 +246,22 @@ for(const [slug,title,example,sources] of prayerFiveGuides){
 }
 console.log('Five comprehensive prayer guides, worked examples, FAQ and aligned schema in server HTML');
 
+// All five Quran, remembrance and Islamic age guides must render in static HTML.
+const fiveNextGuides=[
+ ['quran-juz-finder','Quran Juz Finder: all 30 Juz','id="juz-guide-example"','id="juz-guide-sources"'],
+ ['hifz-tracker','Quran Hifz Tracker: memorisation','id="hifz-guide-example"','id="hifz-guide-sources"'],
+ ['daily-adhkar','Daily Adhkar and Quranic Duas: a complete','id="adhkar-guide-example"','id="adhkar-guide-sources"'],
+ ['tasbih-counter','Online Tasbih Counter: 33/33/34','id="tasbih-guide-example"','id="tasbih-guide-sources"'],
+ ['islamic-age','Islamic Age Calculator: complete Hijri','id="age-guide-example"','id="age-guide-sources"']
+];
+for(const [slug,title,example,sources] of fiveNextGuides){
+ const html=read('tools/'+slug+'/index.html');
+ for(const phrase of [title,example,sources,'class="three-tool-nav','Frequently asked questions','"@type":"Article"','"citation":['])assert(html.includes(phrase),'Deep guide missing: '+slug+' / '+phrase);
+ assert((html.match(/class="three-tool-section/g)||[]).length>=9,'Insufficient static sections for '+slug);
+ assert(sitemap.includes('/tools/'+slug+'/'),'Missing sitemap route '+slug);
+}
+console.log('Five Quran, remembrance and Islamic age guides rendered with source-aligned Article schema');
+
 
 // Fasting Times source-backed guide must be static and independently indexable.
 {
