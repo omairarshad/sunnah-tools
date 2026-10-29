@@ -12,7 +12,7 @@ try{
  for(const [viewport,w,h] of [['mobile',390,844],['desktop',1440,900]]){
   for(const mode of ['light','dark']){
    const context=await browser.newContext({viewport:{width:w,height:h},deviceScaleFactor:1,reducedMotion:'reduce'});
-   await context.addInitScript(theme=>{try{localStorage.setItem('sunnah-tools-theme',theme)}catch{}},mode);
+   await context.addInitScript(theme=>{try{if(!localStorage.getItem('sunnah-tools-theme'))localStorage.setItem('sunnah-tools-theme',theme)}catch{}},mode);
    const page=await context.newPage();
    for(const route of routes){
     const response=await page.goto('http://127.0.0.1:4321'+route,{waitUntil:'domcontentloaded',timeout:35000});

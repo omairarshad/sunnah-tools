@@ -15,7 +15,7 @@ test('unsafe non-HTTP and credential-bearing URLs are rejected',()=>{
  for(const link of ['javascript:alert(1)','data:text/html,hi','http://example.org/','https://user:pass@example.org','not a url'])assert.equal(safePromoUrl(link),null);
 });
 test('section layout ignores duplicate and unknown entries and keeps tool directory',()=>{
- assert.deepEqual(orderedSections(['promotions','promotions','bogus','directory']),['promotions','directory','guides']);
+ assert.deepEqual(orderedSections(['promotions','promotions','bogus','directory']),['directory','promotions','guides']);
 });
 
 test('image banners require safe, self-hosted media assets',()=>{

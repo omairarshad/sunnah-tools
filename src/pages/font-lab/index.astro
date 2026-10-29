@@ -2,7 +2,8 @@
 import Base from '../../layouts/Base.astro';
 import '../../styles/font-lab.css';
 const choices=[
- {id:'petrona-karla',name:'Petrona + Karla',badge:'Live default',tone:'A warm, independent editorial identity',description:'Petrona adds handcrafted bookish character; Karla keeps the form fields friendly and legible.',heading:'Petrona',body:'Karla',headingUrl:'https://fonts.google.com/specimen/Petrona',bodyUrl:'https://fonts.google.com/specimen/Karla'},
+ {id:'default',name:'Newsreader + IBM Plex Sans',badge:'Live default',tone:'Quiet editorial identity, precise utility forms',description:'Newsreader gives headings a calm literary tone; IBM Plex Sans helps keep form labels and numbers clear.',heading:'Newsreader',body:'IBM Plex Sans',headingUrl:'https://fonts.google.com/specimen/Newsreader',bodyUrl:'https://fonts.google.com/specimen/IBM+Plex+Sans'},
+ {id:'petrona-karla',name:'Petrona + Karla',badge:'Previous',tone:'An earlier editorial direction',description:'Petrona adds handcrafted bookish character; Karla keeps the form fields friendly and legible.',heading:'Petrona',body:'Karla',headingUrl:'https://fonts.google.com/specimen/Petrona',bodyUrl:'https://fonts.google.com/specimen/Karla'},
  {id:'alegreya-family',name:'Alegreya + Alegreya Sans',badge:'Bookish',tone:'Literary, human and quietly traditional',description:'The Alegreya family feels like a publication, not a dashboard, without using imitation calligraphy.',heading:'Alegreya',body:'Alegreya Sans',headingUrl:'https://fonts.google.com/specimen/Alegreya',bodyUrl:'https://fonts.google.com/specimen/Alegreya+Sans'},
  {id:'eczar-plex',name:'Eczar + IBM Plex Sans',badge:'Characterful',tone:'Expressive headings and precise utility text',description:'Eczar creates memorable headings, balanced by IBM Plex Sans in numbers and interactive controls.',heading:'Eczar',body:'IBM Plex Sans',headingUrl:'https://fonts.google.com/specimen/Eczar',bodyUrl:'https://fonts.google.com/specimen/IBM+Plex+Sans'}
 ];
@@ -12,8 +13,8 @@ const choices=[
   <div class="font-lab-intro">
    
    <h1 id="font-lab-title">Compare the fonts</h1>
-   <p>The new default pairs Petrona's expressive editorial headings with Karla's clear interface text. Compare it with two alternatives and try each font pairing across the real site's cards, calculators and guides.</p>
-   <div class="font-lab-note"><strong>Petrona + Karla is the live default.</strong> Alternative pairings are temporary and apply only in this browser tab's session. Choose “Exit preview” to return to Petrona + Karla. The default fonts and optional alternatives are provided by Google Fonts.</div>
+   <p>The current design pairs Newsreader's understated headings with IBM Plex Sans for clear forms and results. Compare it with two alternatives and try each font pairing across the real site's cards, calculators and guides.</p>
+   <div class="font-lab-note"><strong>Newsreader + IBM Plex Sans is the live default.</strong> Alternative pairings are temporary and apply only in this browser tab's session. Choose “Exit preview” to return to Newsreader and IBM Plex Sans. The default fonts and optional alternatives are provided by Google Fonts.</div>
   </div>
   <div class="font-lab-showcase">
    {choices.map(c=><article class="font-lab-card" data-combo={c.id}>
@@ -41,8 +42,8 @@ const choices=[
      </div>
     </div>
     <div class="font-lab-card-actions">
-     <a class="font-lab-primary" href={c.id==='petrona-karla'?'/?font-preview=off#tools':'/?font-preview='+c.id+'#tools'}>{c.id==='petrona-karla'?'See the live default':'Try on the website'}</a>
-     <a href={'/tools/zakat-calculator/?font-preview='+c.id}>See a calculator</a>
+     <a class="font-lab-primary" href={c.id==='default'?'/?font-preview=off#tools':'/?font-preview='+c.id+'#tools'}>{c.id==='default'?'See the live default':'Try on the website'}</a>
+     <a href={c.id==='default'?'/tools/zakat-calculator/?font-preview=off':'/tools/zakat-calculator/?font-preview='+c.id}>See a calculator</a>
      <a href={c.headingUrl} target="_blank" rel="noopener noreferrer">View {c.heading} on Google Fonts</a>
      <a href={c.bodyUrl} target="_blank" rel="noopener noreferrer">View {c.body}</a>
     </div>
@@ -50,7 +51,7 @@ const choices=[
   </div>
   <div class="font-lab-compare-baseline">
    <h2>Compare with the original</h2>
-   <p>The published Petrona + Karla typography is the default. Other pairings are session-only previews and will not affect other visitors.</p>
+   <p>The published Newsreader + IBM Plex Sans typography is the default. Other pairings are session-only previews and will not affect other visitors.</p>
    <a href="/?font-preview=off">Return to the current website</a>
   </div>
  </section>
