@@ -10,6 +10,7 @@ import QiblaDetails from './QiblaDetails';
 import {qiblaContext} from '../lib/qiblaDetails.mjs';
 import TahajjudCalculator from './TahajjudCalculator';
 import FastingTimesPanel from './FastingTimesPanel';
+import HijriConverter from './HijriConverter';
 import {ramadanDays,timetableCSV} from '../lib/ramadanHelpers.mjs';
 import {makeRamadanIcs,validateQuranPlan,validateSalahHistory,downloadText} from '../lib/personalTools.mjs';
 import {differenceMinutes,differenceLabel,prayerWeekCSV} from '../lib/prayerKnowledge.mjs';
@@ -248,7 +249,7 @@ export default function ToolApp({slug}:{slug:string}){
  if(slug==='islamic-events-calendar')return <IslamicEvents/>;
  if(slug==='printable-prayer-chart')return <PrayerChart/>;
  if(slug==='nisab-calculator')return <Nisab/>;
- if(slug==='hijri-converter')return <Hijri/>;
+ if(slug==='hijri-converter')return <HijriConverter/>;
  if(slug==='islamic-age')return <Hijri age/>;
  if(slug==='tasbih-counter')return <Counter/>;
  if(slug==='quran-planner')return <Quran/>;
