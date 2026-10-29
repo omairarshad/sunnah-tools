@@ -31,9 +31,7 @@ jobs:
       - name: Prepare world city directory from GeoNames
         run: npm run prepare:cities
 
-      - name: Prepare AdSense seller authorisation file when configured
-        env:
-          PUBLIC_ADSENSE_PUBLISHER_ID: ${{ vars.ADSENSE_PUBLISHER_ID }}
+      - name: Prepare seller authorisation for canonical AdSense publisher
         run: npm run prepare:ads
 
       - name: Run calculation tests
@@ -47,7 +45,6 @@ jobs:
 
       - name: Generate static website
         env:
-          PUBLIC_ADSENSE_PUBLISHER_ID: ${{ vars.ADSENSE_PUBLISHER_ID }}
           PUBLIC_ADSENSE_ADS_ENABLED: ${{ vars.ADSENSE_ADS_ENABLED }}
           PUBLIC_ADSENSE_CMP_READY: ${{ vars.ADSENSE_CMP_READY }}
           PUBLIC_ADSENSE_HOME_SLOT: ${{ vars.ADSENSE_HOME_SLOT }}
@@ -73,8 +70,11 @@ jobs:
         run: |
           test -s dist/index.html
           test -s dist/ads.txt
-          grep -q 'google.com, pub-5803311676381609, DIRECT, f08c47fec0942fa0' dist/ads.txt
-          grep -q 'name="google-adsense-account" content="ca-pub-5803311676381609"' dist/index.html
+          grep -q 'google.com, pub-4083891573415148, DIRECT, f08c47fec0942fa0' dist/ads.txt
+          grep -q 'name="google-adsense-account" content="ca-pub-4083891573415148"' dist/index.html
+          ! grep -q 'ca-pub-5803311676381609' dist/index.html
+          ! grep -q 'pub-5803311676381609' dist/ads.txt
+          grep -q 'name="google-adsense-account" content="ca-pub-4083891573415148"' dist/tools/prayer-times/index.html
           test $(grep -o 'class="tool-card-visual"' dist/index.html | wc -l) -eq 37
           ! grep -q 'class="tool-card-icon"' dist/index.html
           test -s dist/tool-art/prayer-times.svg
