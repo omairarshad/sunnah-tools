@@ -186,3 +186,12 @@ console.log('All 37 tool pages include original comparison-led practical notes')
  }
  assert((html.match(/class="hijri-guide-section"/g)||[]).length>=7,'Hijri guide needs substantial sections');
 }
+
+// The Quran Planner guide is indexed independently of its browser-only saved-plan UI.
+{
+ const html=read('tools/quran-planner/index.html');
+ for(const phrase of ['How to plan Quran reading: a complete guide','Plan a Quran completion schedule, step by step','604 pages, thirty juz','Choosing a sustainable daily pace','Worked example: a 30-day reading plan','What if you miss a day','Saving, exporting and restoring','Quran 73:4','Sahih al-Bukhari 5054','id="quran-pace"','id="quran-sources"']){
+  assert(html.includes(phrase),'Quran Planner knowledge base missing '+phrase);
+ }
+ assert((html.match(/class="quran-guide-section"/g)||[]).length>=7,'Quran Planner guide sections incomplete');
+}

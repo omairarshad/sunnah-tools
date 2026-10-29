@@ -1,0 +1,92 @@
+---
+const steps=[
+ {heading:'Match the page total to your Mushaf',body:'A 604-page Madinah-style Mushaf is common, but layouts and page numbering differ. Use the total printed in the edition you actually read; page ranges from another edition may not line up.'},
+ {heading:'Enter the progress you have genuinely made',body:'The planner assumes pages 1 through your completed-page count have already been read. If you start from another place, use the numbers only as a pacing estimate and follow your own bookmark.'},
+ {heading:'Choose a civil start date and target span',body:'Enter how many Gregorian calendar days you want the remaining reading to occupy. It is a personal planning goal, not a universal religious deadline.'},
+ {heading:'Decide whether to reserve buffer days',body:'Choose zero, one or two catch-up days in each seven-day block. The tool assigns no new pages on those days and redistributes the remaining pages over the active days.'},
+ {heading:'Split active days into optional sessions',body:'One, three or five reading slots can make a daily target easier to approach. They are organisational choices; five slots do not mean that five separate readings are required with the daily prayers.'},
+ {heading:'Review your dates, export and replan when needed',body:'Preview the daily ranges, download the complete CSV, and keep a JSON backup. If your plan start is now behind you, use Replan remaining pages from today to give the unread pages new dates.'}
+];
+const questions=[
+ {q:'How many Quran pages should I read each day?',a:'Enter the page total, pages already read and number of days. The planner distributes the remaining pages as evenly as possible across active reading days; no daily number is universally compulsory.'},
+ {q:'Is the Quran always 604 pages?',a:'No. 604 pages is a common Madinah Mushaf layout, but other editions use different script, margins, page size and divisions. Change the total to match your copy.'},
+ {q:'How do optional buffer days work?',a:'They are the last one or two days of each seven-day block counted from the selected plan start. No new pages are assigned there; they can be used for catching up, review or rest.'},
+ {q:'What if I miss a reading day?',a:'Update your actual completed pages and replan the remaining reading from your new start date. The tool does not silently claim that missed pages were completed.'},
+ {q:'Does the planner automatically track Quran reading?',a:'No. You enter how many pages are complete. It cannot know what you have read in a physical Mushaf or another app.'},
+ {q:'Does it divide the Quran by surah, ayah or juz?',a:'No. Its assignments are numeric page ranges in your chosen Mushaf. They are not guaranteed ayah boundaries or accurate juz markers for every edition. Use your copy or the separate Juz Finder for those divisions.'},
+ {q:'Can I use it for a Ramadan reading plan?',a:'Yes, but choose the number of days and start date only after checking the Ramadan announcement your community follows. The calculator works with civil dates; it does not establish the beginning or end of Ramadan.'},
+ {q:'Is finishing in thirty days a religious requirement?',a:'No. Reports such as Sahih al-Bukhari 5054 discuss particular recitation intervals and individual capability. A planning target is not a ruling or an obligation to finish at a fixed pace.'},
+ {q:'Why is my target sometimes 20 pages and sometimes 21?',a:'Whole pages cannot always be distributed equally. A 604-page book over 30 active days requires 20 pages on some days and 21 on others; the plan allocates every page once.'},
+ {q:'What is the difference between CSV and JSON download?',a:'The CSV is a dated schedule for spreadsheets or printing. The JSON backup stores your page count, progress, dates and pace settings for restoring this planner.'},
+ {q:'Will my saved plan appear on another device?',a:'Not automatically. The browser stores the plan locally on the current device. Download a JSON backup and restore it on the other device if you want to transfer it.'},
+ {q:'Will an older Quran Planner backup still work?',a:'Yes. The restore control accepts the previous four-field plan format and upgrades it with default pace settings. The original browser data is not deleted by migration.'}
+];
+---
+<section class="quran-knowledge" id="quran-planner-guide" aria-labelledby="quran-guide-heading">
+ <header><h2 id="quran-guide-heading">How to plan Quran reading: a complete guide</h2>
+  <p>Build a realistic reading routine, understand page-based khatm schedules, allow time for review, and protect your progress. The calculator above handles arithmetic and personal reminders; this guide explains what the numbers mean and where they stop.</p></header>
+ <nav class="quran-guide-nav" aria-label="Quran Planner guide sections"><a href="#quran-how-to">Step-by-step</a><a href="#quran-editions">Mushaf pages</a><a href="#quran-pace">Choose a pace</a><a href="#quran-example">Worked example</a><a href="#quran-catchup">Missed days</a><a href="#quran-sources">Sources</a></nav>
+ <div class="quran-guide-facts"><div><span>Reading goal</span><strong>Flexible</strong><p>A personal schedule, not a required khatm deadline</p></div><div><span>Page count</span><strong>Edition-specific</strong><p>604 is common, not universal</p></div><div><span>Progress</span><strong>On your device</strong><p>Optional local backups and exports</p></div></div>
+
+ <section class="quran-guide-section" id="quran-how-to" aria-labelledby="quran-how-title">
+  <h3 id="quran-how-title">Plan a Quran completion schedule, step by step</h3>
+  <ol class="quran-guide-steps">{steps.map(step=><li><h4>{step.heading}</h4><p>{step.body}</p></li>)}</ol>
+  <p>A schedule should support attentive reading, not encourage rushing for a number. <a href="https://quran.com/73/4" target="_blank" rel="noopener noreferrer">Quran 73:4</a> emphasises measured recitation. Use a manageable pace that leaves room for correct recitation, reflection, understanding and the circumstances of your day.</p>
+ </section>
+
+ <section class="quran-guide-section" id="quran-editions" aria-labelledby="quran-editions-title">
+  <h3 id="quran-editions-title">604 pages, thirty juz and different Mushaf editions</h3>
+  <p>Many people plan with a common 604-page Madinah Mushaf. Dividing 604 by 30 gives about 20.13 pages per day, which is why a 30-day plan alternates between 20 and 21 whole pages. But <strong>604 is not a count of Quran verses or a universal pagination</strong>. Another Mushaf may divide its pages differently without changing the text of the Quran.</p>
+  <p>The Quran is conventionally divided into <strong>30 juz</strong> for reading and study. A juz boundary is not necessarily at a neat multiple of 20 pages in your particular edition. This planner intentionally assigns only page numbers, not surah or ayah ranges. Use your Mushaf markings or the <a href="/tools/quran-juz-finder/">Quran Juz Finder</a> for actual section boundaries.</p>
+  <p>A numeric page target can also end partway through an ayah or a topic. Adjust your stopping point in your real reading to avoid awkward interruptions; the calculated page figure is approximate workload guidance, not a rule about where recitation must stop.</p>
+ </section>
+
+ <section class="quran-guide-section" id="quran-pace" aria-labelledby="quran-pace-title">
+  <h3 id="quran-pace-title">Choosing a sustainable daily pace</h3>
+  <p>The simplest plan distributes unread pages across the number of days you choose. If you have already read part of the Mushaf, only the remaining pages are assigned. Optional buffer days are reserved *inside* the same target date range, so adding them increases the pages on active days instead of quietly extending your finish date.</p>
+  <div class="table-wrap"><table class="quran-pace-table"><thead><tr><th scope="col">Planning choice</th><th scope="col">Effect on the schedule</th><th scope="col">When it helps</th></tr></thead><tbody>
+   <tr><th scope="row">No buffer days</th><td>Every calendar day may receive a share of the remaining pages.</td><td>A stable, consistent daily routine.</td></tr>
+   <tr><th scope="row">One buffer day / week</th><td>Each seventh plan day has no new pages assigned.</td><td>Room for a missed reading, revision or a busy day.</td></tr>
+   <tr><th scope="row">Two buffer days / week</th><td>The sixth and seventh days of each block are left open.</td><td>A smaller number of more substantial reading days.</td></tr>
+   <tr><th scope="row">One, three or five sessions</th><td>Each active day's whole-page range is split into optional smaller ranges.</td><td>Spreading reading through the day without a religiously required session count.</td></tr>
+  </tbody></table></div>
+  <p>In <a href="https://sunnah.com/bukhari:5054" target="_blank" rel="noopener noreferrer">Sahih al-Bukhari 5054</a>, the Prophet ﷺ discussed completing the recitation with Abdullah ibn Amr over a month and then a shorter period according to his circumstances. This is a source to reflect on sustainable recitation, not permission for a website to impose one fixed target on every reader. <a href="https://quran.com/54/17" target="_blank" rel="noopener noreferrer">Quran 54:17</a> also calls readers to remember and reflect on the revelation.</p>
+ </section>
+
+ <section class="quran-guide-section" id="quran-example" aria-labelledby="quran-example-title">
+  <h3 id="quran-example-title">Worked example: a 30-day reading plan</h3>
+  <div class="quran-worked-example">
+   <p><strong>Example inputs:</strong> 604 pages in your Mushaf, 0 pages completed, a target of 30 days, 5 optional reading sessions each active day, and no buffer days.</p>
+   <div class="quran-example-metrics"><div><span>Pages remaining</span><strong>604</strong></div><div><span>Active reading days</span><strong>30</strong></div><div><span>Daily allocation</span><strong>20–21 pages</strong></div><div><span>Session share</span><strong>About 4–5 pages</strong></div></div>
+   <p>The exact page boundaries are spaced across the thirty days so the final assigned page is 604, with no gaps or duplicates. Now add <strong>one buffer day per seven-day block</strong>: a 30-day span contains four buffer days and 26 active reading days. The daily target becomes about 23–24 pages. The end date does not move.</p>
+   <p>If you have already completed 100 pages, enter 100 in Pages already read. The schedule assigns only pages 101 through 604. You can download the new CSV or keep the JSON backup for later restoration.</p>
+  </div>
+ </section>
+
+ <section class="quran-guide-section" id="quran-catchup" aria-labelledby="quran-catchup-title">
+  <h3 id="quran-catchup-title">What if you miss a day or change your routine?</h3>
+  <p>Missing a personal reading target does not mean the software should silently move pages into the “completed” column. Record your actual completed page count. If the plan now starts in the past, select <strong>Replan remaining pages from today</strong>; the original completed count remains, and the remaining pages receive a new dated schedule.</p>
+  <p>You may also increase the number of planning days or reserve buffer days to make the pace gentler. A new schedule is a calculation, not a judgment about your effort or worship.</p>
+  <p>For Ramadan planning, use the local Ramadan start announcement you follow before fixing civil dates. This page does not calculate Hijri moon sighting or decide which days are Ramadan. The <a href="/tools/ramadan-timetable/">Ramadan timetable</a> is a separate planning aid with its own date caveats.</p>
+ </section>
+
+ <section class="quran-guide-section" id="quran-privacy" aria-labelledby="quran-privacy-title">
+  <h3 id="quran-privacy-title">Saving, exporting and restoring your reading plan</h3>
+  <p>The planner stores its page total, completion count, date and pacing options <strong>locally in your browser</strong> so that a return visit on the same device can restore the view. It does not require an account, send your private reading progress to a server, or automatically know what you have read.</p>
+  <p><strong>CSV</strong> downloads the entire dated timetable, even when the on-screen preview only displays its first days. <strong>JSON</strong> is a small backup of the settings and count that can be restored later. The restore feature accepts earlier Quran Planner backups, upgrades them to the new format, and asks before replacing current values. Private/incognito sessions, browser data clearing and different devices may not share the same local data.</p>
+ </section>
+
+ <section class="quran-guide-section" id="quran-questions" aria-labelledby="quran-questions-title">
+  <h3 id="quran-questions-title">Frequently asked Quran Planner questions</h3>
+  <div class="quran-guide-faq">{questions.map((item,index)=><details open={index===0}><summary>{item.q}</summary><p>{item.a}</p></details>)}</div>
+ </section>
+
+ <section class="quran-guide-section" id="quran-sources" aria-labelledby="quran-sources-title">
+  <h3 id="quran-sources-title">Quran and hadith references</h3>
+  <ul><li><a href="https://quran.com/73/4" target="_blank" rel="noopener noreferrer">Quran 73:4</a> — measured recitation.</li>
+   <li><a href="https://quran.com/54/17" target="_blank" rel="noopener noreferrer">Quran 54:17</a> — remembering and reflecting upon the Quran.</li>
+   <li><a href="https://sunnah.com/bukhari:5054" target="_blank" rel="noopener noreferrer">Sahih al-Bukhari 5054</a> — a discussion of Quran completion intervals with Abdullah ibn Amr.</li>
+  </ul>
+  <p class="quran-review-note">The page targets and session splits are neutral arithmetic, not prescribed acts of worship. Interpretations and individual religious guidance should be checked with a qualified teacher. Independent scholarly editorial review of this guide remains pending.</p>
+ </section>
+</section>

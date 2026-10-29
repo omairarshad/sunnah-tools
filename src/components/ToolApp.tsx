@@ -11,12 +11,13 @@ import {qiblaContext} from '../lib/qiblaDetails.mjs';
 import TahajjudCalculator from './TahajjudCalculator';
 import FastingTimesPanel from './FastingTimesPanel';
 import HijriConverter from './HijriConverter';
+import QuranPlanner from './QuranPlanner';
 import {ramadanDays,timetableCSV} from '../lib/ramadanHelpers.mjs';
-import {makeRamadanIcs,validateQuranPlan,validateSalahHistory,downloadText} from '../lib/personalTools.mjs';
+import {makeRamadanIcs,validateSalahHistory,downloadText} from '../lib/personalTools.mjs';
 import {differenceMinutes,differenceLabel,prayerWeekCSV} from '../lib/prayerKnowledge.mjs';
 import {WhiteDaysCalendar,PrintableHijriCalendar,PrayerWidgetGenerator,UmrahPackingChecklist} from './BatchTools';
 import {CalculationMethod,Coordinates,Madhab,PrayerTimes,Qibla,HighLatitudeRule,PolarCircleResolution} from 'adhan';
-import {localISODate,nisabAmounts,parseAmount,finalThirdStart,readingPlan,hijriToGregorian} from '../lib/calculations.mjs';
+import {localISODate,nisabAmounts,parseAmount,finalThirdStart,hijriToGregorian} from '../lib/calculations.mjs';
 const cities=[['Newcastle upon Tyne','Europe/London',54.9783,-1.6178],['London','Europe/London',51.5072,-0.1276],['Makkah','Asia/Riyadh',21.4225,39.8262],['Madinah','Asia/Riyadh',24.4672,39.6111],['New York','America/New_York',40.7128,-74.006],['Karachi','Asia/Karachi',24.8607,67.0011],['Lahore','Asia/Karachi',31.5204,74.3587],['Dubai','Asia/Dubai',25.2048,55.2708],['Kuala Lumpur','Asia/Kuala_Lumpur',3.139,101.6869],['Jakarta','Asia/Jakarta',-6.2088,106.8456],['Istanbul','Europe/Istanbul',41.0082,28.9784],['Toronto','America/Toronto',43.6532,-79.3832],['Sydney','Australia/Sydney',-33.8688,151.2093]] as const;
 const labels=['Fajr','Sunrise','Dhuhr','Asr','Maghrib','Isha'] as const;
 function fmt(d:Date,zone:string){return !(d instanceof Date)||Number.isNaN(d.getTime())?'—':new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',timeZone:zone,hour12:false}).format(d)}
@@ -157,29 +158,6 @@ function Counter(){
  <div className="action-row"><button onClick={()=>setN(v=>v+1)}>+ Count</button><button className="secondary" onClick={()=>{if(window.confirm('Reset the current count?'))setN(0)}}>Reset</button></div>
  <p className="small">Press the Space key when not focused on a control. Your tally is saved in this browser.</p></>;
 }
-function Quran(){
- const [p,setP]=useState(604),[days,setDays]=useState(30),[done,setDone]=useState(0),[start,setStart]=useState(()=>localISODate()),[ready,setReady]=useState(false),[backupStatus,setBackupStatus]=useState('');
- useEffect(()=>{try{const val=validateQuranPlan(JSON.parse(localStorage.getItem('sunnah-quran-reading-v2')??'null'));if(val){setP(val.pages);setDays(val.days);setDone(val.done);setStart(val.start)}}catch{}setReady(true)},[]);
- useEffect(()=>{if(ready){const val=validateQuranPlan({pages:p,days,done,start});if(val)try{localStorage.setItem('sunnah-quran-reading-v2',JSON.stringify(val))}catch{}}},[p,days,done,start,ready]);
- const exportPlan=()=>{const val=validateQuranPlan({pages:p,days,done,start});if(val)downloadText('quran-reading-plan.json',JSON.stringify(val,null,2))};
- const importPlan=async(e:React.ChangeEvent<HTMLInputElement>)=>{
-  const file=e.target.files?.[0];e.target.value='';if(!file)return;
-  if(file.size>32000){setBackupStatus('The file is too large.');return}
-  try{const val=validateQuranPlan(JSON.parse(await file.text()));if(!val){setBackupStatus('Not a valid Quran reading plan backup.');return}
-   if(!window.confirm('Replace your saved reading plan with this backup?'))return;
-   setP(val.pages);setDays(val.days);setDone(val.done);setStart(val.start);setBackupStatus('Plan restored on this device.');
-  }catch{setBackupStatus('Could not read that backup file.')}
- };
- const plan=readingPlan(p,done,days);
- return <><div className="two"><Field label="Pages in your Mushaf"><input type="number" min="1" step="1" value={p} onChange={e=>setP(e.target.value===''?0:Number(e.target.value))}/></Field>
- <Field label="Days remaining"><input type="number" min="1" step="1" value={days} onChange={e=>setDays(e.target.value===''?0:Number(e.target.value))}/></Field></div>
- <Field label="Pages already read"><input type="number" min="0" step="1" value={done} onChange={e=>setDone(e.target.value===''?0:Number(e.target.value))}/></Field>
- <Field label="Plan start date"><input type="date" value={start} onChange={e=>setStart(e.target.value)}/></Field>
-  {plan?<><div className="prayers"><div>Pages left<strong>{plan.remaining}</strong></div><div>Pages per day<strong>{plan.perDay}</strong></div><div>Pages per prayer<strong>{plan.perPrayer}</strong></div></div><label>Reading progress · {plan.percent}%</label><progress max={p} value={done}/>{date(start)&&<details className="settings" open><summary>Daily reading ranges</summary><div className="table-wrap"><table><thead><tr><th>Day</th><th>Date</th><th>Pages to read</th></tr></thead><tbody>{Array.from({length:Math.min(days,31)},(_,i)=>{const a=done+Math.floor(plan.remaining*i/days)+1,b=done+Math.floor(plan.remaining*(i+1)/days),d=date(start)!;d.setDate(d.getDate()+i);return <tr key={i}><td>{i+1}</td><td>{new Intl.DateTimeFormat('en-GB',{day:'numeric',month:'short',year:'numeric'}).format(d)}</td><td>{a<=b?a+'–'+b:'Rest / catch up'}</td></tr>})}</tbody></table></div>{days>31&&<p className="small">Showing the first 31 days of the plan.</p>}<button type="button" onClick={()=>window.print()} className="secondary">Print plan</button></details>}</>:<p className="warn">Enter positive whole-number page and day totals, with completed pages no greater than the total.</p>}
- <div className="action-row"><button className="secondary" type="button" onClick={exportPlan} disabled={!validateQuranPlan({pages:p,days,done,start})}>Download plan backup</button><label>Restore saved plan<input type="file" accept=".json,application/json" aria-label="Restore Quran reading plan from JSON" onChange={importPlan}/></label></div>
- {backupStatus&&<p role="status" className="small">{backupStatus}</p>}
- <p className="small">604 pages is a common Mushaf layout. Change it to match your edition. Your plan is saved on this device; download a backup before clearing browser data.</p></>;
-}
 function RamadanCountdown(){
  const [target,setTarget]=useState('2027-02-08'),[now,setNow]=useState(()=>Date.now());
  useEffect(()=>{const id=window.setInterval(()=>setNow(Date.now()),60000);return()=>window.clearInterval(id)},[]);
@@ -252,7 +230,7 @@ export default function ToolApp({slug}:{slug:string}){
  if(slug==='hijri-converter')return <HijriConverter/>;
  if(slug==='islamic-age')return <Hijri age/>;
  if(slug==='tasbih-counter')return <Counter/>;
- if(slug==='quran-planner')return <Quran/>;
+ if(slug==='quran-planner')return <QuranPlanner/>;
  if(slug==='ramadan-countdown')return <RamadanCountdown/>;
  if(slug==='fasting-tracker')return <FastingTracker/>;
  if(slug==='salah-tracker')return <SalahTracker/>;

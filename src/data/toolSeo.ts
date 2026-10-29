@@ -495,24 +495,52 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
     ]
   },
   "quran-planner": {
-    "title": "Quran Reading Planner – Daily Khatm Schedule",
-    "h1": "Quran Reading Planner",
-    "description": "Plan daily Quran reading to finish in a chosen number of days. Enter your mushaf page count and reading progress for a practical khatm schedule.",
-    "summary": "Work out how many Quran pages to read each day to meet your goal.",
-    "details": "Enter the total pages in your mushaf, pages completed and available days. The planner divides remaining pages into daily and optional per-prayer goals.",
-    "caution": "Mushaf layouts vary; do not assume 604 pages unless that matches your edition. Progress is a planning estimate.",
+    "title": "Quran Reading Planner – Daily Pages, Khatm & Catch-Up Schedule",
+    "h1": "Quran Reading Planner & Khatm Schedule",
+    "description": "Make a flexible Quran reading plan with daily page ranges, optional buffer days and short sessions. Track progress privately, download a timetable and read the sourced guide.",
+    "summary": "Turn your remaining Quran pages into a dated daily schedule with optional catch-up days, session splits, on-device progress and downloadable CSV or JSON.",
+    "details": "Enter your own Mushaf's page count, completed pages, civil start date and target duration. The planner allocates whole-page ranges over active days, allows one or two buffer days per seven-day block, and exports a full dated schedule while preserving earlier saved plans. The guide covers page-count differences, juz boundaries, sustainable recitation, missed days and privacy.",
+    "caution": "604 pages is common but not universal, and page splits do not identify exact ayah or juz boundaries. The plan neither tracks reading automatically nor prescribes a religious completion deadline. Verify Ramadan dates locally and choose a sustainable pace.",
     "faqs": [
       {
         "question": "How many Quran pages should I read daily?",
-        "answer": "Divide the remaining pages in your own mushaf by the number of days you have set aside."
+        "answer": "Divide unread pages in your chosen Mushaf by your active reading days. The planner distributes whole pages evenly and shows the exact dated ranges."
       },
       {
         "question": "Can I use this planner during Ramadan?",
-        "answer": "Yes. Select the days remaining in Ramadan or any other personal goal period."
+        "answer": "Yes. Select a civil start date and duration after checking the Ramadan announcement followed by your community. The planner does not determine the start or end of Ramadan."
       },
       {
         "question": "Can I enter a Quran edition with fewer than 604 pages?",
-        "answer": "Yes. The plan uses your chosen total page count, completed pages and target duration rather than assuming that every edition has the same layout."
+        "answer": "Yes. Your own Mushaf's page total is editable, because editions and typesetting differ. The schedule does not assert universal page-to-ayah or juz boundaries."
+      },
+      {
+        "question": "What are buffer or catch-up days?",
+        "answer": "You can leave the last one or two days of every seven-day plan block free of new pages for review or catch-up. The finish date stays the same, so active reading days carry more pages."
+      },
+      {
+        "question": "Can I split a daily reading target into sessions?",
+        "answer": "Yes. Divide active days into one, three or five optional reading slots. These are practical divisions, not an obligation to read separately after prayers."
+      },
+      {
+        "question": "What should I do when I miss a reading day?",
+        "answer": "Enter the pages you have actually completed and use Replan remaining pages from today to set new dates. The planner never marks a missed page as read automatically."
+      },
+      {
+        "question": "Is finishing the Quran in thirty days required?",
+        "answer": "No. A thirty-day khatm is a possible personal goal. The source-linked guide discusses measured recitation and a hadith about differing completion intervals; the tool does not impose a religious pace."
+      },
+      {
+        "question": "Will my Quran progress sync across devices?",
+        "answer": "No automatic sync. Progress and settings stay in this browser. Download a JSON backup and restore it on another device if needed."
+      },
+      {
+        "question": "Can I download the entire Quran reading timetable?",
+        "answer": "Yes. The CSV includes every planned civil date, buffer or active status, page range and optional session ranges. The on-screen preview may show fewer days."
+      },
+      {
+        "question": "Can I restore my old Quran reading plan backup?",
+        "answer": "Yes. Earlier four-field JSON backups are accepted and upgraded to the new format with default session and buffer settings, without deleting the original browser data."
       }
     ]
   },
