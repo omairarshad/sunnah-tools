@@ -1,8 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
-<title id="title">Sunnah Tools emblem</title>
-<path d="M9 41V26c0-10.6 8.2-15.7 23-24 14.8 8.3 23 13.4 23 24v15" fill="none" stroke="#D5AD68" stroke-width="4.4" stroke-linejoin="round"/>
-<path d="M35.5 14.3c-7.8 2.1-10.6 9.6-8.2 15.2 3.3 7.7 12.2 8.2 17.8 2.5-6.5 6.1-15.1 15.5-15.7-2.8-3.7-6.9-3.9-9.6-2Z" fill="#F6F1E6"/>
-<path d="m43.5 15 1.4 3.9 3.9 1.4-3.9 1.4-1.4 3.9-1.4-3.9-3.9-1.4 3.9-1.4Z" fill="#D5AD68"/>
-<path d="M32 51.5C24.2 45.8 15.9 44.2 5 45.3v-8c12.3-1.7 21.5 1 27 7.3 5.5-6.3 14.7-9 27-7.3v8c-10.9-1.1-19.2.5-27 6.2Z" fill="#F6F1E6"/>
-<path d="M32 55.2C23.2 50.6 15.1 49.3 5 50.5m27 4.7c8.8-4.6 16.9-5.9 27-4.7" fill="none" stroke="#D5AD68" stroke-width="3" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title"><title id="title">Sunnah Tools direction mark</title>
+<path d="M32 5 40.2 23.8 59 32l-18.8 8.2L32 59l-8.2-18.8L5 32l18.8-8.2Z" fill="#194D3F"/>
+<path d="M32 15.5 36.9 27.1 48.5 32l-11.6 4.9L32 48.5l-4.9-11.6L15.5 32l11.6-4.9Z" fill="#F4F1E9"/>
+<path d="M32 24.5 39.5 32 32 39.5 24.5 32Z" fill="#B17E43"/>
 </svg>

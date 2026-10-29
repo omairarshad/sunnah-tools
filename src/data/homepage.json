@@ -395,8 +395,8 @@
   },
   "layout": {
     "sectionOrder": [
-      "promotions",
       "directory",
+      "promotions",
       "guides"
     ],
     "showGuides": true
