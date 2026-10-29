@@ -333,3 +333,51 @@ html[data-theme="dark"] .tool-guide-utility,
 html[data-theme="dark"] .tool-guide-index>summary{background:var(--ux-guide)!important;border:0!important;color:#e5ece7!important}
 html[data-theme="dark"] .tool-guide-chevron{background:transparent!important;border:0!important;color:#bac9c1!important}
 html[data-theme="dark"] .tool-guide-index-links{background:var(--ux-guide)!important;border:0!important}
+
+/* Final dark-workspace correction: prior identities used higher specificity
+   and would otherwise repaint neutral workspaces green. */
+html[data-theme="dark"] .tool-screen[data-tone] .tool-panel,
+html[data-theme="dark"] .tool-screen .tool-panel,
+html[data-theme="dark"] .tool-panel{
+ background:var(--ux-work)!important;border:0!important;box-shadow:none!important;
+}
+html[data-theme="dark"] .tool-screen[data-tone] .tool-panel-heading,
+html[data-theme="dark"] .tool-screen .tool-panel-heading{
+ background:var(--ux-work)!important;border-bottom:0!important;
+}
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner input:not([type="checkbox"]):not([type="radio"]),
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner select,
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner textarea{
+ background:var(--ux-field)!important;border:1px solid var(--ux-field-border)!important;
+ color:#f2f5f2!important;box-shadow:none!important;
+}
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner button:not(.secondary):not(.city-results button):not(.tool-guide-utility):not([type=reset]){
+ background:var(--ux-action)!important;border-color:transparent!important;
+ color:var(--ux-action-text)!important;
+}
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner button.secondary,
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner button[type=reset]{
+ background:var(--ux-section)!important;border-color:transparent!important;
+ color:var(--ux-section-text)!important;
+}
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .zakat-fieldset,
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner fieldset:not(.sr-only){
+ background:transparent!important;border:0!important;border-top:1px solid var(--ux-rule)!important;
+ color:var(--brand-ink)!important;
+}
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .zakat-summary-grid>div,
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .zakat-nisab-grid>div{
+ background:var(--ux-section)!important;border:0!important;color:var(--brand-ink)!important;
+}
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .zakat-summary-grid span,
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .zakat-nisab-grid span{color:var(--ux-quiet)!important}
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .zakat-summary-grid strong,
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .zakat-nisab-grid strong{color:#e5eee7!important}
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .check{
+ background:var(--ux-section)!important;border:0!important;color:var(--ux-section-text)!important;
+}
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .fasting-deep-panel,
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .fasting-history-list>div{
+ background:var(--ux-section)!important;border:0!important;
+}
+/* Keep the high-contrast output and neutral calculator surfaces distinct. */
