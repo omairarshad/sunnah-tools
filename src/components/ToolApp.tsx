@@ -28,7 +28,7 @@ import {validateSalahHistory,downloadText} from '../lib/personalTools.mjs';
 import {differenceMinutes,differenceLabel,prayerWeekCSV} from '../lib/prayerKnowledge.mjs';
 import {PrintableHijriCalendar,PrayerWidgetGenerator,UmrahPackingChecklist} from './BatchTools';
 import {CalculationMethod,Coordinates,Madhab,PrayerTimes,Qibla,HighLatitudeRule,PolarCircleResolution} from 'adhan';
-import {localISODate,parseAmount,finalThirdStart,hijriToGregorian} from '../lib/calculations.mjs';
+import {localISODate,finalThirdStart,hijriToGregorian} from '../lib/calculations.mjs';
 const cities=[['Newcastle upon Tyne','Europe/London',54.9783,-1.6178],['London','Europe/London',51.5072,-0.1276],['Makkah','Asia/Riyadh',21.4225,39.8262],['Madinah','Asia/Riyadh',24.4672,39.6111],['New York','America/New_York',40.7128,-74.006],['Karachi','Asia/Karachi',24.8607,67.0011],['Lahore','Asia/Karachi',31.5204,74.3587],['Dubai','Asia/Dubai',25.2048,55.2708],['Kuala Lumpur','Asia/Kuala_Lumpur',3.139,101.6869],['Jakarta','Asia/Jakarta',-6.2088,106.8456],['Istanbul','Europe/Istanbul',41.0082,28.9784],['Toronto','America/Toronto',43.6532,-79.3832],['Sydney','Australia/Sydney',-33.8688,151.2093]] as const;
 const labels=['Fajr','Sunrise','Dhuhr','Asr','Maghrib','Isha'] as const;
 function fmt(d:Date,zone:string){return !(d instanceof Date)||Number.isNaN(d.getTime())?'—':new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',timeZone:zone,hour12:false}).format(d)}

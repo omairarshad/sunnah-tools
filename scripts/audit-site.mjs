@@ -218,7 +218,7 @@ console.log('Fitrana, Gold Zakat and Nisab have full static guides and source-al
 // Three additional deep dives must be indexable without React hydration.
 const nextGivingGuides=[
  ['zakat-anniversary-calculator',['Zakat anniversary calculator: hawl, lunar-year dates and complete guide','Worked example: why a lunar-year anniversary moves earlier','Sunan Abi Dawud 1573','id="hawl-example"','id="hawl-sources"']],
- ['zakat-stocks-crypto',['Zakat on stocks, shares and cryptocurrency: full calculation guide','Worked example: trading shares, long-term shares and crypto','Investment Zakat','id="invest-example"','id="invest-sources"']],
+ ['zakat-stocks-crypto',['Zakat on stocks, shares and cryptocurrency: full calculation guide','Worked example: trading shares, long-term shares and crypto','25% proxy','id="invest-example"','id="invest-sources"']],
  ['qurbani-share-calculator',['Qurbani share calculator: cow, camel, sheep and complete Udhiyah guide','Worked Qurbani example: three of seven shares','Sahih Muslim 1318a','id="qurbani-example"','id="qurbani-sources"']]
 ];
 for(const [slug,phrases] of nextGivingGuides){

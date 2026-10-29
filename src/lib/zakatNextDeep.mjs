@@ -52,6 +52,7 @@ export const INVESTMENT_TYPES=Object.freeze([
  {id:'utility-token',label:'Utility or other token requiring assessment'}
 ]);
 /** Intention/asset classification is user-entered; not a religious determination. */
+/** @param {{entries:Array<{kind:string,value:number,method?:string,percent?:number}>,otherWealth?:number,liabilities?:number,nisab?:number|null}} input */
 export function investmentZakatBreakdown({entries,otherWealth=0,liabilities=0,nisab=null}){
  if(!Array.isArray(entries)||entries.length<1||entries.length>16||
  !valid(otherWealth)||!valid(liabilities)||(nisab!==null&&!positive(nisab)))return null;
