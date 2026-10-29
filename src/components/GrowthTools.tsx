@@ -1,6 +1,7 @@
 import {validateQadaPlan} from '../lib/personalTools.mjs';
 import {useEffect,useState} from 'react';
 import {qadaPlanningDays,qurbaniEstimate} from '../lib/growthCalculations.mjs';
+import {qadaPace} from '../lib/prayerFive.mjs';
 
 const currencies=['GBP','USD','EUR','PKR','INR','SAR','AED','CAD','AUD','MYR'];
 const money=(n:number,currency:string)=>new Intl.NumberFormat('en-GB',{style:'currency',currency,maximumFractionDigits:2}).format(n);
@@ -28,7 +29,7 @@ export function QadaPrayerCalculator(){
  };
 
  const [mode,setMode]=useState<'days'|'years'|'range'>('days'),[days,setDays]=useState('30'),[years,setYears]=useState('1'),[start,setStart]=useState(''),[end,setEnd]=useState(''),[excluded,setExcluded]=useState('0'),[witr,setWitr]=useState(false);
- const [overrides,setOverrides]=useState<Record<string,string>>({}),[done,setDone]=useState<Record<string,number>>({}),[ready,setReady]=useState(false);
+ const [overrides,setOverrides]=useState<Record<string,string>>({}),[done,setDone]=useState<Record<string,number>>({}),[ready,setReady]=useState(false),[daily,setDaily]=useState('5');
  const storageKey='sunnah-qada-plan-v2';
  useEffect(()=>{try{const value=JSON.parse(localStorage.getItem(storageKey)??'null')??{done:JSON.parse(localStorage.getItem('sunnah-qada-progress-v1')??'{}')};
  if(value&&typeof value==='object'&&!Array.isArray(value)){
@@ -46,6 +47,7 @@ export function QadaPrayerCalculator(){
  const valid=base!==null&&targets.every(item=>Number.isSafeInteger(item.target)&&item.target>=0&&item.target<=1000000);
  const total=valid?targets.reduce((sum,item)=>sum+item.target,0):0;
  const completed=valid?targets.reduce((sum,item)=>sum+Math.min(item.target,done[item.name]??0),0):0;
+ const pacing=valid?qadaPace(total,completed,/^\d+$/.test(daily)?Number(daily):NaN):null;
  const adjust=(name:string,delta:number,target:number)=>setDone(prev=>({...prev,[name]:Math.min(target,Math.max(0,(prev[name]??0)+delta))}));
  return <div className="growth-tool">
   <p>Estimate missed prayers (Qada Salah) and record prayers you have made up. Check which prayers you need to include with a qualified scholar.</p>
@@ -58,6 +60,7 @@ export function QadaPrayerCalculator(){
   <label className="check"><input type="checkbox" checked={witr} onChange={e=>setWitr(e.target.checked)}/> Include Witr in my plan (school-dependent)</label>
   {valid?<><div className="two"><div className="result"><span>Estimated prayers in this plan</span><strong>{total.toLocaleString('en-GB')}</strong></div><div className="result"><span>Remaining after recorded progress</span><strong>{(total-completed).toLocaleString('en-GB')}</strong></div></div>
    <p className="small">Adjust each prayer count as needed. Blank fields use {base?.toLocaleString('en-GB')} days.</p>
+   <div className="growth-qada-pacing"><label>Optional make-up planning pace (prayers per civil day)<input type="number" min="1" max="500" step="1" value={daily} onChange={e=>setDaily(e.target.value)}/></label>{pacing?<p role="status">At {pacing.daily} made-up prayers per day, <strong>{pacing.remaining.toLocaleString('en-GB')}</strong> recorded remaining prayers would take approximately <strong>{pacing.estimatedDays.toLocaleString('en-GB')} days</strong> ({pacing.estimatedWeeks} weeks). This is a planning estimate, not a required pace or deadline.</p>:<p className="small">Choose a whole number from 1 to 500 for an optional pace estimate.</p>}</div>
    <div className="growth-qada-list">{targets.map(({name,target})=><div className="growth-qada-row" key={name}>
     <div><strong>{name}</strong><label>Estimated missed prayers<input aria-label={'Estimated missed '+name+' prayers'} type="number" min="0" max="1000000" step="1" value={overrides[name]??''} placeholder={String(base)} onChange={e=>setOverrides(v=>({...v,[name]:e.target.value}))}/></label></div>
     <div className="growth-qada-progress"><span>{Math.min(target,done[name]??0).toLocaleString('en-GB')} / {target.toLocaleString('en-GB')} made up</span><progress value={Math.min(target,done[name]??0)} max={Math.max(1,target)}/><div className="action-row"><button type="button" onClick={()=>adjust(name,1,target)} disabled={(done[name]??0)>=target}>+ 1 completed</button><button type="button" className="secondary" onClick={()=>adjust(name,-1,target)} disabled={(done[name]??0)<=0}>Undo</button></div></div>

@@ -4,6 +4,16 @@ Updated: 29 October 2026
 
 This is an internal review register for the publicly available tools. It is not a certification or scholarly endorsement. Technical tests confirm computations and website routes; they do **not** validate a religious ruling or product certification.
 
+## Five prayer tools — pending qualified review
+
+| Tool | Review | Guardrails |
+| --- | --- | --- |
+| Prayer widget | High-latitude Fajr/Isha, Asr convention, named timezone and calculated versus local congregation schedule | No official mosque times claimed; sunrise optional; iframe builder validates inputs and embeds no private prayer history |
+| Printable prayer chart | Five Fard names and voluntary use by children or families | Blank checkboxes are explicitly not evidence of missed worship; 7/14/30 civil-day blank CSV and print only |
+| Salah Tracker | Distinction between recorded, unrecorded and Qada | Old local v2 data and v1 JSON preserved; private 90-day windows; no inference of missed obligations from blank dates |
+| Qada Prayer Calculator | School-specific obligations, exemptions, deliberate omissions and Witr | Existing backups and progress retained; new pacing is purely mathematical and not a deadline or religious ruling |
+| Prayer Rakats Chart | Fard numbers, recommended Rawatib and Witr status across schools | 17 normal Fard units separated from optional Sunnah examples; Qasr caveat |
+
 ## Pending qualified review
 
 | Zakat Anniversary guide and lunar-calendar review planner | Verify hawl start and interruption distinctions, 30th-day fallback, Umm al-Qura versus local dates, and the wording of Sunan Abi Dawud 1573 | Up to 5 all-day reminders, not automatic due dates or liabilities; local calendar difference labelled illustrative; no balances stored |

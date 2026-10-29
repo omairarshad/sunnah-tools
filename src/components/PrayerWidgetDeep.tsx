@@ -1,0 +1,20 @@
+import {useState} from 'react';
+import CitySearch from './CitySearch';
+import {widgetConfig} from '../lib/prayerFive.mjs';
+export default function PrayerWidgetDeep(){
+ const [lat,setLat]=useState('51.5072'),[lon,setLon]=useState('-0.1276'),[tz,setTz]=useState('Europe/London'),[city,setCity]=useState('London'),[method,setMethod]=useState('mwl'),[school,setSchool]=useState('standard'),[theme,setTheme]=useState('light'),[sunrise,setSunrise]=useState(true),[size,setSize]=useState('regular'),[notice,setNotice]=useState('');
+ const config=widgetConfig({lat,lon,tz,city,method,school,theme,sunrise,size});
+ const copy=async(text:string)=>{try{await navigator.clipboard.writeText(text);setNotice('Copied to clipboard.')}catch{setNotice('Clipboard unavailable. Select and copy the code or URL below.')}};
+ return <div className="batch-tool">
+ <p className="small">Build a responsive prayer-time iframe for a mosque, school or community page. It shows <strong>calculated prayer starts, not your mosque's iqamah timetable</strong>.</p>
+ <CitySearch onSelect={v=>{setLat(String(v[3]));setLon(String(v[4]));setTz(v[5]);setCity(v[0]+', '+v[1]);setNotice('Location updated.')}}/>
+ <div className="two"><label>Latitude<input value={lat} onChange={e=>setLat(e.target.value)} inputMode="decimal"/></label><label>Longitude<input value={lon} onChange={e=>setLon(e.target.value)} inputMode="decimal"/></label><label>Location name<input maxLength={60} value={city} onChange={e=>setCity(e.target.value)}/></label><label>Timezone (IANA)<input value={tz} onChange={e=>setTz(e.target.value)} placeholder="Europe/London"/></label></div>
+ <div className="two"><label>Calculation convention<select value={method} onChange={e=>setMethod(e.target.value)}><option value="mwl">Muslim World League</option><option value="karachi">Karachi</option><option value="makkah">Umm al-Qura</option><option value="na">North America (ISNA)</option><option value="egypt">Egyptian</option><option value="singapore">Singapore</option><option value="turkey">Turkey</option><option value="dubai">Dubai</option></select></label><label>Asr convention<select value={school} onChange={e=>setSchool(e.target.value)}><option value="standard">Standard</option><option value="hanafi">Hanafi</option></select></label><label>Theme<select value={theme} onChange={e=>setTheme(e.target.value)}><option value="light">Light</option><option value="dark">Dark</option></select></label><label>Layout<select value={size} onChange={e=>setSize(e.target.value)}><option value="regular">Regular</option><option value="compact">Compact</option></select></label></div>
+ <label className="check"><input type="checkbox" checked={sunrise} onChange={e=>setSunrise(e.target.checked)}/> Show sunrise (reference time, not an obligatory prayer)</label>
+ {config?<><div className="widget-preview"><strong>Live preview — {city||'custom location'}</strong><iframe key={config.url} title="Calculated prayer widget preview" src={config.url.replace('https://sunnah.tools','')} loading="lazy" style={{height:config.height,width:'100%',border:0}}/></div>
+ <label>Embed HTML (copy into your website)<textarea className="embed-code" value={config.html} readOnly rows={4} onFocus={e=>e.target.select()}/></label><label>Shareable widget URL<input readOnly value={config.url} onFocus={e=>e.target.select()}/></label>
+ <div className="action-row"><button type="button" onClick={()=>copy(config.html)}>Copy embed HTML</button><button type="button" className="secondary" onClick={()=>copy(config.url)}>Copy widget URL</button></div></>:<p className="warn" role="status">Enter valid coordinates, a supported IANA timezone and settings to generate a preview.</p>}
+ {notice&&<p role="status" className="small">{notice}</p>}
+ <p className="warn">The visitor's date is calculated for the selected timezone, including daylight-saving changes. Fajr and Isha can differ across conventions, especially at high latitudes. Confirm your authority's settings and embed display before using these times publicly.</p>
+ </div>;
+}

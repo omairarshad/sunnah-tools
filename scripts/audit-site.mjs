@@ -230,6 +230,22 @@ for(const [slug,phrases] of nextGivingGuides){
 }
 console.log('Zakat anniversary, investment Zakat and Qurbani guides include full static content and Article citations');
 
+// Five prayer-related guide pages: no JS needed to read the knowledge base.
+const prayerFiveGuides=[
+ ['prayer-times-widget','Prayer times widget: complete embed guide','id="widget-deep-example"','id="widget-deep-sources"'],
+ ['printable-prayer-chart','Printable Salah chart: free 7, 14 and 30-day','id="chart-deep-example"','id="chart-deep-sources"'],
+ ['salah-tracker','Daily Salah tracker: complete private','id="salah-deep-example"','id="salah-deep-sources"'],
+ ['qada-prayer-calculator','Missed Salah Qada calculator: comprehensive','id="qada-deep-example"','id="qada-deep-sources"'],
+ ['prayer-rakats-chart','How many rakats in each prayer?','id="rakats-deep-example"','id="rakats-deep-sources"']
+];
+for(const [slug,title,example,sources] of prayerFiveGuides){
+ const html=read('tools/'+slug+'/index.html');
+ for(const required of [title,example,sources,'class="three-tool-nav','"@type":"Article"','"citation":[','Frequently asked questions'])assert(html.includes(required),'Prayer deep dive missing: '+slug+' / '+required);
+ assert((html.match(/class="three-tool-section/g)||[]).length>=9,'Insufficient prayer guide sections: '+slug);
+ assert(sitemap.includes('/tools/'+slug+'/'),'Prayer tool absent from sitemap: '+slug);
+}
+console.log('Five comprehensive prayer guides, worked examples, FAQ and aligned schema in server HTML');
+
 
 // Fasting Times source-backed guide must be static and independently indexable.
 {
