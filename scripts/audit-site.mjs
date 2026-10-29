@@ -167,3 +167,13 @@ console.log('All 37 tool pages include original comparison-led practical notes')
  }
  assert((html.match(/class="zakat-guide-section"/g)||[]).length>=7,'Comprehensive Zakat guide sections missing');
 }
+
+
+// Fasting Times source-backed guide must be static and independently indexable.
+{
+ const html=read('tools/fasting-times/index.html');
+ for(const required of ['Suhoor and Iftar: a complete daily fasting guide','When should you stop eating Suhoor: Imsak or Fajr?','When does Iftar start','Fasting duas and recommended remembrance','Why fasting times differ','Sahih al-Bukhari 1923','Sahih al-Bukhari 1957','Sunan Abi Dawud 2357','Quran 2:187','id="fasting-imsak"','id="fasting-duas"']){
+  assert(html.includes(required),'Comprehensive fasting guide missing '+required);
+ }
+ assert((html.match(/class="fasting-guide-section"/g)||[]).length>=7,'Comprehensive fasting guide is incomplete');
+}
