@@ -37,6 +37,9 @@ try{
     await first.locator('summary').click();
     if(!await first.evaluate(d=>d.open))issues.push(contextName+' summary click failed');
     await page.screenshot({path:resolve(output,mode+'-'+slug+'-expanded.png'),animations:'disabled'});
+    await first.locator('summary').focus();
+    await page.keyboard.press('Enter');
+    if(await first.evaluate(d=>d.open))issues.push(contextName+' Enter key did not close summary');
     await page.getByRole('button',{name:'Expand all'}).click();
     if(!await page.locator('.tool-main details.tool-guide-fold').evaluateAll(ds=>ds.every(d=>d.open)))issues.push(contextName+' expand all failed');
     await page.getByRole('button',{name:'Collapse all'}).click();

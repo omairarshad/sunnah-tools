@@ -61,11 +61,12 @@ export function enhanceToolKnowledge(doc=document){
  }
  const controls=doc.createElement('div');
  controls.className='tool-guide-controls';
- controls.setAttribute('aria-label','Guide navigation');
+ controls.setAttribute('role','region');
+ controls.setAttribute('aria-labelledby','tool-guide-controls-heading');
  const headingWrap=doc.createElement('div');
  headingWrap.className='tool-guide-controls-heading';
- const title=doc.createElement('h2');title.textContent='Explore the guide';
- const description=doc.createElement('p');description.textContent='Open only the topics you need. The calculator above stays ready to use.';
+ const title=doc.createElement('h2');title.id='tool-guide-controls-heading';title.textContent='Explore the guide';
+ const description=doc.createElement('p');description.textContent='Explore '+entries.filter(({section})=>area.contains(section)).length+' topics. Open only what you need; the calculator above stays ready.';
  headingWrap.append(title,description);
  const actions=doc.createElement('div');actions.className='tool-guide-controls-actions';
  const expand=doc.createElement('button');expand.type='button';expand.className='tool-guide-utility';
@@ -99,7 +100,7 @@ export function enhanceToolKnowledge(doc=document){
   const section=target.closest('.tool-guide-fold-section');
   if(section&&section.querySelector(':scope > details.tool-guide-fold'))parents.push(section.querySelector(':scope > details.tool-guide-fold'));
   for(const d of parents)d.open=true;
-  if(scroll)requestAnimationFrame(()=>target.scrollIntoView({block:'start',behavior:'smooth'}));
+  if(scroll)requestAnimationFrame(()=>target.scrollIntoView({block:'start',behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}));
  };
  const activateHash=()=>{
   if(!location.hash)return;
