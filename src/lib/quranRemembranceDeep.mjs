@@ -1,5 +1,5 @@
 import {JUZ_STARTS} from './expansionCalculations.mjs';
-import {validCivilDate} from './personalTools.mjs';
+
 import {hijriParts,HIJRI_MONTHS} from './hijriCalendars.mjs';
 import {hijriToGregorian} from './calculations.mjs';
 export const FEATURED_SURAHS=Object.freeze([
@@ -68,8 +68,15 @@ export const ADHKAR_REFERENCES=Object.freeze([
  {id:'after-prayer',period:'After Salah',title:'SubhanAllah 33, Alhamdulillah 33, Allahu Akbar 33, then Tawhid declaration',source:'https://sunnah.com/muslim:597a',note:'A reported post-prayer pattern; do not automatically apply its numbers to every Quranic dua.'},
  {id:'evening',period:'Morning/evening',title:'Sayyid al-Istighfar',source:'https://sunnah.com/bukhari:6306',note:'Read the authentic text, meaning and time wording at the source rather than relying on an unsourced paraphrase.'}
 ]);
+export function validAgeCivilDate(iso){
+ if(typeof iso!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(iso))return false;
+ const year=Number(iso.slice(0,4));
+ if(year<1880||year>2200)return false;
+ const d=new Date(iso+'T12:00:00Z');
+ return Number.isFinite(d.getTime())&&d.toISOString().slice(0,10)===iso;
+}
 export function hijriAge(birth,today){
- if(!validCivilDate(birth)||!validCivilDate(today)||birth>today)return null;
+ if(!validAgeCivilDate(birth)||!validAgeCivilDate(today)||birth>today)return null;
  const born=new Date(birth+'T12:00:00Z'),now=new Date(today+'T12:00:00Z');
  const hBirth=hijriParts(born),hNow=hijriParts(now);
  if(!hBirth||!hNow||hBirth.year<1300||hBirth.year>1598||hNow.year>1599)return null;
