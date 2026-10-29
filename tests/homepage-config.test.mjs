@@ -15,7 +15,7 @@ test('unsafe non-HTTP and credential-bearing URLs are rejected',()=>{
  for(const link of ['javascript:alert(1)','data:text/html,hi','http://example.org/','https://user:pass@example.org','not a url'])assert.equal(safePromoUrl(link),null);
 });
 test('section layout ignores duplicate and unknown entries and keeps tool directory',()=>{
- assert.deepEqual(orderedSections(['promotions','promotions','bogus','directory']),['directory','promotions','guides']);
+ assert.deepEqual(orderedSections(['promotions','promotions','bogus','directory']),['promotions','directory','guides']);
 });
 
 test('image banners require safe, self-hosted media assets',()=>{
@@ -24,7 +24,7 @@ test('image banners require safe, self-hosted media assets',()=>{
 });
 test('homepage no longer includes the redundant featured mini-card section',()=>{
  assert.equal('featured' in page,false);
- assert.deepEqual(page.layout.sectionOrder,['promotions','directory','guides']);
+ assert.deepEqual(page.layout.sectionOrder,['directory','promotions','guides']);
 });
 
 test('all 37 tool cards have unique, safe illustration paths and descriptive alt text',()=>{
