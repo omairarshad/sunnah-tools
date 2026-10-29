@@ -74,11 +74,11 @@ export default function ZakatCalculator(){
        <summary>See the calculation breakdown</summary>
        <div className="table-wrap"><table className="zakat-breakdown">
          <tbody>
-          <tr><th scope="row">Cash, savings and qualifying receivables</th><td>{money(plan.groups.money ?? 0)}</td></tr>
-          <tr><th scope="row">Included gold and silver</th><td>{money(plan.groups.metals ?? 0)}</td></tr>
-          <tr><th scope="row">Qualifying investments</th><td>{money(plan.groups.investments ?? 0)}</td></tr>
-          <tr><th scope="row">Trade and business stock</th><td>{money(plan.groups.business ?? 0)}</td></tr>
-          <tr><th scope="row">Other eligible assets</th><td>{money(plan.groups.other ?? 0)}</td></tr>
+          <tr><th scope="row">Cash, savings and qualifying receivables</th><td>{money(plan.groups?.money ?? 0)}</td></tr>
+          <tr><th scope="row">Included gold and silver</th><td>{money(plan.groups?.metals ?? 0)}</td></tr>
+          <tr><th scope="row">Qualifying investments</th><td>{money(plan.groups?.investments ?? 0)}</td></tr>
+          <tr><th scope="row">Trade and business stock</th><td>{money(plan.groups?.business ?? 0)}</td></tr>
+          <tr><th scope="row">Other eligible assets</th><td>{money(plan.groups?.other ?? 0)}</td></tr>
           <tr><th scope="row">Gross assets entered</th><td>{money(plan.assets ?? 0)}</td></tr>
           <tr><th scope="row">Liabilities deducted</th><td>−{money(plan.liabilities ?? 0)}</td></tr>
           <tr><th scope="row">Net assets</th><td>{money(plan.net ?? 0)}</td></tr>
