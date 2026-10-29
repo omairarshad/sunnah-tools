@@ -1,7 +1,7 @@
 name: Playwright tool-page UX audit
 on:
   push:
-    branches: ['feature/tool-page-ux-accordions-*', 'feature/editorial-branding-*']
+    branches: ['feature/tool-page-ux-accordions-*', 'feature/editorial-branding-*', 'feature/graphite-sage-section-hierarchy-*']
   workflow_dispatch:
 jobs:
   screenshot-audit:
@@ -32,6 +32,7 @@ jobs:
           done
           node scripts/audit-tool-ux.mjs
           node scripts/audit-brand-ux.mjs
+          node scripts/audit-surfaces-ux.mjs
       - name: Upload Playwright screenshots and measurements
         uses: actions/upload-artifact@v4
         if: always()
@@ -40,5 +41,6 @@ jobs:
           path: |
             artifacts/tool-ux/
             artifacts/brand-ux/
+            artifacts/surface-ux/
           if-no-files-found: warn
           retention-days: 14

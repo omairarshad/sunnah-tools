@@ -1,0 +1,410 @@
+/* Sunnah Tools · graphite / sage surfaces, October 2026.
+   Functional hierarchy for every tool: work -> result -> options -> evidence -> related.
+   Keep source content and component behaviour unchanged. Loaded after identity-2026.css. */
+:root{
+  --ux-canvas:#f4f3ee;
+  --ux-work:#ffffff;
+  --ux-field:#f2f3ef;
+  --ux-field-border:#c8d2c9;
+  --ux-section:#e9ede7;
+  --ux-section-text:#26382f;
+  --ux-result:#204b3c;
+  --ux-result-text:#f7f7f2;
+  --ux-result-secondary:#d7e7da;
+  --ux-secondary:#eee9de;
+  --ux-secondary-text:#55503e;
+  --ux-guide:#fbfaf6;
+  --ux-guide-head:#eeeae0;
+  --ux-quiet:#68786d;
+  --ux-rule:#d9dfd8;
+  --ux-action:#235b43;
+  --ux-action-text:#ffffff;
+}
+html[data-theme="dark"]{
+  --ux-canvas:#121718;
+  --ux-work:#22292b;
+  --ux-field:#30383a;
+  --ux-field-border:#556469;
+  --ux-section:#2b3334;
+  --ux-section-text:#ebf0ec;
+  --ux-result:#e6ece5;
+  --ux-result-text:#18362b;
+  --ux-result-secondary:#4e6559;
+  --ux-secondary:#35332e;
+  --ux-secondary-text:#eadfca;
+  --ux-guide:#202728;
+  --ux-guide-head:#2c3334;
+  --ux-quiet:#aab9b1;
+  --ux-rule:#394346;
+  --ux-action:#78c3a1;
+  --ux-action-text:#112b22;
+}
+html[data-theme="dark"] body{background:var(--ux-canvas)!important;color:#e7ede8!important}
+body:has(.tool-screen){background:var(--ux-canvas)!important}
+.tool-screen{color:var(--brand-ink);min-width:0}
+.tool-layout{gap:clamp(22px,2.2vw,34px)!important;align-items:start}
+.tool-topline{margin-bottom:27px!important}
+.tool-topline h1{max-width:23ch}
+.tool-lead{max-width:69ch}
+.tool-panel,.tool-screen[data-tone] .tool-panel{
+  background:var(--ux-work)!important;border:0!important;border-radius:10px!important;
+  box-shadow:0 2px 12px rgba(22,37,29,.045)!important;overflow:visible!important;
+}
+.tool-panel-heading,.tool-screen[data-tone] .tool-panel-heading{
+  background:transparent!important;border:0!important;padding:20px 24px 4px!important;
+}
+.tool-panel-heading h2{font-family:var(--font-body)!important;font-size:18px!important;font-weight:650!important}
+.panel-status{color:var(--ux-quiet)!important}
+.panel-privacy{background:transparent!important;border:0!important;color:var(--ux-quiet)!important}
+.tool-inner{padding:18px clamp(16px,2.5vw,28px) 27px!important;min-width:0}
+.tool-inner> :first-child{margin-top:0}
+.tool-inner label,.tool-inner .input-label{color:var(--brand-ink)!important}
+.tool-inner :where(input:not([type="checkbox"]):not([type="radio"]),select,textarea){
+  background:var(--ux-field)!important;border:1px solid var(--ux-field-border)!important;
+  color:var(--brand-ink)!important;border-radius:6px!important;box-shadow:none!important;
+}
+.tool-inner :where(input:not([type="checkbox"]):not([type="radio"]),select,textarea):focus-visible{
+  outline:3px solid #8abfa4!important;outline-offset:1px!important;border-color:#639578!important
+}
+html[data-theme="dark"] .tool-inner :where(input:not([type="checkbox"]):not([type="radio"]),select,textarea){
+  background:var(--ux-field)!important;color:#f5f5f1!important;border-color:var(--ux-field-border)!important;
+}
+html[data-theme="dark"] .tool-inner input::placeholder{color:#c1cdc6!important}
+/* Numerical answers get a materially different surface, not another green outline. */
+.tool-inner .result,.tool-screen[data-tone] .tool-inner .result{
+  background:var(--ux-result)!important;color:var(--ux-result-text)!important;
+  border:0!important;border-radius:8px!important;padding:21px 23px!important;
+  box-shadow:none!important;margin-block:19px!important;
+}
+.tool-inner .result :is(p,small,span,div),.tool-screen[data-tone] .tool-inner .result :is(p,small,span){
+  color:var(--ux-result-secondary)!important;
+}
+.tool-inner .result :is(strong,b,output),.tool-screen[data-tone] .tool-inner .result strong{
+  color:var(--ux-result-text)!important;font-variant-numeric:tabular-nums;
+  font-size:clamp(23px,2.8vw,34px)!important;line-height:1.25;
+}
+.tool-inner .result a{color:var(--ux-result-text)!important;text-decoration:underline}
+html[data-theme="dark"] .tool-inner .result :is(p,small,span,div),
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .result :is(p,small,span){color:#435d51!important}
+html[data-theme="dark"] .tool-inner .result :is(strong,b,output),
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .result strong{color:#15382b!important}
+html[data-theme="dark"] .tool-inner .result a{color:#1c503b!important}
+/* Timetable belongs to one grouped output surface, not six mockup cards. */
+.tool-inner .prayers{
+  background:var(--ux-result)!important;color:var(--ux-result-text)!important;
+  border:0!important;border-radius:8px!important;gap:2px!important;
+  padding:5px!important;margin:19px 0!important;overflow:hidden;
+}
+.tool-inner .prayers>div,.tool-screen[data-tone] .tool-inner .prayers>div{
+  background:transparent!important;border:0!important;border-radius:3px!important;
+  padding:14px 13px!important;color:var(--ux-result-secondary)!important;box-shadow:none!important;
+}
+.tool-inner .prayers strong,.tool-screen[data-tone] .tool-inner .prayers strong{
+  color:var(--ux-result-text)!important;font-size:clamp(16px,2vw,21px)!important;
+  font-weight:690!important;font-variant-numeric:tabular-nums;
+}
+html[data-theme="dark"] .tool-inner .prayers>div{color:#3b5549!important}
+html[data-theme="dark"] .tool-inner .prayers strong{color:#19382c!important}
+.tool-inner .prayers>div:nth-child(even){background:rgba(255,255,255,.07)!important}
+html[data-theme="dark"] .tool-inner .prayers>div:nth-child(even){background:rgba(19,57,41,.045)!important}
+/* Optional settings are quiet bands, with only a top-rule on expansion. */
+.tool-inner details:not(.faq-detail),.tool-inner .settings{
+  background:var(--ux-section)!important;border:0!important;border-radius:6px!important;
+  margin:16px 0!important;padding:0!important;overflow:hidden;
+}
+.tool-inner details:not(.faq-detail)>summary,.tool-inner .settings>summary{
+  display:flex;align-items:center;min-height:47px;padding:11px 15px!important;
+  color:var(--ux-section-text)!important;font-size:13px!important;font-weight:640!important;
+  list-style:none;
+}
+.tool-inner details:not(.faq-detail)>summary::-webkit-details-marker{display:none}
+.tool-inner details:not(.faq-detail)>summary::before{content:"▸";font-size:12px;margin-right:9px;opacity:.75}
+.tool-inner details[open]>summary::before{content:"▾"}
+.tool-inner details[open]:not(.faq-detail)>summary{border-bottom:1px solid var(--ux-rule)!important}
+.tool-inner details:not(.faq-detail)>:not(summary){margin-left:15px;margin-right:15px}
+.tool-inner details:not(.faq-detail)>:last-child{margin-bottom:15px}
+.tool-inner details:not(.faq-detail)>summary:focus-visible{outline:3px solid #7eb995!important;outline-offset:-3px}
+.tool-inner button:not(.city-results button):not(.tool-guide-utility):not(.secondary):not([type=reset]){
+  background:var(--ux-action)!important;color:var(--ux-action-text)!important;
+  border-color:transparent!important;box-shadow:none!important;
+}
+.tool-inner button.secondary,.tool-inner button[type=reset]{
+  background:var(--ux-section)!important;color:var(--ux-section-text)!important;
+  border:1px solid transparent!important;
+}
+.tool-inner button:hover:not(:disabled){filter:brightness(1.08)}
+.tool-inner :is(button,a):focus-visible{outline:3px solid #8abc9d!important;outline-offset:2px}
+/* Families of financial, calendar and tracker tools share the same hierarchy. */
+.tool-inner .zakat-fieldset,.tool-inner fieldset:not(.sr-only){
+  border:0!important;border-top:1px solid var(--ux-rule)!important;border-radius:0!important;
+  padding:19px 0 14px!important;margin:15px 0!important;min-width:0;
+}
+.tool-inner fieldset legend{font-weight:690!important;color:var(--brand-ink)!important;padding:0 10px 0 0!important;font-size:15px!important}
+.tool-inner .zakat-hawl,.tool-inner .fasting-deep-panel{
+  background:var(--ux-section)!important;border:0!important;border-radius:7px!important;
+  color:var(--brand-ink)!important;padding:17px 19px!important;
+}
+.tool-inner .fasting-deep-panel h3,.tool-inner .fasting-deep-breakdown h3{
+  color:var(--brand-ink)!important;font-family:var(--font-body);font-size:16px!important;
+}
+.tool-inner .fasting-deep-breakdown{
+  background:var(--ux-result)!important;color:var(--ux-result-text)!important;
+  border:0!important;border-radius:8px!important;padding:19px!important;
+}
+.tool-inner .fasting-deep-breakdown :is(h3,p,span,strong,li){color:var(--ux-result-text)!important}
+.tool-inner .fasting-deep-breakdown p{border-bottom-color:rgba(160,177,164,.25)!important}
+html[data-theme="dark"] .tool-inner .fasting-deep-breakdown :is(h3,p,span,strong,li){color:#193a2d!important}
+.tool-inner .fasting-deep-stats{
+  border:0!important;border-radius:8px!important;background:var(--ux-result)!important;
+  padding:5px!important;gap:2px!important;min-width:0;
+}
+.tool-inner .fasting-deep-stats>div{
+  border:0!important;background:transparent!important;padding:14px 12px!important;
+  border-radius:3px!important;color:var(--ux-result-text)!important;min-width:0;
+}
+.tool-inner .fasting-deep-stats>div:nth-child(even){background:rgba(255,255,255,.07)!important}
+.tool-inner .fasting-deep-stats span{color:var(--ux-result-secondary)!important}
+.tool-inner .fasting-deep-stats strong{color:var(--ux-result-text)!important;font-variant-numeric:tabular-nums}
+html[data-theme="dark"] .tool-inner .fasting-deep-stats>div:nth-child(even){background:rgba(19,57,41,.04)!important}
+html[data-theme="dark"] .tool-inner .fasting-deep-stats span{color:#456156!important}
+html[data-theme="dark"] .tool-inner .fasting-deep-stats strong{color:#1b392d!important}
+/* Checkboxes read as a checklist, not standalone bordered components. */
+.tool-inner .check,.tool-inner .fasting-history-list>div,.tool-inner .fasting-legacy{
+  background:var(--ux-section)!important;border:0!important;border-radius:5px!important;
+  box-shadow:none!important;
+}
+.tool-inner .check:hover{filter:brightness(1.045)}
+.tool-inner .check :is(span,strong){color:var(--ux-section-text)!important}
+.tool-inner .fasting-deep-tool{gap:17px}
+.tool-inner .fasting-deep-tool>p.small:first-child{color:var(--brand-copy);max-width:70ch}
+.tool-inner .table-wrap{
+  background:var(--ux-section);border:0!important;border-radius:6px!important;
+  padding:4px!important;max-width:100%;overflow-x:auto;
+}
+.tool-inner table :is(th,td){border-bottom:1px solid var(--ux-rule)!important}
+.tool-inner table th{background:transparent!important;color:var(--brand-copy)!important}
+.tool-inner table td{color:var(--brand-ink)!important}
+.tool-inner table tr:last-child :is(th,td){border-bottom:0!important}
+.tool-inner .calendar-cell,.tool-inner .white-plan-day,.tool-inner .ramadan-day{
+  border-color:var(--ux-rule)!important;box-shadow:none!important;
+}
+.tool-inner .calendar-print-heading,.tool-inner .print-heading{padding-block:13px!important}
+.tool-inner .warn,.tool-inner .zakat-example-notice{
+  background:var(--ux-secondary)!important;color:var(--ux-secondary-text)!important;
+  border:0!important;border-left:3px solid #bd9458!important;border-radius:4px!important;
+}
+.tool-inner .warn :is(a,strong),.tool-inner .zakat-example-notice strong{color:inherit!important}
+.tool-inner .warn a{text-decoration:underline}
+.tool-inner .city-results{box-shadow:0 12px 24px rgba(0,0,0,.15)!important}
+/* Sidebar: no framed rectangle. Rows are separated by whitespace and hairlines. */
+.tool-aside,html[data-theme="dark"] .tool-aside{
+  background:transparent!important;border:0!important;border-radius:0!important;
+  padding:4px 0 0 3px!important;box-shadow:none!important;
+}
+.tool-aside .aside-title{padding:0 0 9px!important}
+.tool-aside .aside-title h2{font:650 16px/1.4 var(--font-body)!important;color:var(--brand-ink)!important;margin:3px 0 6px!important}
+.tool-aside .aside-list{gap:0!important}
+.tool-aside .aside-link{
+  border:0!important;border-top:1px solid var(--ux-rule)!important;
+  padding:13px 0!important;min-height:58px;transition:padding-left .15s ease;
+}
+.tool-aside .aside-link:hover{padding-left:5px!important;background:transparent!important}
+.tool-aside .aside-icon,.tool-aside .aside-link[data-tone] .aside-icon{
+  background:var(--ux-section)!important;border:0!important;border-radius:5px!important;
+  width:32px!important;height:32px!important;
+}
+.tool-aside .aside-link strong{color:var(--brand-ink)!important;font-size:12px!important}
+.tool-aside .aside-link small{color:var(--ux-quiet)!important}
+.tool-aside .aside-link>span:last-child{color:var(--ux-quiet)!important}
+/* Knowledge reference is its own warm/neutral editorial surface, not an extension
+   of the calculator form. The accordion controls and cards are visually nested. */
+.tool-guide-controls{
+  border:0!important;border-radius:8px!important;background:var(--ux-secondary)!important;
+  color:var(--ux-secondary-text)!important;padding:19px 21px!important;
+  margin-top:36px!important;box-shadow:none!important;
+}
+.tool-guide-controls-heading h2{color:var(--ux-secondary-text)!important}
+.tool-guide-controls-heading p{color:var(--ux-secondary-text)!important;opacity:.82}
+.tool-guide-utility,.tool-guide-index>summary{
+  background:var(--ux-guide)!important;color:var(--brand-ink)!important;
+  border:0!important;border-radius:5px!important;box-shadow:none!important;
+}
+.tool-guide-index-links{background:var(--ux-guide)!important;border:0!important;border-radius:5px!important}
+.tool-guide-index-links a{color:var(--brand-ink)!important}
+.tool-guide-fold,.tool-guide-enhanced .tool-guide-fold{
+  background:var(--ux-guide)!important;color:var(--brand-ink)!important;
+  border:0!important;border-radius:6px!important;box-shadow:none!important;
+}
+.tool-guide-fold[open]{box-shadow:0 3px 11px rgba(0,0,0,.055)!important}
+.tool-guide-fold>summary{
+  background:var(--ux-guide-head)!important;color:var(--brand-ink)!important;
+  padding:17px 18px!important;min-height:60px;
+}
+.tool-guide-fold[open]>summary{
+  background:var(--ux-guide-head)!important;border-bottom:1px solid var(--ux-rule)!important;
+}
+.tool-guide-fold>summary:hover{filter:brightness(.97)}
+.tool-guide-chevron{
+  background:transparent!important;border:0!important;border-radius:0!important;
+  color:var(--ux-quiet)!important;width:24px!important;
+}
+.tool-guide-fold-body{background:var(--ux-guide)!important;padding:18px 22px 24px!important}
+.tool-knowledge-area .three-tool-knowledge,
+.tool-knowledge-area .prayer-knowledge,
+.tool-knowledge-area .tahajjud-knowledge,
+.tool-knowledge-area .zakat-knowledge{
+  background:transparent!important;border:0!important;box-shadow:none!important;
+  border-radius:0!important;padding-inline:0!important;
+}
+.tool-knowledge-area .three-tool-facts>div,
+.tool-knowledge-area .three-tool-comparison>div{
+  background:var(--ux-section)!important;border:0!important;border-radius:5px!important;
+}
+.tool-guide-enhanced .tool-main>section.explainer{margin-top:12px!important}
+.tool-guide-enhanced .tool-main>section.explainer .tool-guide-fold>summary{
+  background:var(--ux-guide-head)!important;
+}
+.tool-knowledge-area :is(.faq-detail,.tool-disclaimer){border-color:var(--ux-rule)!important}
+/* Preserve readable contrast for contextual details in both modes. */
+html[data-theme="dark"] .tool-knowledge-area{color:#dae5df}
+html[data-theme="dark"] .tool-knowledge-area a{color:#9bd9b9}
+html[data-theme="dark"] .tool-knowledge-area .tool-guide-fold-body{color:#e2e8e3!important}
+html[data-theme="dark"] .tool-knowledge-area .tool-guide-fold-body :is(p,li,div,span){color:inherit}
+html[data-theme="dark"] .tool-knowledge-area .three-tool-facts>div{color:#e9ede9}
+html[data-theme="dark"] .tool-inner .table-wrap :is(th,td){color:#e5ede9!important}
+html[data-theme="dark"] .tool-aside .aside-link strong,
+html[data-theme="dark"] .tool-aside .aside-title h2{color:#e9eee9!important}
+html[data-theme="dark"] .tool-aside .aside-link small{color:#aabbb2!important}
+html[data-theme="dark"] .tool-inner fieldset legend{color:#eff3ee!important}
+html[data-theme="dark"] .tool-inner .fasting-deep-panel h3{color:#e3ebe7!important}
+html[data-theme="dark"] .tool-inner .warn{color:#f0e1c8!important}
+@media(max-width:1050px){
+ .tool-aside{position:static!important;padding-top:13px!important}
+}
+@media(max-width:760px){
+ .tool-panel-heading{padding:17px 17px 3px!important}
+ .tool-inner{padding:16px 15px 23px!important}
+ .tool-inner .prayers{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .tool-guide-controls{padding:16px!important;margin-top:24px!important}
+ .tool-guide-fold>summary{padding:14px 13px!important}
+ .tool-guide-fold-body{padding:17px 14px 20px!important}
+ .tool-inner .fasting-deep-stats{grid-template-columns:1fr!important}
+ .tool-inner .fasting-deep-stats>div:nth-child(even){background:transparent!important}
+ .tool-inner .fasting-deep-stats>div+div{border-top:1px solid rgba(150,165,154,.28)!important}
+}
+@media(prefers-reduced-motion:reduce){
+ .tool-aside .aside-link{transition:none!important}
+}
+@media print{
+ .tool-inner .result,.tool-inner .prayers,.tool-inner .fasting-deep-stats,
+ .tool-inner .fasting-deep-breakdown{background:white!important;color:black!important;border:1px solid #aaa!important}
+ .tool-inner :is(.result,.prayers,.fasting-deep-stats,.fasting-deep-breakdown) :is(strong,p,span){color:black!important}
+ .tool-guide-fold-body{background:white!important;color:black!important}
+ .tool-aside{display:none!important}
+}
+
+/* Specificity bridge for previously deployed theme rules. */
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .result{
+ background:var(--ux-result)!important;color:var(--ux-result-text)!important;border:0!important;box-shadow:none!important;
+}
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .result :is(p,span,small,div){color:#425f51!important}
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .result :is(strong,b,output){color:#163a2b!important}
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .prayers{background:var(--ux-result)!important;border:0!important}
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .prayers>div{background:transparent!important;border:0!important;color:#435e51!important}
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .prayers>div:nth-child(even){background:rgba(19,57,41,.04)!important}
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .prayers strong{color:#16392b!important}
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner details:not(.faq-detail){background:var(--ux-section)!important;border:0!important;color:var(--brand-ink)!important}
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner details:not(.faq-detail)>summary{color:var(--ux-section-text)!important}
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .fasting-deep-panel,
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .zakat-hawl{background:var(--ux-section)!important;border:0!important}
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .fasting-deep-breakdown,
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .fasting-deep-stats{background:var(--ux-result)!important;border:0!important}
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .fasting-deep-stats>div{background:transparent!important;border:0!important}
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .fasting-deep-stats strong,
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .fasting-deep-breakdown :is(h3,p,strong){color:#1a392d!important}
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .fasting-deep-stats span{color:#4a6457!important}
+html[data-theme="dark"] .tool-guide-fold>summary{background:var(--ux-guide-head)!important;color:#e4ece7!important}
+html[data-theme="dark"] .tool-guide-controls{background:var(--ux-secondary)!important;border:0!important}
+html[data-theme="dark"] .tool-guide-controls-heading h2,
+html[data-theme="dark"] .tool-guide-controls-heading p{color:#eee3cf!important}
+html[data-theme="dark"] .tool-guide-fold{background:var(--ux-guide)!important;border:0!important}
+html[data-theme="dark"] .tool-guide-fold-body{background:var(--ux-guide)!important}
+html[data-theme="dark"] .tool-guide-utility,
+html[data-theme="dark"] .tool-guide-index>summary{background:var(--ux-guide)!important;border:0!important;color:#e5ece7!important}
+html[data-theme="dark"] .tool-guide-chevron{background:transparent!important;border:0!important;color:#bac9c1!important}
+html[data-theme="dark"] .tool-guide-index-links{background:var(--ux-guide)!important;border:0!important}
+
+/* Final dark-workspace correction: prior identities used higher specificity
+   and would otherwise repaint neutral workspaces green. */
+html[data-theme="dark"] .tool-screen[data-tone] .tool-panel,
+html[data-theme="dark"] .tool-screen .tool-panel,
+html[data-theme="dark"] .tool-panel{
+ background:var(--ux-work)!important;border:0!important;box-shadow:none!important;
+}
+html[data-theme="dark"] .tool-screen[data-tone] .tool-panel-heading,
+html[data-theme="dark"] .tool-screen .tool-panel-heading{
+ background:var(--ux-work)!important;border-bottom:0!important;
+}
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner input:not([type="checkbox"]):not([type="radio"]),
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner select,
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner textarea{
+ background:var(--ux-field)!important;border:1px solid var(--ux-field-border)!important;
+ color:#f2f5f2!important;box-shadow:none!important;
+}
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner button:not(.secondary):not(.city-results button):not(.tool-guide-utility):not([type=reset]){
+ background:var(--ux-action)!important;border-color:transparent!important;
+ color:var(--ux-action-text)!important;
+}
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner button.secondary,
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner button[type=reset]{
+ background:var(--ux-section)!important;border-color:transparent!important;
+ color:var(--ux-section-text)!important;
+}
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .zakat-fieldset,
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner fieldset:not(.sr-only){
+ background:transparent!important;border:0!important;border-top:1px solid var(--ux-rule)!important;
+ color:var(--brand-ink)!important;
+}
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .zakat-summary-grid>div,
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .zakat-nisab-grid>div{
+ background:var(--ux-section)!important;border:0!important;color:var(--brand-ink)!important;
+}
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .zakat-summary-grid span,
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .zakat-nisab-grid span{color:var(--ux-quiet)!important}
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .zakat-summary-grid strong,
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .zakat-nisab-grid strong{color:#e5eee7!important}
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .check{
+ background:var(--ux-section)!important;border:0!important;color:var(--ux-section-text)!important;
+}
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .fasting-deep-panel,
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .fasting-history-list>div{
+ background:var(--ux-section)!important;border:0!important;
+}
+/* Keep the high-contrast output and neutral calculator surfaces distinct. */
+
+/* Financial forms have separately tinted asset groups instead of a long
+   uninterrupted column or a stack of outlined white cards. */
+.tool-inner .zakat-planner>.zakat-fieldset,
+.tool-inner .zakat-fieldset{
+ background:var(--ux-section)!important;border:0!important;border-radius:7px!important;
+ padding:16px 18px 19px!important;margin:21px 0!important;
+}
+.tool-inner .zakat-fieldset legend{
+ color:var(--brand-ink)!important;background:var(--ux-section)!important;
+ border-radius:4px!important;padding:4px 9px 4px 0!important;
+ font-family:var(--font-body)!important;font-size:15px!important;
+}
+.tool-inner .zakat-fieldset :is(input:not([type=checkbox]),select){
+ background:var(--ux-work)!important;border-color:var(--ux-field-border)!important;
+}
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .zakat-fieldset{
+ background:var(--ux-section)!important;border:0!important;border-radius:7px!important;
+ padding:16px 18px 19px!important;
+}
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .zakat-fieldset legend{
+ background:var(--ux-section)!important;color:#e8eee8!important;
+}
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .zakat-fieldset :is(input:not([type=checkbox]),select){
+ background:var(--ux-work)!important;border-color:var(--ux-field-border)!important;
+ color:#f1f5f1!important;
+}
