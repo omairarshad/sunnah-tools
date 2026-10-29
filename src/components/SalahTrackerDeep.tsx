@@ -16,20 +16,20 @@ export default function SalahTrackerDeep(){
    if(typeof d==='string'&&Array.isArray(v)&&v.every(p=>FIVE_PRAYERS.includes(p))&&new Set(v).size===v.length&&v.length<=5)cleaned[d]=v as string[];
   }
   const valid=validateSalahHistory({version:1,entries:cleaned});
-  if(valid)setEntries(Object.fromEntries(Object.entries(valid.entries).filter(([d])=>d>=utcDay(localISODate(),-89)&&d<=localISODate())));
+  if(valid)setEntries(Object.fromEntries(Object.entries(valid.entries).filter(([d])=>d>=(utcDay(localISODate(),-89)??'')&&d<=localISODate())));
  }catch{}setReady(true)},[]);
- useEffect(()=>{if(ready)try{localStorage.setItem(storage,JSON.stringify(Object.fromEntries(Object.entries(entries).filter(([d])=>d>=utcDay(now,-89)&&d<=now).sort(([a],[b])=>a.localeCompare(b))))) }catch{}},[entries,ready,now]);
+ useEffect(()=>{if(ready)try{localStorage.setItem(storage,JSON.stringify(Object.fromEntries(Object.entries(entries).filter(([d])=>d>=(utcDay(now,-89)??'')&&d<=now).sort(([a],[b])=>a.localeCompare(b))))) }catch{}},[entries,ready,now]);
  useEffect(()=>{const t=window.setInterval(()=>{const day=localISODate();if(day!==now){setNow(day);setSelectedDate(day)}},60000);return()=>window.clearInterval(t)},[now]);
  const dateOK=selectedDate>=utcDay(now,-89)!&&selectedDate<=now;
  const chosen=entries[selectedDate]??[];
  const summary=prayerHistorySummary(entries,now,range);
  const toggle=(prayer:string,checked:boolean)=>{if(!dateOK)return;setEntries(old=>({...old,[selectedDate]:checked?[...new Set([...(old[selectedDate]??[]),prayer])]:old[selectedDate]?.filter(p=>p!==prayer)??[]}))};
- const exportCSV=()=>{const cells=[['Date',...FIVE_PRAYERS,'Record status'],...Object.entries(entries).filter(([d])=>d>=utcDay(now,-89)&&d<=now).sort(([a],[b])=>a.localeCompare(b)).map(([day,ps])=>[day,...FIVE_PRAYERS.map(p=>ps.includes(p)?'Ticked':''),'Recorded'])];downloadText('salah-history.csv','\uFEFF'+cells.map(row=>row.join(',')).join('\r\n')+'\r\n','text/csv;charset=utf-8');setNotice('Downloaded recorded days only. Unrecorded days are never labelled missed.')};
+ const exportCSV=()=>{const cells=[['Date',...FIVE_PRAYERS,'Record status'],...Object.entries(entries).filter(([d])=>d>=(utcDay(now,-89)??'')&&d<=now).sort(([a],[b])=>a.localeCompare(b)).map(([day,ps])=>[day,...FIVE_PRAYERS.map(p=>ps.includes(p)?'Ticked':''),'Recorded'])];downloadText('salah-history.csv','\uFEFF'+cells.map(row=>row.join(',')).join('\r\n')+'\r\n','text/csv;charset=utf-8');setNotice('Downloaded recorded days only. Unrecorded days are never labelled missed.')};
  const exportJSON=()=>{downloadText('salah-history.json',JSON.stringify({version:1,entries},null,2));setNotice('Private v1-compatible backup downloaded.')};
  const restore=async(event:React.ChangeEvent<HTMLInputElement>)=>{const file=event.target.files?.[0];event.target.value='';if(!file)return;if(file.size>60000){setNotice('Backup too large (maximum 60 KB).');return}try{
   const v=validateSalahHistory(JSON.parse(await file.text()));if(!v){setNotice('Invalid backup. No changes were made.');return}
   if(!window.confirm('Replace the current local prayer history with this backup?'))return;
-  setEntries(Object.fromEntries(Object.entries(v.entries).filter(([d])=>d>=utcDay(now,-89)&&d<=now)));
+  setEntries(Object.fromEntries(Object.entries(v.entries).filter(([d])=>d>=(utcDay(now,-89)??'')&&d<=now)));
   setSelectedDate(now);setNotice('Valid history restored (latest 90 days only).');
  }catch{setNotice('Backup could not be read. Existing history is unchanged.')}};
  return <div className="fasting-deep-tool">
