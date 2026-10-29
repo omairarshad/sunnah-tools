@@ -1,37 +1,10 @@
-import {useEffect,useMemo,useState} from 'react';
+import {useEffect,useState} from 'react';
 import CitySearch from './CitySearch';
-import {adjacentMonth,hijriMonth,hijriParts,whiteDaysFrom,HIJRI_MONTHS} from '../lib/hijriCalendars.mjs';
+import {adjacentMonth,hijriMonth,hijriParts,HIJRI_MONTHS} from '../lib/hijriCalendars.mjs';
 
 const readable=(iso:string)=>new Intl.DateTimeFormat('en-GB',{weekday:'short',day:'numeric',month:'short',year:'numeric',timeZone:'UTC'}).format(new Date(iso+'T12:00:00Z'));
 const todayHijri=()=>hijriParts(new Date())??{year:1448,month:4,day:1};
 const safeStorage=(key:string):string[]=>{try{const a=JSON.parse(localStorage.getItem(key)??'[]');return Array.isArray(a)?a.filter((x:unknown)=>typeof x==='string'):[]}catch{return []}};
-function downloadICS(days:{day:number;iso:string;fastingStatus:string}[]){
- const allowed=days.filter(d=>d.fastingStatus==='voluntary-day');
- if(!allowed.length)return;
- const lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Sunnah Tools//White Days Calendar//EN','CALSCALE:GREGORIAN',...allowed.flatMap(d=>{const start=d.iso.replaceAll('-','');const next=new Date(d.iso+'T12:00:00Z');next.setUTCDate(next.getUTCDate()+1);const end=next.toISOString().slice(0,10).replaceAll('-','');return ['BEGIN:VEVENT','UID:'+start+'-white-days@sunnah.tools','DTSTAMP:'+new Date().toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,''),'DTSTART;VALUE=DATE:'+start,'DTEND;VALUE=DATE:'+end,'SUMMARY:White Days fasting - '+d.day+' Hijri','DESCRIPTION:Calculated Umm al-Qura date; verify with local moon sighting.','END:VEVENT'] }),'END:VCALENDAR'];
- const blob=new Blob([lines.join('\r\n')+'\r\n'],{type:'text/calendar;charset=utf-8'});
- const href=URL.createObjectURL(blob);const a=document.createElement('a');a.href=href;a.download='sunnah-tools-white-days.ics';a.click();window.setTimeout(()=>URL.revokeObjectURL(href),3000);
-}
-export function WhiteDaysCalendar(){
- const [base,setBase]=useState(()=>new Date().toISOString()),[months,setMonths]=useState(6);
- const items=useMemo(()=>whiteDaysFrom(new Date(base),months),[base,months]);
- const days=items.flatMap(item=>item.dates);
- return <div className="batch-tool">
- <p className="small">Dates for the 13th, 14th and 15th of upcoming Islamic months. Calculated using Umm al-Qura; the local lunar calendar can differ.</p>
- <label>Months ahead<select value={months} onChange={e=>setMonths(Number(e.target.value))}><option value={3}>Next 3 months</option><option value={6}>Next 6 months</option><option value={12}>Next 12 months</option></select></label>
- {items.map(item=><section className="white-month" key={item.year+'-'+item.month}>
-  <h3>{item.name} {item.year} AH</h3>
-  <div className="white-days">{item.dates.map(d=><div key={d.iso} className={'white-day '+(d.fastingStatus!=='voluntary-day'?'white-day-alert':'')}>
-   <span>{d.day} {item.name}</span><strong>{readable(d.iso)}</strong>
-   <small>{d.fastingStatus==='not-recommended'?'13 Dhul Hijjah: Tashreeq, not for ordinary voluntary fasting':d.fastingStatus==='ramadan-obligatory'?'Ramadan obligatory fast; not a separate voluntary fast':'Optional White Day'}</small>
-  </div>)}</div>
- </section>)}
- <div className="action-row print-hide"><button onClick={()=>downloadICS(days)}>Add eligible dates to my calendar (.ics)</button><button className="secondary" onClick={()=>window.print()}>Print dates</button></div>
- <p className="warn">Important: The 13th of Dhul Hijjah is a day of Tashreeq and is <strong>not</strong> a general voluntary fasting recommendation. Ramadan fasting is obligatory rather than a separate optional White Days fast. Dates can differ locally.</p>
- <p className="small">Based on the report in <a href="https://sunnah.com/abudawud/14/137" target="_blank" rel="noopener noreferrer">Sunan Abi Dawud 2449</a>. For exceptions and Tashreeq see local scholarly guidance.</p>
- </div>;
-}
-
 export function PrintableHijriCalendar(){
  const [choice,setChoice]=useState(todayHijri);
  const data=hijriMonth(choice.year,choice.month);

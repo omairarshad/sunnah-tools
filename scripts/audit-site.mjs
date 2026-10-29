@@ -168,6 +168,22 @@ console.log('All 37 tool pages include original comparison-led practical notes')
  assert((html.match(/class="zakat-guide-section"/g)||[]).length>=7,'Comprehensive Zakat guide sections missing');
 }
 
+// Three reference guides must be readable and attributable in static HTML before React loads.
+const deepDives=[
+ ['ramadan-countdown',['When does Ramadan start? A complete countdown','Does Ramadan start at midnight, sunset or Fajr?','Why is the expected first day of Ramadan uncertain?','Worked example: first fast on 8 February 2027','Sahih al-Bukhari 1909','Quran 2:187','id="countdown-meaning"','id="countdown-example"']],
+ ['laylatul-qadr-nights',['Laylatul Qadr: the last ten nights','29-day versus a 30-day Ramadan','Authentic Laylatul Qadr dua','Sahih al-Bukhari 2017','Sahih al-Bukhari 2021','Jami at-Tirmidhi 3513','id="qadr-dua"','id="qadr-count"']],
+ ['white-days-calendar',['White Days fasting calendar: 13, 14 and 15','why are they called White Days?','White Days during Ramadan and the days of Tashreeq','Sunan Abi Dawud 2449','Sahih Muslim 1160','Sahih Muslim 1141a','id="white-exceptions"','id="white-example"']]
+];
+for(const [slug,required] of deepDives){
+ const html=read(`tools/${slug}/index.html`);
+ for(const phrase of required)assert(html.includes(phrase),`${slug} knowledge base lacks: ${phrase}`);
+ assert((html.match(/class="three-tool-section/g)||[]).length>=7,`Insufficient crawlable knowledge sections for ${slug}`);
+ assert(html.includes('"@type":"Article"')&&html.includes('"citation":['),`Article sources not included as structured data for ${slug}`);
+ assert(html.includes('class="three-tool-nav'),`Quick navigation missing for ${slug}`);
+ assert(sitemap.includes(`/tools/${slug}/`),`Search sitemap omits ${slug}`);
+}
+console.log('Three Ramadan-season guides include static deep dives, references, FAQ and Article schema');
+
 
 // Fasting Times source-backed guide must be static and independently indexable.
 {

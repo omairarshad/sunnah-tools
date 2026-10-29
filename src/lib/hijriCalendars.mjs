@@ -1,4 +1,5 @@
 import {hijriToGregorian} from './calculations.mjs';
+import {dateFromISO,isoPlusDays} from './growthCalculations.mjs';
 export const HIJRI_MONTHS=['Muharram','Safar',"Rabi al-Awwal","Rabi al-Thani",'Jumada al-Ula','Jumada al-Akhirah','Rajab',"Sha'ban",'Ramadan','Shawwal',"Dhul Qa'dah",'Dhul Hijjah'];
 const formatter=new Intl.DateTimeFormat('en-US-u-ca-islamic-umalqura',{year:'numeric',month:'numeric',day:'numeric',timeZone:'UTC'});
 export function hijriParts(date=new Date()){
@@ -42,4 +43,42 @@ export function whiteDaysFrom(start=new Date(),monthCount=6){
   if(list.length>=monthCount)break;
  }
  return list;
+}
+/** Full 13–15 date sets, beginning with the current month only if its 15th has not passed. */
+export function whiteDaysPlan(reference,monthCount=6,dayShift=0){
+ if(!(reference instanceof Date)||!Number.isFinite(reference.getTime())||![3,6,12].includes(monthCount)||![-1,0,1].includes(dayShift))return null;
+ const today=hijriParts(reference),isoToday=reference.toISOString().slice(0,10);
+ if(!today)return null;
+ const startOffset=today.day>15?1:0;
+ const months=[];
+ for(let index=0;index<monthCount;index++){
+  const target=adjacentMonth(today.year,today.month,startOffset+index),month=target&&hijriMonth(target.year,target.month);
+  if(!month)return null;
+  const dates=month.cells.filter(cell=>cell?.whiteDay).map(cell=>({
+   day:cell.day,iso:isoPlusDays(cell.iso,dayShift),originalISO:cell.iso,
+   fastingStatus:cell.fastingStatus,passed:isoPlusDays(cell.iso,dayShift)<isoToday
+  }));
+  months.push({year:month.year,month:month.month,name:month.name,dates});
+ }
+ return {months,dayShift,reference:isoToday,eligible:months.flatMap(month=>month.dates).filter(d=>d.fastingStatus==='voluntary-day'&&!d.passed).length};
+}
+const csvCell=value=>{let s=String(value??'');if(/^[\s]*[=+\-@]/.test(s))s="'"+s;return /[",\r\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s};
+export function whiteDaysCSV(plan){
+ if(!plan||!Array.isArray(plan.months)||![-1,0,1].includes(plan.dayShift))throw new RangeError('Invalid White Days plan');
+ const lines=[['Hijri year','Hijri month','Hijri day','Estimated Gregorian date','Status','Past at reference date','Illustrative day shift','Basis']];
+ for(const month of plan.months)for(const d of month.dates)lines.push([month.year,month.name,d.day,d.iso,d.fastingStatus,d.passed?'Yes':'No',plan.dayShift,'Umm al-Qura; confirm local moon sighting']);
+ return '\uFEFF'+lines.map(line=>line.map(csvCell).join(',')).join('\r\n')+'\r\n';
+}
+/** Voluntary dates only; Ramadan and 13 Dhul Hijjah are never exported as optional fasts. */
+export function whiteDaysIcs(plan,stamp=new Date()){
+ if(!plan||!Array.isArray(plan.months)||!(stamp instanceof Date)||!Number.isFinite(stamp.getTime()))throw new RangeError('Invalid White Days export');
+ const lines=['BEGIN:VCALENDAR','VERSION:2.0','CALSCALE:GREGORIAN','PRODID:-//Sunnah Tools//White Days Planner//EN'];
+ const seen=new Set(),dtstamp=stamp.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
+ for(const month of plan.months)for(const d of month.dates){
+  if(d.fastingStatus!=='voluntary-day'||d.passed)continue;
+  if(!dateFromISO(d.iso)||!Number.isInteger(d.day)||![13,14,15].includes(d.day)||seen.has(d.iso))throw new RangeError('Invalid White Day export');
+  seen.add(d.iso);
+  lines.push('BEGIN:VEVENT','UID:'+d.iso+'-white-days@sunnah.tools','DTSTAMP:'+dtstamp,'DTSTART;VALUE=DATE:'+d.iso.replaceAll('-',''),'DTEND;VALUE=DATE:'+isoPlusDays(d.iso,1).replaceAll('-',''),`SUMMARY:White Days - Hijri ${d.day} (date reminder)`,'DESCRIPTION:All-day planning marker. Calculated Umm al-Qura date; confirm local sighting and individual fasting guidance.','END:VEVENT');
+ }
+ return [...lines,'END:VCALENDAR'].join('\r\n')+'\r\n';
 }

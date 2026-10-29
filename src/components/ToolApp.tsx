@@ -1,7 +1,7 @@
 import {useEffect,useState} from 'react';
 import {GoldZakat,IslamicEvents,PrayerChart} from './NextTools';
 import CitySearch from './CitySearch';
-import {LaylatulQadrNights,FidyaCalculator,QadaPrayerCalculator,QurbaniShareCalculator,KaffarahCalculator,TawafSaiCounter} from './GrowthTools';
+import {FidyaCalculator,QadaPrayerCalculator,QurbaniShareCalculator,KaffarahCalculator,TawafSaiCounter} from './GrowthTools';
 import FitranaCalculator from './FitranaCalculator';
 import ZakatCalculator from './ZakatCalculator';
 import {ExpansionTool} from './ExpansionTools';
@@ -13,9 +13,12 @@ import FastingTimesPanel from './FastingTimesPanel';
 import HijriConverter from './HijriConverter';
 import QuranPlanner from './QuranPlanner';
 import RamadanTimetable from './RamadanTimetable';
+import RamadanCountdown from './RamadanCountdown';
+import LaylatulQadrPlanner from './LaylatulQadrPlanner';
+import WhiteDaysPlanner from './WhiteDaysPlanner';
 import {validateSalahHistory,downloadText} from '../lib/personalTools.mjs';
 import {differenceMinutes,differenceLabel,prayerWeekCSV} from '../lib/prayerKnowledge.mjs';
-import {WhiteDaysCalendar,PrintableHijriCalendar,PrayerWidgetGenerator,UmrahPackingChecklist} from './BatchTools';
+import {PrintableHijriCalendar,PrayerWidgetGenerator,UmrahPackingChecklist} from './BatchTools';
 import {CalculationMethod,Coordinates,Madhab,PrayerTimes,Qibla,HighLatitudeRule,PolarCircleResolution} from 'adhan';
 import {localISODate,nisabAmounts,parseAmount,finalThirdStart,hijriToGregorian} from '../lib/calculations.mjs';
 const cities=[['Newcastle upon Tyne','Europe/London',54.9783,-1.6178],['London','Europe/London',51.5072,-0.1276],['Makkah','Asia/Riyadh',21.4225,39.8262],['Madinah','Asia/Riyadh',24.4672,39.6111],['New York','America/New_York',40.7128,-74.006],['Karachi','Asia/Karachi',24.8607,67.0011],['Lahore','Asia/Karachi',31.5204,74.3587],['Dubai','Asia/Dubai',25.2048,55.2708],['Kuala Lumpur','Asia/Kuala_Lumpur',3.139,101.6869],['Jakarta','Asia/Jakarta',-6.2088,106.8456],['Istanbul','Europe/Istanbul',41.0082,28.9784],['Toronto','America/Toronto',43.6532,-79.3832],['Sydney','Australia/Sydney',-33.8688,151.2093]] as const;
@@ -139,16 +142,6 @@ function Counter(){
  <div className="action-row"><button onClick={()=>setN(v=>v+1)}>+ Count</button><button className="secondary" onClick={()=>{if(window.confirm('Reset the current count?'))setN(0)}}>Reset</button></div>
  <p className="small">Press the Space key when not focused on a control. Your tally is saved in this browser.</p></>;
 }
-function RamadanCountdown(){
- const [target,setTarget]=useState('2027-02-08'),[now,setNow]=useState(()=>Date.now());
- useEffect(()=>{const id=window.setInterval(()=>setNow(Date.now()),60000);return()=>window.clearInterval(id)},[]);
- const dateTime=date(target);const targetMs=dateTime?.getTime()??NaN;
- const ms=targetMs-now,valid=Number.isFinite(targetMs);
- const d=Math.max(0,Math.ceil(ms/86400000));
- return <><Field label="Estimated first day of Ramadan"><input type="date" value={target} onChange={e=>setTarget(e.target.value)}/></Field>
- {valid?<Block title="Days until the estimated start" value={ms>0?d:'Date reached or passed'}/>:<p className="warn">Choose a valid Gregorian date.</p>}
- <p className="warn">This is an editable estimate, not a moon-sighting announcement. Ramadan begins when confirmed by your local religious authority.</p></>;
-}
 function FastingTracker(){
  const [total,setTotal]=useState(0),[done,setDone]=useState(0),[ready,setReady]=useState(false);
  useEffect(()=>{try{const v=JSON.parse(localStorage.getItem('sunnah-fasts')??'{}');if(Number.isSafeInteger(v.total)&&v.total>=0)setTotal(v.total);if(Number.isSafeInteger(v.done)&&v.done>=0)setDone(v.done)}catch{}setReady(true)},[]);
@@ -190,7 +183,7 @@ function SalahTracker(){
 
 export default function ToolApp({slug}:{slug:string}){
  if(["prayer-rakats-chart","daily-adhkar","halal-additives-checker","zakat-anniversary-calculator","dhul-hijjah-planner","travel-prayer-guide","quran-juz-finder","zakat-stocks-crypto","hifz-tracker"].includes(slug))return <ExpansionTool slug={slug}/>;
- if(slug==='laylatul-qadr-nights')return <LaylatulQadrNights/>;
+ if(slug==='laylatul-qadr-nights')return <LaylatulQadrPlanner/>;
  if(slug==='fidya-calculator')return <FidyaCalculator/>;
  if(slug==='qada-prayer-calculator')return <QadaPrayerCalculator/>;
  if(slug==='qurbani-share-calculator')return <QurbaniShareCalculator/>;
@@ -199,7 +192,7 @@ export default function ToolApp({slug}:{slug:string}){
  if(slug==='tahajjud-time')return <TahajjudCalculator/>;
  if(['prayer-times','qibla-finder','fasting-times'].includes(slug))return <Prayer kind={slug}/>;
  if(slug==='ramadan-timetable')return <RamadanTimetable/>;
- if(slug==='white-days-calendar')return <WhiteDaysCalendar/>;
+ if(slug==='white-days-calendar')return <WhiteDaysPlanner/>;
  if(slug==='printable-hijri-calendar')return <PrintableHijriCalendar/>;
  if(slug==='prayer-times-widget')return <PrayerWidgetGenerator/>;
  if(slug==='umrah-packing-checklist')return <UmrahPackingChecklist/>;
