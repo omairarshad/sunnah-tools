@@ -152,3 +152,9 @@ console.log('All 37 tool pages include original comparison-led practical notes')
   assert(content.includes(phrase),'Prayer Times knowledge base missing '+phrase);
  assert((content.match(/class="prayer-knowledge-section/g)||[]).length>=6,'Prayer Times guide is incomplete');
 }
+
+{
+ const html=read('tools/qibla-finder/index.html');
+ for(const text of ['How to find the Qibla direction accurately','How to use your Qibla bearing','Find Qibla without a phone compass','True north versus magnetic north','How the Qibla direction is calculated','Accuracy, phone sensors and common problems','Quran 2:144','NOAA magnetic declination','id="qibla-true-magnetic"','id="qibla-accuracy"'])assert(html.includes(text),'Qibla guide missing '+text);
+ assert((html.match(/class="prayer-knowledge-section"/g)||[]).length>=6,'Qibla guide is incomplete');
+}

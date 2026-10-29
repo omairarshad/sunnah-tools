@@ -45,12 +45,12 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
     ]
   },
   "qibla-finder": {
-    "title": "Qibla Finder Online – Find Direction from Your Location",
+    "title": "Qibla Finder – Direction, Compass Bearing & Guide",
     "h1": "Qibla Finder Online",
-    "description": "Find the Qibla direction online using your location or entered coordinates. See the great-circle bearing to the Kaaba from true north, without a compass sensor.",
-    "summary": "Use your coordinates to calculate your Qibla bearing towards Makkah.",
-    "details": "This tool calculates the shortest path over the Earth's surface, known as the great-circle bearing, rather than a straight line on a flat map.",
-    "caution": "The bearing is measured clockwise from geographic north. A magnetic compass or phone sensor may point differently until properly calibrated.",
+    "description": "Find the Qibla direction from your city or location. See the true-north bearing, compass direction, approximate distance to the Kaaba, magnetic correction and step-by-step guidance.",
+    "summary": "Calculate your Qibla bearing from true north, see the approximate compass direction and distance to the Kaaba, and learn how to use a map or magnetic compass.",
+    "details": "Choose a city, allow location permission or enter your coordinates. The finder uses the initial great-circle bearing towards the Kaaba, explains how to correct an independently verified magnetic compass heading and includes a guide for finding Qibla without a phone sensor.",
+    "caution": "The numerical bearing is relative to geographic north. Magnetic declination differs by place and date; only use a verified value when converting a compass heading. Phones can be disturbed by magnets or metal; city-centre presets are approximate.",
     "faqs": [
       {
         "question": "Can I find Qibla without location permission?",
@@ -63,6 +63,30 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Does the Qibla bearing use my phone's compass heading?",
         "answer": "The fixed great-circle bearing is calculated from your location and geographic north. An optional device heading needs compatible sensors and correction for magnetic declination."
+      },
+      {
+        "question": "How do I find Qibla without a compass?",
+        "answer": "Select a city or coordinates, read the great-circle bearing, then use a map with a trustworthy north reference or another verified direction to orient yourself. A fixed sunrise direction is not a reliable substitute."
+      },
+      {
+        "question": "Does the Qibla bearing use true north or magnetic north?",
+        "answer": "It is measured clockwise from geographic true north. A physical magnetic compass needs a location- and date-specific declination correction unless it already displays a true-north heading."
+      },
+      {
+        "question": "Why might my phone show the wrong Qibla direction?",
+        "answer": "A sensor can be affected by nearby magnets and metal, poor calibration, unsupported browser access, or confusion between true and magnetic north. Compare against a reliable map or local reference."
+      },
+      {
+        "question": "Can I find Qibla without giving GPS permission?",
+        "answer": "Yes. Search for a city, select a city preset or enter latitude and longitude manually. Browser location permission is optional, although a city-centre coordinate is less precise than a building's position."
+      },
+      {
+        "question": "Why does Qibla point south-east from the United Kingdom?",
+        "answer": "For many UK locations the initial great-circle bearing towards Makkah lies broadly to the east-south-east or south-east. The actual angle depends on geographic coordinates and is read clockwise from true north."
+      },
+      {
+        "question": "What is the difference between bearing and distance to Makkah?",
+        "answer": "The bearing is the initial direction from true north. The distance is the approximate shortest surface route on a globe, not a road distance or a measurement of device compass accuracy."
       }
     ]
   },

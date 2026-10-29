@@ -158,3 +158,28 @@ html[data-theme="dark"] .prayer-knowledge-source{color:#b5d0bd}
 html[data-theme="dark"] .prayer-knowledge-caution{background:#372d21;color:#f4deb6}
 @media(max-width:720px){.prayer-asr-grid{grid-template-columns:1fr}.prayer-knowledge{padding:17px}.prayer-knowledge-table{font-size:12px}}
 @media print{.prayer-knowledge,.prayer-knowledge-nav,.prayer-knowledge-shortcuts,.prayer-method-compare{display:none!important}}
+
+
+/* Qibla results use the same measured, compact styling as the other tools. */
+.qibla-details{display:grid;gap:12px;margin:14px 0}
+.qibla-details-summary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.qibla-details-summary>div{border:1px solid #d7e4d8;background:#f8faf7;border-radius:11px;padding:13px}
+.qibla-details-summary span,.qibla-details-summary small{display:block;font-size:12px;color:#61786a}
+.qibla-details-summary strong{display:block;font-size:22px;margin:6px 0;color:#254c38}
+.qibla-magnetic-tool{padding:14px 15px}
+.qibla-magnetic-tool label{display:grid;gap:7px;max-width:455px}
+.qibla-magnetic-tool .result{margin:10px 0}
+.qibla-guide-steps{padding-left:24px;margin:14px 0;display:grid;gap:13px}
+.qibla-guide-steps li{padding-left:5px}
+.qibla-example{padding:14px 17px;border:1px solid #dce6df;background:#f6faf7;border-radius:12px;margin:16px 0}
+.qibla-example h4{margin-top:0}
+.qibla-guide-faq details{border-bottom:1px solid #dae5dd;padding:13px 0}
+.qibla-guide-faq summary{font-weight:700;cursor:pointer}
+.qibla-guide-faq details p{padding:4px 8px 8px}
+.qibla-compass-table{max-width:590px}
+html[data-theme="dark"] .qibla-details-summary>div,html[data-theme="dark"] .qibla-guide .qibla-example{background:#1d3528;border-color:#395645}
+html[data-theme="dark"] .qibla-details-summary strong{color:#d9f0dd}
+html[data-theme="dark"] .qibla-details-summary span,html[data-theme="dark"] .qibla-details-summary small{color:#b0cbb8}
+html[data-theme="dark"] .qibla-guide-faq details{border-color:#3b5c46}
+@media(max-width:640px){.qibla-details-summary{grid-template-columns:1fr}}
+@media print{.qibla-details .action-row,.qibla-magnetic-tool,.qibla-phone-sensor{display:none!important}}
