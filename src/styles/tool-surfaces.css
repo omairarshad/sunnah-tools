@@ -381,3 +381,30 @@ html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .fasting-history-lis
  background:var(--ux-section)!important;border:0!important;
 }
 /* Keep the high-contrast output and neutral calculator surfaces distinct. */
+
+/* Financial forms have separately tinted asset groups instead of a long
+   uninterrupted column or a stack of outlined white cards. */
+.tool-inner .zakat-planner>.zakat-fieldset,
+.tool-inner .zakat-fieldset{
+ background:var(--ux-section)!important;border:0!important;border-radius:7px!important;
+ padding:16px 18px 19px!important;margin:21px 0!important;
+}
+.tool-inner .zakat-fieldset legend{
+ color:var(--brand-ink)!important;background:var(--ux-section)!important;
+ border-radius:4px!important;padding:4px 9px 4px 0!important;
+ font-family:var(--font-body)!important;font-size:15px!important;
+}
+.tool-inner .zakat-fieldset :is(input:not([type=checkbox]),select){
+ background:var(--ux-work)!important;border-color:var(--ux-field-border)!important;
+}
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .zakat-fieldset{
+ background:var(--ux-section)!important;border:0!important;border-radius:7px!important;
+ padding:16px 18px 19px!important;
+}
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .zakat-fieldset legend{
+ background:var(--ux-section)!important;color:#e8eee8!important;
+}
+html[data-theme="dark"] .tool-screen[data-tone] .tool-inner .zakat-fieldset :is(input:not([type=checkbox]),select){
+ background:var(--ux-work)!important;border-color:var(--ux-field-border)!important;
+ color:#f1f5f1!important;
+}
