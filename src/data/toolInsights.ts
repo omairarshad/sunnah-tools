@@ -183,8 +183,8 @@ export const toolInsights:Record<string,ToolInsight> = {
     }
   },
   "quran-planner": {
-    "example": "For a 604-page Mushaf and thirty reading days, plan about twenty pages daily.",
-    "check": "Page totals vary by edition and should match your own Mushaf.",
+    "example": "A 604-page Mushaf over 30 active days requires 20 or 21 pages per day. Reserving four buffer days in a 30-day plan leaves 26 active days and raises the target to about 23–24 pages.",
+    "check": "Page totals and juz boundaries vary by edition. A date-based plan does not record recitation automatically, prescribe a religious pace or confirm Ramadan dates.",
     "benchmark": {
       "site": "Quran.com",
       "url": "https://quran.com/",
