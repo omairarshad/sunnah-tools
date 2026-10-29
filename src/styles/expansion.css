@@ -616,3 +616,50 @@ html[data-theme="dark"] .three-tool-faq details{border-color:#40604a}
  .white-plan-exception{background:#f1e9d9!important}
  .white-plan-past{opacity:1}
 }
+
+/* Fasting Tracker, Fidya and Kaffarah: browser-first tools with clear conditional results. */
+.fasting-deep-tool{display:grid;gap:16px;min-width:0;line-height:1.6}
+.fasting-deep-tool>p{margin:0}
+.fasting-deep-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.fasting-deep-fields label,.fidya-deep-rows label{display:grid;gap:7px;min-width:0;font-size:13px;font-weight:700}
+.fasting-deep-fields input,.fasting-deep-fields select,.fidya-deep-rows input{width:100%;min-width:0}
+.fasting-deep-panel,.fasting-deep-breakdown{background:#f8fbf8;border:1px solid #d8e7db;border-radius:13px;padding:16px;min-width:0}
+.fasting-deep-panel h3,.fasting-deep-breakdown h3{font-size:17px;margin:0 0 10px;color:#23553c}
+.fasting-deep-panel ol{margin:7px 0;padding-left:23px}
+.fasting-deep-panel li{margin:7px 0}
+.fasting-deep-panel>p{margin:8px 0}
+.fasting-deep-panel button{justify-self:start}
+.fasting-deep-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.fasting-deep-stats>div{min-width:0;border:1px solid #d8e7dd;border-radius:10px;padding:14px;background:#f4f9f5}
+.fasting-deep-stats span{font-size:11px;display:block;color:#557661}
+.fasting-deep-stats strong{display:block;font-size:clamp(18px,2.4vw,27px);line-height:1.25;margin-top:6px;overflow-wrap:anywhere}
+.fasting-deep-tool progress{width:100%;height:12px;accent-color:#2b7951}
+.fasting-history-list{display:grid;gap:8px;max-height:350px;overflow-y:auto;overscroll-behavior:contain}
+.fasting-history-list>div,.fasting-legacy{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px;border:1px solid #dce9df;background:#fff;border-radius:9px}
+.fasting-history-list strong,.fasting-history-list small{display:block}
+.fasting-history-list small{font-size:11px;color:#65816c}
+.fasting-history-list button,.fasting-legacy button{flex-shrink:0}
+.fasting-deep-actions{flex-wrap:wrap;gap:9px}
+.fasting-backup-label{display:inline-flex;align-items:center;gap:6px;padding:9px 13px;border:1px solid #bdd7c5;border-radius:8px;background:#edf6ee;color:#245c3c;font-size:12px;font-weight:800;cursor:pointer}
+.fasting-backup-label input{width:min(185px,100%);font-size:11px}
+.fasting-danger{color:#823f32!important}
+.fidya-deep-rows{display:grid;gap:10px;margin:12px 0}
+.fidya-deep-rows>div{display:flex;align-items:end;gap:9px}
+.fidya-deep-rows label{flex:1}
+.fidya-deep-rows button{margin-bottom:1px}
+.fasting-deep-breakdown p{margin:9px 0;border-bottom:1px solid #e1eae3;padding-bottom:8px;font-size:13px}
+.fasting-example-label{padding:10px 13px;background:#fff4e1;border-left:3px solid #b08b4b;border-radius:5px;color:#654e29;font-size:12px}
+.fasting-history-guide .three-tool-comparison,.fidya-guide .three-tool-comparison,.kaffarah-guide .three-tool-comparison{grid-template-columns:repeat(2,minmax(0,1fr))}
+html[data-theme="dark"] .fasting-deep-panel,html[data-theme="dark"] .fasting-deep-breakdown,html[data-theme="dark"] .fasting-deep-stats>div,html[data-theme="dark"] .fasting-history-list>div,html[data-theme="dark"] .fasting-legacy{background:#20382b;color:#e8f2e9;border-color:#45634d}
+html[data-theme="dark"] .fasting-deep-panel h3,html[data-theme="dark"] .fasting-deep-breakdown h3{color:#c1e5cc}
+html[data-theme="dark"] .fasting-deep-stats span,html[data-theme="dark"] .fasting-history-list small{color:#b3cfbc}
+html[data-theme="dark"] .fasting-example-label{background:#40301e;color:#f4deb3}
+html[data-theme="dark"] .fasting-backup-label{background:#21412e;color:#c3e7cf;border-color:#54715d}
+@media(max-width:720px){.fasting-deep-fields,.fasting-deep-stats,.fasting-history-guide .three-tool-comparison,.fidya-guide .three-tool-comparison,.kaffarah-guide .three-tool-comparison{grid-template-columns:1fr}.fasting-deep-panel{padding:13px}.fasting-deep-stats strong{font-size:22px}}
+@media print{
+ .fasting-deep-tool{display:block!important}
+ .fasting-deep-tool .fasting-deep-actions,.fasting-deep-tool button,.fasting-backup-label,.fasting-deep-fields{display:none!important}
+ .fasting-deep-panel,.fasting-deep-breakdown,.fasting-deep-stats>div{background:#fff!important;color:#000!important;border-color:#888!important;break-inside:avoid}
+ .fasting-history-list{max-height:none;overflow:visible}
+ .fasting-deep-stats{grid-template-columns:repeat(3,minmax(0,1fr))}
+}

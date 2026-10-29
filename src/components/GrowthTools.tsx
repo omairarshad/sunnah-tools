@@ -1,6 +1,6 @@
 import {validateQadaPlan} from '../lib/personalTools.mjs';
 import {useEffect,useState} from 'react';
-import {qadaPlanningDays,simpleEstimate,qurbaniEstimate} from '../lib/growthCalculations.mjs';
+import {qadaPlanningDays,qurbaniEstimate} from '../lib/growthCalculations.mjs';
 
 const currencies=['GBP','USD','EUR','PKR','INR','SAR','AED','CAD','AUD','MYR'];
 const money=(n:number,currency:string)=>new Intl.NumberFormat('en-GB',{style:'currency',currency,maximumFractionDigits:2}).format(n);
@@ -10,18 +10,6 @@ function Currency({value,onChange}:{value:string;onChange:(value:string)=>void})
 }
 function Notice({children}:{children:React.ReactNode}){return <p className="warn">{children}</p>}
 
-export function FidyaCalculator(){
- const [days,setDays]=useState(''),[rate,setRate]=useState(''),[currency,setCurrency]=useState('GBP');
- const estimate=simpleEstimate(intValue(days),Number(rate));
- return <div className="growth-tool">
-  <p>Calculate an <strong>illustrative Fidya amount</strong> using the number of eligible fasting days and the verified local Fidya rate you supply.</p>
-  <div className="two"><label>Fasting days for which Fidya applies<input type="number" min="1" max="100000" step="1" inputMode="numeric" value={days} onChange={e=>setDays(e.target.value)} placeholder="e.g. 5"/></label><label>Verified Fidya rate per day<input type="number" min="0.01" step="any" inputMode="decimal" value={rate} onChange={e=>setRate(e.target.value)} placeholder="Enter your local rate"/></label></div>
-  <Currency value={currency} onChange={setCurrency}/>
-  {estimate?<><div className="result" role="status"><span>Estimated Fidya at your entered rate</span><strong>{money(estimate.total,currency)}</strong><small>{days} days × {money(Number(rate),currency)} per day</small></div></>:<p className="small">Enter the number of days and your locally confirmed Fidya rate.</p>}
-  <Notice>Fidya is not automatically due for every missed fast. Whether you should make up fasts, pay Fidya, or follow another ruling depends on your circumstances and school of law. Confirm eligibility and the current local rate with a qualified authority before paying.</Notice>
-  <p className="small">Reference: <a href="https://quran.com/2/184" target="_blank" rel="noopener noreferrer">Quran 2:184</a>. Fidya, Fitrana and Kaffarah are different obligations.</p>
- </div>;
-}
 
 const prayerNames=['Fajr','Dhuhr','Asr','Maghrib','Isha'] as const;
 export function QadaPrayerCalculator(){
@@ -97,24 +85,6 @@ export function QurbaniShareCalculator(){
  </div>;
 }
 
-export function KaffarahCalculator(){
- const [type,setType]=useState<'oath'|'ramadan'>('oath'),[oaths,setOaths]=useState('1'),[rate,setRate]=useState(''),[currency,setCurrency]=useState('GBP');
- const incidents=type==='oath'?intValue(oaths):1;
- const people=type==='oath'?10:60;
- const estimate=simpleEstimate(incidents,Number(rate),people);
- const valid=Number.isSafeInteger(incidents)&&incidents>=1&&incidents<=100000;
- return <div className="growth-tool">
-  <p>Explore a <strong>conditional food-cost illustration</strong> for two different Kaffarah scenarios. This calculator cannot determine whether Kaffarah is due or which remedy applies.</p>
-  <label>Scenario<select value={type} onChange={e=>setType(e.target.value as 'oath'|'ramadan')}><option value="oath">Broken oath (Kaffarah al-Yamin)</option><option value="ramadan">Ramadan fast violation — single case for review</option></select></label>
-  {type==='oath'?<><p className="small">Quran 5:89 discusses feeding ten needy people or clothing them; if unable, fasting three days. The applicable details and whether cash substitution is permitted require local guidance.</p><label>Number of distinct oaths to review<input type="number" min="1" max="100000" step="1" value={oaths} onChange={e=>setOaths(e.target.value)}/></label></>:
-   <Notice>Not every broken or missed Ramadan fast incurs Kaffarah. The conditions, order of remedies, and whether feeding 60 people is an applicable option differ by school and circumstances. This screen illustrates one hypothetical case only; consult a qualified scholar before relying on it.</Notice>}
-  <div className="two"><label>Verified local cost to feed one eligible person<input type="number" min="0.01" step="any" inputMode="decimal" value={rate} onChange={e=>setRate(e.target.value)} placeholder="Enter local cost"/></label><Currency value={currency} onChange={setCurrency}/></div>
-  {valid&&<div className="result"><span>People in this illustrative feeding scenario</span><strong>{(incidents*people).toLocaleString('en-GB')}</strong><small>{type==='oath'?'10 people per oath, if feeding applies':'60 people in one hypothetical case, only if feeding is an applicable remedy'}</small></div>}
-  {estimate?<div className="result" role="status"><span>Conditional food-cost estimate — not an amount automatically owed</span><strong>{money(estimate.total,currency)}</strong><small>{estimate.units.toLocaleString('en-GB')} × {money(Number(rate),currency)} per person</small></div>:<p className="small">Enter a positive verified local cost for an illustration. No universal Kaffarah amount is assumed.</p>}
-  <Notice>Kaffarah for oaths and Ramadan violations are different. Feeding, clothing, fasting and monetary substitution are not interchangeable in every case. This is not a payment instruction or religious ruling.</Notice>
-  <p className="small">References: <a href="https://quran.com/5/89" target="_blank" rel="noopener noreferrer">Quran 5:89</a> (oaths) and <a href="https://sunnah.com/bukhari:1936" target="_blank" rel="noopener noreferrer">Sahih al-Bukhari 1936</a> (Ramadan).</p>
- </div>;
-}
 
 type RoundType='tawaf'|'sai';
 export function TawafSaiCounter(){

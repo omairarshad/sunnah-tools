@@ -568,25 +568,31 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
     ]
   },
   "fasting-tracker": {
-    "title": "Fasting Tracker – Qada and Make-Up Fasts",
-    "h1": "Fasting Tracker",
-    "description": "Track voluntary or make-up fasting days privately in your browser. Set a target, record completed days and see how many remain.",
-    "summary": "Organise planned or make-up fasts with a private progress counter.",
-    "details": "Enter your own target number of days and mark each completed fast as you go. The counter stores your progress on this device.",
-    "caution": "The tool does not determine qada obligations or whether fidya or kaffarah applies; seek individual qualified advice.",
+    "title": "Fasting Tracker – Private Qada Log, Dates & Backups",
+    "h1": "Qada and Voluntary Fasting Tracker",
+    "description": "Track Qada make-up and voluntary fasts separately. Log completed dates, monitor remaining days, restore old progress and export private JSON or CSV backups.",
+    "summary": "Keep a private date-by-date record of self-reported Qada and voluntary fasts, with a separately chosen make-up target and safe local exports.",
+    "details": "Enter a Qada target established independently, record completed Gregorian dates as either Qada or voluntary, and review the remaining count without double counting. The tracker rejects future dates and duplicates, preserves older undated counters, and offers validated backup restoration plus CSV and print.",
+    "caution": "A personal log cannot confirm religious obligations, intention, fasting validity, permitted dates or any need for Fidya or Kaffarah. Local browser history can be cleared; export a backup if needed.",
     "faqs": [
       {
-        "question": "Will it tell me how many fasts I owe?",
-        "answer": "No. You supply the target; it simply tracks your progress."
+        "question": "How do I track missed Ramadan fasts (Qada)?",
+        "answer": "Set your own verified target, then record each completed make-up fast by date. The counter subtracts your dated Qada completions and any older undated count; it does not decide the target."
       },
       {
-        "question": "Can I use it without an account?",
-        "answer": "Yes. No sign-in is required, and progress is kept in local browser storage."
+        "question": "Can I track voluntary fasts separately?",
+        "answer": "Yes. Choose Qada or voluntary for each completed day. Voluntary entries never reduce your Qada remaining count."
       },
       {
-        "question": "Does every missed fast require a Fidya payment?",
-        "answer": "No. Many missed fasts need to be made up instead; the appropriate treatment depends on why the fast was missed and qualified religious guidance."
-      }
+        "question": "Will my old fasting counter be lost?",
+        "answer": "No. A valid previous sunnah-fasts counter is migrated to an undated completed tally without creating fake calendar dates."
+      },
+      {"question":"Does the fasting tracker calculate what I owe?","answer":"No. Quran 2:185 speaks of make-up days, but the correct count, exemptions and any feeding remedies require qualified case-specific guidance."},
+      {"question":"Can I record a fast in the future?","answer":"No. This is a log of completed days; future civil dates and duplicated date entries are rejected."},
+      {"question":"Can I download my fasting history?","answer":"Yes. Download a private JSON backup for restoration, a labelled CSV including older undated entries, or print your current view."},
+      {"question":"Where is my fasting progress saved?","answer":"On this device in browser local storage, with no account sync. Clearing storage or changing devices may remove it unless you export a backup."},
+      {"question":"Can I restore a JSON fasting backup?","answer":"Yes. A backup is validated before being restored, and replacing your current local plan requires confirmation."},
+      {"question":"Do I need Fidya or Kaffarah for a missed fast?","answer":"Not automatically. Qada, Fidya and Kaffarah apply to distinct circumstances; a qualified religious authority must assess your situation."}
     ]
   },
   "printable-prayer-chart": {
@@ -697,29 +703,34 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
     ]
   },
   "fidya-calculator": {
-    "title": "Fidya Calculator – Missed Ramadan Fast Estimate",
+    "title": "Fidya Calculator – Eligible Ramadan Fast Feeding Estimate",
     "h1": "Fidya Calculator for Missed Ramadan Fasts",
-    "description": "Calculate a Fidya estimate for eligible missed fasts. Enter the number of fasting days, a verified local per-day rate and your currency.",
-    "summary": "Estimate possible Fidya for eligible missed Ramadan fasting days using a locally verified rate, without a misleading worldwide default.",
-    "details": "Enter the days for which a qualified authority has determined Fidya applies and the current per-day amount from a trusted local charity or scholar. The result is days multiplied by your entered rate, displayed in your selected currency. The calculator does not fetch rates or collect payments.",
-    "caution": "Fidya is not owed for every missed fast and is not an automatic alternative to making up days. Health circumstances, ability to fast later and differences between scholarly schools affect the ruling and form of payment. Confirm your eligibility and local rate before acting.",
+    "description": "Calculate conditional Fidya for up to twelve people using verified eligible days and your local daily feeding rate. Worked example, source-backed guide and download.",
+    "summary": "Estimate potential Fidya person-days using only a current local rate and eligibility established outside the calculator, with distinct anonymous household rows.",
+    "details": "Enter eligible days for each of up to twelve people and one locally verified per-day feeding rate. Review individual subtotals and the combined amount, load a clearly hypothetical £6 example, and download a local summary or print. No current rates are fetched and no financial inputs are saved.",
+    "caution": "Fidya is not a universal substitute for Qada. Eligibility, temporary versus lasting inability, feeding method and recipient rules, cash substitution and school differences require qualified religious advice and appropriate health guidance where relevant.",
     "faqs": [
       {
-        "question": "How much Fidya should I pay per day?",
-        "answer": "The amount depends on locally applicable food costs and the guidance you follow. This tool intentionally requires you to enter a verified current rate instead of making one up."
+        "question": "How do I calculate Fidya for Ramadan?",
+        "answer": "If qualified guidance confirms Fidya applies, multiply each person's eligible days by your verified local per-day rate, then combine the individual totals."
       },
       {
-        "question": "Do I pay Fidya or make up missed Ramadan fasts?",
-        "answer": "It depends on why you missed them, whether you can fast later and the rulings you follow. Consult a qualified authority for your circumstances."
+        "question": "Who qualifies for Fidya instead of make-up fasts?",
+        "answer": "It depends on the situation. Sahih al-Bukhari 4505 discusses elderly people unable to fast; temporary illness and other cases cannot be resolved by an amount calculator."
       },
       {
-        "question": "Are Fidya, Fitrana and Kaffarah the same?",
-        "answer": "No. These are distinct Islamic giving or expiation categories with different conditions and methods."
+        "question": "Can I calculate Fidya for multiple people?",
+        "answer": "Yes. Enter up to twelve anonymous people with separately confirmed eligible day counts. All rows use the local per-day rate you supply."
       },
       {
-        "question": "Is Fidya due for every fast I missed in Ramadan?",
-        "answer": "No. Many missed fasts must be made up instead. Circumstances and the school you follow determine when Fidya is appropriate."
-      }
+        "question": "Is the displayed £6 worked example a real UK rate?",
+        "answer": "No. It is an invented teaching example, not a current price or religious rate. Confirm a relevant local rate before planning a payment."
+      },
+      {"question":"Is Fidya automatically owed for every missed Ramadan fast?","answer":"No. Many situations instead involve make-up fasting. Consult qualified guidance about the particular reason, ability and school followed."},
+      {"question":"Can I pay cash instead of food for Fidya?","answer":"The validity of cash substitution and required feeding amount or form can differ by school and provider. A currency calculation does not establish permission."},
+      {"question":"Is Fidya the same as Kaffarah or Fitrana?","answer":"No. They are separate obligations or expiation categories; the calculator does not make them interchangeable."},
+      {"question":"Can I download a Fidya breakdown?","answer":"Yes. Export a local text summary or print, including person-by-person arithmetic and a warning that eligibility is not determined."},
+      {"question":"Are my Fidya days and rates stored?","answer":"No. These financial inputs are used only while the page is open. Nothing is uploaded or collected for a payment."}
     ]
   },
   "qada-prayer-calculator": {
@@ -775,29 +786,34 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
     ]
   },
   "kaffarah-calculator": {
-    "title": "Kaffarah Calculator – Broken Oath & Ramadan Estimate",
+    "title": "Kaffarah Calculator – Oath, Ramadan & Remedy Guide",
     "h1": "Kaffarah Calculator",
-    "description": "Explore a conditional Kaffarah feeding-cost estimate for a broken oath or Ramadan fast violation. Enter a locally verified cost per person.",
-    "summary": "Review distinct Kaffarah scenarios and an illustrative cost to feed eligible people, where feeding is applicable.",
-    "details": "Kaffarah for a broken oath and for specific Ramadan violations are not the same obligation. For an oath, Quran 5:89 describes feeding ten needy people or clothing them, with fasting when unable. For certain Ramadan cases, remedies can include freeing a slave, consecutive fasting or feeding sixty people according to relevant rulings and circumstances. The calculator displays only a conditional feeding scenario using a local rate you provide; it does not prescribe a payment.",
-    "caution": "Not every missed or broken fast creates Kaffarah. Whether feeding, fasting or another remedy applies, and whether monetary substitution is permitted, depends on the case and school of law. Confirm the obligation and its order with a qualified scholar before taking action.",
+    "description": "Compare Kaffarah for deliberate broken oaths and a specific Ramadan violation. View feeding, clothing or fasting pathways and conditional cost examples with sources.",
+    "summary": "Understand why Kaffarah for an oath and for a specific Ramadan intercourse report are different cases, with distinct conditional feeding, clothing and fasting alternatives.",
+    "details": "The oath pathway draws on Quran 5:89, showing ten needy recipients for feeding or clothing and a three-day fasting alternative if unable. The Ramadan example draws on Sahih al-Bukhari 1936's specific intercourse case, two successive months and sixty needy recipients. Enter a locally verified unit rate only for illustrative costs; download or print an explicitly conditional summary.",
+    "caution": "No remedy is automatically due. A qualified authority must assess the act, whether an oath was binding, distinct cases, ability and remedy order, feeding or clothing details, school differences and whether cash substitution is valid. Two lunar months are not a fixed sixty-day Gregorian total.",
     "faqs": [
       {
-        "question": "How many people should be fed for Kaffarah of an oath?",
-        "answer": "Quran 5:89 refers to feeding ten needy people, or clothing them, with fasting three days if unable. The applicable feeding method requires local guidance."
+        "question": "What is Kaffarah for a deliberate broken oath?",
+        "answer": "Quran 5:89 refers to feeding ten needy people, clothing ten or freeing a slave, with fasting three days if unable to use the applicable earlier options."
       },
       {
-        "question": "Is there a fixed Kaffarah amount in the UK?",
-        "answer": "There is no universal amount suitable for every case. Enter a verified locally applicable cost per eligible person for an illustration, not as an automatic payment instruction."
+        "question": "What does Kaffarah for a Ramadan fast violation involve?",
+        "answer": "Sahih al-Bukhari 1936 describes a specific intercourse-while-fasting incident and a sequence involving freeing a slave, two successive lunar months or feeding sixty people as applicable. It does not apply indiscriminately to all broken fasts."
       },
       {
-        "question": "Do all broken Ramadan fasts require Kaffarah?",
-        "answer": "No. The act, intention, exemptions and rulings followed determine whether expiation applies. Ask a qualified scholar about your situation."
+        "question": "Can a broken oath require feeding ten people?",
+        "answer": "Quran 5:89 lists feeding ten needy people or clothing them among its remedies. The number of distinct binding oaths and valid method require guidance."
       },
       {
-        "question": "Is Kaffarah always payable in money?",
-        "answer": "No. Depending on the type of case and applicable ruling, expiation can involve alternatives such as fasting or feeding. A cash estimate is conditional."
-      }
+        "question": "Are two successive lunar months exactly 60 days?",
+        "answer": "Not necessarily. A lunar month can have 29 or 30 days; the exact rule and continuity should be checked with a scholar, not converted into a fixed civil-day count."
+      },
+      {"question":"Does every broken Ramadan fast need Kaffarah?","answer":"No. The specific act and circumstances matter. Do not apply the sixty-person scenario to every missed, accidental or deliberately broken fast."},
+      {"question":"Can I use fasting instead of feeding for an oath?","answer":"Quran 5:89 places the three-day fasting alternative after the listed means when unable; the calculator does not determine whether that condition applies."},
+      {"question":"Is there one Kaffarah cash amount in the UK?","answer":"No. Enter a verified local cost for a purely conditional feeding or clothing illustration; the form and lawfulness of payment need confirmation."},
+      {"question":"Can I estimate clothing instead of feeding?","answer":"The oath mode can show ten clothing recipients per reviewed distinct case, with a user-supplied unit cost. It is not a determination that the option applies."},
+      {"question":"Does Kaffarah Calculator store my details or collect payments?","answer":"No. Input is temporary browser state. Optional text summaries are made on your device, with no donation checkout or payment collection."}
     ]
   },
   "tawaf-sai-counter": {
