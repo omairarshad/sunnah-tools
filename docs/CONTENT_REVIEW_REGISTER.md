@@ -24,6 +24,18 @@ This is an internal review register for the publicly available tools. It is not 
 | Tasbih counter | Verify two cited 33/33/34 and 33/33/33+final declaration variants and final formula | Source-defined stages and explicit advance; free targets not described as prescribed |
 | Islamic Age | Check Umm al-Qura date/year conventions, day-30 fallback, Gregorian Feb 29 treatment and legal/fiqh caveats | No stored DOB or rulings on puberty, marriage, responsibility; local sunset adjustment explicitly not inferred |
 
+## Final seven tool deep-dives — qualified review pending
+
+| Tool | Required scholarly or authority verification | Product safety boundary |
+| --- | --- | --- |
+| Travel prayer guide | Qasr eligibility, school differences, Jam and resident imam | No automatic travel distance or stay fatwa |
+| Islamic events calendar | Quranic dates, local crescent and official declarations | Provisional all-day Umm al-Qura labels, not announcements |
+| Printable Hijri month | 29/30 days, sunset and White Days exceptions | Illustrative shift labelled, CSV separates canonical dates |
+| Dhul Hijjah planner | Day 9 Arafah, day 10 Eid, days 11–13 Tashreeq fasting rules | Never proposes ordinary voluntary fasting for Eid/Tashreeq |
+| Halal E-number checker | Source claims and context-specific fiqh | No automatic halal/haram verdict, missing entry not assumed halal |
+| Umrah/Hajj packing | Changing entry, Nusuk and health requirements; ihram restrictions | Existing local tick history preserved; official rules external |
+| Tawaf/Sa'i counter | Seven circuits vs seven one-way lengths and ritual conditions | Existing locally stored counts preserved; no claim of ritual validity |
+
 ## Pending qualified review
 
 | Zakat Anniversary guide and lunar-calendar review planner | Verify hawl start and interruption distinctions, 30th-day fallback, Umm al-Qura versus local dates, and the wording of Sunan Abi Dawud 1573 | Up to 5 all-day reminders, not automatic due dates or liabilities; local calendar difference labelled illustrative; no balances stored |
