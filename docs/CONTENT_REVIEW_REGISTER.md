@@ -6,6 +6,11 @@ This is an internal review register for the publicly available tools. It is not 
 
 ## Pending qualified review
 
+| Zakat Anniversary guide and lunar-calendar review planner | Verify hawl start and interruption distinctions, 30th-day fallback, Umm al-Qura versus local dates, and the wording of Sunan Abi Dawud 1573 | Up to 5 all-day reminders, not automatic due dates or liabilities; local calendar difference labelled illustrative; no balances stored |
+| Stocks and Crypto Zakat guide and portfolio estimator | Review trading versus long-term share methods, whether a 25% proxy is accepted by the relevant authority, token asset rights, Nisab and the treatment of funds, pensions and DeFi | Explicit per-position classification; underlying percentage or opt-in proxy; no automatic token exclusion; unknown Nisab blocks payable outputs; no financial accounts connected |
+| Qurbani shares guide and precise cost allocation | Review Hady hadith application to Udhiyah, 1 vs 7 animal share distinctions, timing, animal conditions, financial arrangements and intentions | Separate reserve-N-shares versus fund-entire-animal modes; penny-perfect totals; no suggestion cost allocation determines validity |
+
+
 | Tool or topic | Review needed | Current guardrail |
 | --- | --- | --- |
 | Fasting Tracker and Qada comprehensive guide | Review Qada timing, exemptions, whether optional and make-up intentions can overlap, treatment of uncertain old fasts and Sahih al-Bukhari 1950's context | Only user-defined Qada targets; voluntary fasts separate; records are self-reported, future/duplicate dates blocked; migration preserves undated old progress without invented dates; no fatwa or remote storage |
