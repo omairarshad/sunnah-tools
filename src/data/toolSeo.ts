@@ -195,12 +195,12 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
     ]
   },
   "zakat-calculator": {
-    "title": "Zakat Calculator UK – Cash, Gold & Savings",
+    "title": "Zakat Calculator UK – Nisab, Gold, Savings & Guide",
     "h1": "Zakat Calculator",
-    "description": "Use our UK-friendly Zakat calculator for cash, gold, savings and investments. Enter your currency, asset values and metal prices to estimate conditional Zakat.",
-    "summary": "Estimate Zakat payable on qualifying net wealth, subject to Nisab and hawl.",
-    "details": "Add qualifying assets and permitted liabilities, then compare net wealth with a gold- or silver-based Nisab threshold using the prices you provide.",
-    "caution": "The tool cannot determine whether jewellery, investments or every debt is included for your circumstances. Verify these treatments with qualified local guidance.",
+    "description": "Estimate Zakat on cash, savings, gold, silver, investments and business assets. Compare gold or silver Nisab, review deductible liabilities and learn how Zakat works.",
+    "summary": "Estimate conditional Zakat on qualifying wealth, with separate inputs for savings, gold and silver, trade stock, investments and eligible liabilities.",
+    "details": "Choose a currency and Nisab benchmark, enter your current metal prices and eligible holdings, then review a full breakdown. The calculator supports metal weights or independently assessed values, a worked example, and an optional downloadable estimate without saving your financial details.",
+    "caution": "This is a planning tool, not a ruling. Hawl, jewellery, pension ownership, debts, investments, Nisab choice and business valuations differ by school and circumstances. Verify them with a qualified adviser.",
     "faqs": [
       {
         "question": "Is Zakat always 2.5%?",
@@ -213,6 +213,30 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Should I enter every pension balance as cash?",
         "answer": "Not necessarily. Pension ownership, access and the guidance you follow can affect its Zakat treatment. Review those factors before entering a qualifying amount."
+      },
+      {
+        "question": "How do I calculate Zakat on my savings?",
+        "answer": "Include qualifying cash and bank balances, then assess other relevant assets and permitted debts. Compare net wealth with the applicable gold- or silver-based Nisab; where the lunar-year and other conditions apply, 2.5% is the common rate for qualifying money."
+      },
+      {
+        "question": "Is Zakat due on the full mortgage balance?",
+        "answer": "Do not automatically deduct the entire balance of a long-term mortgage. Debt deductibility can depend on when amounts are due and the legal school followed; only enter liabilities allowed by qualified guidance."
+      },
+      {
+        "question": "How do I calculate Zakat on gold jewellery?",
+        "answer": "First determine whether the jewellery is included under the guidance you follow. When it is included, use a reliable qualifying value or the correct fine-gold content and appropriate price; do not value lower-carat jewellery as if all its weight were pure 24-carat gold."
+      },
+      {
+        "question": "Do stocks and pensions count towards Zakat?",
+        "answer": "Their treatment depends on factors such as ownership, access, investment purpose and underlying assets. The tool asks for the qualifying value as determined under the guidance you use, rather than assuming an entire pension balance or portfolio market value is automatically zakatable."
+      },
+      {
+        "question": "Is Zakat automatically due every Ramadan?",
+        "answer": "No. Zakat al-Mal is tied to the relevant lunar-year (hawl) conditions for the individual. Ramadan is not a universal anniversary date. If you are unsure, seek guidance on the start and continuity of your Zakat year."
+      },
+      {
+        "question": "Can I download my Zakat calculation without saving it online?",
+        "answer": "Yes. The summary is generated on your device when you choose to download it. The calculator does not use browser storage for the financial amounts entered; protect any downloaded file as you would another personal financial document."
       }
     ]
   },

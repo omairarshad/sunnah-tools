@@ -3,6 +3,7 @@ import {GoldZakat,IslamicEvents,PrayerChart} from './NextTools';
 import CitySearch from './CitySearch';
 import {LaylatulQadrNights,FidyaCalculator,QadaPrayerCalculator,QurbaniShareCalculator,KaffarahCalculator,TawafSaiCounter} from './GrowthTools';
 import FitranaCalculator from './FitranaCalculator';
+import ZakatCalculator from './ZakatCalculator';
 import {ExpansionTool} from './ExpansionTools';
 import QiblaOrientation from './QiblaOrientation';
 import QiblaDetails from './QiblaDetails';
@@ -13,7 +14,7 @@ import {makeRamadanIcs,validateQuranPlan,validateSalahHistory,downloadText} from
 import {differenceMinutes,differenceLabel,prayerWeekCSV} from '../lib/prayerKnowledge.mjs';
 import {WhiteDaysCalendar,PrintableHijriCalendar,PrayerWidgetGenerator,UmrahPackingChecklist} from './BatchTools';
 import {CalculationMethod,Coordinates,Madhab,PrayerTimes,Qibla,HighLatitudeRule,PolarCircleResolution} from 'adhan';
-import {localISODate,nisabAmounts,parseAmount,zakatEstimate,finalThirdStart,readingPlan,hijriToGregorian} from '../lib/calculations.mjs';
+import {localISODate,nisabAmounts,parseAmount,finalThirdStart,readingPlan,hijriToGregorian} from '../lib/calculations.mjs';
 const cities=[['Newcastle upon Tyne','Europe/London',54.9783,-1.6178],['London','Europe/London',51.5072,-0.1276],['Makkah','Asia/Riyadh',21.4225,39.8262],['Madinah','Asia/Riyadh',24.4672,39.6111],['New York','America/New_York',40.7128,-74.006],['Karachi','Asia/Karachi',24.8607,67.0011],['Lahore','Asia/Karachi',31.5204,74.3587],['Dubai','Asia/Dubai',25.2048,55.2708],['Kuala Lumpur','Asia/Kuala_Lumpur',3.139,101.6869],['Jakarta','Asia/Jakarta',-6.2088,106.8456],['Istanbul','Europe/Istanbul',41.0082,28.9784],['Toronto','America/Toronto',43.6532,-79.3832],['Sydney','Australia/Sydney',-33.8688,151.2093]] as const;
 const labels=['Fajr','Sunrise','Dhuhr','Asr','Maghrib','Isha'] as const;
 function fmt(d:Date,zone:string){return !(d instanceof Date)||Number.isNaN(d.getTime())?'—':new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',timeZone:zone,hour12:false}).format(d)}
@@ -103,29 +104,6 @@ return <div><p className="small">{customLabel?'Showing times for '+customLabel:'
 {kind==='tahajjud-time'&&<>{times&&lastThird&&following?<><Block title="Maghrib" value={fmt(times.maghrib,tz)}/><Block title="Beginning of the final third of night" value={fmt(lastThird,tz)}/><Block title="Following Fajr" value={fmt(following,tz)}/></>:<p>Check your location.</p>}</>}
 {kind==='ramadan-timetable'&&<><div className="two"><Field label="Estimated first day of Ramadan (Gregorian)"><input type="date" value={start} onChange={e=>setStart(e.target.value)}/></Field><Field label="Timetable length"><select value={ramadanLength} onChange={e=>setRamadanLength(Number(e.target.value))}><option value={29}>29 days</option><option value={30}>30 days</option></select></Field></div><p className="small">The date and 29/30-day length are editable estimates. Verify your country's announcement before relying on the final calendar. Timezone: <strong>{tz}</strong>. Method: <strong>{method}</strong>.</p><div className="ramadan-print-heading"><h2>Ramadan timetable</h2><p>{customLabel||c[0]} · {tz} · {method} · {ramadanLength} days</p></div><div className="table-wrap"><table><thead><tr><th>Day</th><th>Date</th><th>Fajr</th><th>Maghrib</th></tr></thead><tbody>{rows.map(x=><tr key={x.day}><td>{x.day}</td><td>{x.date}</td><td>{x.fajr}</td><td>{x.maghrib}</td></tr>)}</tbody></table></div><div className="action-row print-hide"><button onClick={()=>window.print()}>Print / Save as PDF</button><button className="secondary" onClick={exportTimetable} disabled={!rows.length}>Download CSV</button><button className="secondary" type="button" onClick={exportRamadanIcs} disabled={!rows.length}>Download calendar (.ics)</button></div></>}
 <p className="warn">These are calculated times, not mosque congregation times. Check local methodology, high-latitude conventions, and moon sighting before relying on a timetable.</p></div>
-}
-function Zakat(){
- const keys=['Cash and savings','Gold weight (grams)','Silver weight (grams)','Gold market price per gram','Silver market price per gram','Eligible investments','Business/trading stock','Other eligible assets','Deductible immediate liabilities'];
- const [v,setV]=useState<string[]>(Array(9).fill('')),[metal,setMetal]=useState<'gold'|'silver'>('silver'),[currency,setCurrency]=useState('GBP'),[hawl,setHawl]=useState(false);
- const a=v.map(parseAmount),valid=a.every(Number.isFinite);
- const assets=a[0]+a[1]*a[3]+a[2]*a[4]+a[5]+a[6]+a[7];
- const nisab=nisabAmounts(a[3],a[4]);
- const requiredPrice=metal==='gold'?a[3]:a[4];
- const result=valid&&requiredPrice>0?zakatEstimate({assets,debts:a[8],threshold:metal==='gold'?nisab.gold:nisab.silver}):null;
- const money=(v:number)=>new Intl.NumberFormat('en-GB',{style:'currency',currency,maximumFractionDigits:2}).format(v);
- return <>
- <div className="two"><Field label="Currency"><select value={currency} onChange={e=>setCurrency(e.target.value)}>{['GBP','USD','EUR','PKR','SAR','AED','CAD','AUD','INR'].map(x=><option key={x}>{x}</option>)}</select></Field>
- <Field label="Nisab comparison"><select value={metal} onChange={e=>setMetal(e.target.value as 'gold'|'silver')}><option value="silver">Silver benchmark (612.36g)</option><option value="gold">Gold benchmark (87.48g)</option></select></Field></div>
- <p className="small">Enter a current price per gram in your chosen currency.</p>
- <div className="two">{keys.map((x,i)=><Field label={x} key={x}><input type="number" inputMode="decimal" min="0" step="any" value={v[i]} onChange={e=>setV(v.map((y,j)=>j===i?e.target.value:y))} placeholder={i===3||i===4?'Required for Nisab calculation':'0'} /></Field>)}</div>
- <label className="check"><input type="checkbox" checked={hawl} onChange={e=>setHawl(e.target.checked)}/> I have checked the applicable lunar-year (hawl) requirement for my circumstances.</label>
- {result?<><div className="prayers"><div>Assets<strong>{money(assets)}</strong></div><div>After liabilities<strong>{money(result.net)}</strong></div><div>Selected Nisab<strong>{money(result.threshold)}</strong></div></div>
-  <details className="settings"><summary>See asset breakdown</summary><div className="table-wrap"><table><tbody><tr><th scope="row">Cash and savings</th><td>{money(a[0])}</td></tr><tr><th scope="row">Gold and silver</th><td>{money(a[1]*a[3]+a[2]*a[4])}</td></tr><tr><th scope="row">Eligible investments (as entered)</th><td>{money(a[5])}</td></tr><tr><th scope="row">Business/trading stock</th><td>{money(a[6])}</td></tr><tr><th scope="row">Other qualifying assets</th><td>{money(a[7])}</td></tr><tr><th scope="row">Immediate liabilities entered</th><td>{money(a[8])}</td></tr><tr><th scope="row">Net assets</th><td>{money(result.net)}</td></tr></tbody></table></div><p className="small">This reflects your entries, not a ruling on the treatment of individual assets, investments, pensions or debts. See <a href="/tools/zakat-stocks-crypto/">shares and crypto estimates</a> for further guidance.</p></details>
- <Block title="Estimated Zakat at 2.5%" value={result.eligible?money(result.amount):money(0)}/>
- {!result.eligible&&<p className="small">Your entered net assets are below the selected Nisab benchmark.</p>}
- {!hawl&&<p className="warn">Hawl and eligibility are not verified. This figure is only a conditional estimate, not a determination of what you owe.</p>}</>:<p className="warn">Enter valid non-negative amounts and a positive price for the selected Nisab metal before an estimate can be shown.</p>}
- <p className="small">A calculator cannot decide which assets, investments, jewellery and debts qualify under every school of Islamic law. Check specific guidance before paying.</p>
- </>;
 }
 function Nisab(){
  const [gold,setGold]=useState(''),[silver,setSilver]=useState(''),[currency,setCurrency]=useState('GBP');
@@ -258,7 +236,7 @@ export default function ToolApp({slug}:{slug:string}){
  if(slug==='printable-hijri-calendar')return <PrintableHijriCalendar/>;
  if(slug==='prayer-times-widget')return <PrayerWidgetGenerator/>;
  if(slug==='umrah-packing-checklist')return <UmrahPackingChecklist/>;
- if(slug==='zakat-calculator')return <Zakat/>;
+ if(slug==='zakat-calculator')return <ZakatCalculator/>;
  if(slug==='fitrana-calculator')return <FitranaCalculator/>;
  if(slug==='gold-zakat-calculator')return <GoldZakat/>;
  if(slug==='islamic-events-calendar')return <IslamicEvents/>;
