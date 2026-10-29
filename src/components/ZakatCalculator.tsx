@@ -62,32 +62,32 @@ export default function ZakatCalculator(){
    {plan.error?<p className="warn" role="alert">{plan.error}</p>:<section className="zakat-results" aria-live="polite">
       <h3>Your conditional Zakat estimate</h3>
       <div className="zakat-summary-grid">
-       <div><span>Qualifying assets entered</span><strong>{money(plan.assets)}</strong></div>
-       <div><span>Eligible liabilities entered</span><strong>{money(plan.liabilities)}</strong></div>
-       <div><span>Net qualifying wealth</span><strong>{money(plan.net)}</strong></div>
-       <div><span>Selected {benchmark} Nisab</span><strong>{money(plan.threshold)}</strong></div>
+       <div><span>Qualifying assets entered</span><strong>{money(plan.assets ?? 0)}</strong></div>
+       <div><span>Eligible liabilities entered</span><strong>{money(plan.liabilities ?? 0)}</strong></div>
+       <div><span>Net qualifying wealth</span><strong>{money(plan.net ?? 0)}</strong></div>
+       <div><span>Selected {benchmark} Nisab</span><strong>{money(plan.threshold ?? 0)}</strong></div>
       </div>
-      <div className="result zakat-main-result"><span>Conditional 2.5% estimate</span><strong>{money(plan.estimate)}</strong><small>{plan.eligible?'Net wealth meets the selected Nisab value.':'Net wealth is below the selected Nisab value.'}</small></div>
+      <div className="result zakat-main-result"><span>Conditional 2.5% estimate</span><strong>{money(plan.estimate ?? 0)}</strong><small>{plan.eligible?'Net wealth meets the selected Nisab value.':'Net wealth is below the selected Nisab value.'}</small></div>
       {plan.liabilities>plan.assets&&<p className="small">Your entered liabilities exceed your entered assets, so this calculation uses zero net qualifying wealth.</p>}
       <p className="zakat-conditional-warning">{!hawl?'The hawl and ownership conditions have not been confirmed. ':''}{example?'These are hypothetical demonstration figures. ':''}The amount above is an illustrative calculation, not a definitive ruling on what you owe.</p>
       <details className="settings" open>
        <summary>See the calculation breakdown</summary>
        <div className="table-wrap"><table className="zakat-breakdown">
          <tbody>
-          <tr><th scope="row">Cash, savings and qualifying receivables</th><td>{money(plan.groups.money)}</td></tr>
-          <tr><th scope="row">Included gold and silver</th><td>{money(plan.groups.metals)}</td></tr>
-          <tr><th scope="row">Qualifying investments</th><td>{money(plan.groups.investments)}</td></tr>
-          <tr><th scope="row">Trade and business stock</th><td>{money(plan.groups.business)}</td></tr>
-          <tr><th scope="row">Other eligible assets</th><td>{money(plan.groups.other)}</td></tr>
-          <tr><th scope="row">Gross assets entered</th><td>{money(plan.assets)}</td></tr>
-          <tr><th scope="row">Liabilities deducted</th><td>−{money(plan.liabilities)}</td></tr>
-          <tr><th scope="row">Net assets</th><td>{money(plan.net)}</td></tr>
-          <tr><th scope="row">2.5% of net assets if selected Nisab and hawl conditions apply</th><td>{money(plan.estimate)}</td></tr>
+          <tr><th scope="row">Cash, savings and qualifying receivables</th><td>{money(plan.groups.money ?? 0)}</td></tr>
+          <tr><th scope="row">Included gold and silver</th><td>{money(plan.groups.metals ?? 0)}</td></tr>
+          <tr><th scope="row">Qualifying investments</th><td>{money(plan.groups.investments ?? 0)}</td></tr>
+          <tr><th scope="row">Trade and business stock</th><td>{money(plan.groups.business ?? 0)}</td></tr>
+          <tr><th scope="row">Other eligible assets</th><td>{money(plan.groups.other ?? 0)}</td></tr>
+          <tr><th scope="row">Gross assets entered</th><td>{money(plan.assets ?? 0)}</td></tr>
+          <tr><th scope="row">Liabilities deducted</th><td>−{money(plan.liabilities ?? 0)}</td></tr>
+          <tr><th scope="row">Net assets</th><td>{money(plan.net ?? 0)}</td></tr>
+          <tr><th scope="row">2.5% of net assets if selected Nisab and hawl conditions apply</th><td>{money(plan.estimate ?? 0)}</td></tr>
          </tbody>
         </table></div>
        <div className="zakat-nisab-grid">
-        <div>Silver benchmark (612.36g)<strong>{plan.thresholds.silver>0?money(plan.thresholds.silver):'Enter silver price'}</strong></div>
-        <div>Gold benchmark (87.48g)<strong>{plan.thresholds.gold>0?money(plan.thresholds.gold):'Enter gold price'}</strong></div>
+        <div>Silver benchmark (612.36g)<strong>{(plan.thresholds?.silver ?? 0)>0?money(plan.thresholds?.silver ?? 0):'Enter silver price'}</strong></div>
+        <div>Gold benchmark (87.48g)<strong>{(plan.thresholds?.gold ?? 0)>0?money(plan.thresholds?.gold ?? 0):'Enter gold price'}</strong></div>
        </div>
        <p className="small">Whether to use the silver or gold benchmark is a scholarly choice. Switching the benchmark may change the threshold, not the amounts you entered.</p>
       </details>
