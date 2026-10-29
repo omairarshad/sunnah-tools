@@ -50,6 +50,8 @@ try{
     if(!m.hasCalculator||!m.hasAside||m.guideCount<3)issues.push(tag+': missing work, related or guide region');
     if(m.panelBorder!=='0px'||m.asideBorder!=='0px')issues.push(tag+': bordered work/sidebar '+m.panelBorder+'/'+m.asideBorder);
     if(m.panelBackground===m.bodyBackground)issues.push(tag+': work surface blends into canvas');
+    if(theme==='dark'&&m.panelBackground!=='rgb(34, 41, 43)')issues.push(tag+': legacy green work background '+m.panelBackground);
+    if(theme==='dark'&&m.fieldBackground&&m.fieldBackground!=='rgb(48, 56, 58)')issues.push(tag+': legacy green input background '+m.fieldBackground);
     if(m.panelBackground===m.guideBackground)issues.push(tag+': guide navigation blends into working surface');
     if(m.resultBackground){
      if(m.resultBackground===m.panelBackground)issues.push(tag+': output blends into working surface');
