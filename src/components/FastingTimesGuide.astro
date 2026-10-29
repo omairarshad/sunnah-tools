@@ -1,0 +1,113 @@
+---
+/* Original, server-rendered fasting reference, linked to Quran and numbered hadith. */
+const steps=[
+ {heading:'Choose the place where you will fast',body:'Enter your city or precise coordinates. If you travel, choose your actual location and its timezone. Dawn and sunset can change substantially between places and dates.'},
+ {heading:'Check the local Fajr convention',body:'Find which calculation method your mosque or religious authority uses. The angle for twilight and high-latitude treatment affects the estimated start of true dawn.'},
+ {heading:'Finish suhoor before the Fajr boundary',body:'Eat and drink during the night. The fast begins at true dawn; an earlier imsak reminder may be a personal precaution but must not be confused with the actual Fajr boundary.'},
+ {heading:'Observe the fast until sunset',body:'The daily fast runs from the true-dawn start to sunset. The calculator shows an approximate elapsed duration, not a health recommendation.'},
+ {heading:'Break the fast at Maghrib',body:'The sunset time corresponds to Maghrib. The Sunnah encourages timely iftar once sunset is established; dates or water are traditional choices.'},
+ {heading:'Make dua and check your next day',body:'The time around breaking the fast is an opportunity for sincere supplication. Review tomorrow’s timings, especially when daylight saving or seasonal twilight patterns change.'}
+];
+const questions=[
+ {q:'Do I stop eating at imsak or Fajr?',a:'Quran 2:187 describes the beginning of fasting at dawn. Many published imsak times are earlier precautionary reminders. They are not automatically another religious cutoff. Use your mosque’s authoritative Fajr assessment when it differs from a general calculator.'},
+ {q:'Is suhoor compulsory?',a:'The Prophet ﷺ encouraged suhoor as a blessed meal (Sahih al-Bukhari 1923). It is not a condition for the validity of a fast; a person who did not wake for suhoor should not assume the fast was invalid merely for that reason.'},
+ {q:'Can I break my fast when the Iftar countdown reaches zero?',a:'The countdown is derived from an astronomical Maghrib estimate and is not independent observation of sunset. Check local guidance, particularly if the time is disputed or your location settings are uncertain.'},
+ {q:'Why do nearby mosques list different Fajr times?',a:'Their timetables may use different twilight angles, observational studies, high-latitude rules or deliberate local adjustments. Compare like for like: a printed imsak line is not necessarily the same as Fajr.'},
+ {q:'Are Fajr and sunrise the same?',a:'No. Fajr begins at true dawn, before sunrise. Sunrise marks the end of the Fajr prayer period and must not be used as a suhoor cutoff or start-of-fast substitute.'},
+ {q:'What about fasting during long UK summer days?',a:'In parts of the UK, especially Scotland and northern areas, twilight may persist during summer nights. Scholarly authorities adopt different calculation or approximation approaches. Do not treat a generic software fallback as an authoritative ruling for the local mosque.'},
+ {q:'Do the calculated times establish the first day of Ramadan?',a:'No. The fasting timetable describes Fajr and Maghrib on a chosen civil date. The first and last day of Ramadan are separate Hijri-calendar questions, dependent on moon-sighting or local calendar conventions.'},
+ {q:'Does the site store my personal fasting information?',a:'The shared location and prayer-method preferences may be saved in this browser for convenience. The seven-day CSV is downloaded only when you choose it. The Suhoor & Iftar calculator does not record whether you fasted.'}
+];
+---
+<section class="fasting-knowledge" aria-labelledby="fasting-knowledge-heading" id="fasting-guide">
+ <header>
+  <h2 id="fasting-knowledge-heading">Suhoor and Iftar: a complete daily fasting guide</h2>
+  <p>Find the correct dawn and sunset references, understand why Ramadan timetables disagree, learn the difference between Fajr and imsak, and explore authentic fasting supplications. The calculator above gives astronomical estimates for your location; this guide explains how to use them responsibly.</p>
+ </header>
+ <nav class="fasting-guide-nav" aria-label="Fasting knowledge base sections">
+  <a href="#fasting-how-to">Daily steps</a>
+  <a href="#fasting-imsak">Fajr &amp; imsak</a>
+  <a href="#fasting-iftar">When to break fast</a>
+  <a href="#fasting-duas">Duas &amp; Sunnah</a>
+  <a href="#fasting-methods">UK times &amp; methods</a>
+  <a href="#fasting-questions">FAQs</a>
+  <a href="#fasting-sources">Sources</a>
+ </nav>
+ <div class="fasting-facts">
+  <div><span>Suhoor cutoff</span><strong>Fajr / true dawn</strong><p>Calculated start of the daily fast</p></div>
+  <div><span>Iftar begins</span><strong>Maghrib / sunset</strong><p>Calculated end of the daily fast</p></div>
+  <div><span>Imsak</span><strong>May be earlier</strong><p>Often a precautionary timetable entry, not a second cutoff</p></div>
+ </div>
+
+ <section class="fasting-guide-section" id="fasting-how-to" aria-labelledby="fasting-how-heading">
+  <h3 id="fasting-how-heading">How to use Suhoor and Iftar times, step by step</h3>
+  <ol class="fasting-steps">{steps.map((step)=><li><h4>{step.heading}</h4><p>{step.body}</p></li>)}</ol>
+  <p><a href="https://quran.com/2/187" target="_blank" rel="noopener noreferrer">Quran 2:187</a> establishes dawn and nightfall as the basic daily fasting boundaries. The calculator shows Fajr and Maghrib prominently and does not silently add a buffer to either.</p>
+ </section>
+
+ <section class="fasting-guide-section" id="fasting-imsak" aria-labelledby="fasting-imsak-heading">
+  <h3 id="fasting-imsak-heading">When should you stop eating Suhoor: Imsak or Fajr?</h3>
+  <p><strong>Suhoor</strong> is the pre-dawn meal. The daily fast begins at <strong>true dawn (Fajr)</strong>. The Quran describes eating and drinking until the dawn becomes discernible and then completing the fast until night. In <a href="https://sunnah.com/bukhari:7248" target="_blank" rel="noopener noreferrer">Sahih al-Bukhari 7248</a>, a report distinguishes the early-night call from the dawn call.</p>
+  <p><strong>Imsak</strong> literally conveys restraint; in modern schedules it may be printed as a precautionary time 5, 10 or more minutes before Fajr. That early entry should not be mistaken for a separate universal obligatory beginning of the fast. Some communities apply additional safeguards because of uncertainty around dawn calculations. Follow your trusted local authority when their method differs from a generic app.</p>
+  <div class="fasting-example">
+   <h4>Example: a dawn timetable</h4>
+   <div class="fasting-sample-times"><span>Optional reminder <strong>04:50</strong></span><span>Calculated Fajr <strong>05:00</strong></span><span>Calculated Maghrib <strong>18:30</strong></span></div>
+   <p>These are hypothetical times, not today’s schedule for any city. An optional 10-minute reminder at 04:50 helps with planning but <strong>does not replace the Fajr calculation at 05:00</strong>. The actual religious start of fasting is tied to true dawn.</p>
+  </div>
+  <p>A calculation convention (such as Muslim World League, ISNA, Karachi or a locally used method) may change the estimated Fajr. Compare it with an authoritative mosque timetable. See <a href="/tools/prayer-times/">Prayer Times and calculation methods</a>.</p>
+ </section>
+
+ <section class="fasting-guide-section" id="fasting-iftar" aria-labelledby="fasting-iftar-heading">
+  <h3 id="fasting-iftar-heading">When does Iftar start, and why is it tied to Maghrib?</h3>
+  <p>Iftar is the breaking of the fast after sunset, corresponding to the start of Maghrib. <a href="https://sunnah.com/bukhari:1957" target="_blank" rel="noopener noreferrer">Sahih al-Bukhari 1957</a> encourages timely breaking of the fast once its ending has been established. There is no reason to automatically add an arbitrary delay to a verified sunset time.</p>
+  <p>Maghrib is linked to local sunset, so it changes by date, location and horizon. A sunset time for another city is not automatically suitable for yours. The calculator’s iftar countdown is a convenience, not an independent sighting or confirmation that the sun has set at your exact horizon.</p>
+  <p>A narration in <a href="https://sunnah.com/abudawud:2356" target="_blank" rel="noopener noreferrer">Sunan Abi Dawud 2356</a> describes breaking fast with fresh dates, dry dates or water. There is no need to postpone iftar until a full meal is ready.</p>
+  <p>If you are travelling, at high altitude or in a place with unusual horizon conditions, ask your local authority how to apply the timetable. Travelling and exemptions from fasting also involve separate fiqh questions that this utility does not decide.</p>
+ </section>
+
+ <section class="fasting-guide-section" id="fasting-duas" aria-labelledby="fasting-duas-heading">
+  <h3 id="fasting-duas-heading">Fasting duas and recommended remembrance</h3>
+  <p>You can ask Allah sincerely in your own words around suhoor and iftar. There is <strong>no universal requirement to recite a fixed Arabic formula</strong> before every fast to make it valid. The following is a specifically narrated remembrance after breaking the fast, with a source and context.</p>
+  <article class="fasting-dua-card">
+   <h4>Dua reported when breaking the fast</h4>
+   <p class="fasting-dua-arabic" lang="ar" dir="rtl">ذَهَبَ الظَّمَأُ وَابْتَلَّتِ الْعُرُوقُ وَثَبَتَ الْأَجْرُ إِنْ شَاءَ اللَّهُ</p>
+   <p><strong>Transliteration:</strong> Dhahaba adh-dhama’u wabtallati al-‘uruqu wa thabata al-ajru in sha’a Allah.</p>
+   <p><strong>Meaning:</strong> The thirst has gone, the veins have been moistened, and the reward is established, if Allah wills.</p>
+   <p class="fasting-dua-reference">Reported in <a href="https://sunnah.com/abudawud:2357" target="_blank" rel="noopener noreferrer">Sunan Abi Dawud 2357</a> (graded Hasan by al-Albani as displayed by Sunnah.com). This is presented as a reported supplication, not as a condition for the validity of iftar.</p>
+  </article>
+  <div class="fasting-hadith-cards">
+   <article><h4>Suhoor has blessing</h4><p>Even a modest pre-dawn meal can be meaningful. The Prophet ﷺ encouraged taking suhoor in <a href="https://sunnah.com/bukhari:1923" target="_blank" rel="noopener noreferrer">Sahih al-Bukhari 1923</a>. It is not compulsory in order for a fast to count.</p></article>
+   <article><h4>Break the fast promptly</h4><p>Once sunset is established, timely iftar is encouraged in <a href="https://sunnah.com/bukhari:1957" target="_blank" rel="noopener noreferrer">Sahih al-Bukhari 1957</a>. Dates and water are described in <a href="https://sunnah.com/abudawud:2356" target="_blank" rel="noopener noreferrer">Sunan Abi Dawud 2356</a>.</p></article>
+  </div>
+  <p>If you encounter a widely circulated “Allahumma laka sumtu” formulation, check its exact source and grading rather than treating every familiar wording as equally established. The narrated remembrance above is linked so readers can review the report directly. For additional du'a topics, see <a href="https://www.islamic-relief.org.uk/resources/knowledge-base/dua/duas-for-fasting/" target="_blank" rel="noopener noreferrer">Islamic Relief UK's fasting dua guide</a>.</p>
+ </section>
+
+ <section class="fasting-guide-section" id="fasting-methods" aria-labelledby="fasting-methods-heading">
+  <h3 id="fasting-methods-heading">Why fasting times differ: city, method and UK summer</h3>
+  <p><strong>Fajr:</strong> Most astronomical prayer-time tools estimate true dawn from the Sun’s angle below the horizon. Different authorities use different angles and seasonal adjustments, so their Fajr results can differ even for the same city. The calculator lets you choose the method followed by your mosque.</p>
+  <p><strong>Maghrib:</strong> It is tied to sunset and depends on latitude, longitude, elevation, atmospheric conditions and a local horizon. A computer-generated sunset is an estimate for a mathematical horizon, not an observation from your window.</p>
+  <p><strong>UK high latitudes:</strong> During summer, especially in Scotland and northern England, the Sun may not reach standard twilight angles on some nights. Some authorities use alternative calculations or approximations for Fajr. The calculator offers high-latitude rules, but none is a universal binding religious answer. Follow the community timetable you trust.</p>
+  <p><strong>Time zones and daylight saving:</strong> Choose the location’s correct IANA timezone (for example, Europe/London). Summer BST and winter GMT are handled by local-time formatting, so do not manually add an hour to an already displayed clock time.</p>
+  <p><strong>Ramadan start:</strong> A fast-time calculator can show dawn and sunset on any civil date; it does not establish whether Ramadan has begun. Calendar decisions vary by moonsighting practice. Use the <a href="/tools/ramadan-timetable/">Ramadan timetable</a> only with a locally confirmed start date.</p>
+  <p><strong>Not a religious or medical verdict:</strong> This guide does not decide exemptions, missed fasts, pregnancy, travel or illness. Seek appropriate qualified religious or healthcare advice where needed.</p>
+ </section>
+
+ <section class="fasting-guide-section" id="fasting-questions" aria-labelledby="fasting-questions-heading">
+  <h3 id="fasting-questions-heading">Frequently asked fasting-time questions</h3>
+  <div class="fasting-guide-faq">{questions.map((item,index)=><details open={index===0}><summary>{item.q}</summary><p>{item.a}</p></details>)}</div>
+ </section>
+
+ <section class="fasting-guide-section" id="fasting-sources" aria-labelledby="fasting-sources-heading">
+  <h3 id="fasting-sources-heading">Quran, hadith and further reading</h3>
+  <ul>
+   <li><a href="https://quran.com/2/187" target="_blank" rel="noopener noreferrer">Quran 2:187</a> — dawn and the end of the fast at night.</li>
+   <li><a href="https://sunnah.com/bukhari:7248" target="_blank" rel="noopener noreferrer">Sahih al-Bukhari 7248</a> — eating until the dawn prayer call, distinct from an earlier call.</li>
+   <li><a href="https://sunnah.com/bukhari:1923" target="_blank" rel="noopener noreferrer">Sahih al-Bukhari 1923</a> — the blessing of suhoor.</li>
+   <li><a href="https://sunnah.com/bukhari:1957" target="_blank" rel="noopener noreferrer">Sahih al-Bukhari 1957</a> — encouragement to break the fast promptly.</li>
+   <li><a href="https://sunnah.com/abudawud:2356" target="_blank" rel="noopener noreferrer">Sunan Abi Dawud 2356</a> — dates and water for breaking the fast.</li>
+   <li><a href="https://sunnah.com/abudawud:2357" target="_blank" rel="noopener noreferrer">Sunan Abi Dawud 2357</a> — narrated supplication after iftar.</li>
+   <li><a href="https://www.islamic-relief.org.uk/resources/knowledge-base/dua/duas-for-fasting/" target="_blank" rel="noopener noreferrer">Islamic Relief UK — fasting duas</a> — additional context and educational guidance.</li>
+  </ul>
+  <p class="fasting-caution">All calculated times and explanations are general estimates; they are not a substitute for qualified local religious review, especially where dawn, twilight or local moon-sighting conventions are disputed. The dua and hadith references should be reviewed by qualified scholars before being presented as a final editorial religious endorsement.</p>
+ </section>
+</section>

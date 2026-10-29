@@ -129,12 +129,12 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
     ]
   },
   "fasting-times": {
-    "title": "Suhoor & Iftar Times Today – Fajr and Maghrib",
+    "title": "Suhoor & Iftar Times – Fajr Cutoff, Duas & Guide",
     "h1": "Suhoor & Iftar Times Today",
-    "description": "Check today's estimated Suhoor cutoff and Iftar time for your location using Fajr and Maghrib. Choose a city, calculation method and timezone.",
-    "summary": "Find today's Fajr reference for ending Suhoor and Maghrib reference for Iftar.",
-    "details": "The start of the fast is associated with true dawn (Fajr) and the fast ends at sunset (Maghrib). The calculator uses your location and chosen astronomical convention.",
-    "caution": "Some communities publish a precautionary imsak time before Fajr. Use your local mosque's verified Ramadan timetable where available.",
+    "description": "Find Suhoor and Iftar times for your city using Fajr and Maghrib. Check the live countdown, 7-day timetable, optional imsak reminder and sourced fasting duas.",
+    "summary": "Find the calculated Fajr cutoff for Suhoor and Maghrib start for Iftar, see the next-event countdown, compare your mosque's method, and read a detailed guide.",
+    "details": "Choose a city, calculation method, timezone and day. See the estimated dawn and sunset, an approximate fasting interval, an optional pre-Fajr reminder clearly separated from the fast's starting time, and a seven-day downloadable timetable. Learn authentic fasting duas and why UK summer timetables may differ.",
+    "caution": "Fasting begins at true dawn, not at a universal precautionary imsak time, and ends at sunset. Calculation conventions and special high-latitude rules vary. Check your local mosque before using these estimates for worship.",
     "faqs": [
       {
         "question": "Is imsak the same as Fajr?",
@@ -147,6 +147,34 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       {
         "question": "Does imsak always mean Fajr has begun?",
         "answer": "No. Some calendars show an earlier precautionary imsak time. Check which entry your local religious authority uses as the beginning of the daily fast."
+      },
+      {
+        "question": "When exactly should I stop eating before Fajr?",
+        "answer": "The fast begins at true dawn (Fajr), as described in Quran 2:187. A timetable may show imsak earlier as a precaution, but the optional reminder in this tool does not create a different religious cutoff."
+      },
+      {
+        "question": "Can I break my fast immediately at Maghrib?",
+        "answer": "Iftar begins at sunset, which is the start of Maghrib. Sahih al-Bukhari 1957 encourages breaking the fast promptly once its ending is established; verify local sunset timings where a calculation is uncertain."
+      },
+      {
+        "question": "Which dua is narrated after breaking the fast?",
+        "answer": "The remembrance beginning Dhahaba adh-dhama'u, about thirst passing and reward being established if Allah wills, is reported in Sunan Abi Dawud 2357. The page includes Arabic, transliteration and a link to its grading and context."
+      },
+      {
+        "question": "Do I have to wake for Suhoor to fast?",
+        "answer": "Suhoor is encouraged and described as blessed in Sahih al-Bukhari 1923, but it is not compulsory for a fast to be valid. Relevant intentions and exemptions can involve further scholarly rulings."
+      },
+      {
+        "question": "Why does the Iftar countdown differ from the date I selected?",
+        "answer": "The date selector displays calculated times for that chosen day. The live countdown is explicitly for the selected location's current date and updates approximately every 30 seconds, so it does not count down to a historical or future date."
+      },
+      {
+        "question": "Can I download a week's Suhoor and Iftar times?",
+        "answer": "Yes. Expand Next 7 days from selected date, then download the CSV file. It includes dates, estimated Fajr, Maghrib, duration, location, timezone and method. Confirm the settings and local mosque timetable before sharing."
+      },
+      {
+        "question": "Why does Fajr look unusual during summer in northern Britain?",
+        "answer": "At high latitudes the Sun may not reach some twilight angles during summer nights. Different authorities use alternative calculation rules; the calculator offers configurable approximations rather than an official ruling."
       }
     ]
   },
