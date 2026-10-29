@@ -158,3 +158,12 @@ console.log('All 37 tool pages include original comparison-led practical notes')
  for(const text of ['How to find the Qibla direction accurately','How to use your Qibla bearing','Find Qibla without a phone compass','True north versus magnetic north','How the Qibla direction is calculated','Accuracy, phone sensors and common problems','Quran 2:144','NOAA magnetic declination','id="qibla-true-magnetic"','id="qibla-accuracy"'])assert(html.includes(text),'Qibla guide missing '+text);
  assert((html.match(/class="prayer-knowledge-section"/g)||[]).length>=6,'Qibla guide is incomplete');
 }
+
+// Zakat guide must be visible to search engines without activating the calculator.
+{
+ const html=read('tools/zakat-calculator/index.html');
+ for(const phrase of ['How to calculate Zakat on savings, gold and other wealth','How to calculate Zakat, step by step','What are Nisab and hawl?','Which assets count towards Zakat?','Worked Zakat example','Debts, pensions, stocks and common complications','Quran 9:60','id="zakat-nisab-guide"','id="zakat-assets-guide"']){
+  assert(html.includes(phrase),'Comprehensive Zakat guide missing '+phrase);
+ }
+ assert((html.match(/class="zakat-guide-section"/g)||[]).length>=7,'Comprehensive Zakat guide sections missing');
+}

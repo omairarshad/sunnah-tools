@@ -183,3 +183,75 @@ html[data-theme="dark"] .qibla-details-summary span,html[data-theme="dark"] .qib
 html[data-theme="dark"] .qibla-guide-faq details{border-color:#3b5c46}
 @media(max-width:640px){.qibla-details-summary{grid-template-columns:1fr}}
 @media print{.qibla-details .action-row,.qibla-magnetic-tool,.qibla-phone-sensor{display:none!important}}
+
+
+/* Zakat estimate: contained inputs first, readable guide second. */
+.zakat-planner{display:grid;gap:14px}
+.zakat-planner>p{margin:0}
+.zakat-fieldset{border:1px solid #dbe6de;border-radius:12px;padding:15px;min-width:0}
+.zakat-fieldset legend{font-weight:750;font-size:16px;padding:0 7px}
+.zakat-fieldset>label{display:grid;gap:6px}
+.zakat-fieldset .two{gap:12px}
+.zakat-fieldset label small{font-size:11px;color:#627b69;line-height:1.45}
+.zakat-example-notice{background:#faf4e6;border-left:3px solid #b98a42;padding:12px 14px;border-radius:4px;font-size:13px}
+.zakat-hawl{padding:12px 15px;border-radius:10px;border:1px solid #dbe6de;background:#f7faf7}
+.zakat-hawl .check{display:flex;align-items:flex-start;gap:10px}
+.zakat-hawl .check input{flex-shrink:0;margin-top:4px}
+.zakat-hawl p{margin:7px 0 0}
+.zakat-results h3{margin:12px 0;font-size:20px}
+.zakat-summary-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:15px}
+.zakat-summary-grid>div{padding:12px;border:1px solid #dbe5dd;border-radius:10px;background:#f7faf7}
+.zakat-summary-grid span{display:block;font-size:12px;color:#5c7164}
+.zakat-summary-grid strong{display:block;margin-top:5px;font-size:18px;overflow-wrap:anywhere}
+.zakat-main-result{text-align:center;margin:14px 0}
+.zakat-main-result strong{font-size:clamp(26px,4.5vw,40px)}
+.zakat-main-result small{display:block;font-size:12px}
+.zakat-conditional-warning{border-left:3px solid #ae934f;background:#fcf7ec;padding:11px 13px;border-radius:4px;font-size:13px}
+.zakat-breakdown{width:100%;border-collapse:collapse;font-size:13px}
+.zakat-breakdown th,.zakat-breakdown td{padding:10px 8px;border-bottom:1px solid #dae6dc}
+.zakat-breakdown th{text-align:left;font-weight:550}
+.zakat-breakdown td{text-align:right;white-space:nowrap}
+.zakat-nisab-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0}
+.zakat-nisab-grid>div{border:1px solid #dbe5dc;padding:12px;border-radius:9px;font-size:12px}
+.zakat-nisab-grid strong{display:block;font-size:16px;margin-top:4px}
+.zakat-knowledge{margin:24px 0 0;border:1px solid #dbe6df;border-radius:16px;padding:clamp(18px,3vw,30px);background:#fff;color:#263d30;line-height:1.7}
+.zakat-knowledge h2{font-size:clamp(23px,2.7vw,30px);line-height:1.3;margin:0 0 12px}
+.zakat-knowledge h3{font-size:clamp(18px,2.2vw,23px);line-height:1.3;margin:0 0 12px}
+.zakat-knowledge h4{font-size:15px;margin:16px 0 7px}
+.zakat-knowledge p{margin:10px 0;max-width:78ch}
+.zakat-knowledge a{color:#266c4f;text-underline-offset:3px}
+.zakat-guide-nav{display:flex;flex-wrap:wrap;gap:8px;margin:15px 0}
+.zakat-guide-nav a{display:inline-flex;padding:9px 11px;background:#f1f7f1;border:1px solid #d6e3d8;border-radius:9px;font-size:12px;font-weight:700;text-decoration:none;color:#255b41}
+.zakat-guide-nav a:hover{background:#e0eee2}
+.zakat-guide-snapshot{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:20px 0}
+.zakat-guide-snapshot>div{border:1px solid #dbe6dc;border-radius:10px;background:#f7faf7;padding:13px}
+.zakat-guide-snapshot span{font-size:12px;color:#647968;display:block}
+.zakat-guide-snapshot strong{display:block;margin-top:4px;font-size:22px}
+.zakat-guide-snapshot p{font-size:12px;margin:5px 0 0}
+.zakat-guide-section{padding:24px 0 9px;scroll-margin-top:28px}
+.zakat-guide-section+.zakat-guide-section{border-top:1px solid #e2e9e2}
+.zakat-steps{counter-reset:zsteps;list-style:none;padding:0;display:grid;gap:12px}
+.zakat-steps li{counter-increment:zsteps;position:relative;padding:13px 14px 13px 50px;border:1px solid #dce8de;border-radius:10px;background:#fafcf9}
+.zakat-steps li:before{content:counter(zsteps);position:absolute;left:12px;top:12px;border-radius:50%;border:1px solid #95b29a;background:#ecf4ed;color:#24553b;font-size:12px;font-weight:800;width:24px;height:24px;display:grid;place-items:center}
+.zakat-steps p{margin:5px 0 0}
+.zakat-formula{padding:18px;border:1px solid #d8e7dc;border-radius:12px;background:#f3f9f3;display:grid;gap:10px;text-align:center;margin:14px 0}
+.zakat-formula strong{font-size:14px}
+.zakat-formula span{font-size:12px}
+.zakat-asset-table,.zakat-example-table{width:100%;border-collapse:collapse;font-size:13px;line-height:1.55}
+.zakat-asset-table th,.zakat-asset-table td,.zakat-example-table th,.zakat-example-table td{padding:11px 9px;text-align:left;border-bottom:1px solid #dce6de;vertical-align:top}
+.zakat-asset-table thead th{background:#f3f8f3}
+.zakat-asset-table th{font-weight:700}
+.zakat-example-table td{text-align:right;white-space:nowrap}
+.zakat-guide-faq details{padding:13px 0;border-bottom:1px solid #dbe7df}
+.zakat-guide-faq summary{cursor:pointer;font-weight:700}
+.zakat-guide-faq details p{padding:5px 8px}
+.zakat-guide-caution{border-left:3px solid #ae934f;padding:11px 14px;background:#fff9eb;border-radius:4px;font-size:13px}
+html[data-theme="dark"] .zakat-knowledge{background:#162920;color:#e4f2e7;border-color:#395443}
+html[data-theme="dark"] .zakat-knowledge a{color:#a5ddbd}
+html[data-theme="dark"] .zakat-guide-nav a,html[data-theme="dark"] .zakat-fieldset,html[data-theme="dark"] .zakat-hawl,html[data-theme="dark"] .zakat-summary-grid>div,html[data-theme="dark"] .zakat-nisab-grid>div,html[data-theme="dark"] .zakat-guide-snapshot>div,html[data-theme="dark"] .zakat-steps li,html[data-theme="dark"] .zakat-formula{background:#20382b;color:#e4f2e7;border-color:#40604a}
+html[data-theme="dark"] .zakat-fieldset label small,html[data-theme="dark"] .zakat-guide-snapshot span,html[data-theme="dark"] .zakat-summary-grid span{color:#b0ceba}
+html[data-theme="dark"] .zakat-example-notice,html[data-theme="dark"] .zakat-conditional-warning,html[data-theme="dark"] .zakat-guide-caution{background:#392e20;color:#f2dfb6}
+html[data-theme="dark"] .zakat-asset-table th,html[data-theme="dark"] .zakat-asset-table td,html[data-theme="dark"] .zakat-breakdown td,html[data-theme="dark"] .zakat-breakdown th,html[data-theme="dark"] .zakat-example-table td,html[data-theme="dark"] .zakat-example-table th{border-color:#40604a}
+html[data-theme="dark"] .zakat-guide-faq details{border-color:#40604a}
+@media(max-width:680px){.zakat-summary-grid,.zakat-nisab-grid,.zakat-guide-snapshot{grid-template-columns:1fr}.zakat-knowledge{padding:17px}.zakat-breakdown{font-size:12px}.zakat-asset-table{font-size:12px}}
+@media print{.zakat-knowledge,.zakat-guide-nav,.zakat-planner .action-row,.zakat-planner input,.zakat-planner select,.zakat-planner .zakat-fieldset{display:none!important}.zakat-results{display:block!important}}

@@ -1,0 +1,136 @@
+---
+/* An original, server-rendered reference guide. The calculations and source notes are educational. */
+const categories=[
+ {name:'Cash, current accounts and savings',typical:'Usually included',detail:'Money you own, whether kept in cash or in qualifying accounts. Do not count the same money twice when moving it between accounts.'},
+ {name:'Gold and silver',typical:'Depends on applicable rules',detail:'Use a suitable valuation date and purity. Schools differ on personal jewellery, so include only what follows the guidance you use.'},
+ {name:'Shares, funds and other investments',typical:'Requires assessment',detail:'Investment intention, ownership and the underlying assets can affect how much is zakatable. Enter only the qualifying value.'},
+ {name:'Trading stock and business inventory',typical:'Often included when held for sale',detail:'Assess qualifying stock and trade receivables under the approach that applies to the business. Do not treat all equipment as resale stock.'},
+ {name:'Money owed to you',typical:'Depends on recoverability',detail:'A debt that is likely to be collected may be treated differently from a disputed or uncollectable amount.'},
+ {name:'Home, clothes and personal car',typical:'Generally excluded for personal use',detail:'Ordinary personal-use items are generally treated differently from similar goods acquired to resell.'},
+ {name:'Pensions and retirement accounts',typical:'Needs case-specific guidance',detail:'Access, ownership, pension type and scholarly school can affect the assessment. An entire headline pot is not automatically equivalent to cash.'},
+ {name:'Loans and other liabilities',typical:'Some may be deductible',detail:'Only include amounts your chosen religious guidance allows. A whole future mortgage or years of bills should not be deducted automatically.'}
+];
+const steps=[
+ {title:'Choose the assessment date',text:'Identify the date used to review your wealth and check whether a lunar year (hawl) is relevant. If you are uncertain when your Zakat year began, get qualified guidance rather than assuming that the previous Ramadan is your personal anniversary.'},
+ {title:'List qualifying assets',text:'Add cash, savings, gold and silver, relevant trade stock and investment values. Enter only the part you have determined is zakatable. Avoid counting one asset in two categories.'},
+ {title:'Apply the appropriate liabilities',text:'Review payments you actually owe and which liabilities are deductible in your circumstances. Be careful with the entire balance of long-term loans and ongoing living costs.'},
+ {title:'Check the Nisab benchmark',text:'Enter verified gold and silver prices for the same day and currency. Select the gold or silver reference according to guidance you follow; either benchmark can produce a different eligibility threshold.'},
+ {title:'Calculate the conditional amount',text:'Subtract qualifying liabilities from qualifying assets, compare the result with the selected Nisab, and calculate 2.5% of net qualifying wealth where the conditions are met.'},
+ {title:'Verify before paying',text:'Confirm hawl, asset treatments and eligibility with trusted religious guidance, then direct Zakat to eligible recipients or a suitable charitable organisation.'}
+];
+---
+<section class="zakat-knowledge" aria-labelledby="zakat-knowledge-title" id="zakat-knowledge">
+ <header>
+  <h2 id="zakat-knowledge-title">How to calculate Zakat on savings, gold and other wealth</h2>
+  <p>Zakat al-Mal is an obligation associated with qualifying wealth. A useful calculation begins by understanding the minimum threshold (<em>Nisab</em>), the relevant lunar year (<em>hawl</em>) and which assets and liabilities belong in the assessment. The calculator above handles the arithmetic; this guide explains the decisions you must make before trusting an estimate.</p>
+ </header>
+ <nav class="zakat-guide-nav" aria-label="Zakat guide sections">
+  <a href="#zakat-how-to-calculate">Step-by-step</a>
+  <a href="#zakat-nisab-guide">Nisab &amp; hawl</a>
+  <a href="#zakat-assets-guide">What counts?</a>
+  <a href="#zakat-example-guide">Worked example</a>
+  <a href="#zakat-debt-guide">Debts &amp; pensions</a>
+  <a href="#zakat-questions-guide">Common questions</a>
+  <a href="#zakat-references">Sources</a>
+ </nav>
+ <div class="zakat-guide-snapshot">
+  <div><span>Common rate</span><strong>2.5%</strong><p>On qualifying net wealth when the relevant conditions apply</p></div>
+  <div><span>Gold Nisab reference</span><strong>87.48g</strong><p>Converted using an appropriate gold price you provide</p></div>
+  <div><span>Silver Nisab reference</span><strong>612.36g</strong><p>Converted using an appropriate silver price you provide</p></div>
+ </div>
+
+ <section class="zakat-guide-section" id="zakat-how-to-calculate" aria-labelledby="zakat-steps-heading">
+  <h3 id="zakat-steps-heading">How to calculate Zakat, step by step</h3>
+  <ol class="zakat-steps">{steps.map((step)=><li><strong>{step.title}</strong><p>{step.text}</p></li>)}</ol>
+  <p>The general arithmetic used for a qualifying wealth assessment is:</p>
+  <div class="zakat-formula" role="img" aria-label="Qualifying assets minus deductible liabilities equals net qualifying wealth; conditional Zakat is net wealth multiplied by 2.5 percent when the selected Nisab and hawl requirements are met">
+   <strong>Qualifying assets − permitted liabilities = net qualifying wealth</strong>
+   <span>If the applicable Nisab and lunar-year conditions are met:</span>
+   <strong>Net qualifying wealth × 0.025 = conditional Zakat estimate</strong>
+  </div>
+  <p>As with the established asset-category approach in the <a href="https://www.islamic-relief.org.uk/giving/islamic-giving/zakat/zakat-calculator/" target="_blank" rel="noopener noreferrer">Islamic Relief UK Zakat calculator</a>, the point is to avoid leaving out relevant holdings or deducting every debt indiscriminately.</p>
+ </section>
+
+ <section class="zakat-guide-section" id="zakat-nisab-guide" aria-labelledby="zakat-nisab-heading">
+  <h3 id="zakat-nisab-heading">What are Nisab and hawl?</h3>
+  <h4>Nisab — the minimum wealth threshold</h4>
+  <p>The Nisab is a benchmark derived from traditional gold or silver weights. Common UK reference amounts are <strong>87.48 grams of gold</strong> and <strong>612.36 grams of silver</strong>. Their equivalent monetary amounts vary with metal prices. The silver benchmark is often lower; differences between gold- and silver-based assessments can be significant. See <a href="https://www.islamic-relief.org.uk/giving/islamic-giving/zakat/nisab/" target="_blank" rel="noopener noreferrer">Islamic Relief UK's Nisab discussion</a>.</p>
+  <p>For example, if a verified price is 80 currency units per gram of 24-carat gold, the gold Nisab is <strong>6,998.40 units</strong>. If silver is 1.20 units per gram, the silver Nisab is approximately <strong>734.83 units</strong>. These are <em>invented illustration prices</em>, not market quotes or the Nisab for today. Use your own current prices in the calculator.</p>
+  <h4>Hawl — the relevant lunar year</h4>
+  <p>A hawl is an Islamic lunar year, approximately 354 or 355 days. It is not automatically the same as 365 Gregorian days. The starting date of the Zakat year and the treatment of wealth that rises or falls during it can depend on the legal school and the type of property. The tool therefore asks you to acknowledge that you have reviewed the applicable requirement rather than deciding it for you.</p>
+  <p>See <a href="https://www.islamic-relief.org.uk/giving/islamic-giving/zakat/hawl/" target="_blank" rel="noopener noreferrer">Islamic Relief's explanation of hawl</a> and our <a href="/tools/zakat-anniversary-calculator/">Zakat anniversary reminder</a>. A reminder date is not a verdict that Zakat has become due.</p>
+  <h4>Gold or silver — which should I select?</h4>
+  <p>Different scholarly schools and organisations apply or recommend different references. The calculator lets you select either, and shows both thresholds when both prices are provided. It does not automatically choose the lower threshold or declare which view is binding in your circumstances.</p>
+ </section>
+
+ <section class="zakat-guide-section" id="zakat-assets-guide" aria-labelledby="zakat-assets-heading">
+  <h3 id="zakat-assets-heading">Which assets count towards Zakat?</h3>
+  <p>Ownership, intention, recoverability and local scholarly guidance matter. The following is a practical classification guide, <strong>not</strong> a final decision on individual assets.</p>
+  <div class="table-wrap"><table class="zakat-asset-table">
+    <thead><tr><th scope="col">Asset type</th><th scope="col">Typical treatment</th><th scope="col">What to check</th></tr></thead>
+    <tbody>{categories.map(item=><tr><th scope="row">{item.name}</th><td>{item.typical}</td><td>{item.detail}</td></tr>)}</tbody>
+   </table></div>
+  <p>Ordinary personal belongings such as a home, clothes and a car are generally treated differently from the same items held for trade. Business stock and tools or machinery used by the business also need different assessments. Compare the distinctions in <a href="https://www.islamic-relief.org.uk/giving/islamic-giving/zakat/zakat-and-assets/" target="_blank" rel="noopener noreferrer">Islamic Relief's guide to Zakat on assets</a>.</p>
+  <h4>Gold jewellery and purity</h4>
+  <p>Do not multiply the gross weight of 18-carat or 22-carat jewellery by a pure 24-carat price and assume that is its qualifying value. Purity affects the amount of fine gold. The calculator offers either weight-based entry or the option to enter an independently assessed monetary value. <strong>Whether personal jewellery is included</strong> remains a fiqh question that varies between schools.</p>
+  <p>For a detailed gold-only estimate, use the <a href="/tools/gold-zakat-calculator/">Gold Zakat Calculator</a>; for financial investments, the <a href="/tools/zakat-stocks-crypto/">Stocks and Crypto Zakat estimator</a> explains some additional limitations.</p>
+ </section>
+
+ <section class="zakat-guide-section" id="zakat-example-guide" aria-labelledby="zakat-example-heading">
+  <h3 id="zakat-example-heading">Worked Zakat example</h3>
+  <p>Suppose someone has 500 in cash, 6,500 in bank savings, 500 recoverable from someone who owes them money, gold worth 1,600, eligible investments of 1,600 and qualifying business inventory of 2,500. Their total qualifying assets would be <strong>13,200</strong> in the same currency.</p>
+  <div class="table-wrap"><table class="zakat-example-table">
+    <tbody>
+     <tr><th scope="row">Cash, savings and recoverable receivables</th><td>7,500.00</td></tr>
+     <tr><th scope="row">Eligible gold valuation</th><td>1,600.00</td></tr>
+     <tr><th scope="row">Qualifying investments</th><td>1,600.00</td></tr>
+     <tr><th scope="row">Trading stock</th><td>2,500.00</td></tr>
+     <tr><th scope="row">Total qualifying assets</th><td>13,200.00</td></tr>
+     <tr><th scope="row">Permitted debts and payments due</th><td>−1,000.00</td></tr>
+     <tr><th scope="row">Net qualifying wealth</th><td><strong>12,200.00</strong></td></tr>
+     <tr><th scope="row">Conditional Zakat at 2.5%</th><td><strong>305.00</strong></td></tr>
+    </tbody>
+   </table></div>
+  <p><strong>Important:</strong> This assumes the appropriate Nisab and hawl criteria are satisfied and that every included asset and deducted debt qualifies. It is a hypothetical example, not an up-to-date price quote. Choose <strong>Show worked example</strong> in the calculator to explore these figures, then replace them with your own.</p>
+  <p>The same net wealth can meet one benchmark and fall below another. That is a reason to understand the benchmark you follow, not to choose the figure that yields your preferred result.</p>
+ </section>
+
+ <section class="zakat-guide-section" id="zakat-debt-guide" aria-labelledby="zakat-debt-heading">
+  <h3 id="zakat-debt-heading">Debts, pensions, stocks and common complications</h3>
+  <h4>Which debts can be deducted?</h4>
+  <p>Do not assume that the full outstanding mortgage, all future rent payments, personal credit limits or ordinary household expenses can be subtracted. Debt deductibility varies, and often concerns amounts actually due rather than a lifetime of future obligations. Enter only the permitted portion identified by your trusted guidance. A very large debt entry may reduce the arithmetic estimate to zero, but that does not settle which debts should legally have been deducted.</p>
+  <h4>What about pensions and shares?</h4>
+  <p>Whether and how a pension is zakatable depends on the pension's structure, ownership and access. Shares held for trading may be treated differently from long-term holdings, and financial funds can contain varied underlying assets. The tool provides an <strong>eligible investment value</strong> field, but does not infer that value from an entire pension pot or share price. Get qualified advice on the relevant portion before entering it.</p>
+  <h4>Does rent or salary itself attract Zakat?</h4>
+  <p>The ordinary cash-wealth calculation is about qualifying wealth in your possession, not simply multiplying every salary payment or monthly rental receipt by 2.5%. Rental property held for income, the rent you retain, and property held for sale can be treated differently. Use guidance specific to the asset's ownership and purpose.</p>
+  <h4>When is Zakat paid, and who can receive it?</h4>
+  <p>Zakat al-Mal does not have one universal Ramadan due date; it is connected to the person's applicable lunar-year assessment. <a href="https://quran.com/9/60" target="_blank" rel="noopener noreferrer">Quran 9:60</a> outlines categories of eligible recipients. If giving through a charity, check that it distributes Zakat according to your requirements and that the donation is designated as Zakat, not another type of charity.</p>
+  <p><strong>Zakat al-Mal is not Zakat al-Fitr (Fitrana).</strong> The latter is a separate Ramadan-related obligation with its own rules and per-person calculation. See the <a href="/tools/fitrana-calculator/">Fitrana Calculator</a> or the <a href="/tools/nisab-calculator/">Nisab Calculator</a> for focused help.</p>
+ </section>
+
+ <section class="zakat-guide-section" id="zakat-questions-guide" aria-labelledby="zakat-faq-heading">
+  <h3 id="zakat-faq-heading">Zakat questions people commonly ask</h3>
+  <div class="zakat-guide-faq">
+   <details open><summary>Is Zakat 2.5% of all the money I've earned this year?</summary><p>No. The 2.5% figure is applied to qualifying net wealth under the relevant conditions, not necessarily the full sum of salaries received during the year. Consider what you owned at your assessment date and how your school treats the holdings.</p></details>
+   <details><summary>Do I have to pay Zakat on my home and car?</summary><p>A home and vehicle for ordinary personal use are generally distinguished from property held as merchandise. Property acquired to trade or sell may be treated differently, so review the specific intention and ownership.</p></details>
+   <details><summary>Can I use the silver Nisab even if the gold threshold is higher?</summary><p>The gold and silver thresholds are both shown because schools and advisers use different approaches. The lower threshold can increase the number of people assessed as eligible. Follow an approach endorsed by qualified guidance appropriate to you.</p></details>
+   <details><summary>Should I count gold jewellery?</summary><p>That depends on its use, purity and scholarly school. Do not assume personal jewellery is either universally included or excluded. If included, use an appropriate qualifying valuation rather than a gross-weight calculation using an unsuitable purity price.</p></details>
+   <details><summary>Can I deduct the whole mortgage balance?</summary><p>Not automatically. The deductibility of immediate versus long-term debt and future payments differs. Enter only the amount you have reasonably determined qualifies under your chosen ruling.</p></details>
+   <details><summary>Does Zakat have to be paid during Ramadan?</summary><p>No universal Ramadan date applies to everyone. For qualifying forms of wealth, the relevant date follows your lunar-year (hawl) circumstances; some people choose Ramadan for voluntary giving, but that does not by itself reset an existing obligation.</p></details>
+   <details><summary>Does the calculator save my financial details?</summary><p>No financial inputs are stored by this calculator. The figures remain in the page while it is open. You can explicitly download a text summary, which is saved wherever your browser handles downloads; take care with sensitive financial files.</p></details>
+  </div>
+ </section>
+
+ <section class="zakat-guide-section" id="zakat-references" aria-labelledby="zakat-sources-heading">
+  <h3 id="zakat-sources-heading">Quranic and educational references</h3>
+  <ul>
+   <li><a href="https://quran.com/9/60" target="_blank" rel="noopener noreferrer">Quran 9:60</a> — categories of Zakat recipients.</li>
+   <li><a href="https://quran.com/9/103" target="_blank" rel="noopener noreferrer">Quran 9:103</a> — charity and purification.</li>
+   <li><a href="https://www.islamic-relief.org.uk/giving/islamic-giving/zakat/zakat-calculator/" target="_blank" rel="noopener noreferrer">Islamic Relief UK — Zakat calculator and worked calculation</a> — categories, assets and liabilities.</li>
+   <li><a href="https://www.islamic-relief.org.uk/giving/islamic-giving/zakat/nisab/" target="_blank" rel="noopener noreferrer">Islamic Relief UK — Nisab</a> — gold and silver reference amounts and differing benchmarks.</li>
+   <li><a href="https://www.islamic-relief.org.uk/giving/islamic-giving/zakat/hawl/" target="_blank" rel="noopener noreferrer">Islamic Relief UK — Hawl</a> — the lunar-year concept and conditional circumstances.</li>
+   <li><a href="https://www.islamic-relief.org.uk/giving/islamic-giving/zakat/zakat-and-assets/" target="_blank" rel="noopener noreferrer">Islamic Relief UK — Zakat on assets</a> — differences between personal possessions and goods for trade.</li>
+  </ul>
+  <p class="zakat-guide-caution">This is a general educational guide and conditional arithmetic tool, not an individual religious ruling. Qualification of debts, investments, pensions and jewellery can vary between schools, and a qualified human review of this guide is still pending.</p>
+ </section>
+</section>
