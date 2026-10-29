@@ -410,11 +410,11 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
     ]
   },
   "islamic-events-calendar": {
-    "title": "Islamic Events Calendar – Ramadan, Eid & Hajj Dates",
+    "title": "Islamic Events Calendar – Ramadan, Eid & Hajj 2027 Dates",
     "h1": "Islamic Events Calendar",
-    "description": "See estimated Islamic calendar dates for Ramadan, Eid al-Fitr, Eid al-Adha, Ashura, Arafah and Hajj using the Umm al-Qura calculation.",
-    "summary": "Browse upcoming major Islamic dates in a single calendar.",
-    "details": "Important observances use Hijri dates and therefore move through the Gregorian year. The calendar converts them under the Umm al-Qura system.",
+    "description": "Find calculated Ramadan, Eid, Ashura and Arafah dates by Hijri year. Compare calendar conventions and download provisional CSV or ICS dates.",
+    "summary": "Browse seven major observances by Hijri year and topic with calculated, clearly provisional Gregorian dates.",
+    "details": "Convert major observances using Umm al-Qura, compare an illustrative local-day shift and export unshifted estimated all-day calendar reminders.",
     "caution": "Estimated festival dates should not be interpreted as official announcements. Confirm Eid and Ramadan with relevant local authorities.",
     "faqs": [
       {
@@ -474,11 +474,11 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
     ]
   },
   "printable-hijri-calendar": {
-    "title": "Printable Hijri Calendar – Islamic Month PDF",
+    "title": "Printable Hijri Calendar – Free Islamic Month PDF & CSV",
     "h1": "Printable Hijri Calendar",
-    "description": "Create and print a monthly Hijri calendar with corresponding Gregorian dates and highlighted White Days. Free Islamic calendar PDF via browser printing.",
-    "summary": "Create a Hijri month view that is easy to print or save as PDF.",
-    "details": "Choose a Hijri month and year, preview the matching Gregorian dates, then print the resulting layout from your browser.",
+    "description": "Print a 29- or 30-day Hijri month with Gregorian dates and labelled White Days. Download a CSV or save the calculated Islamic calendar as PDF.",
+    "summary": "Generate an accurate 29/30-day Umm al-Qura month view, navigate months and print or export dates.",
+    "details": "Choose a Hijri year, month and optional illustrative one-day adjustment. View every civil date, understand White Days exceptions and export CSV.",
     "caution": "Dates use the Umm al-Qura convention and may differ from regional moon-sighting declarations.",
     "faqs": [
       {
@@ -662,11 +662,11 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
     ]
   },
   "umrah-packing-checklist": {
-    "title": "Hajj & Umrah Packing List – Printable Checklist",
+    "title": "Umrah Packing List – Hajj Checklist, Print & CSV",
     "h1": "Hajj & Umrah Packing List",
-    "description": "Plan what to pack for Hajj or Umrah with a free printable travel checklist. Tick essentials and organise documents, comfort and worship items.",
-    "summary": "Prepare for your journey with a practical checklist you can adjust.",
-    "details": "Review items by category, mark what is packed and print a copy before you travel.",
+    "description": "Prepare for Umrah or Hajj with a printable, saved checklist for travel documents, ihram, medicines, hydration and official Nusuk requirements; export CSV.",
+    "summary": "Organise your Umrah or Hajj packing in categories and save progress locally on your device.",
+    "details": "Tick your essentials, keep compatible previous progress, print your preparation list or download it as a CSV with packed status.",
     "caution": "Travel-entry, permit, vaccination and airline requirements change and depend on your journey. Always follow official current instructions.",
     "faqs": [
       {
@@ -817,10 +817,10 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
     ]
   },
   "tawaf-sai-counter": {
-    "title": "Tawaf & Sa’i Counter – Seven Rounds for Umrah & Hajj",
+    "title": "Tawaf & Sa’i Counter – 7 Circuits & Safa-Marwah",
     "h1": "Tawaf & Sa’i Counter",
-    "description": "Free Tawaf and Sa'i counters for Umrah and Hajj. Track seven Kaaba circuits and seven Safa–Marwah lengths with undo, reset and private progress.",
-    "summary": "Keep separate seven-round counts for Tawaf circuits and Sa'i one-way lengths with simple tap controls.",
+    "description": "Count seven Tawaf circuits and seven one-way Sa'i lengths, with next-direction guidance, undo, private progress and a downloadable snapshot.",
+    "summary": "Track separate seven-round Tawaf and Sa'i counts; see the next Safa-Marwah direction, undo taps and save a private progress snapshot.",
     "details": "For Tawaf, increment the counter after finishing each complete circuit around the Kaaba, beginning and ending at the Black Stone. For Sa'i, count one length from Safa to Marwah as one, then the return from Marwah to Safa as two; seven lengths finish at Marwah. You can undo accidental taps or reset either counter. Both are stored locally in your browser.",
     "caution": "This counter is only a practical reminder. It does not authenticate the validity of Hajj or Umrah rites and cannot replace guidance for starting points, intentions or special circumstances. Progress may be lost if you clear data or switch devices.",
     "faqs": [
@@ -887,11 +887,11 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
     ]
   },
   "halal-additives-checker": {
-    "title": "Halal E-Number Checker – Ingredient Source Guide",
+    "title": "Halal E-Number Checker – E471, E422 & Food Sources",
     "h1": "Halal E-Number Checker",
-    "description": "Search common E-numbers, including E471, E120 and E322. Learn which additives may have animal, plant or synthetic sources and need verification.",
-    "summary": "Search a limited starter directory of common food additives and examine what their production sources may be.",
-    "details": "An E-number identifies an additive rather than its animal or plant origin. Manufacturer sourcing, processing and regional regulations can all affect assessment.",
+    "description": "Research 11 E-numbers including E471, E422, E120 and gelatine. Compare typical sources and copy product-specific manufacturer questions.",
+    "summary": "Check eleven illustrative additive source profiles and learn which manufacturer facts are needed for a halal assessment.",
+    "details": "The checker never labels an E-number halal or haram automatically: manufacturing source, species, processing, certification and the whole product matter.",
     "caution": "No entry is a halal certification or product verdict. Ingredients such as E471 and glycerol can have different sources. Check the supplier and a trusted halal certifier.",
     "faqs": [
       {
@@ -931,11 +931,11 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
     ]
   },
   "dhul-hijjah-planner": {
-    "title": "Dhul Hijjah & Arafah Dates – Islamic Calendar",
+    "title": "Dhul Hijjah Planner – Arafah, Eid & Tashreeq Dates",
     "h1": "Dhul Hijjah and Arafah Dates",
-    "description": "Find estimated Gregorian dates for the first ten days of Dhul Hijjah, Arafah and Eid al-Adha with a printable planner.",
-    "summary": "Explore the first ten days of the twelfth Hijri month and the calculated dates for Arafah and Eid al-Adha.",
-    "details": "The tool uses the Umm al-Qura calendar to convert 1–10 Dhul Hijjah into Gregorian dates. The expected day of Arafah is 9 Dhul Hijjah.",
+    "description": "Plan estimated Dhul Hijjah days 1–13, including Arafah, Eid al-Adha and Tashreeq, with printable CSV and ICS lunar-calendar reminders.",
+    "summary": "Explore the first thirteen Dhul Hijjah days and important fasting exceptions alongside calculated Arafah and Eid dates.",
+    "details": "Convert Dhul Hijjah 1–13 to provisional Gregorian dates; clearly label Arafah on day 9, Eid on day 10 and Tashreeq on days 11–13.",
     "caution": "Actual beginning dates and major observances depend on official religious announcements. Eid is not an ordinary voluntary fasting day.",
     "faqs": [
       {
@@ -953,9 +953,9 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
     ]
   },
   "travel-prayer-guide": {
-    "title": "Travel Prayer & Qasr Guide – Salah While Travelling",
+    "title": "Travel Prayer & Qasr Guide – Madhhab Differences",
     "h1": "Travel Prayer and Qasr Guide",
-    "description": "Review Qasr prayer basics for travel, including the four-rakat prayers that may be shortened and differences between Islamic schools.",
+    "description": "Compare Qasr Fard rak'ahs, Hanafi, Shafi'i, Maliki and Hanbali travel conditions, journey distance and stay questions with a complete sourced guide.",
     "summary": "Understand which prayers may be shortened during qualifying journeys and what information affects a traveller's prayer arrangements.",
     "details": "Qasr ordinarily concerns shortening qualifying four-rakat obligatory prayers to two while travelling. Thresholds and duration rules vary by school and circumstances.",
     "caution": "This is educational guidance, not an automatic eligibility ruling. Travel distance, stay length, intention and madhhab-specific details require religious review.",
