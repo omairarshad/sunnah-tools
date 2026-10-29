@@ -39,3 +39,13 @@ test('Ramadan ICS uses actual instants across Britain daylight saving transition
  assert.throws(()=>makeRamadanIcs([before,before]));
  assert.throws(()=>makeRamadanIcs([{...before,maghrib:new Date('2027-03-27T04:00:00Z')}]));
 });
+test('Ramadan ICS escapes location data and uses context-specific event identifiers',()=>{
+ const event={day:'2027-03-27',fajr:new Date('2027-03-27T04:50:00Z'),maghrib:new Date('2027-03-27T18:25:00Z')};
+ const stamp=new Date('2026-10-25T12:00:00Z');
+ const london=makeRamadanIcs([event],stamp,{location:'London, UK',zone:'Europe/London',method:'MWL'});
+ const newcastle=makeRamadanIcs([event],stamp,{location:'Newcastle; UK',zone:'Europe/London',method:'MWL'});
+ assert.match(london,/LOCATION:London\\, UK/);
+ assert.match(newcastle,/LOCATION:Newcastle\\; UK/);
+ assert.match(london,/DESCRIPTION:Calculated estimate/);
+ assert.notEqual(london.match(/UID:([^\r\n]+)/)?.[1],newcastle.match(/UID:([^\r\n]+)/)?.[1]);
+});

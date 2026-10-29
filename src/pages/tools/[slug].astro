@@ -9,6 +9,7 @@ import ZakatGuide from '../../components/ZakatGuide.astro';
 import FastingTimesGuide from '../../components/FastingTimesGuide.astro';
 import HijriConverterGuide from '../../components/HijriConverterGuide.astro';
 import QuranPlannerGuide from '../../components/QuranPlannerGuide.astro';
+import RamadanTimetableGuide from '../../components/RamadanTimetableGuide.astro';
 import ToolIcon from '../../components/ToolIcon.astro';
 import {toneForSlug} from '../../data/toolTones';
 import {tools,toolBySlug} from '../../data/tools';
@@ -120,6 +121,12 @@ const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemL
     <a href="#quran-example">Worked example</a>
     <a href="#quran-catchup">Catch up</a>
    </nav>}
+   {slug==='ramadan-timetable'&&<nav class="ramadan-guide-nav ramadan-shortcuts" aria-label="Ramadan Timetable quick links">
+    <a href="#ramadan-calendar">Create timetable</a>
+    <a href="#ramadan-dates">Start &amp; end dates</a>
+    <a href="#ramadan-dawn">Suhoor &amp; Iftar</a>
+    <a href="#ramadan-example">Worked example</a>
+   </nav>}
    {slug==='zakat-calculator'&&<nav class="zakat-guide-nav" aria-label="Zakat Calculator quick links">
     <a href="#zakat-calculator">Calculate Zakat</a>
     <a href="#zakat-how-to-calculate">How to calculate</a>
@@ -145,7 +152,7 @@ const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemL
     <a href="#tahajjud-rakats">Witr and rak'ahs</a>
    </nav>}
    {slug==='hijri-converter'&&<div class="today-hijri" aria-live="polite"><strong>Today’s Hijri date</strong><p id="today-hijri-value">{renderedHijri} (calculated)</p><small id="today-hijri-note">Calculated for {renderedDate} (UTC) using Umm al-Qura. Local moon sighting and sunset may give a different date.</small></div>}
-   <section id={slug==='tahajjud-time'?'tahajjud-calculator':slug==='prayer-times'?'prayer-calculator':slug==='qibla-finder'?'qibla-calculator':slug==='zakat-calculator'?'zakat-calculator':slug==='fasting-times'?'fasting-calculator':slug==='hijri-converter'?'hijri-calculator':slug==='quran-planner'?'quran-calculator':undefined} aria-label={tool.name} class="tool-panel">
+   <section id={slug==='tahajjud-time'?'tahajjud-calculator':slug==='prayer-times'?'prayer-calculator':slug==='qibla-finder'?'qibla-calculator':slug==='zakat-calculator'?'zakat-calculator':slug==='fasting-times'?'fasting-calculator':slug==='hijri-converter'?'hijri-calculator':slug==='quran-planner'?'quran-calculator':slug==='ramadan-timetable'?'ramadan-calendar':undefined} aria-label={tool.name} class="tool-panel">
     <div class="tool-inner"><ToolApp slug={slug} client:only="react"/></div>
    </section>
    {slug==='tahajjud-time'&&<TahajjudGuide/>}
@@ -155,6 +162,7 @@ const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemL
    {slug==='fasting-times'&&<FastingTimesGuide/>}
    {slug==='hijri-converter'&&<HijriConverterGuide/>}
    {slug==='quran-planner'&&<QuranPlannerGuide/>}
+   {slug==='ramadan-timetable'&&<RamadanTimetableGuide/>}
    {slug==='prayer-times'&&<p class="small"><a href="/prayer-times/">Browse city-specific prayer times</a> — select a major city or use the calculator above for any location.</p>}
    <section class="explainer seo-explainer" id="how-it-works" aria-labelledby="how-label">
     <div class="section-label"><h2 id="how-label">{slug==='tahajjud-time'?'How the Tahajjud timing is calculated':slug==='prayer-times'?'How the prayer-time calculator works':slug==='qibla-finder'?'How the Qibla bearing is calculated':slug==='zakat-calculator'?'How the Zakat estimate is calculated':slug==='fasting-times'?'How Suhoor and Iftar times are calculated':`How to use ${tool.name}`}</h2></div>

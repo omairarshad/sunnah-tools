@@ -42,18 +42,25 @@ const toUtc=d=>{
  if(!(d instanceof Date)||!Number.isFinite(d.getTime()))throw new RangeError('Invalid calendar time');
  return d.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
 };
-const escapeIcs=value=>String(value).replace(/\\/g,'\\\\').replace(/\r?\n/g,'\\n').replace(/,/g,'\\,').replace(/;/g,'\\;');
+const escapeIcs=value=>String(value).replace(/\\/g,'\\\\').replace(/\r\n|\r|\n/g,'\\n').replace(/,/g,'\\,').replace(/;/g,'\\;');
 /** Events are actual UTC instants, not formatted clock strings. DST is already represented in the dates. */
-export function makeRamadanIcs(rows,stamp=new Date()){
+export function makeRamadanIcs(rows,stamp=new Date(),metadata={}){
  if(!Array.isArray(rows)||rows.length<1||rows.length>30)throw new RangeError('Expected 1 to 30 Ramadan dates');
  const lines=['BEGIN:VCALENDAR','VERSION:2.0','CALSCALE:GREGORIAN','PRODID:-//Sunnah Tools//Ramadan Calendar//EN','METHOD:PUBLISH'];
+ const fields=['location','zone','method','highLatitude','polar'];
+ const details=fields.map(key=>typeof metadata[key]==='string'?metadata[key].slice(0,110):'');
+ const coordinates=Number.isFinite(metadata.latitude)&&Number.isFinite(metadata.longitude)?`${metadata.latitude}, ${metadata.longitude}`:'';
+ const calendarContext=[...details,coordinates].filter(Boolean).join(' | ');
+ // A stable context-specific UID avoids replacing one city's imported calendar
+ // events with a different city's events when both are imported.
+ const signature=calendarContext?(Array.from(calendarContext).reduce((hash,char)=>Math.imul(hash^char.charCodeAt(0),16777619),2166136261)>>>0).toString(16):'';
  const seen=new Set();
  for(const row of rows){
   if(!validCivilDate(row.day)||!(row.fajr instanceof Date)||!(row.maghrib instanceof Date)||row.fajr.getTime()>=row.maghrib.getTime()||seen.has(row.day))throw new RangeError('Invalid Ramadan time or repeated day');
   seen.add(row.day);
   for(const [key,title,instant] of [['fajr','Suhoor cutoff (calculated Fajr)',row.fajr],['maghrib','Iftar (calculated Maghrib)',row.maghrib]]){
    const start=toUtc(instant),end=toUtc(new Date(instant.getTime()+60000));
-   lines.push('BEGIN:VEVENT','UID:'+row.day+'-'+key+'@sunnah.tools','DTSTAMP:'+toUtc(stamp),'DTSTART:'+start,'DTEND:'+end,'SUMMARY:'+escapeIcs(title),'DESCRIPTION:Calculated estimate. Confirm with your local mosque and Ramadan announcement.','END:VEVENT');
+   lines.push('BEGIN:VEVENT','UID:'+row.day+'-'+key+(signature?'-'+signature:'')+'@sunnah.tools','DTSTAMP:'+toUtc(stamp),'DTSTART:'+start,'DTEND:'+end,'SUMMARY:'+escapeIcs(title),...(details[0]?['LOCATION:'+escapeIcs(details[0])]:[]),'DESCRIPTION:'+escapeIcs('Calculated estimate. Confirm local Ramadan dates and mosque times.'+(calendarContext?' Settings: '+calendarContext:'')),'END:VEVENT');
   }
  }
  lines.push('END:VCALENDAR');

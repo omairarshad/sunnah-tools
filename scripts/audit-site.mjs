@@ -195,3 +195,10 @@ console.log('All 37 tool pages include original comparison-led practical notes')
  }
  assert((html.match(/class="quran-guide-section"/g)||[]).length>=7,'Quran Planner guide sections incomplete');
 }
+
+// The Ramadan timetable's full reference must be crawlable without client-side JavaScript.
+{
+ const html=read('tools/ramadan-timetable/index.html');
+ for(const phrase of ['Ramadan timetables: the complete planning guide','When does Ramadan begin and end?','How to create a reliable 29- or 30-day timetable','Suhoor, imsak, Fajr and Iftar','Why do Ramadan schedules differ','Worked example: planning a provisional','Printing, CSV and calendar events','Quran 2:185','Quran 2:187','Sahih al-Bukhari 1909','Sahih al-Bukhari 1957','id="ramadan-dates"','id="ramadan-dawn"','id="ramadan-sources"'])assert(html.includes(phrase),'Ramadan Timetable guide missing '+phrase);
+ assert((html.match(/class="ramadan-guide-section/g)||[]).length>=8,'Ramadan Timetable needs substantial sections');
+}
