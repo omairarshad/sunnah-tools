@@ -5,7 +5,9 @@ import {QadaPrayerCalculator,QurbaniShareCalculator,TawafSaiCounter} from './Gro
 import FastingTracker from './FastingTracker';
 import FidyaPlanner from './FidyaPlanner';
 import KaffarahPlanner from './KaffarahPlanner';
-import FitranaCalculator from './FitranaCalculator';
+import FitranaDeep from './FitranaDeep';
+import GoldZakatDeep from './GoldZakatDeep';
+import NisabDeep from './NisabDeep';
 import ZakatCalculator from './ZakatCalculator';
 import {ExpansionTool} from './ExpansionTools';
 import QiblaOrientation from './QiblaOrientation';
@@ -192,11 +194,11 @@ export default function ToolApp({slug}:{slug:string}){
  if(slug==='prayer-times-widget')return <PrayerWidgetGenerator/>;
  if(slug==='umrah-packing-checklist')return <UmrahPackingChecklist/>;
  if(slug==='zakat-calculator')return <ZakatCalculator/>;
- if(slug==='fitrana-calculator')return <FitranaCalculator/>;
- if(slug==='gold-zakat-calculator')return <GoldZakat/>;
+ if(slug==='fitrana-calculator')return <FitranaDeep/>;
+ if(slug==='gold-zakat-calculator')return <GoldZakatDeep/>;
  if(slug==='islamic-events-calendar')return <IslamicEvents/>;
  if(slug==='printable-prayer-chart')return <PrayerChart/>;
- if(slug==='nisab-calculator')return <Nisab/>;
+ if(slug==='nisab-calculator')return <NisabDeep/>;
  if(slug==='hijri-converter')return <HijriConverter/>;
  if(slug==='islamic-age')return <Hijri age/>;
  if(slug==='tasbih-counter')return <Counter/>;
