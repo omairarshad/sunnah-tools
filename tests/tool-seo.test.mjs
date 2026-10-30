@@ -25,7 +25,7 @@ test('44 indexable tool pages have uniquely written, useful SEO briefs',()=>{
 test('popular homepage tools keep prayer, Hijri, Ramadan and Zakat topics contiguous',()=>{
  const order=home.directory.cards.map(x=>x.slug);
  assert.deepEqual(order,grouped);
- assert.equal(new Set(order).size,37);
+ assert.equal(new Set(order).size,44);
  assert.deepEqual(order.slice(0,6),['prayer-times','qibla-finder','hijri-converter','tahajjud-time','duha-prayer-time','printable-prayer-chart']);
  assert.ok(order.indexOf('fasting-times')<order.indexOf('zakat-calculator'));
  assert.ok(order.indexOf('zakat-calculator')<order.indexOf('islamic-events-calendar'));
