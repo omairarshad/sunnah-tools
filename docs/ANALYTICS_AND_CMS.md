@@ -42,6 +42,11 @@ Only after approval, CMP and testing, set Actions variables ADSENSE_SITE_READY=t
 
 Use separate AdSense Payments accounts for website versus YouTube once available and check the correct bank method for the website; do not change the existing YouTube payment method without a clear reason.
 
+
+## Rebuilding after GitHub Actions variable changes
+
+GitHub Actions repository variables such as `GA4_MEASUREMENT_ID`, `GA4_PROPERTY_ID`, `GOOGLE_OAUTH_CLIENT_ID` and `GA4_ENABLED` are read at **build time**. A Hostinger **Manual deployment** of the existing `hostinger-live` branch only republishes previously generated files and does not incorporate changed GitHub variables. After adding or updating these variables, use GitHub → Actions → **Build static site for Hostinger** → **Run workflow** and choose `feature/initial-site-and-tools` (or push a commit to that source branch). Wait for the Actions publish step to update `hostinger-live`, then verify the generated `admin/index.html` contains a nonempty `data-property-id` and `data-client-id` before testing `/admin/` through Hostinger. Do not edit `hostinger-live` directly. The OAuth client ID and GA4 IDs are public configuration, not private tokens.
+
 ## Other real data sources
 
 - https://search.google.com/search-console/ — actual Google search impressions, clicks, rankings and indexing
