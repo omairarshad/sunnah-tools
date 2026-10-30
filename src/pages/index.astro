@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import UsefulLinks from '../components/UsefulLinks.astro';
 import AdPlacement from '../components/AdPlacement.astro';
 import {toneForSlug} from '../data/toolTones';
 import {tools} from '../data/tools';
@@ -84,7 +85,7 @@ const categoryCounts=Object.fromEntries(categories.map(category=>[category,categ
  </div>
  </section>}
  </div>
- 
+ <UsefulLinks/>
 </Base>
 <script>
  const search=document.querySelector<HTMLInputElement>('#tool-search-input');

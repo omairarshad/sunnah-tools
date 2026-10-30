@@ -47,3 +47,14 @@ test('tool directory defaults to six desktop columns for faster browsing',()=>{
  assert.equal(page.directory.columns,6);
  assert.equal(page.directory.cards.length,37);
 });
+
+test('curated Islamic websites appear in a separate section after tool guides',()=>{
+ const component=readFileSync(new URL('../src/components/UsefulLinks.astro',import.meta.url),'utf8');
+ const homepage=readFileSync(new URL('../src/pages/index.astro',import.meta.url),'utf8');
+ const resource=readFileSync(new URL('../src/data/usefulLinks.ts',import.meta.url),'utf8');
+ assert.match(component,/Useful Islamic websites|usefulLinks|resources-heading/);
+ assert.match(homepage,/import UsefulLinks/);
+ assert.ok(homepage.indexOf('<UsefulLinks/>')>homepage.indexOf('aria-labelledby="learning-heading"'));
+ for(const domain of ['https://quran.com/','https://sunnah.com/','https://corpus.quran.com/','https://quranenc.com/en/home','https://seekersguidance.org/','https://umrah.nusuk.sa/'])assert.ok(resource.includes(domain),domain);
+ assert.match(component,/rel="noopener noreferrer"/);
+});

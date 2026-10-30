@@ -1,0 +1,44 @@
+---
+import {usefulLinks} from '../data/usefulLinks';
+---
+<section class="section resource-section" id="useful-islamic-websites" aria-labelledby="resources-heading">
+ <div class="resource-intro">
+  <div>
+   <h2 id="resources-heading">Useful Islamic websites</h2>
+   <p>Trusted starting points for reading, studying and planning. These are independent websites.</p>
+  </div>
+ </div>
+ <div class="resource-grid">
+  {usefulLinks.map(item=><a class="resource-card" href={item.url} target="_blank" rel="noopener noreferrer" aria-label={`${item.name} — ${item.description} Opens in a new tab`}>
+   <div class="resource-card-top">
+    <span class="resource-type">{item.category}</span>
+    <span class="resource-arrow" aria-hidden="true">↗</span>
+   </div>
+   <h3>{item.name}</h3>
+   <p>{item.description}</p>
+  </a>)}
+ </div>
+ <p class="resource-note">External websites may have different editorial approaches. Check the original sources and consult qualified scholars for individual rulings.</p>
+</section>
+<style>
+.resource-section{padding-top:19px;padding-bottom:54px}
+.resource-intro{display:flex;justify-content:space-between;gap:14px;margin-bottom:17px}
+.resource-intro h2{font:570 clamp(25px,2.5vw,32px)/1.2 var(--font-display);color:var(--brand-ink);margin:0 0 7px;letter-spacing:-.025em}
+.resource-intro p{font:450 13px/1.6 var(--font-body);color:var(--brand-copy);margin:0}
+.resource-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.resource-card{display:flex;min-width:0;min-height:155px;flex-direction:column;gap:8px;text-decoration:none;background:var(--brand-card);border:1px solid var(--brand-line);border-radius:12px;padding:18px 19px;transition:border-color .18s ease,transform .18s ease}
+.resource-card:hover{border-color:#8cae98;transform:translateY(-2px)}
+.resource-card:focus-visible{outline:3px solid #8bb79b;outline-offset:3px}
+.resource-card-top{display:flex;justify-content:space-between;align-items:start;gap:10px}
+.resource-type{font:650 10px/1.4 var(--font-body);letter-spacing:.055em;text-transform:uppercase;color:var(--brand-accent)}
+.resource-arrow{font:600 18px/1 var(--font-body);color:var(--brand-deep)}
+.resource-card h3{font:650 16px/1.35 var(--font-body);color:var(--brand-ink);margin:0}
+.resource-card p{font:450 12px/1.6 var(--font-body);color:var(--brand-copy);margin:0}
+.resource-note{font:450 11px/1.6 var(--font-body);color:var(--brand-copy);margin:14px 0 0}
+html[data-theme="dark"] .resource-card{background:#22292b;border-color:#394846}
+html[data-theme="dark"] .resource-card:hover{border-color:#8ab99f}
+@media(max-width:850px){.resource-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:510px){.resource-grid{grid-template-columns:1fr;gap:10px}.resource-card{min-height:0;padding:15px 17px}.resource-section{padding-top:11px;padding-bottom:35px}}
+@media(prefers-reduced-motion:reduce){.resource-card{transition:none}.resource-card:hover{transform:none}}
+@media print{.resource-section{display:none}}
+</style>
