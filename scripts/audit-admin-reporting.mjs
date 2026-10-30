@@ -60,7 +60,7 @@ try{
    if(w>width+4)issues.push(tag+' horizontal overflow '+w+' > '+width);
    await page.screenshot({path:resolve(dir,mode+'-'+theme+'-report.png'),animations:'disabled'});
    await page.locator('#ops-period').selectOption('7');
-   await page.waitForFunction(()=>document.getElementById('ops-status')?.textContent?.includes('Verified GA4 report'));
+   await page.waitForFunction(()=>document.getElementById('ops-status')?.textContent?.includes('Google Analytics updated at'));
    if(lastRange!=='6daysAgo')issues.push(tag+' date range wrong '+lastRange);
    if(requests!==6)issues.push(tag+' expected two batches per date range');
    // Ensure real Google validation errors are displayed, not hidden behind generic HTTP 400.
