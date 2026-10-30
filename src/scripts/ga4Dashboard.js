@@ -1,4 +1,4 @@
-import {makeGA4Reports,parseGA4Response} from '../lib/reportingConfig.mjs';
+import {makeGA4ReportBatches,parseGA4Response} from '../lib/reportingConfig.mjs';
 /** Google-authenticated, read-only reporting. OAuth tokens exist only in memory. */
 export function initGA4Dashboard(doc=document){
  const root=doc.getElementById('ga4-reporting');
@@ -92,6 +92,12 @@ export function initGA4Dashboard(doc=document){
    if(response.status===401){accessToken=null;throw new Error('Google sign-in expired. Connect again.');}
    if(response.status===403)throw new Error('Google denied report access. Check that your login has access to this GA4 property, the Data API is enabled, and the OAuth app allows your account.');
    if(response.status===404)throw new Error('GA4 property not found. Verify the numeric Property ID.');
+   // Provide Google's actual validation reason without exposing credentials or headers.
+   if(response.status===400){
+    const detail=await response.json().catch(()=>null);
+    const reason=typeof detail?.error?.message==='string'?detail.error.message.slice(0,400):'';
+    throw new Error('Google Analytics rejected the report (HTTP 400)'+(reason?': '+reason:'')+'.');
+   }
    throw new Error('Google Analytics report request failed (HTTP '+response.status+').');
   }
   return response.json();
@@ -101,7 +107,16 @@ export function initGA4Dashboard(doc=document){
   if(Date.now()>tokenExpiry){accessToken=null;setStatus('Google session expired. Connect again.');connect.hidden=false;refresh.hidden=true;disconnect.hidden=true;data.hidden=true;return;}
   busy=true;refresh.disabled=true;setStatus('Loading actual Google Analytics reports…');
   try{
-   const raw=await request('batchRunReports',makeGA4Reports(period.value));
+   const batches=makeGA4ReportBatches(period.value);
+   // The API rejects requests containing six or more reports. Combine two legal
+   // batches in the original order so parsing remains strict and consistent.
+   const replies=await Promise.all(batches.map(batch=>request('batchRunReports',batch)));
+   const raw={reports:replies.flatMap((reply,index)=>{
+    if(!Array.isArray(reply?.reports)||reply.reports.length!==batches[index].requests.length){
+     throw new Error('Google Analytics returned an incomplete report batch.');
+    }
+    return reply.reports;
+   })};
    const report=parseGA4Response(raw);
    for(const [key,id] of [['users','ops-users'],['sessions','ops-sessions'],['views','ops-views'],['events','ops-events']]){
     el(id).textContent=number(report.kpis[key]);

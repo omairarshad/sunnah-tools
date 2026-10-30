@@ -26,8 +26,12 @@ try{
     requests++;
     const request=route.request(),body=JSON.parse(request.postData()||'{}');
     lastRange=body.requests?.[0]?.dateRanges?.[0]?.startDate||'';
-    if(request.headers().authorization!=='Bearer test_token_only'||body.requests?.length!==6)validRequest=false;
-    await route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(sample)});
+    const secondBatch=body.requests?.length===1;
+    if(request.headers().authorization!=='Bearer test_token_only'||![1,5].includes(body.requests?.length))validRequest=false;
+    if(secondBatch&&body.requests[0]?.dimensions?.[0]?.name!=='country')validRequest=false;
+    if(!secondBatch&&body.requests?.[0]?.metrics?.[0]?.name!=='activeUsers')validRequest=false;
+    const reports=secondBatch?sample.reports.slice(5):sample.reports.slice(0,5);
+    await route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({reports})});
    });
    const response=await page.goto('http://127.0.0.1:4321/admin/',{waitUntil:'domcontentloaded'});
    await page.waitForFunction(()=>!document.getElementById('ops-connect')?.disabled,{timeout:12000});
@@ -36,7 +40,7 @@ try{
    await page.screenshot({path:resolve(dir,mode+'-'+theme+'-setup.png'),animations:'disabled'});
    await page.getByRole('button',{name:'Connect Google Analytics'}).click();
    await page.waitForFunction(()=>document.getElementById('ops-users')?.textContent==='14',{timeout:12000});
-   if(requests!==1||!validRequest)issues.push(tag+' broken read-only API request');
+   if(requests!==2||!validRequest)issues.push(tag+' broken 5+1 batch read-only API requests');
    if(await page.locator('#ops-sessions').textContent()!=='19')issues.push(tag+' incorrect metric');
    if(!(await page.locator('#ops-pages').textContent()).includes('/tools/prayer-times/'))issues.push(tag+' missing top page');
    const w=await page.evaluate(()=>document.documentElement.scrollWidth);
@@ -45,6 +49,15 @@ try{
    await page.locator('#ops-period').selectOption('7');
    await page.waitForFunction(()=>document.getElementById('ops-status')?.textContent?.includes('Verified GA4 report'));
    if(lastRange!=='6daysAgo')issues.push(tag+' date range wrong '+lastRange);
+   if(requests!==4)issues.push(tag+' expected two batches per date range');
+   // Ensure real Google validation errors are displayed, not hidden behind generic HTTP 400.
+   await page.route('https://analyticsdata.googleapis.com/v1beta/properties/123456789:batchRunReports',route=>route.fulfill({
+    status:400,contentType:'application/json',
+    body:JSON.stringify({error:{code:400,message:'Mock GA4 invalid report request'}})
+   }));
+   await page.getByRole('button',{name:'Refresh data'}).click();
+   await page.waitForFunction(()=>document.getElementById('ops-status')?.textContent?.includes('Mock GA4 invalid report request'),{timeout:12000});
+   if(!await page.locator('#ops-data').isHidden())issues.push(tag+' stale data visible after API error');
    await page.getByRole('button',{name:'Disconnect'}).click();
    if(!await page.locator('#ops-data').isHidden())issues.push(tag+' data still shown after disconnect');
    if(errors.length)issues.push(tag+' JS errors '+errors.join('; '));

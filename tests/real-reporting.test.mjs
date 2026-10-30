@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {reportingSettings,makeGA4Reports,parseGA4Response} from '../src/lib/reportingConfig.mjs';
+import {reportingSettings,makeGA4Reports,makeGA4ReportBatches,parseGA4Response} from '../src/lib/reportingConfig.mjs';
 const read=p=>readFileSync(new URL('../'+p,import.meta.url),'utf8');
 test('GA4 report connection accepts only numeric property and OAuth web client',()=>{
  assert.deepEqual(reportingSettings(),{propertyId:null,oauthClientId:null});
@@ -21,6 +21,10 @@ test('GA4 Data API requests cover real KPIs, daily traffic, pages, channels, cou
   assert.equal(report.requests[3].dimensions[0].name,'sessionDefaultChannelGroup');
   assert.equal(report.requests[4].dimensions[0].name,'eventName');
   assert.equal(report.requests[5].dimensions[0].name,'country');
+  const batches=makeGA4ReportBatches(days);
+  assert.deepEqual(batches.map(batch=>batch.requests.length),[5,1]);
+  assert.ok(batches.every(batch=>batch.requests.length<=5));
+  assert.deepEqual(batches.flatMap(batch=>batch.requests),report.requests);
  }
 });
 test('GA4 report parser uses true API values and treats absent rows as empty',()=>{

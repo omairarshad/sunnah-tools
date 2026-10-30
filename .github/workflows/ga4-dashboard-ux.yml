@@ -1,7 +1,13 @@
 name: GA4 authenticated dashboard browser audit
 on:
   push:
-    branches: ['feature/real-ga4-reporting-dashboard-*']
+    branches: ['feature/real-ga4-reporting-dashboard-*', 'feature/initial-site-and-tools']
+    paths:
+      - 'src/scripts/ga4Dashboard.js'
+      - 'src/lib/reportingConfig.mjs'
+      - 'tests/real-reporting.test.mjs'
+      - 'scripts/audit-admin-reporting.mjs'
+      - '.github/workflows/ga4-dashboard-ux.yml'
   workflow_dispatch:
 jobs:
   browser-audit:

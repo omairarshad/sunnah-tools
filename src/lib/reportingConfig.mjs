@@ -26,6 +26,13 @@ export function makeGA4Reports(days=28){
   spec(['country'],['activeUsers'],10)
  ]};
 }
+/** GA4 batchRunReports accepts a maximum of five requests per HTTP call. */
+export function makeGA4ReportBatches(days=28){
+ const requests=makeGA4Reports(days).requests;
+ const batches=[];
+ for(let i=0;i<requests.length;i+=5)batches.push({requests:requests.slice(i,i+5)});
+ return batches;
+}
 export function parseGA4Response(data){
  if(!data||!Array.isArray(data.reports)||data.reports.length!==6)throw new Error('GA4 returned an unexpected report format');
  const rows=(i)=>Array.isArray(data.reports[i]?.rows)?data.reports[i].rows:[];
