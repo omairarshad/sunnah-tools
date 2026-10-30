@@ -8,6 +8,7 @@ import {ADSENSE_SITE_PUBLISHER_ID} from './adsIdentity.mjs';
 export const siteAds=decideAds({
  publisherId:ADSENSE_SITE_PUBLISHER_ID,
  adsEnabled:import.meta.env.PUBLIC_ADSENSE_ADS_ENABLED,
+ siteReady:import.meta.env.PUBLIC_ADSENSE_SITE_READY,
  cmpReady:import.meta.env.PUBLIC_ADSENSE_CMP_READY,
  homeSlot:import.meta.env.PUBLIC_ADSENSE_HOME_SLOT,
  toolSlot:import.meta.env.PUBLIC_ADSENSE_TOOL_SLOT

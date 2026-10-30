@@ -15,8 +15,9 @@ test('ads remain off by default and without certified CMP activation',()=>{
  assert.equal(decideAds(basic).enabled,false);
  assert.equal(decideAds({...basic,cmpReady:'true',adsEnabled:'false'}).enabled,false);
  assert.equal(decideAds({...basic,cmpReady:'true',homeSlot:'not valid'}).enabled,false);
+ assert.equal(decideAds({...basic,cmpReady:'true'}).enabled,false,'Must explicitly confirm Sites status Ready');
 });
 test('ads require all settings and never become active from undefined',()=>{
  assert.equal(decideAds({}).enabled,false);
- assert.equal(decideAds({publisherId:id,adsEnabled:'true',cmpReady:'true',homeSlot:'1234567890',toolSlot:'0987654321'}).enabled,true);
+ assert.equal(decideAds({publisherId:id,adsEnabled:'true',cmpReady:'true',siteReady:'true',homeSlot:'1234567890',toolSlot:'0987654321'}).enabled,true);
 });
