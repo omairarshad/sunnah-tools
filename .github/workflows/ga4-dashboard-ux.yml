@@ -1,0 +1,44 @@
+name: GA4 authenticated dashboard browser audit
+on:
+  push:
+    branches: ['feature/real-ga4-reporting-dashboard-*']
+  workflow_dispatch:
+jobs:
+  browser-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+      - name: Build reporting test fixture (not deployed)
+        env:
+          PUBLIC_GA4_PROPERTY_ID: '123456789'
+          PUBLIC_GOOGLE_OAUTH_CLIENT_ID: '123456789012-abcdefghijklmnopqrstuvwxy.apps.googleusercontent.com'
+        run: |
+          npm run prepare:cities
+          npm run prepare:ads
+          npm run build
+      - name: Install Chromium
+        run: |
+          npm install --no-save --no-package-lock playwright
+          npx playwright install --with-deps chromium
+      - name: Check sign-in, live reporting and responsive UI with mock API
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 4321 >/tmp/astro-reporting.log 2>&1 &
+          for i in $(seq 1 30); do
+            if curl --silent --fail http://127.0.0.1:4321/admin/ >/dev/null; then break; fi
+            sleep 1
+          done
+          node scripts/audit-admin-reporting.mjs
+      - name: Upload UI screenshots and mock-report audit
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reporting-dashboard-browser-audit
+          path: artifacts/reporting-dashboard/
+          if-no-files-found: warn
+          retention-days: 14
