@@ -17,6 +17,7 @@ test('GA4 Data API requests cover real KPIs, daily traffic, pages, channels, cou
   assert.equal(report.requests[0].dateRanges[0].startDate,(days-1)+'daysAgo');
   assert.deepEqual(report.requests[0].metrics.map(x=>x.name),['activeUsers','sessions','screenPageViews','eventCount']);
   assert.equal(report.requests[1].dimensions[0].name,'date');
+  assert.deepEqual(report.requests[1].metrics.map(x=>x.name),['activeUsers','sessions','screenPageViews']);
   assert.equal(report.requests[2].dimensions[0].name,'pagePath');
   assert.equal(report.requests[3].dimensions[0].name,'sessionDefaultChannelGroup');
   assert.equal(report.requests[4].dimensions[0].name,'eventName');
@@ -31,7 +32,7 @@ test('GA4 report parser uses true API values and treats absent rows as empty',()
  const row=(dims,metrics)=>({dimensionValues:dims.map(value=>({value:String(value)})),metricValues:metrics.map(value=>({value:String(value)}))});
  const data={reports:[
   {rows:[row([],['12','18','45','100'])]},
-  {rows:[row(['20261029'],['12','45'])]},
+  {rows:[row(['20261029'],['12','17','45'])]},
   {rows:[row(['/tools/zakat-calculator/'],['19','6'])]},
   {rows:[row(['Organic Search'],['11'])]},
   {rows:[row(['page_view'],['45'])]},
@@ -39,6 +40,7 @@ test('GA4 report parser uses true API values and treats absent rows as empty',()
  ]};
  const out=parseGA4Response(data);
  assert.deepEqual(out.kpis,{users:12,sessions:18,views:45,events:100});
+ assert.deepEqual(out.timeline[0],{date:'20261029',users:12,sessions:17,views:45});
  assert.equal(out.pages[0].name,'/tools/zakat-calculator/');
  assert.equal(out.channels[0].value,11);
  assert.equal(out.countries[0].value,12);

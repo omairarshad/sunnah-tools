@@ -9,7 +9,7 @@
   "promotions": {
     "enabled": true,
     "eyebrow": "",
-    "title": "More from us",
+    "title": "Our other projects",
     "subtitle": "",
     "cards": [
       {
@@ -395,8 +395,8 @@
   },
   "layout": {
     "sectionOrder": [
-      "directory",
       "promotions",
+      "directory",
       "guides"
     ],
     "showGuides": true

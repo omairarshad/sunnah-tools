@@ -56,3 +56,21 @@ GitHub Actions repository variables such as `GA4_MEASUREMENT_ID`, `GA4_PROPERTY_
 - https://github.com/omairarshad/sunnah-tools/actions — build and deployment results
 
 Official references: https://support.google.com/analytics/answer/14183469 , https://developers.google.com/analytics/devguides/reporting/data/v1 , https://developers.google.com/tag-platform/security/guides/consent , https://support.google.com/adsense/answer/12170222 , https://support.google.com/adsense/answer/13554116 .
+
+## AdSense revenue dashboard (prepared while approval is pending)
+
+The owner dashboard now has a **separate AdSense read-only connection**. It does not use GA4 visits to guess earnings, never adds YouTube payouts to Sunnah Tools totals, and does not enable advertising. It looks up accounts and the exact `sunnah.tools` site, displays its Google approval state, and requests site-filtered income only when the site has state `READY`. Revenue reports use the AdSense Management API v2 with `OWNED_SITE_ID` filtering and the `ESTIMATED_EARNINGS`, `PAGE_VIEWS`, `IMPRESSIONS`, `CLICKS`, `PAGE_VIEWS_RPM` and `IMPRESSIONS_CTR` metrics. Realtime traffic comes from GA4 separately. AdSense earnings are not live visitor metrics and may be revised.
+
+**Owner setup, no website code edits required:**
+1. In the existing Sunnah Tools Google Cloud project enable **AdSense Management API** from APIs & Services → Library: https://console.cloud.google.com/apis/library/adsense.googleapis.com .
+2. Open Google Auth Platform → Data Access and add `https://www.googleapis.com/auth/adsense.readonly` to the existing OAuth consent app. If the app is External/Testing, keep the owner’s Google email in Test users. Google can show a new scope/verification prompt; use only the account authorised for AdSense. No extra OAuth web client is needed; continue using the configured public Google OAuth Client ID. No client secret or refresh token should enter GitHub.
+3. Once deployed, open the Hostinger-protected `/admin/` page and select **Connect AdSense**. Consent to *read-only* access. The dashboard identifies the site by exact domain; if it is still `GETTING_READY`, no earnings figures are shown. A separate short-lived access token can survive a same-tab refresh if its remember option is checked. Disconnect clears it.
+4. When the site becomes **Ready**, the dashboard requests estimated earnings for today, yesterday, this month and last 30 days, a daily earnings chart and performance metrics. Currency is taken from API response headers. **Payment balance and most recent account payment are for the whole AdSense account**, not necessarily earnings attributable to sunnah.tools. The AdSense Management API does **not** return the ads.txt crawler status; confirm that separately in AdSense → Sites.
+
+**Ad launch is separate:** while AdSense site review says Getting ready, leave the GitHub Actions advertising enablement flags off. Keep Auto ads and Auto optimise off for controlled placement. After Ready, verify `/ads.txt` and a certified UK/EEA/Swiss consent message under AdSense Privacy & messaging, create two responsive Display ad units (homepage and tool pages), verify placement accessibility and consent requests in a real browser, then and only then enable `ADSENSE_SITE_READY`, `ADSENSE_CMP_READY`, both slot variables and `ADSENSE_ADS_ENABLED`. No advertising is activated merely by connecting revenue reports.
+
+API documentation:
+- https://developers.google.com/adsense/management/reference/rest/v2/accounts.sites/list
+- https://developers.google.com/adsense/management/reference/rest/v2/accounts.reports/generate
+- https://developers.google.com/adsense/management/reporting/filtering
+- https://developers.google.com/adsense/management/metrics-dimensions

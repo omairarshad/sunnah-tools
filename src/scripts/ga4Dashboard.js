@@ -13,6 +13,8 @@ export function initGA4Dashboard(doc=document){
  const remember=doc.getElementById('ops-remember');
  const liveStatus=doc.getElementById('ops-realtime-status');
  const emptyNote=doc.getElementById('ops-empty-note');
+ const metricSelect=doc.getElementById('ops-chart-metric');
+ let dailySeries=[];
  if(!propertyId||!clientId)return;
  let tokenClient=null,accessToken=null,tokenExpiry=0,busy=false,requestGeneration=0;
  const sessionKey='sunnah-ga4-dashboard-token-v1';
@@ -64,46 +66,53 @@ export function initGA4Dashboard(doc=document){
    div.append(name,metric);node.append(div);
   }
  };
- const chart=(points)=>{
-  const node=el('ops-chart');node.replaceChildren();
-  if(!points.length){node.textContent='No daily traffic data yet.';return;}
-  const xmlns='http://www.w3.org/2000/svg';
-  const svg=doc.createElementNS(xmlns,'svg');
-  svg.setAttribute('viewBox','0 0 760 210');
-  svg.setAttribute('preserveAspectRatio','none');
-  svg.setAttribute('role','img');
-  svg.setAttribute('aria-label','Daily active users for the selected date range');
-  const max=Math.max(1,...points.map(p=>p.users));
-  const left=44,right=746,top=15,bottom=167;
-  for(let i=0;i<4;i++){
-   const value=max*i/3,y=bottom-(bottom-top)*i/3;
-   const line=doc.createElementNS(xmlns,'line');
-   for(const [k,v] of Object.entries({x1:left,y1:y,x2:right,y2:y,stroke:'currentColor','stroke-opacity':'.14'}))line.setAttribute(k,String(v));
-   svg.append(line);
-   const text=doc.createElementNS(xmlns,'text');
-   for(const [k,v] of Object.entries({x:3,y:y+4,fill:'currentColor','font-size':11}))text.setAttribute(k,String(v));
-   text.textContent=String(Math.round(value));svg.append(text);
+ const chart=()=>{
+  const node=el('ops-chart');
+  node.replaceChildren();
+  const metric=['users','sessions','views'].includes(metricSelect.value)?metricSelect.value:'users';
+  const label={users:'Users',sessions:'Sessions',views:'Page views'}[metric];
+  if(!dailySeries.length){
+   const p=doc.createElement('p');p.className='ops-empty';
+   p.textContent='Daily '+label.toLowerCase()+' data will appear when Google finishes processing your first visits.';
+   node.append(p);return;
   }
-  const poly=doc.createElementNS(xmlns,'polyline');
-  const joined=points.map((p,i)=>{
-   const x=left+(right-left)*(points.length===1?.5:i/(points.length-1));
-   const y=bottom-(bottom-top)*p.users/max;
-   return x.toFixed(2)+','+y.toFixed(2);
-  }).join(' ');
-  poly.setAttribute('points',joined);
-  poly.setAttribute('fill','none');poly.setAttribute('stroke','#5ca986');
-  poly.setAttribute('stroke-width','3');poly.setAttribute('stroke-linejoin','round');
-  poly.setAttribute('stroke-linecap','round');svg.append(poly);
-  for(const [i,align] of [[0,'start'],[points.length-1,'end']]){
-   const label=doc.createElementNS(xmlns,'text');
-   const value=points[i]?.date||'';
-   label.textContent=value.length===8?value.slice(6,8)+'/'+value.slice(4,6)+'/'+value.slice(0,4):value;
-   label.setAttribute('x',String(i===0?left:right));label.setAttribute('y','197');
-   label.setAttribute('text-anchor',align);label.setAttribute('fill','currentColor');label.setAttribute('font-size','11');
-   svg.append(label);
+  const values=dailySeries.map(point=>Number(point[metric])||0);
+  const max=Math.max(1,...values);
+  const namespace='http://www.w3.org/2000/svg';
+  const svg=doc.createElementNS(namespace,'svg');
+  svg.setAttribute('viewBox','0 0 760 210');svg.setAttribute('preserveAspectRatio','none');
+  svg.setAttribute('role','img');svg.setAttribute('aria-label',label+' per day for the selected reporting period');
+  const left=42,right=741,top=14,bottom=167;
+  const axis=(tag,attributes,text='')=>{
+   const el=doc.createElementNS(namespace,tag);
+   for(const [key,value] of Object.entries(attributes))el.setAttribute(key,String(value));
+   if(text)el.textContent=text;
+   svg.append(el);return el;
+  };
+  for(let i=0;i<=4;i++){
+   const y=bottom-(bottom-top)*i/4;
+   axis('line',{x1:left,y1:y,x2:right,y2:y,stroke:'currentColor','stroke-opacity':'.14'});
+   axis('text',{x:2,y:y+4,fill:'currentColor','font-size':11},number(Math.round(max*i/4)));
+  }
+  const coords=dailySeries.map((point,i)=>({
+   x:left+(right-left)*(dailySeries.length===1?.5:i/(dailySeries.length-1)),
+   y:bottom-(bottom-top)*values[i]/max,
+   date:point.date,value:values[i]
+  }));
+  axis('polyline',{points:coords.map(p=>p.x.toFixed(1)+','+p.y.toFixed(1)).join(' '),fill:'none',stroke:'#57ae8b','stroke-width':3,'stroke-linejoin':'round','stroke-linecap':'round'});
+  const readableDate=d=>String(d).length===8?d.slice(6,8)+'/'+d.slice(4,6)+'/'+d.slice(0,4):String(d);
+  for(const p of coords){
+   const circle=axis('circle',{cx:p.x,cy:p.y,r:Math.min(4,Math.max(2,20/coords.length)),fill:'#57ae8b'});
+   const tip=doc.createElementNS(namespace,'title');
+   tip.textContent=readableDate(p.date)+': '+number(p.value)+' '+label.toLowerCase();circle.append(tip);
+  }
+  if(coords.length){
+   axis('text',{x:left,y:199,'text-anchor':'start',fill:'currentColor','font-size':11},readableDate(coords[0].date));
+   axis('text',{x:right,y:199,'text-anchor':'end',fill:'currentColor','font-size':11},readableDate(coords[coords.length-1].date));
   }
   node.append(svg);
  };
+ metricSelect.addEventListener('change',chart);
  const request=async(endpoint,body)=>{
   const response=await fetch('https://analyticsdata.googleapis.com/v1beta/properties/'+propertyId+':'+endpoint,{
    method:'POST',
@@ -163,7 +172,8 @@ export function initGA4Dashboard(doc=document){
    for(const [key,id] of [['users','ops-users'],['sessions','ops-sessions'],['views','ops-views'],['events','ops-events']]){
     el(id).textContent=number(report.kpis[key]);
    }
-   chart(report.timeline);
+   dailySeries=report.timeline;
+   chart();
    renderRows('ops-pages',report.pages,'Page','views');
    renderRows('ops-channels',report.channels,'Channel','value');
    renderRows('ops-event-list',report.events,'Event','value');

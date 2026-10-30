@@ -4,6 +4,12 @@ on:
     branches: ['feature/real-ga4-reporting-dashboard-*', 'feature/initial-site-and-tools']
     paths:
       - 'src/scripts/ga4Dashboard.js'
+      - 'src/scripts/adsenseDashboard.js'
+      - 'src/lib/adsenseReporting.mjs'
+      - 'src/pages/admin/index.astro'
+      - 'src/styles/admin-reporting.css'
+      - 'src/data/homepage.json'
+      - 'tests/adsense-reporting.test.mjs'
       - 'src/lib/reportingConfig.mjs'
       - 'tests/real-reporting.test.mjs'
       - 'scripts/audit-admin-reporting.mjs'

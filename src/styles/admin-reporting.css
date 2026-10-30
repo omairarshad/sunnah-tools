@@ -70,3 +70,25 @@ html[data-theme=dark] .ops-row{border-color:#394846}
 html[data-theme=dark] .ops-realtime,html[data-theme=dark] .ops-empty-note{background:#30383a;border-color:#394846}
 html[data-theme=dark] .ops-live-stats>div{background:#22292b;border-color:#394846}
 @media(max-width:540px){.ops-live-stats{width:100%}.ops-live-stats>div{flex:1}.ops-realtime{padding:15px}}
+
+/* Site-specific AdSense owner dashboard. All report controls are read-only. */
+.ops-revenue{margin-top:24px}
+.ops-ads-statusline{margin:17px 0 10px;padding:12px 15px;border:1px solid var(--brand-line);border-radius:6px;display:flex;align-items:center;gap:13px;flex-wrap:wrap;font-size:12px}
+.ops-ads-statusline>span{color:var(--brand-copy)}
+.ops-ads-statusline strong{font-size:13px;color:var(--brand-ink)}
+.ops-revenue-help{color:var(--brand-copy);font-size:12px;line-height:1.75}
+.ops-revenue-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:22px 0 16px}
+.ops-revenue-kpis>div{min-width:0;padding:19px;background:var(--brand-soft);border-radius:7px}
+.ops-revenue-kpis span,.ops-revenue-mini span{display:block;color:var(--brand-copy);font-size:11px;line-height:1.4}
+.ops-revenue-kpis strong{display:block;font:650 clamp(19px,2.6vw,29px)/1.2 var(--font-body);margin-top:8px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.ops-revenue-mini{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin:17px 0}
+.ops-revenue-mini>div{min-width:0;background:var(--brand-soft);border:1px solid var(--brand-line);padding:15px;border-radius:6px}
+.ops-revenue-mini strong{display:block;font:650 clamp(15px,2vw,22px)/1.2 var(--font-body);margin-top:8px;font-variant-numeric:tabular-nums}
+.ops-payment-breakdowns{margin-top:14px}
+.ops-payment-value{font:650 23px/1.3 var(--font-body);padding:4px 19px;font-variant-numeric:tabular-nums}
+.ops-report-actions button#ops-ads-connect,.ops-report-actions button#ops-ads-refresh{background:#25664c;border-color:#25664c;color:white}
+html[data-theme=dark] .ops-revenue-kpis>div,html[data-theme=dark] .ops-revenue-mini>div{background:#30383a;border-color:#394846}
+html[data-theme=dark] .ops-ads-statusline{border-color:#394846}
+html[data-theme=dark] .ops-report-actions button#ops-ads-connect,html[data-theme=dark] .ops-report-actions button#ops-ads-refresh{background:#82c5a2;color:#153627;border-color:#82c5a2}
+@media(max-width:900px){.ops-revenue-mini{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:640px){.ops-revenue-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.ops-revenue-mini{grid-template-columns:repeat(2,minmax(0,1fr))}}

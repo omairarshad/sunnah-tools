@@ -4,7 +4,7 @@ import {siteReporting} from '../../lib/siteReporting';
 import '../../styles/admin-reporting.css';
 const configured=Boolean(siteReporting.propertyId&&siteReporting.oauthClientId);
 ---
-<Base title="Operations & Live Analytics" description="Private Google-authenticated reporting setup and owner operations links for Sunnah Tools." noindex={true}>
+<Base title="Operations & Live Analytics" description="Owner traffic and read-only AdSense earnings dashboard for Sunnah Tools." noindex={true}>
  <div class="operations">
   <header class="ops-hero">
    <div><span class="ops-kicker">SUNNAH TOOLS · OWNER WORKSPACE</span><h1>Website analytics</h1><p>Visitor trends, popular tools and engagement, using actual Google Analytics data from people who allow measurement.</p></div>
@@ -44,6 +44,44 @@ const configured=Boolean(siteReporting.propertyId&&siteReporting.oauthClientId);
     <p class="ops-report-foot">Google Analytics metrics include only data collected with the appropriate consent and may be delayed or affected by browser blocking. Results are fetched when you sign in; this page does not store the reports.</p>
    </div>
   </section>
+  <section class="ops-report ops-revenue" id="ops-adsense" data-client-id={siteReporting.oauthClientId??''} aria-labelledby="ops-revenue-title">
+   <div class="ops-report-toolbar">
+    <div><span class="ops-live-kicker">MONETISATION</span><h2 id="ops-revenue-title">AdSense revenue</h2><p>Verified site-specific earnings from AdSense. Actual adverts remain disabled until approval and consent requirements are met.</p></div>
+    <div class="ops-report-actions">
+     <button type="button" id="ops-ads-connect" disabled>Connect AdSense</button>
+     <button type="button" id="ops-ads-refresh" hidden>Refresh revenue</button>
+     <button type="button" id="ops-ads-disconnect" hidden>Disconnect AdSense</button>
+    </div>
+   </div>
+   <label class="ops-remember"><input type="checkbox" id="ops-ads-remember" checked/> Keep AdSense connected in this tab until the Google session expires</label>
+   <p id="ops-ads-status" class="ops-status" role="status" aria-live="polite">Connect read-only AdSense to check approval and revenue.</p>
+   <div class="ops-ads-statusline"><span>Site approval</span><strong id="ops-ads-approval">Not checked</strong><span id="ops-ads-site-label">sunnah.tools</span></div>
+   <p class="ops-revenue-help">AdSense is still reviewing the site. Before approval, you can set up <a href="https://www.google.com/adsense/" target="_blank" rel="noopener noreferrer">Privacy &amp; messaging</a> and confirm <a href="/ads.txt" target="_blank" rel="noopener noreferrer">ads.txt</a>. After approval, create two manual responsive ad units and keep Auto ads off. Ad serving is not enabled from this dashboard. <a href="https://www.google.com/adsense/" target="_blank" rel="noopener noreferrer">Check AdSense → Sites</a>.</p>
+   <div id="ops-ads-data" hidden>
+    <div class="ops-revenue-kpis" aria-label="Site-specific earnings">
+     <div><span>Estimated today</span><strong id="ops-ads-today">—</strong></div>
+     <div><span>Yesterday</span><strong id="ops-ads-yesterday">—</strong></div>
+     <div><span>This month</span><strong id="ops-ads-month">—</strong></div>
+     <div><span>Last 30 days</span><strong id="ops-ads-30days">—</strong></div>
+    </div>
+    <section class="ops-panel ops-timeline" aria-labelledby="ops-revenue-chart-title">
+     <div class="ops-panel-heading"><h3 id="ops-revenue-chart-title">Estimated earnings over time</h3><span>Daily · last 30 days</span></div>
+     <div id="ops-revenue-chart" class="ops-chart" aria-label="Daily AdSense earnings"></div>
+    </section>
+    <div class="ops-revenue-mini" aria-label="Ad performance over the last 30 days">
+     <div><span>Ad impressions</span><strong id="ops-ads-impressions">—</strong></div>
+     <div><span>Ad clicks</span><strong id="ops-ads-clicks">—</strong></div>
+     <div><span>AdSense page views</span><strong id="ops-ads-pageviews">—</strong></div>
+     <div><span>Page RPM</span><strong id="ops-ads-rpm">—</strong></div>
+     <div><span>Impression CTR</span><strong id="ops-ads-ctr">—</strong></div>
+    </div>
+    <div class="ops-breakdowns ops-payment-breakdowns">
+     <section class="ops-panel"><div class="ops-panel-heading"><h3>Account-wide unpaid balance</h3></div><p class="ops-payment-value" id="ops-ads-balance">—</p></section>
+     <section class="ops-panel"><div class="ops-panel-heading"><h3>Last account payment</h3></div><p class="ops-payment-value" id="ops-ads-payment">—</p></section>
+    </div>
+    <p class="ops-report-foot">Estimated earnings above are filtered to sunnah.tools only. The two payment amounts belong to the entire accessible AdSense account and might include other sites; they are not site-specific income. Monetary figures use AdSense's own reporting currency. Empty or missing data is shown as unavailable, never estimated from visitor counts.</p>
+   </div>
+  </section>
   <div class="ops-section-title"><h2>Owner tools</h2><p>Search visibility, advertising, content and deployment.</p></div>
   <nav class="ops-links" aria-label="Owner operations">
    <a href="https://search.google.com/search-console/" target="_blank" rel="noopener noreferrer"><span>Search Console</span><small>Search queries, indexing and clicks</small></a>
@@ -57,5 +95,7 @@ const configured=Boolean(siteReporting.propertyId&&siteReporting.oauthClientId);
 </Base>
 <script>
  import {initGA4Dashboard} from '../../scripts/ga4Dashboard.js';
+ import {initAdsenseDashboard} from '../../scripts/adsenseDashboard.js';
  initGA4Dashboard(document);
+ initAdsenseDashboard(document);
 </script>

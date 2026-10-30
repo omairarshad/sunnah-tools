@@ -19,7 +19,7 @@ export function makeGA4Reports(days=28){
  });
  return {requests:[
   spec([],['activeUsers','sessions','screenPageViews','eventCount'],1),
-  spec(['date'],['activeUsers','screenPageViews'],100),
+  spec(['date'],['activeUsers','sessions','screenPageViews'],100),
   spec(['pagePath'],['screenPageViews','activeUsers'],12),
   spec(['sessionDefaultChannelGroup'],['sessions'],8),
   spec(['eventName'],['eventCount'],12),
@@ -50,7 +50,7 @@ export function parseGA4Response(data){
  const first=rows(0)[0];
  return {
   kpis:{users:m(first,0),sessions:m(first,1),views:m(first,2),events:m(first,3)},
-  timeline:rows(1).map(r=>({date:d(r),users:m(r,0),views:m(r,1)})),
+  timeline:rows(1).map(r=>({date:d(r),users:m(r,0),sessions:m(r,1),views:m(r,2)})),
   pages:rows(2).map(r=>({name:d(r),views:m(r,0),users:m(r,1)})),
   channels:rows(3).map(r=>({name:d(r),value:m(r)})),
   events:rows(4).map(r=>({name:d(r),value:m(r)})),

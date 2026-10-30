@@ -6,7 +6,7 @@ const dir=resolve('artifacts/reporting-dashboard');mkdirSync(dir,{recursive:true
 const issues=[],checks=[];
 const row=(d,m)=>({dimensionValues:d.map(value=>({value:String(value)})),metricValues:m.map(value=>({value:String(value)}))});
 const sample={reports:[
- {rows:[row([],['14','19','42','75'])]},{rows:[row(['20261029'],['14','42'])]},
+ {rows:[row([],['14','19','42','75'])]},{rows:[row(['20261029'],['14','19','42'])]},
  {rows:[row(['/tools/prayer-times/'],['21','8'])]},{rows:[row(['Organic Search'],['12'])]},
  {rows:[row(['page_view'],['42'])]},{rows:[row(['United Kingdom'],['14'])]}
 ]};
@@ -19,9 +19,32 @@ try{
    const page=await ctx.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));
    await page.route('https://accounts.google.com/gsi/client',route=>route.fulfill({
     status:200,contentType:'application/javascript',
-    body:"window.google={accounts:{oauth2:{initTokenClient:function(options){return {requestAccessToken:function(){window.__testAuthCalls=(window.__testAuthCalls||0)+1;options.callback({access_token:'test_token_only',expires_in:3600,scope:'https://www.googleapis.com/auth/analytics.readonly'})}}}}}};"
+    body:"window.google={accounts:{oauth2:{initTokenClient:function(options){return {requestAccessToken:function(){window.__testAuthCalls=(window.__testAuthCalls||0)+1;var ads=options.scope.includes('adsense');options.callback({access_token:ads?'ads_token_only':'test_token_only',expires_in:3600,scope:options.scope})}}}}}};"
    }));
    let requests=0,liveRequests=0,validRequest=true,lastRange='';
+   let siteReady=false,adsReportCalls=0,adsSiteFilterValid=true;
+   await page.route('https://adsense.googleapis.com/v2/**',route=>{
+    const u=new URL(route.request().url);
+    if(route.request().headers().authorization!=='Bearer ads_token_only')adsSiteFilterValid=false;
+    const json=o=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(o)});
+    if(u.pathname==='/v2/accounts')return json({accounts:[{name:'accounts/pub-123'}]});
+    if(u.pathname==='/v2/accounts/pub-123/sites')return json({sites:[{domain:'sunnah.tools',state:siteReady?'READY':'GETTING_READY',reportingDimensionId:'site-123'}]});
+    if(u.pathname==='/v2/accounts/pub-123/payments')return json({payments:[{name:'accounts/pub-123/payments/unpaid',amount:'£5.00'}]});
+    if(u.pathname==='/v2/accounts/pub-123/reports:generate'){
+     adsReportCalls++;
+     if(u.searchParams.get('filters')!=='OWNED_SITE_ID==site-123')adsSiteFilterValid=false;
+     const daily=u.searchParams.get('dimensions')==='DATE';
+     if(daily)return json({headers:[{name:'DATE'},{name:'ESTIMATED_EARNINGS',type:'METRIC_CURRENCY',currencyCode:'GBP'}],rows:[
+      {cells:[{value:'2026-10-29'},{value:'0.12'}]},
+      {cells:[{value:'2026-10-30'},{value:'0.25'}]}
+     ]});
+     return json({headers:[
+      {name:'ESTIMATED_EARNINGS',type:'METRIC_CURRENCY',currencyCode:'GBP'},
+      {name:'PAGE_VIEWS'},{name:'IMPRESSIONS'},{name:'CLICKS'},{name:'PAGE_VIEWS_RPM'},{name:'IMPRESSIONS_CTR'}
+     ],totals:{cells:[{value:'0.37'},{value:'50'},{value:'20'},{value:'1'},{value:'7.40'},{value:'0.05'}]}});
+    }
+    return route.abort();
+   });
    await page.route('https://analyticsdata.googleapis.com/v1beta/properties/123456789:runRealtimeReport',route=>{
     liveRequests++;
     const body=JSON.parse(route.request().postData()||'{}');
@@ -56,6 +79,9 @@ try{
    if(requests!==4||liveRequests!==2)issues.push(tag+' refresh did not restore reports');
    if(await page.locator('#ops-sessions').textContent()!=='19')issues.push(tag+' incorrect metric');
    if(!(await page.locator('#ops-pages').textContent()).includes('/tools/prayer-times/'))issues.push(tag+' missing top page');
+   await page.locator('#ops-chart-metric').selectOption('sessions');
+   if(!(await page.locator('#ops-chart svg').getAttribute('aria-label')).includes('Sessions'))issues.push(tag+' chart metric selector not working');
+   await page.locator('#ops-chart-metric').selectOption('views');
    const w=await page.evaluate(()=>document.documentElement.scrollWidth);
    if(w>width+4)issues.push(tag+' horizontal overflow '+w+' > '+width);
    await page.screenshot({path:resolve(dir,mode+'-'+theme+'-report.png'),animations:'disabled'});
@@ -71,7 +97,19 @@ try{
    await page.getByRole('button',{name:'Refresh data'}).click();
    await page.waitForFunction(()=>document.getElementById('ops-status')?.textContent?.includes('Mock GA4 invalid report request'),{timeout:12000});
    if(!await page.locator('#ops-data').isHidden())issues.push(tag+' stale data visible after API error');
-   await page.getByRole('button',{name:'Disconnect'}).click();
+   await page.getByRole('button',{name:'Connect AdSense'}).click();
+   await page.waitForFunction(()=>document.getElementById('ops-ads-approval')?.textContent==='Getting ready',{timeout:12000});
+   if(adsReportCalls!==0||!await page.locator('#ops-ads-data').isHidden())issues.push(tag+' earnings displayed before approval');
+   siteReady=true;
+   await page.getByRole('button',{name:'Refresh revenue'}).click();
+   await page.waitForFunction(()=>document.getElementById('ops-ads-today')?.textContent==='£0.37',{timeout:12000});
+   if(adsReportCalls!==5||!adsSiteFilterValid)issues.push(tag+' AdSense site filtering or report count incorrect');
+   if(await page.locator('#ops-ads-rpm').textContent()!=='£7.40')issues.push(tag+' AdSense RPM missing');
+   if(await page.locator('#ops-ads-balance').textContent()!=='£5.00')issues.push(tag+' account payment missing');
+   if(!await page.locator('#ops-revenue-chart svg').count())issues.push(tag+' revenue graph missing');
+   await page.getByRole('button',{name:'Disconnect AdSense'}).click();
+   if(await page.evaluate(()=>sessionStorage.getItem('sunnah-adsense-token-v1')))issues.push(tag+' AdSense token not removed');
+   await page.getByRole('button',{name:'Disconnect',exact:true}).click();
    if(!await page.locator('#ops-data').isHidden())issues.push(tag+' data still shown after disconnect');
    if(await page.evaluate(()=>sessionStorage.getItem('sunnah-ga4-dashboard-token-v1')))issues.push(tag+' token remains after disconnect');
    await page.reload({waitUntil:'domcontentloaded'});
