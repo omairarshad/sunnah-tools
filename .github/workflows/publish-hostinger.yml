@@ -80,7 +80,13 @@ jobs:
           ! grep -q 'ca-pub-5803311676381609' dist/index.html
           ! grep -q 'pub-5803311676381609' dist/ads.txt
           grep -q 'name="google-adsense-account" content="ca-pub-4083891573415148"' dist/tools/prayer-times/index.html
-          test $(grep -o 'class="tool-card-visual"' dist/index.html | wc -l) -eq 37
+          test $(grep -o 'class="tool-card-visual"' dist/index.html | wc -l) -eq 44
+          for slug in hijama-date-planner duha-prayer-time istikhara-guide friday-sunnah-checklist islamic-will-planner aqiqah-planner sunnah-fasting-planner; do
+            test -s "dist/tools/$slug/index.html"
+            test -s "dist/tool-art/$slug.svg"
+          done
+          ! grep -q 'quranenc.com' dist/index.html
+          ! grep -q 'seekersguidance.org' dist/index.html
           ! grep -q 'class="tool-card-icon"' dist/index.html
           test -s dist/tool-art/prayer-times.svg
           test -s dist/tool-art/umrah-packing-checklist.svg
