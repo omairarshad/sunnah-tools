@@ -40,7 +40,7 @@ assert(mark.includes('viewBox="0 0 64 64"')&&mark.includes('#194D3F')&&mark.incl
 assert(favicon.includes('#194D3F')&&favicon.includes('#F4F1E9'),'Favicon must match the directional brand');
 assert(home.includes('class="intro-index"')&&!home.includes('class="intro-ornament"'),'Homepage compact brand index must replace the old crescent ornament');
 const homeConfig=JSON.parse(readFileSync(resolve('src/data/homepage.json'),'utf8'));
-assert(homeConfig.layout.sectionOrder[0]==='directory','Tools must appear before promotions on the homepage');
+assert(homeConfig.layout.sectionOrder[0]==='promotions'&&homeConfig.layout.sectionOrder[1]==='directory','Our other projects must appear directly after the intro and before the tool directory');
 const identityCSS=readFileSync(resolve('src/styles/identity-2026.css'),'utf8');
 for(const essential of ['.home-intro','html[data-theme="dark"] .home-intro','.tool-inner .result','.tool-guide-fold','@media(max-width:530px)'])assert(identityCSS.includes(essential),'Editorial identity system missing '+essential);
 const theme=readFileSync(resolve('src/styles/premium.css'),'utf8');
