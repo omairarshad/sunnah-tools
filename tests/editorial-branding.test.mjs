@@ -6,8 +6,8 @@ test('Compact home banner removes decorative crescent and prioritises tools',()=
  const home=read('src/pages/index.astro'),config=JSON.parse(read('src/data/homepage.json'));
  assert.match(home,/class="intro-index"/);
  assert.doesNotMatch(home,/class="intro-ornament"/);
- assert.equal(config.layout.sectionOrder[0],'directory');
- assert.equal(config.layout.sectionOrder[1],'promotions');
+ assert.equal(config.layout.sectionOrder[0],'promotions');
+ assert.equal(config.layout.sectionOrder[1],'directory');
  assert.equal(config.promotions.cards.filter(x=>x.enabled).length,3);
 });
 test('New original SVG mark retains accessible wordmark and independent favicon',()=>{
