@@ -92,3 +92,8 @@ html[data-theme=dark] .ops-ads-statusline{border-color:#394846}
 html[data-theme=dark] .ops-report-actions button#ops-ads-connect,html[data-theme=dark] .ops-report-actions button#ops-ads-refresh{background:#82c5a2;color:#153627;border-color:#82c5a2}
 @media(max-width:900px){.ops-revenue-mini{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:640px){.ops-revenue-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.ops-revenue-mini{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* GA4 users, sessions and page-view chart selector */
+.ops-chart-control{display:inline-flex;align-items:center;gap:8px;font:500 12px/1.4 var(--font-body);color:var(--brand-copy)}
+.ops-chart-control select{background:var(--brand-soft);border:1px solid var(--brand-line);border-radius:5px;color:var(--brand-ink);padding:7px 9px;font:600 12px/1.2 var(--font-body)}
+html[data-theme=dark] .ops-chart-control select{background:#30383a;color:#ebf2ed;border-color:#4e5b55}
