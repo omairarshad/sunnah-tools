@@ -2,7 +2,6 @@ import {hijriParts,hijriMonth,adjacentMonth,HIJRI_MONTHS} from './hijriCalendars
 import {dateFromISO,isoPlusDays} from './growthCalculations.mjs';
 
 /** Date-only logic uses UTC noon and an explicitly labelled Umm al-Qura estimate. */
-const iso=d=>d.toISOString().slice(0,10);
 export const validISO=value=>typeof value==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(value)&&!!dateFromISO(value);
 export const dateText=value=>{
  if(!validISO(value))return 'Invalid date';
@@ -19,20 +18,24 @@ export function hijamaPlan(anchorISO,months=12,shift=0){
   if(!h)break;
   const dates=[17,19,21].map(day=>{
    const cell=h.cells.find(x=>x?.day===day);
-   return cell?{day,iso:isoPlusDays(cell.iso,shift),originalISO:cell.iso}:null;
-  }).filter(Boolean);
+   const shifted=cell?isoPlusDays(cell.iso,shift):null;
+   return cell&&shifted?{day,iso:shifted,originalISO:cell.iso}:null;
+  }).filter(d=>d!==null);
   if(dates.some(d=>d.iso>=anchorISO))entries.push({year:h.year,month:h.month,name:h.name,dates});
  }
  return {entries,anchorISO,shift};
 }
 export function sunnahFastingPlan(anchorISO,days=90,shift=0){
  if(!validISO(anchorISO)||![30,90,180].includes(days)||![-1,0,1].includes(shift))return null;
- const start=new Date(anchorISO+'T12:00:00Z'),results=[];
+ const results=[];
  for(let i=0;i<days;i++){
   const dayISO=isoPlusDays(anchorISO,i);
+  if(!dayISO)continue;
   const date=new Date(dayISO+'T12:00:00Z');
   // The calendar shift is illustrative only: it does not establish sighting.
-  const calendarDate=new Date(isoPlusDays(dayISO,-shift)+'T12:00:00Z');
+  const calendarISO=isoPlusDays(dayISO,-shift);
+  if(!calendarISO)continue;
+  const calendarDate=new Date(calendarISO+'T12:00:00Z');
   const h=hijriParts(calendarDate);
   if(!h)continue;
   const weekday=date.getUTCDay();
@@ -53,9 +56,11 @@ export function sunnahFastingPlan(anchorISO,days=90,shift=0){
 }
 export function aqiqahDates(birthISO){
  if(!validISO(birthISO))return null;
- return {birthISO,daySeven:isoPlusDays(birthISO,6),alternative:isoPlusDays(birthISO,7),
-   // Alternative here illustrates different counting conventions, not a second prescribed day.
-   dayFourteen:isoPlusDays(birthISO,13),dayTwentyOne:isoPlusDays(birthISO,20)};
+ const daySeven=isoPlusDays(birthISO,6),alternative=isoPlusDays(birthISO,7);
+ const dayFourteen=isoPlusDays(birthISO,13),dayTwentyOne=isoPlusDays(birthISO,20);
+ if(!daySeven||!alternative||!dayFourteen||!dayTwentyOne)return null;
+ // The alternative illustrates another possible counting convention, not a prescribed day.
+ return {birthISO,daySeven,alternative,dayFourteen,dayTwentyOne};
 }
 export function duhaWindow(sunrise,dhuhr,afterSunrise=20,beforeDhuhr=10){
  const parse=value=>{
@@ -76,9 +81,11 @@ export function datePlanICS(entries,label,stamp=new Date()){
  const seen=new Set();
  for(const e of entries){
   const key=e.iso+'-'+e.title;if(seen.has(key))continue;seen.add(key);
+  const next=isoPlusDays(e.iso,1);
+  if(!next)throw new RangeError('Calendar date outside the supported range');
   lines.push('BEGIN:VEVENT','UID:'+e.iso.replaceAll('-','')+'-'+seen.size+'@sunnah.tools',
    'DTSTAMP:'+stampText,'DTSTART;VALUE=DATE:'+e.iso.replaceAll('-',''),
-   'DTEND;VALUE=DATE:'+isoPlusDays(e.iso,1).replaceAll('-',''),
+   'DTEND;VALUE=DATE:'+next.replaceAll('-',''),
    'SUMMARY:'+escapeIcs(e.title),
    'DESCRIPTION:'+escapeIcs('Estimated date only. Confirm local moon sighting and applicable religious guidance.'),
    'END:VEVENT');

@@ -1,6 +1,7 @@
 ---
 const {slug}=Astro.props;
-const guides={
+type Guide={heading:string;intro:string;sections:[string,string][];sources:[string,string][]};
+const guides:Record<string,Guide>={
  'hijama-date-planner':{
   heading:'What are Hijama dates?',intro:'Hijama is a form of cupping. Some narrations mention the 17th, 19th and 21st days of a lunar month. Our planner shows those dates using a calculated Hijri calendar; it is not a medical scheduling recommendation.',
   sections:[
@@ -58,7 +59,7 @@ const guides={
   ],sources:[['Sunan Abi Dawud 2436 – Monday and Thursday','https://sunnah.com/abudawud:2436'],['Sunan Abi Dawud 2449 – White Days','https://sunnah.com/abudawud:2449'],['Sahih Muslim 1141a – Tashriq days','https://sunnah.com/muslim:1141a']]
  }
 };
-const guide=guides[slug];
+const guide=guides[String(slug??'')];
 ---
 {guide&&<section class="new-sunnah-guide" aria-labelledby="new-guide-title">
  <h2 id="new-guide-title">{guide.heading}</h2>

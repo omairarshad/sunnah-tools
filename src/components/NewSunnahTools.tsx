@@ -88,7 +88,7 @@ const fridayItems=[
 ];
 const nextFridayISO=()=>{const now=new Date(),offset=(5-now.getDay()+7)%7;now.setDate(now.getDate()+offset);return localISODate(now)};
 export function FridayChecklist(){
- const [friday,setFriday]=useState(nextFridayISO),[checked,setChecked]=useState<string[]>([]),[ready,setReady]=useState(false);
+ const [friday]=useState(nextFridayISO),[checked,setChecked]=useState<string[]>([]),[ready,setReady]=useState(false);
  useEffect(()=>{try{const saved=JSON.parse(localStorage.getItem('sunnah-friday-checklist-v1')||'null');if(saved?.date===friday&&Array.isArray(saved.items))setChecked(saved.items.filter((id:unknown)=>typeof id==='string'&&fridayItems.some(i=>i.id===id)))}catch{}setReady(true)},[friday]);
  useEffect(()=>{if(!ready)return;try{localStorage.setItem('sunnah-friday-checklist-v1',JSON.stringify({date:friday,items:checked}))}catch{}},[ready,friday,checked]);
  const toggle=(id:string)=>setChecked(old=>old.includes(id)?old.filter(x=>x!==id):[...old,id]);
