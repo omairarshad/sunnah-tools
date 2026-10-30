@@ -95,6 +95,15 @@
         "imageAlt": "A night sky, crescent moon and prayer mat"
       },
       {
+        "slug": "duha-prayer-time",
+        "title": "Duha Prayer Time Calculator",
+        "description": "Find an approximate Duha window between sunrise and Dhuhr.",
+        "tone": "amber",
+        "enabled": true,
+        "image": "/tool-art/duha-prayer-time.svg",
+        "imageAlt": "Sunrise above a low poly landscape showing the Duha prayer window"
+      },
+      {
         "slug": "printable-prayer-chart",
         "title": "Printable Prayer Chart",
         "description": "Print a 7, 14 or 30-day Salah checklist.",
@@ -203,6 +212,15 @@
         "imageAlt": "Calendar with four checked fasting days and pending dates"
       },
       {
+        "slug": "sunnah-fasting-planner",
+        "title": "Sunnah Fasting Planner",
+        "description": "Plan Mondays, Thursdays, White Days and special voluntary fasts.",
+        "tone": "violet",
+        "enabled": true,
+        "image": "/tool-art/sunnah-fasting-planner.svg",
+        "imageAlt": "Lunar calendar with highlighted voluntary fasting days"
+      },
+      {
         "slug": "zakat-calculator",
         "title": "Zakat Calculator",
         "description": "Estimate Zakat on savings, gold and investments.",
@@ -302,6 +320,15 @@
         "imageAlt": "Birthday calendar with a lunar year age badge"
       },
       {
+        "slug": "hijama-date-planner",
+        "title": "Hijama Date Planner",
+        "description": "Explore 17th, 19th and 21st Hijri dates with calendar reminders.",
+        "tone": "mint",
+        "enabled": true,
+        "image": "/tool-art/hijama-date-planner.svg",
+        "imageAlt": "Lunar calendar showing the seventeenth nineteenth and twenty-first dates"
+      },
+      {
         "slug": "dhul-hijjah-planner",
         "title": "Dhul Hijjah & Arafah Dates",
         "description": "See the estimated first ten days of Dhul Hijjah and Arafah date.",
@@ -318,6 +345,42 @@
         "enabled": true,
         "image": "/tool-art/umrah-packing-checklist.svg",
         "imageAlt": "Pilgrimage travel suitcase with an Umrah passport"
+      },
+      {
+        "slug": "aqiqah-planner",
+        "title": "Aqiqah Planner",
+        "description": "Estimate the seventh-day date and arrange an Aqiqah.",
+        "tone": "coral",
+        "enabled": true,
+        "image": "/tool-art/aqiqah-planner.svg",
+        "imageAlt": "Soft geometric child blanket artwork for Aqiqah planning"
+      },
+      {
+        "slug": "islamic-will-planner",
+        "title": "Islamic Will Planner",
+        "description": "Organise private questions for inheritance and legal advisers.",
+        "tone": "rose",
+        "enabled": true,
+        "image": "/tool-art/islamic-will-planner.svg",
+        "imageAlt": "Low-poly illustrated legal document and seal for preparing a will"
+      },
+      {
+        "slug": "friday-sunnah-checklist",
+        "title": "Friday Sunnah Checklist",
+        "description": "Source-linked, private Jumuah preparation checklist.",
+        "tone": "emerald",
+        "enabled": true,
+        "image": "/tool-art/friday-sunnah-checklist.svg",
+        "imageAlt": "Low-poly clipboard with checkmarks for Friday Sunnah preparation"
+      },
+      {
+        "slug": "istikhara-guide",
+        "title": "Istikhara Prayer Guide",
+        "description": "Follow the two-rakat prayer and learn the Istikhara dua.",
+        "tone": "blue",
+        "enabled": true,
+        "image": "/tool-art/istikhara-guide.svg",
+        "imageAlt": "Low-poly prayer mat with crescent for Istikhara guidance"
       },
       {
         "slug": "tasbih-counter",

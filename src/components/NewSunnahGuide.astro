@@ -1,0 +1,76 @@
+---
+const {slug}=Astro.props;
+const guides={
+ 'hijama-date-planner':{
+  heading:'What are Hijama dates?',intro:'Hijama is a form of cupping. Some narrations mention the 17th, 19th and 21st days of a lunar month. Our planner shows those dates using a calculated Hijri calendar; it is not a medical scheduling recommendation.',
+  sections:[
+   ['Date method','We convert calculated Umm al-Qura Hijri dates into Gregorian days. The Islamic day begins at sunset, so an all-day date reminder cannot settle the exact local sunset boundary. Different moon-sighting authorities may report a date one day earlier or later.'],
+   ['Hadith evidence','Sunan Abi Dawud 3861 reports these dates. Its chain and the overall strength of recommendations about particular weekdays have been discussed by hadith specialists. Avoid declaring a universal medical benefit or making a specific day religiously mandatory.'],
+   ['Health and safety','Evidence for benefits of cupping remains limited, particularly for conditions beyond pain. Wet cupping punctures the skin and may cause bleeding, infection or other complications. Avoid self-treatment and seek medical advice before an invasive procedure, particularly with medication, anaemia or clotting concerns.']
+  ],sources:[['Sunan Abi Dawud 3861','https://sunnah.com/abudawud:3861'],['NCCIH – Cupping evidence and safety','https://www.nccih.nih.gov/health/cupping']]
+ },
+ 'duha-prayer-time':{
+  heading:'How to find the Duha prayer window',intro:'Duha is a voluntary daytime prayer. Its time begins after the sunrise prohibition and continues until shortly before the sun reaches its highest point, when the Dhuhr window approaches.',
+  sections:[
+   ['Sunrise and zenith','Sunrise is not itself the beginning of Duha. Our suggested start adds 20 minutes, and the cautious finish subtracts 10 minutes from the calculated Dhuhr start. These are planning margins, not universally established religious thresholds.'],
+   ['Number of rak\u2019ahs','Two voluntary rak\u2019ahs are a common starting point. Scholarly views differ on the fuller range and preferred number. For high-latitude locations and local timetable methods, confirm the chosen mosque convention.'],
+   ['Worked example','If sunrise is 07:00 and Dhuhr begins at 12:30, the suggested planner interval is 07:20–12:20. This does not replace a local mosque or scholar\u2019s guidance.']
+  ],sources:[['Sahih Muslim 720a – Two rak\u2019ahs of Duha','https://sunnah.com/muslim:720a'],['Sahih Muslim 748a – Time of Duha','https://sunnah.com/muslim:748a']]
+ },
+ 'istikhara-guide':{
+  heading:'How to pray Salat al-Istikhara',intro:'Istikhara means seeking Allah\u2019s guidance when deciding between permissible courses of action. It is not a method of predicting the future or replacing good judgement.',
+  sections:[
+   ['Four practical steps','Perform purification, pray two voluntary rak\u2019ahs other than obligatory prayer, recite the reported supplication and mention the matter, then continue with thoughtful consultation and action.'],
+   ['What the supplication asks','The dua asks Allah to grant what is beneficial for religion, worldly life and ultimate outcome, to turn away harmful choices and to grant contentment with what is good.'],
+   ['Dreams and feelings','A dream, colour, special sensation or immediate sign is not a requirement in the authentic narration. If unsure, consult wise people, check relevant facts and keep making dua.']
+  ],sources:[['Sahih al-Bukhari 1166 – Istikhara dua','https://sunnah.com/bukhari:1166'],['Sahih al-Bukhari 6382 – Another location of the report','https://sunnah.com/bukhari:6382']]
+ },
+ 'friday-sunnah-checklist':{
+  heading:'Preparing for Jumu\u2019ah',intro:'Friday is a weekly opportunity for worship, cleanliness, prayer and remembrance. This checklist combines well-known reports and links to their original sources.',
+  sections:[
+   ['Cleanliness and going to prayer','Friday ghusl is strongly emphasised in authentic reports, with discussion among jurists about its legal classification. Attend the khutbah attentively and avoid distracting others.'],
+   ['Surah Al-Kahf and salawat','Reading Surah Al-Kahf and increasing blessings upon the Prophet ﷺ are commonly encouraged; the reports about specific Friday virtues have different assessments. Study the evidence rather than treating every checklist item as obligatory.'],
+   ['How the tracker works','The checkboxes are stored locally for a single Friday and reset when you open the planner in another week. The checklist is for voluntary personal organisation, not a religious score.']
+  ],sources:[['Sahih Muslim 846a – Friday ghusl','https://sunnah.com/muslim:846a'],['Sunan Abi Dawud 343 – Friday preparation','https://sunnah.com/abudawud:343'],['Quran 18 – Al-Kahf','https://quran.com/18']]
+ },
+ 'islamic-will-planner':{
+  heading:'Islamic will planning in the UK',intro:'A will helps you prepare for family responsibilities, debts and charitable wishes. Islamic rules about heirs and bequests and national legal requirements must both be considered.',
+  sections:[
+   ['Why this is a preparation worksheet','Our form only organises topics you might discuss with experts: assets, liabilities, potential heirs, guardians, executor, charitable wishes and records. It does not produce legally binding wording or distribute the estate.'],
+   ['Legal requirements in England and Wales','A legally valid will usually requires the testator\u2019s signature in the presence of two adult witnesses, who also sign in the testator\u2019s presence. Witnesses and their spouses generally cannot benefit under that will. Scotland and Northern Ireland have different requirements.'],
+   ['Islamic shares and bequests','Quran 4:11–12 and 4:176 discuss prescribed inheritance portions. Specific cases depend on surviving relatives, debts and other details. Classical bequest rules often restrict gifts to non-heirs to one-third unless appropriate heirs consent, with significant legal and fiqh subtleties. Get qualified advice rather than calculating from an incomplete family list.']
+  ],sources:[['GOV.UK – Making a will','https://www.gov.uk/make-will'],['Law Society – Making a will','https://www.lawsociety.org.uk/public/for-public-visitors/common-legal-issues/making-a-will'],['Quran 4:11 – Inheritance','https://quran.com/4/11']]
+ },
+ 'aqiqah-planner':{
+  heading:'Aqiqah timing and arrangements',intro:'Aqiqah is an Islamic practice associated with the birth of a child. A well-known hadith mentions a sacrifice on the seventh day, along with naming and shaving the head.',
+  sections:[
+   ['How the date is counted','The planner counts the date of birth as day one for a simple seventh-day illustration. Birth near sunset and some schools\u2019 counting conventions can change which civil date is intended, so an alternative date is also shown as a comparison.'],
+   ['What about the 14th or 21st day?','Some jurists discuss later opportunities if the seventh day is missed, and views vary on timing, number of animals and relevant circumstances. Do not treat this page as one universally binding opinion.'],
+   ['Planning the practical arrangements','Speak with a knowledgeable scholar and reputable provider about slaughter, animal welfare, food distribution, local regulations and any specific questions for your family.']
+  ],sources:[['Sunan Abi Dawud 2838 – Aqiqah and seventh day','https://sunnah.com/abudawud:2838'],['Sunan an-Nasai 4212 – Aqiqah practice','https://sunnah.com/nasai:4212']]
+ },
+ 'sunnah-fasting-planner':{
+  heading:'Planning voluntary fasts through the year',intro:'The planner gathers Mondays, Thursdays, White Days and some significant recommended fasts. It is designed to plan optional observances while avoiding days on which ordinary voluntary fasting is prohibited or superseded by Ramadan.',
+  sections:[
+   ['Mondays, Thursdays and White Days','Reported practices include fasting on Mondays and Thursdays, and on the 13th, 14th and 15th Hijri dates. The planner may show overlapping motivations on a single date but exports only one calendar reminder per date.'],
+   ['Ashura and Arafah','Ashura falls on 10 Muharram; scholarly advice commonly includes an accompanying day. Arafah falls on 9 Dhul Hijjah, with specific considerations for pilgrims. These are included as references, not automatic personal obligations.'],
+   ['Excluded dates and uncertainty','The planner excludes Ramadan as a separate voluntary fast, Eid al-Fitr, Eid al-Adha and the days of Tashriq from optional calendar reminders. Calculated Umm al-Qura dates can differ from local moon-sighting announcements. Consult a clinician when fasting may affect your health.']
+  ],sources:[['Sunan Abi Dawud 2436 – Monday and Thursday','https://sunnah.com/abudawud:2436'],['Sunan Abi Dawud 2449 – White Days','https://sunnah.com/abudawud:2449'],['Sahih Muslim 1141a – Tashriq days','https://sunnah.com/muslim:1141a']]
+ }
+};
+const guide=guides[slug];
+---
+{guide&&<section class="new-sunnah-guide" aria-labelledby="new-guide-title">
+ <h2 id="new-guide-title">{guide.heading}</h2>
+ <p>{guide.intro}</p>
+ {guide.sections.map(([title,description])=><section><h3>{title}</h3><p>{description}</p></section>)}
+ <section><h3>Sources and further reading</h3><ul>{guide.sources.map(([title,url])=><li><a href={url} rel="noopener noreferrer" target="_blank">{title} ↗</a></li>)}</ul></section>
+</section>}
+<style>
+.new-sunnah-guide{padding:23px 0;margin:21px 0;border-top:1px solid var(--brand-line);border-bottom:1px solid var(--brand-line);display:grid;gap:17px;line-height:1.75}
+.new-sunnah-guide h2{margin:0;font:600 clamp(23px,2vw,29px)/1.25 var(--font-display)}
+.new-sunnah-guide h3{margin:0 0 6px;font:650 16px/1.4 var(--font-body)}
+.new-sunnah-guide p{margin:0;font-size:13px;color:var(--brand-copy)}
+.new-sunnah-guide ul{margin:0;padding-left:19px;display:grid;gap:9px}
+.new-sunnah-guide a{font-size:13px;text-decoration:underline}
+</style>

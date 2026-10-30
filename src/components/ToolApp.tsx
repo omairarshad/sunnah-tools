@@ -1,4 +1,5 @@
 import {useEffect,useState} from 'react';
+import {HijamaDatePlanner,DuhaCalculator,IstikharaGuide,FridayChecklist,IslamicWillPlanner,AqiqahPlanner,SunnahFastingPlanner} from './NewSunnahTools';
 import {TravelPrayerDeep,IslamicEventsDeep,PrintableHijriDeep,DhulHijjahDeep,HalalAdditivesDeep} from './FinalSevenTools';
 import CitySearch from './CitySearch';
 import {QadaPrayerCalculator,TawafSaiCounter} from './GrowthTools';
@@ -180,6 +181,13 @@ function SalahTracker(){
 }
 
 export default function ToolApp({slug}:{slug:string}){
+ if(slug==='hijama-date-planner')return <HijamaDatePlanner/>;
+ if(slug==='duha-prayer-time')return <DuhaCalculator/>;
+ if(slug==='istikhara-guide')return <IstikharaGuide/>;
+ if(slug==='friday-sunnah-checklist')return <FridayChecklist/>;
+ if(slug==='islamic-will-planner')return <IslamicWillPlanner/>;
+ if(slug==='aqiqah-planner')return <AqiqahPlanner/>;
+ if(slug==='sunnah-fasting-planner')return <SunnahFastingPlanner/>;
  if(slug==='travel-prayer-guide')return <TravelPrayerDeep/>;
  if(slug==='islamic-events-calendar')return <IslamicEventsDeep/>;
  if(slug==='printable-hijri-calendar')return <PrintableHijriDeep/>;

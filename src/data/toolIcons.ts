@@ -1,5 +1,12 @@
 // Decorative SVG path outlines. Text labels always accompany these icons.
 export const iconPaths:Record<string,string[]>={
+'hijama-date-planner':["M4 5h16v16H4z","M8 2v6","M16 2v6","M4 10h16","M7 15h2","M12 15h2","M17 15h2"],
+'duha-prayer-time':["M4 17a8 8 0 0 1 16 0","M12 3v4","M3 21h18","M6 10l-2-2","M18 10l2-2"],
+'istikhara-guide':["M3 17l9-12 9 12z","M7 20h10","M12 9v8","M9 13h6"],
+'friday-sunnah-checklist':["M4 4h16v16H4z","m7 10 2 2 4-4","M11 16h6"],
+'islamic-will-planner':["M6 2h12l3 3v17H6z","M9 10h9","M9 14h9","m9 18 3-2"],
+'aqiqah-planner':["M12 4c4-2 7 0 8 4v10H4V8c1-4 4-6 8-4Z","M8 14c3 3 5 3 8 0"],
+'sunnah-fasting-planner':["M4 5h16v16H4z","M8 2v6","M16 2v6","M4 10h16","M9 15h3","M15 15h2"],
 'prayer-times':['M12 3v3','M12 18v3','M3 12h3','M18 12h3','M5.64 5.64l2.12 2.12','M16.24 16.24l2.12 2.12','M5.64 18.36l2.12-2.12','M16.24 7.76l2.12-2.12','M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8'],
 'fasting-times':['M2 12h20','M4 17a8 8 0 0 1 16 0','M5 7l2-2','M12 3v3','M19 7l-2-2','M6 20h12'],
 'qibla-finder':['m12 2 7 17-7-3-7 3 7-17Z','M12 16v6'],

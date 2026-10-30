@@ -28,9 +28,9 @@ test('homepage no longer includes the redundant featured mini-card section',()=>
  assert.equal(page.promotions.title,'Our other projects');
 });
 
-test('all 37 tool cards have unique, safe illustration paths and descriptive alt text',()=>{
+test('all 44 tool cards have unique, safe illustration paths and descriptive alt text',()=>{
  const cards=page.directory.cards;
- assert.equal(cards.length,37);
+ assert.equal(cards.length,44);
  assert.equal(new Set(cards.map(c=>c.image)).size,37);
  for(const card of cards){
   assert.ok(safeToolImage(card.image),'invalid tool artwork: '+card.slug);
@@ -45,7 +45,7 @@ test('tool imagery is restricted to local paths, not remote or executable URLs',
 
 test('tool directory defaults to six desktop columns for faster browsing',()=>{
  assert.equal(page.directory.columns,6);
- assert.equal(page.directory.cards.length,37);
+ assert.equal(page.directory.cards.length,44);
 });
 
 test('curated Islamic websites appear in a separate section after tool guides',()=>{
@@ -55,6 +55,13 @@ test('curated Islamic websites appear in a separate section after tool guides',(
  assert.match(component,/Useful Islamic websites|usefulLinks|resources-heading/);
  assert.match(homepage,/import UsefulLinks/);
  assert.ok(homepage.indexOf('<UsefulLinks/>')>homepage.indexOf('aria-labelledby="learning-heading"'));
- for(const domain of ['https://quran.com/','https://sunnah.com/','https://corpus.quran.com/','https://quranenc.com/en/home','https://seekersguidance.org/','https://umrah.nusuk.sa/'])assert.ok(resource.includes(domain),domain);
+ for(const domain of ['https://quran.com/','https://sunnah.com/','https://corpus.quran.com/','https://umrah.nusuk.sa/'])assert.ok(resource.includes(domain),domain);
  assert.match(component,/rel="noopener noreferrer"/);
+});
+
+test('the seven additional tools have distinct routes and removed links are absent',()=>{
+ const required=['hijama-date-planner','duha-prayer-time','istikhara-guide','friday-sunnah-checklist','islamic-will-planner','aqiqah-planner','sunnah-fasting-planner'];
+ for(const slug of required)assert.equal(page.directory.cards.filter(c=>c.slug===slug).length,1,slug);
+ const links=readFileSync(new URL('../src/data/usefulLinks.ts',import.meta.url),'utf8');
+ assert.doesNotMatch(links,/quranenc\.com|seekersguidance\.org/i);
 });

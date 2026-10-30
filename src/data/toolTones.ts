@@ -1,5 +1,12 @@
 /** Per-tool accents intentionally repeat across a small accessible palette, rather than making every card identical. */
 export const toneForSlug=(slug:string):string=>({
+ 'hijama-date-planner':'mint',
+ 'duha-prayer-time':'amber',
+ 'istikhara-guide':'blue',
+ 'friday-sunnah-checklist':'emerald',
+ 'islamic-will-planner':'rose',
+ 'aqiqah-planner':'coral',
+ 'sunnah-fasting-planner':'violet',
  'prayer-times':'teal','fasting-times':'amber','qibla-finder':'blue','tahajjud-time':'violet',
  'ramadan-timetable':'coral','ramadan-countdown':'rose','zakat-calculator':'emerald','gold-zakat-calculator':'amber','fitrana-calculator':'coral',
  'nisab-calculator':'violet','islamic-events-calendar':'blue','hijri-converter':'teal','islamic-age':'rose',

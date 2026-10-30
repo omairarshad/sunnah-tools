@@ -37,6 +37,13 @@ export const tools = [
  {slug:'quran-juz-finder',name:"Quran Juz Finder",desc:"Find the start of each of the Quran's 30 Juz.",icon:'✦',category:'Everyday',keywords:'Quran juz index list surah ayah hizb'},
  {slug:'zakat-stocks-crypto',name:"Stocks & Crypto Zakat Estimate",desc:"Review a conditional Zakat estimate for shares and cryptocurrency.",icon:'✦',category:'Zakat',keywords:'zakat stocks shares crypto cryptocurrency bitcoin portfolio 2.5 percent'},
  {slug:'hifz-tracker',name:"Hifz Memorisation Tracker",desc:"Plan a memorisation target and record completed verses.",icon:'✦',category:'Everyday',keywords:'hifz Quran memorization tracker ayat plan verses'}
+ {slug:'hijama-date-planner',name:"Hijama Date Planner",desc:"Explore 17th, 19th and 21st Hijri dates with calendar reminders.",icon:'✦',category:'Dates',keywords:"hijama dates 2027 cupping islamic lunar calendar"},
+ {slug:'duha-prayer-time',name:"Duha Prayer Time Calculator",desc:"Find an approximate Duha window between sunrise and Dhuhr.",icon:'✦',category:'Prayer',keywords:"duha prayer times ishraq sunrise calculator"},
+ {slug:'istikhara-guide',name:"Istikhara Prayer Guide",desc:"Follow the two-rakat prayer and learn the Istikhara dua.",icon:'✦',category:'Everyday',keywords:"istikhara dua arabic transliteration how to pray"},
+ {slug:'friday-sunnah-checklist',name:"Friday Sunnah Checklist",desc:"Source-linked, private Jumuah preparation checklist.",icon:'✦',category:'Everyday',keywords:"friday sunnah jumuah checklist ghusl salawat"},
+ {slug:'islamic-will-planner',name:"Islamic Will Planner",desc:"Organise private questions for inheritance and legal advisers.",icon:'✦',category:'Everyday',keywords:"islamic will UK inheritance planning worksheet"},
+ {slug:'aqiqah-planner',name:"Aqiqah Planner",desc:"Estimate the seventh-day date and arrange an Aqiqah.",icon:'✦',category:'Everyday',keywords:"aqiqah seventh day birth date planner"},
+ {slug:'sunnah-fasting-planner',name:"Sunnah Fasting Planner",desc:"Plan Mondays, Thursdays, White Days and special voluntary fasts.",icon:'✦',category:'Ramadan',keywords:"sunnah fasting dates white days mondays thursdays calendar"},
 ] as const;
 export type ToolSlug = typeof tools[number]['slug'];
 export const toolBySlug = Object.fromEntries(tools.map(tool=>[tool.slug,tool])) as Record<ToolSlug,typeof tools[number]>;

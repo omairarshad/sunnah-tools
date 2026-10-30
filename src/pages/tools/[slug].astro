@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import NewSunnahGuide from '../../components/NewSunnahGuide.astro';
 import '../../styles/tool-accordion.css';
 import AdPlacement from '../../components/AdPlacement.astro';
 import ToolApp from '../../components/ToolApp';
@@ -59,6 +60,13 @@ const faqItems=[{question:guide.question,answer:guide.answer},...seo.faqs];
 const faqSchema={'@context':'https://schema.org','@type':'FAQPage',mainEntity:faqItems.map(item=>({'@type':'Question',name:item.question,acceptedAnswer:{'@type':'Answer',text:item.answer}}))};
 // Editorial references are visible in the corresponding server-rendered guides.
 const editorialSources:Record<string,{topic:string;citations:string[]}>= {
+ 'hijama-date-planner':{topic:"Hijama Date Planner",citations:["https://sunnah.com/abudawud:3861","https://www.nccih.nih.gov/health/cupping"]},
+ 'duha-prayer-time':{topic:"Duha Prayer Time Calculator",citations:["https://sunnah.com/muslim:720a"]},
+ 'istikhara-guide':{topic:"Istikhara Prayer Guide",citations:["https://sunnah.com/bukhari:1166"]},
+ 'friday-sunnah-checklist':{topic:"Friday Sunnah Checklist",citations:["https://sunnah.com/muslim:846a","https://quran.com/18"]},
+ 'islamic-will-planner':{topic:"Islamic Will Planner",citations:["https://quran.com/4/11","https://www.gov.uk/make-will"]},
+ 'aqiqah-planner':{topic:"Aqiqah Planner",citations:["https://sunnah.com/abudawud:2838"]},
+ 'sunnah-fasting-planner':{topic:"Sunnah Fasting Planner",citations:["https://sunnah.com/abudawud:2436","https://sunnah.com/abudawud:2449"]},
  'ramadan-countdown':{topic:'Ramadan start date and sunset countdown',citations:['https://quran.com/2/185','https://quran.com/2/187','https://sunnah.com/bukhari:1909','https://github.com/batoulapps/adhan-js']},
  'laylatul-qadr-nights':{topic:'Laylatul Qadr and the final ten nights of Ramadan',citations:['https://quran.com/97','https://sunnah.com/bukhari:2017','https://sunnah.com/bukhari:2021','https://sunnah.com/tirmidhi:3513']},
  'white-days-calendar':{topic:'Ayyam al-Bid White Days fasting calendar',citations:['https://sunnah.com/abudawud:2449','https://sunnah.com/muslim:1160','https://sunnah.com/muslim:1141a','https://quran.com/2/185']},
@@ -268,6 +276,7 @@ const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemL
     <div class="tool-inner"><ToolApp slug={slug} client:only="react"/></div>
    </section>
    <div class="tool-knowledge-area" id="tool-knowledge" aria-label="Detailed reference guide">
+   {['hijama-date-planner','duha-prayer-time','istikhara-guide','friday-sunnah-checklist','islamic-will-planner','aqiqah-planner','sunnah-fasting-planner'].includes(slug)&&<NewSunnahGuide slug={slug}/>}
    {slug==='tahajjud-time'&&<TahajjudGuide/>}
    {slug==='prayer-times'&&<PrayerTimesGuide/>}
    {slug==='qibla-finder'&&<QiblaGuide/>}

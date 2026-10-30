@@ -3,10 +3,11 @@ import {resolve} from 'node:path';
 const toolSource=readFileSync(resolve('src/data/tools.ts'),'utf8');
 const slugs=[...toolSource.matchAll(/slug:'([a-z0-9-]+)'/g)].map(m=>m[1]);
 const read=path=>readFileSync(resolve('dist',path),'utf8');
+const latestSunnahTools=['hijama-date-planner','duha-prayer-time','istikhara-guide','friday-sunnah-checklist','islamic-will-planner','aqiqah-planner','sunnah-fasting-planner'];
 const newSlugs=['laylatul-qadr-nights','fidya-calculator','qada-prayer-calculator','qurbani-share-calculator','kaffarah-calculator','tawaf-sai-counter','prayer-rakats-chart','daily-adhkar','halal-additives-checker','zakat-anniversary-calculator','dhul-hijjah-planner','travel-prayer-guide','quran-juz-finder','zakat-stocks-crypto','hifz-tracker'];
 const assert=(test,msg)=>{if(!test)throw new Error('Site audit failed: '+msg)};
-assert(slugs.length===37,'Expected 37 Islamic tools after release');
-for(const item of newSlugs)assert(slugs.includes(item),'New tool missing from registry: '+item);
+assert(slugs.length===44,'Expected 44 Islamic tools after release');
+for(const item of [...newSlugs,...latestSunnahTools])assert(slugs.includes(item),'New tool missing from registry: '+item);
 const home=read('index.html');
 assert(home.includes('id="tool-search-input"'),'Homepage search is missing');
 assert(home.includes('id="tool-grid"'),'Homepage directory grid missing');
@@ -26,7 +27,9 @@ assert(home.includes('https://www.youtube.com/@IslamReact'),'IslamReact channel 
 assert(home.includes('https://meemandmoon.com/'),'Meem & Moon promo missing');
 assert(home.includes('data-promo-id="arabic-alphabet"'),'Arabic promo event instrumentation missing');
 assert(home.includes('id="useful-islamic-websites"'),'Useful Islamic websites section missing');
-for(const target of ['https://quran.com/','https://sunnah.com/','https://corpus.quran.com/','https://quranenc.com/en/home','https://seekersguidance.org/','https://umrah.nusuk.sa/'])assert(home.includes(target),'Curated useful link missing: '+target);
+assert(!home.includes('quranenc.com')&&!home.includes('seekersguidance.org'),'Excluded resource links must not appear');
+for(const slug of latestSunnahTools){assert(home.includes('href="/tools/'+slug+'/"'),'New tool directory link missing: '+slug);assert(read('tool-art/'+slug+'.svg').includes('<svg'),'Low-poly tool artwork missing: '+slug)}
+for(const target of ['https://quran.com/','https://sunnah.com/','https://corpus.quran.com/','https://umrah.nusuk.sa/'])assert(home.includes(target),'Curated useful link missing: '+target);
 assert(!home.includes('data-filter="saved"')&&!home.includes('data-favorite=')&&!home.includes('sunnah-favorite-tools-v1'),'Obsolete favourites interface or state remains');
 assert(home.includes('id="recent-section"')&&home.includes('id="recent-links"'),'Recently opened links must be retained');
 assert(home.includes('id="tool-search-input"')&&home.includes('data-filter="prayer"'),'Search and category filters should remain');
