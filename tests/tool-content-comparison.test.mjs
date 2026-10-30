@@ -7,8 +7,8 @@ const match=src.match(/export const toolInsights:Record<string,ToolInsight> = (\
 assert.ok(match,'Static insights dataset must be available for all tool pages');
 const insights=JSON.parse(match[1]);
 const slugs=[...read('src/data/tools.ts').matchAll(/slug:'([a-z0-9-]+)'/g)].map(x=>x[1]);
-test('all 37 tool pages include original examples, distinct warnings, and comparison references',()=>{
- assert.equal(slugs.length,37);
+test('all 44 tool pages include original examples, distinct warnings, and comparison references',()=>{
+ assert.equal(slugs.length,44);
  assert.deepEqual(Object.keys(insights).sort(),slugs.slice().sort());
  for(const [slug,info] of Object.entries(insights)){
   assert.ok(info.example.length>45,slug+' example');
@@ -17,7 +17,7 @@ test('all 37 tool pages include original examples, distinct warnings, and compar
   assert.ok(['direct','related'].includes(info.benchmark.match),slug+' benchmark distinction');
   assert.ok(info.faq.question.endsWith('?')&&info.faq.answer.length>=60,slug+' original FAQ');
  }
- assert.equal(new Set(Object.values(insights).map(x=>x.example)).size,37);
+ assert.equal(new Set(Object.values(insights).map(x=>x.example)).size,44);
  const template=read('src/pages/tools/[slug].astro');
  assert.match(template,/insight\.example/);
  assert.match(template,/insight\.check/);

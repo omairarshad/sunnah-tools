@@ -31,7 +31,7 @@ test('homepage no longer includes the redundant featured mini-card section',()=>
 test('all 44 tool cards have unique, safe illustration paths and descriptive alt text',()=>{
  const cards=page.directory.cards;
  assert.equal(cards.length,44);
- assert.equal(new Set(cards.map(c=>c.image)).size,37);
+ assert.equal(new Set(cards.map(c=>c.image)).size,44);
  for(const card of cards){
   assert.ok(safeToolImage(card.image),'invalid tool artwork: '+card.slug);
   assert.ok(card.imageAlt.length>=22,'alt description must describe subject: '+card.slug);

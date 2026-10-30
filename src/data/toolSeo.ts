@@ -236,15 +236,42 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
     "details": "Enter an expected first Gregorian fast date and actual location. A UTC-based sunset countdown updates in the browser and separates the first evening from the following Fajr. Compare possible neighbouring dates and download an estimated calendar event.",
     "caution": "An algorithmic Umm al-Qura calendar estimate or calculated sunset is not an observed crescent or a binding local announcement. Confirm dates and Fajr/Maghrib with a recognised authority.",
     "faqs": [
-      {"question":"Does Ramadan start at midnight or sunset?","answer":"A new Hijri day begins at sunset. If Monday is the first daytime fast, the first Ramadan evening begins at local sunset on Sunday."},
-      {"question":"Is this an official Ramadan moon-sighting countdown?","answer":"No. It counts to a calculated sunset before your entered first fast; local crescent announcements may change that date."},
-      {"question":"Why does Ramadan begin on different days in different places?","answer":"Communities may follow different crescent observations or calendar criteria, and sunrise/sunset vary by location. Follow your recognised local authority."},
-      {"question":"How is Ramadan sunset calculated?","answer":"The Adhan astronomical calculation yields a UTC Maghrib instant for the chosen location. It is displayed in the selected IANA timezone."},
-      {"question":"When is Ramadan 2027 expected?","answer":"Calendar calculations suggest possible dates, but they are not an official announcement. Enter the first fasting date recognised by your local community before relying on the countdown."},
-      {"question":"What if my community announces the first fast a day later?","answer":"Change the entered Gregorian first fasting day. Update any previously downloaded calendar event; it does not change automatically."},
-      {"question":"Does the countdown adjust for daylight saving time?","answer":"Yes. It counts to an absolute UTC instant, displayed using the selected location's IANA timezone."},
-      {"question":"Why might sunset be unavailable?","answer":"Invalid coordinates/timezone or unusual polar conditions may prevent a valid calculation. The tool does not replace an unavailable result with an invented time."},
-      {"question":"Does reaching zero prove Ramadan started?","answer":"No. It only means the chosen estimated sunset instant passed. It cannot observe the crescent or establish a religious date."}
+      {
+        "question": "Does Ramadan start at midnight or sunset?",
+        "answer": "A new Hijri day begins at sunset. If Monday is the first daytime fast, the first Ramadan evening begins at local sunset on Sunday."
+      },
+      {
+        "question": "Is this an official Ramadan moon-sighting countdown?",
+        "answer": "No. It counts to a calculated sunset before your entered first fast; local crescent announcements may change that date."
+      },
+      {
+        "question": "Why does Ramadan begin on different days in different places?",
+        "answer": "Communities may follow different crescent observations or calendar criteria, and sunrise/sunset vary by location. Follow your recognised local authority."
+      },
+      {
+        "question": "How is Ramadan sunset calculated?",
+        "answer": "The Adhan astronomical calculation yields a UTC Maghrib instant for the chosen location. It is displayed in the selected IANA timezone."
+      },
+      {
+        "question": "When is Ramadan 2027 expected?",
+        "answer": "Calendar calculations suggest possible dates, but they are not an official announcement. Enter the first fasting date recognised by your local community before relying on the countdown."
+      },
+      {
+        "question": "What if my community announces the first fast a day later?",
+        "answer": "Change the entered Gregorian first fasting day. Update any previously downloaded calendar event; it does not change automatically."
+      },
+      {
+        "question": "Does the countdown adjust for daylight saving time?",
+        "answer": "Yes. It counts to an absolute UTC instant, displayed using the selected location's IANA timezone."
+      },
+      {
+        "question": "Why might sunset be unavailable?",
+        "answer": "Invalid coordinates/timezone or unusual polar conditions may prevent a valid calculation. The tool does not replace an unavailable result with an invented time."
+      },
+      {
+        "question": "Does reaching zero prove Ramadan started?",
+        "answer": "No. It only means the chosen estimated sunset instant passed. It cannot observe the crescent or establish a religious date."
+      }
     ]
   },
   "zakat-calculator": {
@@ -439,16 +466,46 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
     "details": "Choose a reference date, number of months and optional illustrative ±1 day comparison. Each month shows the full set of days, passed dates and fasting status. Download a complete CSV, eligible all-day calendar markers or a PDF printout.",
     "caution": "Umm al-Qura calculations do not establish local moon sightings. Ramadan fasts are obligatory, and the 13th of Dhul Hijjah falls during Tashreeq, not an ordinary optional fast.",
     "faqs": [
-      {"question":"Which Hijri dates are the White Days?","answer":"The 13th, 14th and 15th of each lunar Hijri month, not the corresponding dates of the Gregorian month."},
-      {"question":"Is White Days fasting compulsory?","answer":"It is ordinarily a recommended voluntary practice outside Ramadan and dates with separate rulings. The calendar does not decide personal eligibility."},
-      {"question":"Can I fast any three days of the month?","answer":"Sahih Muslim 1160 discusses monthly three-day fasting without making a specific set of days exclusive; White Days form a named recommended pattern."},
-      {"question":"Should I fast on 13 Dhul Hijjah?","answer":"It is a day of Tashreeq, not an ordinary voluntary fast. Specific Hajj-related circumstances may need separate qualified guidance."},
-      {"question":"What about White Days during Ramadan?","answer":"The 13th–15th remain Hijri calendar dates, but those fasts belong to obligatory Ramadan fasting, not an additional optional routine."},
-      {"question":"Why do White Days move across Gregorian dates?","answer":"Hijri months follow a lunar calendar and contain 29 or 30 days. Local sighting conventions can also shift corresponding civil dates."},
-      {"question":"What does the ±1 day selector mean?","answer":"It displays neighbouring Gregorian dates for comparison and does not confirm a local moon sighting or decree the correct calendar."},
-      {"question":"Can I download 12 months as a CSV?","answer":"Yes. The full CSV includes each month’s three dates and labels for Ramadan, Tashreeq, past and potential voluntary days."},
-      {"question":"Does the .ics file include prohibited or obligatory fasts?","answer":"It exports only upcoming dates labelled potential ordinary voluntary days; Ramadan and Dhul Hijjah 13 are excluded."},
-      {"question":"Does the calendar tell me Fajr and iftar times?","answer":"No. It produces all-day date markers. Use Suhoor & Iftar Times for local dawn and sunset estimates."}
+      {
+        "question": "Which Hijri dates are the White Days?",
+        "answer": "The 13th, 14th and 15th of each lunar Hijri month, not the corresponding dates of the Gregorian month."
+      },
+      {
+        "question": "Is White Days fasting compulsory?",
+        "answer": "It is ordinarily a recommended voluntary practice outside Ramadan and dates with separate rulings. The calendar does not decide personal eligibility."
+      },
+      {
+        "question": "Can I fast any three days of the month?",
+        "answer": "Sahih Muslim 1160 discusses monthly three-day fasting without making a specific set of days exclusive; White Days form a named recommended pattern."
+      },
+      {
+        "question": "Should I fast on 13 Dhul Hijjah?",
+        "answer": "It is a day of Tashreeq, not an ordinary voluntary fast. Specific Hajj-related circumstances may need separate qualified guidance."
+      },
+      {
+        "question": "What about White Days during Ramadan?",
+        "answer": "The 13th–15th remain Hijri calendar dates, but those fasts belong to obligatory Ramadan fasting, not an additional optional routine."
+      },
+      {
+        "question": "Why do White Days move across Gregorian dates?",
+        "answer": "Hijri months follow a lunar calendar and contain 29 or 30 days. Local sighting conventions can also shift corresponding civil dates."
+      },
+      {
+        "question": "What does the ±1 day selector mean?",
+        "answer": "It displays neighbouring Gregorian dates for comparison and does not confirm a local moon sighting or decree the correct calendar."
+      },
+      {
+        "question": "Can I download 12 months as a CSV?",
+        "answer": "Yes. The full CSV includes each month’s three dates and labels for Ramadan, Tashreeq, past and potential voluntary days."
+      },
+      {
+        "question": "Does the .ics file include prohibited or obligatory fasts?",
+        "answer": "It exports only upcoming dates labelled potential ordinary voluntary days; Ramadan and Dhul Hijjah 13 are excluded."
+      },
+      {
+        "question": "Does the calendar tell me Fajr and iftar times?",
+        "answer": "No. It produces all-day date markers. Use Suhoor & Iftar Times for local dawn and sunset estimates."
+      }
     ]
   },
   "islamic-age": {
@@ -587,12 +644,30 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
         "question": "Will my old fasting counter be lost?",
         "answer": "No. A valid previous sunnah-fasts counter is migrated to an undated completed tally without creating fake calendar dates."
       },
-      {"question":"Does the fasting tracker calculate what I owe?","answer":"No. Quran 2:185 speaks of make-up days, but the correct count, exemptions and any feeding remedies require qualified case-specific guidance."},
-      {"question":"Can I record a fast in the future?","answer":"No. This is a log of completed days; future civil dates and duplicated date entries are rejected."},
-      {"question":"Can I download my fasting history?","answer":"Yes. Download a private JSON backup for restoration, a labelled CSV including older undated entries, or print your current view."},
-      {"question":"Where is my fasting progress saved?","answer":"On this device in browser local storage, with no account sync. Clearing storage or changing devices may remove it unless you export a backup."},
-      {"question":"Can I restore a JSON fasting backup?","answer":"Yes. A backup is validated before being restored, and replacing your current local plan requires confirmation."},
-      {"question":"Do I need Fidya or Kaffarah for a missed fast?","answer":"Not automatically. Qada, Fidya and Kaffarah apply to distinct circumstances; a qualified religious authority must assess your situation."}
+      {
+        "question": "Does the fasting tracker calculate what I owe?",
+        "answer": "No. Quran 2:185 speaks of make-up days, but the correct count, exemptions and any feeding remedies require qualified case-specific guidance."
+      },
+      {
+        "question": "Can I record a fast in the future?",
+        "answer": "No. This is a log of completed days; future civil dates and duplicated date entries are rejected."
+      },
+      {
+        "question": "Can I download my fasting history?",
+        "answer": "Yes. Download a private JSON backup for restoration, a labelled CSV including older undated entries, or print your current view."
+      },
+      {
+        "question": "Where is my fasting progress saved?",
+        "answer": "On this device in browser local storage, with no account sync. Clearing storage or changing devices may remove it unless you export a backup."
+      },
+      {
+        "question": "Can I restore a JSON fasting backup?",
+        "answer": "Yes. A backup is validated before being restored, and replacing your current local plan requires confirmation."
+      },
+      {
+        "question": "Do I need Fidya or Kaffarah for a missed fast?",
+        "answer": "Not automatically. Qada, Fidya and Kaffarah apply to distinct circumstances; a qualified religious authority must assess your situation."
+      }
     ]
   },
   "printable-prayer-chart": {
@@ -691,15 +766,42 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
     "details": "Enter the locally announced first fasting date and choose provisional month length. The tool lists when every numbered Islamic night begins at sunset, with printable and calendar-marker exports. A source-linked guide covers Quran 97, authentic hadith, the dua and practical worship.",
     "caution": "Laylatul Qadr cannot be predicted for a specific numbered or Gregorian night. The 27th is not guaranteed. Moon sightings and month length can change dates; all-day event markers are not sunset alarms.",
     "faqs": [
-      {"question":"When is Laylatul Qadr in 2027?","answer":"No calendar can identify it with certainty. Enter your locally announced Ramadan start to see the potential final ten evenings and commonly highlighted odd-numbered nights."},
-      {"question":"Is Laylatul Qadr always on the 27th night?","answer":"No. Sahih al-Bukhari 2017 encourages seeking it in the odd nights of the final ten; a particular numbered night is not guaranteed."},
-      {"question":"Which are the five odd-numbered Ramadan nights?","answer":"When numbered from the beginning: nights 21, 23, 25, 27 and 29. Worship throughout the final ten rather than only these five."},
-      {"question":"When does the 21st night start?","answer":"It starts at local sunset after the twentieth daytime fast, before the civil daytime date of Ramadan 21."},
-      {"question":"How do the final ten differ in a 29-day Ramadan?","answer":"In a 29-night month the final ten are nights 20–29; in a 30-night month they are nights 21–30."},
-      {"question":"What does counting odd nights from the end mean?","answer":"Some hadith wording refers to nights remaining until the end. Parity can differ from numbering forward, depending on whether the month has 29 or 30 nights."},
-      {"question":"Which Laylatul Qadr dua is reported?","answer":"Jami at-Tirmidhi 3513 reports a dua asking Allah for pardon; the guide gives a sourced Arabic text, transliteration and meaning."},
-      {"question":"Can I download all the last ten nights?","answer":"Yes. Export all ten or only the five odd-numbered evening markers, but these are all-day dates rather than accurate sunset-time alarms."},
-      {"question":"Do I need my local Ramadan first fast date?","answer":"Yes. The planner uses that date to count nights; a computed Umm al-Qura suggestion cannot establish your community's moon-sighting decision."}
+      {
+        "question": "When is Laylatul Qadr in 2027?",
+        "answer": "No calendar can identify it with certainty. Enter your locally announced Ramadan start to see the potential final ten evenings and commonly highlighted odd-numbered nights."
+      },
+      {
+        "question": "Is Laylatul Qadr always on the 27th night?",
+        "answer": "No. Sahih al-Bukhari 2017 encourages seeking it in the odd nights of the final ten; a particular numbered night is not guaranteed."
+      },
+      {
+        "question": "Which are the five odd-numbered Ramadan nights?",
+        "answer": "When numbered from the beginning: nights 21, 23, 25, 27 and 29. Worship throughout the final ten rather than only these five."
+      },
+      {
+        "question": "When does the 21st night start?",
+        "answer": "It starts at local sunset after the twentieth daytime fast, before the civil daytime date of Ramadan 21."
+      },
+      {
+        "question": "How do the final ten differ in a 29-day Ramadan?",
+        "answer": "In a 29-night month the final ten are nights 20–29; in a 30-night month they are nights 21–30."
+      },
+      {
+        "question": "What does counting odd nights from the end mean?",
+        "answer": "Some hadith wording refers to nights remaining until the end. Parity can differ from numbering forward, depending on whether the month has 29 or 30 nights."
+      },
+      {
+        "question": "Which Laylatul Qadr dua is reported?",
+        "answer": "Jami at-Tirmidhi 3513 reports a dua asking Allah for pardon; the guide gives a sourced Arabic text, transliteration and meaning."
+      },
+      {
+        "question": "Can I download all the last ten nights?",
+        "answer": "Yes. Export all ten or only the five odd-numbered evening markers, but these are all-day dates rather than accurate sunset-time alarms."
+      },
+      {
+        "question": "Do I need my local Ramadan first fast date?",
+        "answer": "Yes. The planner uses that date to count nights; a computed Umm al-Qura suggestion cannot establish your community's moon-sighting decision."
+      }
     ]
   },
   "fidya-calculator": {
@@ -726,11 +828,26 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
         "question": "Is the displayed £6 worked example a real UK rate?",
         "answer": "No. It is an invented teaching example, not a current price or religious rate. Confirm a relevant local rate before planning a payment."
       },
-      {"question":"Is Fidya automatically owed for every missed Ramadan fast?","answer":"No. Many situations instead involve make-up fasting. Consult qualified guidance about the particular reason, ability and school followed."},
-      {"question":"Can I pay cash instead of food for Fidya?","answer":"The validity of cash substitution and required feeding amount or form can differ by school and provider. A currency calculation does not establish permission."},
-      {"question":"Is Fidya the same as Kaffarah or Fitrana?","answer":"No. They are separate obligations or expiation categories; the calculator does not make them interchangeable."},
-      {"question":"Can I download a Fidya breakdown?","answer":"Yes. Export a local text summary or print, including person-by-person arithmetic and a warning that eligibility is not determined."},
-      {"question":"Are my Fidya days and rates stored?","answer":"No. These financial inputs are used only while the page is open. Nothing is uploaded or collected for a payment."}
+      {
+        "question": "Is Fidya automatically owed for every missed Ramadan fast?",
+        "answer": "No. Many situations instead involve make-up fasting. Consult qualified guidance about the particular reason, ability and school followed."
+      },
+      {
+        "question": "Can I pay cash instead of food for Fidya?",
+        "answer": "The validity of cash substitution and required feeding amount or form can differ by school and provider. A currency calculation does not establish permission."
+      },
+      {
+        "question": "Is Fidya the same as Kaffarah or Fitrana?",
+        "answer": "No. They are separate obligations or expiation categories; the calculator does not make them interchangeable."
+      },
+      {
+        "question": "Can I download a Fidya breakdown?",
+        "answer": "Yes. Export a local text summary or print, including person-by-person arithmetic and a warning that eligibility is not determined."
+      },
+      {
+        "question": "Are my Fidya days and rates stored?",
+        "answer": "No. These financial inputs are used only while the page is open. Nothing is uploaded or collected for a payment."
+      }
     ]
   },
   "qada-prayer-calculator": {
@@ -809,11 +926,26 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
         "question": "Are two successive lunar months exactly 60 days?",
         "answer": "Not necessarily. A lunar month can have 29 or 30 days; the exact rule and continuity should be checked with a scholar, not converted into a fixed civil-day count."
       },
-      {"question":"Does every broken Ramadan fast need Kaffarah?","answer":"No. The specific act and circumstances matter. Do not apply the sixty-person scenario to every missed, accidental or deliberately broken fast."},
-      {"question":"Can I use fasting instead of feeding for an oath?","answer":"Quran 5:89 places the three-day fasting alternative after the listed means when unable; the calculator does not determine whether that condition applies."},
-      {"question":"Is there one Kaffarah cash amount in the UK?","answer":"No. Enter a verified local cost for a purely conditional feeding or clothing illustration; the form and lawfulness of payment need confirmation."},
-      {"question":"Can I estimate clothing instead of feeding?","answer":"The oath mode can show ten clothing recipients per reviewed distinct case, with a user-supplied unit cost. It is not a determination that the option applies."},
-      {"question":"Does Kaffarah Calculator store my details or collect payments?","answer":"No. Input is temporary browser state. Optional text summaries are made on your device, with no donation checkout or payment collection."}
+      {
+        "question": "Does every broken Ramadan fast need Kaffarah?",
+        "answer": "No. The specific act and circumstances matter. Do not apply the sixty-person scenario to every missed, accidental or deliberately broken fast."
+      },
+      {
+        "question": "Can I use fasting instead of feeding for an oath?",
+        "answer": "Quran 5:89 places the three-day fasting alternative after the listed means when unable; the calculator does not determine whether that condition applies."
+      },
+      {
+        "question": "Is there one Kaffarah cash amount in the UK?",
+        "answer": "No. Enter a verified local cost for a purely conditional feeding or clothing illustration; the form and lawfulness of payment need confirmation."
+      },
+      {
+        "question": "Can I estimate clothing instead of feeding?",
+        "answer": "The oath mode can show ten clothing recipients per reviewed distinct case, with a user-supplied unit cost. It is not a determination that the option applies."
+      },
+      {
+        "question": "Does Kaffarah Calculator store my details or collect payments?",
+        "answer": "No. Input is temporary browser state. Optional text summaries are made on your device, with no donation checkout or payment collection."
+      }
     ]
   },
   "tawaf-sai-counter": {
@@ -1040,11 +1172,158 @@ export const toolSeo:Record<string,ToolSeoEntry> = {
       }
     ]
   },
-"hijama-date-planner":{"title":"Hijama Dates 2027 – 17th, 19th & 21st Hijri Planner","h1":"Hijama Dates and Lunar Calendar","description":"Find upcoming Hijama lunar date references, 17, 19 and 21 Hijri, with Gregorian dates and calendar exports. Includes hadith caveats and wet cupping safety.","summary":"View calculated upcoming Hijri date references and optional reminders.","details":"Choose a Gregorian date, months ahead and an illustrative one-day adjustment. Dates are generated using the calculated Umm al-Qura calendar, not a confirmed local sighting.","caution":"Cupping is not proven to cure diseases. Wet cupping carries infection and bleeding risks. Calendar dates do not establish medical necessity or the authenticity of every Hijama date report.","faqs":[{"question":"Is cupping on the 17th, 19th and 21st medically necessary?","answer":"No. These are lunar date references from some narrations, not medically proven dates or a requirement."},{"question":"Where do the dates or instructions come from?","answer":"The interactive tool links to its primary Quran, hadith or official reference sources; calendar dates are estimates where applicable."}]},
-"duha-prayer-time":{"title":"Duha Prayer Time Today – Sunrise to Dhuhr Calculator","h1":"Duha Prayer Time Calculator","description":"Estimate when Duha prayer can be offered based on calculated sunrise and Dhuhr or manually entered local prayer times.","summary":"Estimate a cautious Duha prayer window for the chosen date.","details":"Select a city for sunrise and Dhuhr calculations, or enter your mosque\\u2019s values. The planner starts 20 minutes after sunrise and stops 10 minutes before Dhuhr as illustrative margins.","caution":"Differences in methodology, high latitudes and juridical views affect these approximate margins. Verify the prayer window locally.","faqs":[{"question":"Is Duha prayed at the moment of sunrise?","answer":"No. Duha begins after the prohibited sunrise interval has passed and ends before solar noon."},{"question":"Where do the dates or instructions come from?","answer":"The interactive tool links to its primary Quran, hadith or official reference sources; calendar dates are estimates where applicable."}]},
-"istikhara-guide":{"title":"How to Pray Istikhara – Arabic Dua and Step-by-Step Guide","h1":"Istikhara Prayer and Dua Guide","description":"Learn how to pray two voluntary rakats for Istikhara and read the Arabic dua, transliteration and an original explanation with hadith references.","summary":"Follow the prayer steps and read the source-linked Istikhara supplication.","details":"Pray two voluntary units outside obligatory worship, mention the lawful decision in the supplication and seek sound advice. The source is Sahih al-Bukhari 1166.","caution":"Istikhara does not guarantee dreams, special colours, immediate certainty or favourable outcomes.","faqs":[{"question":"Must I see a dream after Istikhara?","answer":"No. The authentic report teaches prayer and supplication; it does not require a dream."},{"question":"Where do the dates or instructions come from?","answer":"The interactive tool links to its primary Quran, hadith or official reference sources; calendar dates are estimates where applicable."}]},
-"friday-sunnah-checklist":{"title":"Friday Sunnah Checklist – Prepare for Jumuah","h1":"Friday Sunnah Preparation Checklist","description":"Use a private Friday checklist for ghusl, clothing, khutbah, Quran and salawat, with direct Quran and hadith references.","summary":"Track optional Friday preparations with a source-linked checklist.","details":"Select tasks you wish to remember. The browser stores your selections for the upcoming Friday and resets them for another week.","caution":"Not every listed recommendation has the same juristic status or hadith grading. This is a personal aid, not a duty scoring system.","faqs":[{"question":"Does the Friday checklist make every item obligatory?","answer":"No. Different reports and schools distinguish obligations, strong recommendations and optional practices."},{"question":"Where do the dates or instructions come from?","answer":"The interactive tool links to its primary Quran, hadith or official reference sources; calendar dates are estimates where applicable."}]},
-"islamic-will-planner":{"title":"Islamic Will Planner UK – Private Preparation Worksheet","h1":"Islamic Will Preparation Planner","description":"Prepare confidential notes for assets, debts, heirs, guardians, charitable intentions and questions for a UK solicitor and Islamic inheritance expert.","summary":"Organise questions for professional will and Islamic inheritance advice.","details":"The worksheet operates in browser memory only, with an optional downloaded text file. It is not a legally valid will, does not assign fixed Islamic shares, and makes no legal declarations.","caution":"England and Wales, Scotland and Northern Ireland have distinct will requirements. Consult a solicitor and qualified inheritance scholar before executing a will.","faqs":[{"question":"Does this worksheet produce a legally valid Islamic will?","answer":"No. It only helps prepare notes for legal and scholarly review; formal signing and witnessing rules apply."},{"question":"Where do the dates or instructions come from?","answer":"The interactive tool links to its primary Quran, hadith or official reference sources; calendar dates are estimates where applicable."}]},
-"aqiqah-planner":{"title":"Aqiqah Calculator – Seventh-Day Date and Checklist","h1":"Aqiqah Seventh-Day Planner","description":"Calculate a possible seventh-day Aqiqah date, compare date counting conventions, and download a reminder and practical arrangements checklist.","summary":"Estimate a seventh-day date for Aqiqah preparations.","details":"Count the birth date as day one in the main illustration; compare another convention and discuss differences with a scholar. The checklist does not book any services.","caution":"Timing, counting conventions, numbers of animals and later alternatives differ among scholars. Verify local legal and religious requirements.","faqs":[{"question":"Is the seventh-day date always the same in every school?","answer":"No. Birth time, sunset and school-specific counting can produce a different local date."},{"question":"Where do the dates or instructions come from?","answer":"The interactive tool links to its primary Quran, hadith or official reference sources; calendar dates are estimates where applicable."}]},
-"sunnah-fasting-planner":{"title":"Sunnah Fasting Calendar – Mondays, Thursdays and White Days","h1":"Sunnah Fasting Planner","description":"Plan voluntary Muslim fasting with Monday, Thursday, White Days, Ashura and Arafah dates, exclude Eid and Tashriq reminders, and download calendars.","summary":"Combine common voluntary fasting date references into one calendar.","details":"Select 30, 90 or 180 days. The planner calculates Gregorian weekdays and Umm al-Qura Hijri dates, labels overlapping occasions and excludes Ramadan, Eid and Tashriq from exported voluntary fast reminders.","caution":"Local moon sighting can change dates. Arafah fasting differs for pilgrims, and health conditions may make fasting unsuitable.","faqs":[{"question":"Does this calculator recommend fasting on Eid?","answer":"No. Eid and Tashriq dates are not included in exported voluntary fast reminders."},{"question":"Where do the dates or instructions come from?","answer":"The interactive tool links to its primary Quran, hadith or official reference sources; calendar dates are estimates where applicable."}]}
+  "hijama-date-planner": {
+    "title": "Hijama Dates 2027 – 17th, 19th & 21st Hijri Planner",
+    "h1": "Hijama Dates and Lunar Calendar",
+    "description": "Find upcoming Hijama lunar date references, 17, 19 and 21 Hijri, with Gregorian dates and calendar exports. Includes hadith caveats and wet cupping safety.",
+    "summary": "View calculated upcoming Hijri date references and optional reminders.",
+    "details": "Choose a Gregorian date, months ahead and an illustrative one-day adjustment. Dates are generated using the calculated Umm al-Qura calendar, not a confirmed local sighting.",
+    "caution": "Cupping is not proven to cure diseases. Wet cupping carries infection and bleeding risks. Calendar dates do not establish medical necessity or the authenticity of every Hijama date report.",
+    "faqs": [
+      {
+        "question": "Is cupping on the 17th, 19th and 21st medically necessary?",
+        "answer": "No. These are lunar date references from some narrations, not medically proven dates or a requirement."
+      },
+      {
+        "question": "Where do the dates or instructions come from?",
+        "answer": "The interactive tool links to its primary Quran, hadith or official reference sources; calendar dates are estimates where applicable."
+      },
+      {
+        "question": "How reliable are the calculated dates?",
+        "answer": "The plan follows the Umm al-Qura calculated calendar, which can differ from local moon sightings by a day or more. It is not a confirmed appointment or religious obligation."
+      }
+    ]
+  },
+  "duha-prayer-time": {
+    "title": "Duha Prayer Time Today – Sunrise to Dhuhr Calculator",
+    "h1": "Duha Prayer Time Calculator",
+    "description": "Estimate when Duha prayer can be offered based on calculated sunrise and Dhuhr or manually entered local prayer times.",
+    "summary": "Estimate a cautious Duha prayer window for the chosen date.",
+    "details": "Select a city for sunrise and Dhuhr calculations, or enter your mosque\\u2019s values. The planner starts 20 minutes after sunrise and stops 10 minutes before Dhuhr as illustrative margins.",
+    "caution": "Differences in methodology, high latitudes and juridical views affect these approximate margins. Verify the prayer window locally.",
+    "faqs": [
+      {
+        "question": "Is Duha prayed at the moment of sunrise?",
+        "answer": "No. Duha begins after the prohibited sunrise interval has passed and ends before solar noon."
+      },
+      {
+        "question": "Where do the dates or instructions come from?",
+        "answer": "The interactive tool links to its primary Quran, hadith or official reference sources; calendar dates are estimates where applicable."
+      },
+      {
+        "question": "Can I override my mosque's sunrise estimate?",
+        "answer": "Yes. Switch to manual times and enter your mosque's local sunrise and Dhuhr start. The displayed margins are planning approximations, not official fatwas."
+      }
+    ]
+  },
+  "istikhara-guide": {
+    "title": "How to Pray Istikhara – Arabic Dua and Step-by-Step Guide",
+    "h1": "Istikhara Prayer and Dua Guide",
+    "description": "Learn how to pray two voluntary rakats for Istikhara and read the Arabic dua, transliteration and an original explanation with hadith references.",
+    "summary": "Follow the prayer steps and read the source-linked Istikhara supplication.",
+    "details": "Pray two voluntary units outside obligatory worship, mention the lawful decision in the supplication and seek sound advice. The source is Sahih al-Bukhari 1166.",
+    "caution": "Istikhara does not guarantee dreams, special colours, immediate certainty or favourable outcomes.",
+    "faqs": [
+      {
+        "question": "Must I see a dream after Istikhara?",
+        "answer": "No. The authentic report teaches prayer and supplication; it does not require a dream."
+      },
+      {
+        "question": "Where do the dates or instructions come from?",
+        "answer": "The interactive tool links to its primary Quran, hadith or official reference sources; calendar dates are estimates where applicable."
+      },
+      {
+        "question": "Can I use this guide instead of learning the dua?",
+        "answer": "The page provides Arabic, a transliteration aid and an explanatory summary. Learn the supplication carefully from a reliable teacher or direct hadith reference."
+      }
+    ]
+  },
+  "friday-sunnah-checklist": {
+    "title": "Friday Sunnah Checklist – Prepare for Jumuah",
+    "h1": "Friday Sunnah Preparation Checklist",
+    "description": "Use a private Friday checklist for ghusl, clothing, khutbah, Quran and salawat, with direct Quran and hadith references.",
+    "summary": "Track optional Friday preparations with a source-linked checklist.",
+    "details": "Select tasks you wish to remember. The browser stores your selections for the upcoming Friday and resets them for another week.",
+    "caution": "Not every listed recommendation has the same juristic status or hadith grading. This is a personal aid, not a duty scoring system.",
+    "faqs": [
+      {
+        "question": "Does the Friday checklist make every item obligatory?",
+        "answer": "No. Different reports and schools distinguish obligations, strong recommendations and optional practices."
+      },
+      {
+        "question": "Where do the dates or instructions come from?",
+        "answer": "The interactive tool links to its primary Quran, hadith or official reference sources; calendar dates are estimates where applicable."
+      },
+      {
+        "question": "Is my Friday checklist visible to anyone else?",
+        "answer": "No account is used. The checklist stays in the browser on this device and resets when a different Friday becomes the next upcoming one."
+      }
+    ]
+  },
+  "islamic-will-planner": {
+    "title": "Islamic Will Planner UK – Private Preparation Worksheet",
+    "h1": "Islamic Will Preparation Planner",
+    "description": "Prepare confidential notes for assets, debts, heirs, guardians, charitable intentions and questions for a UK solicitor and Islamic inheritance expert.",
+    "summary": "Organise questions for professional will and Islamic inheritance advice.",
+    "details": "The worksheet operates in browser memory only, with an optional downloaded text file. It is not a legally valid will, does not assign fixed Islamic shares, and makes no legal declarations.",
+    "caution": "England and Wales, Scotland and Northern Ireland have distinct will requirements. Consult a solicitor and qualified inheritance scholar before executing a will.",
+    "faqs": [
+      {
+        "question": "Does this worksheet produce a legally valid Islamic will?",
+        "answer": "No. It only helps prepare notes for legal and scholarly review; formal signing and witnessing rules apply."
+      },
+      {
+        "question": "Where do the dates or instructions come from?",
+        "answer": "The interactive tool links to its primary Quran, hadith or official reference sources; calendar dates are estimates where applicable."
+      },
+      {
+        "question": "Where are my sensitive will-planning notes stored?",
+        "answer": "They are held in this browser page only, not saved to the site or transmitted to a server. Download your own copy if you want to retain them."
+      }
+    ]
+  },
+  "aqiqah-planner": {
+    "title": "Aqiqah Calculator – Seventh-Day Date and Checklist",
+    "h1": "Aqiqah Seventh-Day Planner",
+    "description": "Calculate a possible seventh-day Aqiqah date, compare date counting conventions, and download a reminder and practical arrangements checklist.",
+    "summary": "Estimate a seventh-day date for Aqiqah preparations.",
+    "details": "Count the birth date as day one in the main illustration; compare another convention and discuss differences with a scholar. The checklist does not book any services.",
+    "caution": "Timing, counting conventions, numbers of animals and later alternatives differ among scholars. Verify local legal and religious requirements.",
+    "faqs": [
+      {
+        "question": "Is the seventh-day date always the same in every school?",
+        "answer": "No. Birth time, sunset and school-specific counting can produce a different local date."
+      },
+      {
+        "question": "Where do the dates or instructions come from?",
+        "answer": "The interactive tool links to its primary Quran, hadith or official reference sources; calendar dates are estimates where applicable."
+      },
+      {
+        "question": "What if the seventh day has already passed?",
+        "answer": "Later timings and arrangements are discussed differently by scholars. The page shows date references but does not decide which opinion applies to your family."
+      }
+    ]
+  },
+  "sunnah-fasting-planner": {
+    "title": "Sunnah Fasting Calendar – Mondays, Thursdays and White Days",
+    "h1": "Sunnah Fasting Planner",
+    "description": "Plan voluntary Muslim fasting with Monday, Thursday, White Days, Ashura and Arafah dates, exclude Eid and Tashriq reminders, and download calendars.",
+    "summary": "Combine common voluntary fasting date references into one calendar.",
+    "details": "Select 30, 90 or 180 days. The planner calculates Gregorian weekdays and Umm al-Qura Hijri dates, labels overlapping occasions and excludes Ramadan, Eid and Tashriq from exported voluntary fast reminders.",
+    "caution": "Local moon sighting can change dates. Arafah fasting differs for pilgrims, and health conditions may make fasting unsuitable.",
+    "faqs": [
+      {
+        "question": "Does this calculator recommend fasting on Eid?",
+        "answer": "No. Eid and Tashriq dates are not included in exported voluntary fast reminders."
+      },
+      {
+        "question": "Where do the dates or instructions come from?",
+        "answer": "The interactive tool links to its primary Quran, hadith or official reference sources; calendar dates are estimates where applicable."
+      },
+      {
+        "question": "What happens when voluntary dates overlap?",
+        "answer": "A day can carry more than one description, such as a Monday that is also a White Day. The calendar export creates one reminder for that date and excludes restricted fasts."
+      }
+    ]
+  }
 };

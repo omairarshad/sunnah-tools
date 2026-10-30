@@ -347,42 +347,6 @@
         "imageAlt": "Pilgrimage travel suitcase with an Umrah passport"
       },
       {
-        "slug": "aqiqah-planner",
-        "title": "Aqiqah Planner",
-        "description": "Estimate the seventh-day date and arrange an Aqiqah.",
-        "tone": "coral",
-        "enabled": true,
-        "image": "/tool-art/aqiqah-planner.svg",
-        "imageAlt": "Soft geometric child blanket artwork for Aqiqah planning"
-      },
-      {
-        "slug": "islamic-will-planner",
-        "title": "Islamic Will Planner",
-        "description": "Organise private questions for inheritance and legal advisers.",
-        "tone": "rose",
-        "enabled": true,
-        "image": "/tool-art/islamic-will-planner.svg",
-        "imageAlt": "Low-poly illustrated legal document and seal for preparing a will"
-      },
-      {
-        "slug": "friday-sunnah-checklist",
-        "title": "Friday Sunnah Checklist",
-        "description": "Source-linked, private Jumuah preparation checklist.",
-        "tone": "emerald",
-        "enabled": true,
-        "image": "/tool-art/friday-sunnah-checklist.svg",
-        "imageAlt": "Low-poly clipboard with checkmarks for Friday Sunnah preparation"
-      },
-      {
-        "slug": "istikhara-guide",
-        "title": "Istikhara Prayer Guide",
-        "description": "Follow the two-rakat prayer and learn the Istikhara dua.",
-        "tone": "blue",
-        "enabled": true,
-        "image": "/tool-art/istikhara-guide.svg",
-        "imageAlt": "Low-poly prayer mat with crescent for Istikhara guidance"
-      },
-      {
         "slug": "tasbih-counter",
         "title": "Digital Tasbih",
         "description": "Count dhikr and save progress on this device.",
@@ -453,6 +417,42 @@
         "enabled": true,
         "image": "/tool-art/halal-additives-checker.svg",
         "imageAlt": "Low-poly illustration representing halal additives checker with a clear geometric symbol"
+      },
+      {
+        "slug": "istikhara-guide",
+        "title": "Istikhara Prayer Guide",
+        "description": "Follow the two-rakat prayer and learn the Istikhara dua.",
+        "tone": "blue",
+        "enabled": true,
+        "image": "/tool-art/istikhara-guide.svg",
+        "imageAlt": "Low-poly prayer mat with crescent for Istikhara guidance"
+      },
+      {
+        "slug": "friday-sunnah-checklist",
+        "title": "Friday Sunnah Checklist",
+        "description": "Source-linked, private Jumuah preparation checklist.",
+        "tone": "emerald",
+        "enabled": true,
+        "image": "/tool-art/friday-sunnah-checklist.svg",
+        "imageAlt": "Low-poly clipboard with checkmarks for Friday Sunnah preparation"
+      },
+      {
+        "slug": "islamic-will-planner",
+        "title": "Islamic Will Planner",
+        "description": "Organise private questions for inheritance and legal advisers.",
+        "tone": "rose",
+        "enabled": true,
+        "image": "/tool-art/islamic-will-planner.svg",
+        "imageAlt": "Low-poly illustrated legal document and seal for preparing a will"
+      },
+      {
+        "slug": "aqiqah-planner",
+        "title": "Aqiqah Planner",
+        "description": "Estimate the seventh-day date and arrange an Aqiqah.",
+        "tone": "coral",
+        "enabled": true,
+        "image": "/tool-art/aqiqah-planner.svg",
+        "imageAlt": "Soft geometric child blanket artwork for Aqiqah planning"
       }
     ]
   },

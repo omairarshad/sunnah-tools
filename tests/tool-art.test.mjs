@@ -2,10 +2,10 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 const home=JSON.parse(readFileSync(new URL('../src/data/homepage.json',import.meta.url),'utf8'));
-test('all 37 low-poly SVGs have valid finite coordinates and distinct card references',()=>{
+test('all 44 low-poly SVGs have valid finite coordinates and distinct card references',()=>{
  const cards=home.directory.cards;
- assert.equal(cards.length,37);
- assert.equal(new Set(cards.map(c=>c.slug)).size,37);
+ assert.equal(cards.length,44);
+ assert.equal(new Set(cards.map(c=>c.slug)).size,44);
  for(const card of cards){
   const svg=readFileSync(new URL('../public/tool-art/'+card.slug+'.svg',import.meta.url),'utf8');
   assert.match(svg,/viewBox="0 0 600 360"/,card.slug+' canvas');
