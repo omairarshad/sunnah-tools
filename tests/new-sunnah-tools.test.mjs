@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {hijamaPlan,sunnahFastingPlan,aqiqahDates,duhaWindow,datePlanICS,validISO} from '../src/lib/newSunnahPlanning.mjs';
+import {hijamaPlan,sunnahFastingPlan,aqiqahDates,duhaWindow,datePlanICS,validISO,planCSV} from '../src/lib/newSunnahPlanning.mjs';
 import {hijriParts} from '../src/lib/hijriCalendars.mjs';
 const read=p=>readFileSync(new URL('../'+p,import.meta.url),'utf8');
 const toDate=iso=>new Date(iso+'T12:00:00Z');
@@ -70,4 +70,31 @@ test('all seven tools have unique metadata, sources, guide and self-hosted illus
   assert.ok(guide.includes("'"+slug+"'"));
   assert.match(read('public/tool-art/'+slug+'.svg'),/<svg /);
  }
+});
+
+test('CSV export adds spreadsheet-safe escaping and keeps source caveat',()=>{
+ const csv=planCSV([{iso:'2026-10-30',label:'=HYPERLINK("http://example.test")'}]);
+ assert.match(csv,/2026-10-30/);
+ assert.match(csv,/Umm al-Qura estimate/);
+ assert.ok(csv.includes("'=HYPERLINK"),'Formula-like fields must be literal text');
+ assert.throws(()=>planCSV([{iso:'2026-02-30',label:'bad'}]),/Invalid/);
+});
+test('ninth of Muharram is labelled separately from Ashura',()=>{
+ const dates=sunnahFastingPlan('2026-06-01',180,0);
+ assert.ok(dates.some(item=>item.labels.some(label=>label.includes("Ninth of Muharram"))));
+ assert.ok(dates.some(item=>item.labels.includes('Ashura')));
+});
+test('the seven source-backed deep dives have multiple structured explanations',()=>{
+ const route=read('src/pages/tools/[slug].astro');
+ const data=read('src/components/DeepSevenKnowledge.astro');
+ assert.match(route,/import DeepSevenKnowledge/);
+ assert.match(route,/<DeepSevenKnowledge slug=\{slug\}\/>/);
+ for(const slug of ['hijama-date-planner','duha-prayer-time','istikhara-guide','friday-sunnah-checklist','islamic-will-planner','aqiqah-planner','sunnah-fasting-planner'])assert.ok(data.includes("'"+slug+"':{"),slug);
+ for(const id of ['hijama-evidence','duha-margins','istikhara-no-dream','friday-attend','will-england','aqiqah-seventh','fast-shawwal','fast-exclusions'])assert.ok(data.includes("id:'"+id+"'"),id);
+ for(const source of ['https://www.nccih.nih.gov/health/cupping','https://www.gov.uk/make-will/make-sure-your-will-is-legal','https://sunnah.com/bukhari:1166','https://sunnah.com/muslim:1164a'])assert.ok(data.includes(source),source);
+});
+test('all seven interactive planners include expanded practical functionality',()=>{
+ const ui=read('src/components/NewSunnahTools.tsx');
+ for(const item of ['hijama-lunar-dates','startBuffer','endBuffer','matter.trim()','new-tool-progress','jurisdiction','counting','fastingCategory','sunnah-fasting-reference'])assert.ok(ui.includes(item),item);
+ assert.match(ui,/saveCalendar\('sunnah-fasting-reminders',valid\.map/);
 });

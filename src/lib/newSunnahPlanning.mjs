@@ -44,6 +44,7 @@ export function sunnahFastingPlan(anchorISO,days=90,shift=0){
   if(weekday===4)labels.push('Thursday');
   if(h.day>=13&&h.day<=15)labels.push('White Days');
   if(h.month===12&&h.day===9)labels.push('Arafah (for non-pilgrims)');
+  if(h.month===1&&h.day===9)labels.push('Ninth of Muharram (Tasu\'a)');
   if(h.month===1&&h.day===10)labels.push('Ashura');
   // Ordinary voluntary fasts must not be suggested for Ramadan,
   // Eid al-Fitr, Eid al-Adha or days of Tashriq.
@@ -91,4 +92,15 @@ export function datePlanICS(entries,label,stamp=new Date()){
    'END:VEVENT');
  }
  return [...lines,'END:VCALENDAR'].join('\r\n')+'\r\n';
+}
+
+// Optional CSV export is spreadsheet-safe: untrusted text never starts a formula.
+const safeCsvCell=value=>{
+ let text=String(value??'');
+ if(/^[\s]*[=+\-@]/.test(text))text="'"+text;
+ return /[",\r\n]/.test(text)?'"'+text.replace(/"/g,'""')+'"':text;
+};
+export function planCSV(rows){
+ if(!Array.isArray(rows)||rows.length>600||!rows.every(x=>validISO(x.iso)&&typeof x.label==='string'&&x.label.length<=250))throw new RangeError('Invalid calendar CSV rows');
+ return '\uFEFF'+[['Estimated Gregorian date','Notes','Basis'],...rows.map(x=>[x.iso,x.label,'Umm al-Qura estimate or stated local input; verify locally'])].map(line=>line.map(safeCsvCell).join(',')).join('\r\n')+'\r\n';
 }
