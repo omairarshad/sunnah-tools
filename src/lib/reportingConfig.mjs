@@ -33,6 +33,15 @@ export function makeGA4ReportBatches(days=28){
  for(let i=0;i<requests.length;i+=5)batches.push({requests:requests.slice(i,i+5)});
  return batches;
 }
+/** Recent visits for standard GA4 properties: 30 minutes, from Google's Realtime API. */
+export function makeGA4RealtimeRequest(){
+ return {metrics:[{name:'activeUsers'},{name:'eventCount'}],minuteRanges:[{startMinutesAgo:29,endMinutesAgo:0}]};
+}
+export function parseGA4RealtimeResponse(data){
+ if(!data||!Array.isArray(data.rows))return {users:0,events:0};
+ const metric=i=>{const value=Number(data.rows[0]?.metricValues?.[i]?.value??0);return Number.isFinite(value)&&value>=0?value:0;};
+ return {users:metric(0),events:metric(1)};
+}
 export function parseGA4Response(data){
  if(!data||!Array.isArray(data.reports)||data.reports.length!==6)throw new Error('GA4 returned an unexpected report format');
  const rows=(i)=>Array.isArray(data.reports[i]?.rows)?data.reports[i].rows:[];

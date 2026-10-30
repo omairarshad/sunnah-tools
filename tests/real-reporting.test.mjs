@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {reportingSettings,makeGA4Reports,makeGA4ReportBatches,parseGA4Response} from '../src/lib/reportingConfig.mjs';
+import {reportingSettings,makeGA4Reports,makeGA4ReportBatches,parseGA4Response,makeGA4RealtimeRequest,parseGA4RealtimeResponse} from '../src/lib/reportingConfig.mjs';
 const read=p=>readFileSync(new URL('../'+p,import.meta.url),'utf8');
 test('GA4 report connection accepts only numeric property and OAuth web client',()=>{
  assert.deepEqual(reportingSettings(),{propertyId:null,oauthClientId:null});
@@ -49,11 +49,14 @@ test('owner dashboard never pretends to report metrics before Google authenticat
  const admin=read('src/pages/admin/index.astro'),script=read('src/scripts/ga4Dashboard.js');
  assert.match(admin,/data-property-id=\{siteReporting.propertyId\?\?''\}/);
  assert.match(admin,/data-client-id=\{siteReporting.oauthClientId\?\?''\}/);
- assert.match(admin,/No visitor or revenue figures are fabricated/);
+ assert.match(admin,/Visitor trends, popular tools and engagement/);
  assert.match(script,/https:\/\/analyticsdata.googleapis.com\/v1beta\/properties\//);
  assert.match(script,/https:\/\/www.googleapis.com\/auth\/analytics.readonly/);
  assert.match(script,/response\.access_token/);
- assert.doesNotMatch(script,/localStorage|sessionStorage/);
+ assert.doesNotMatch(script,/localStorage/);
+ assert.match(script,/sessionStorage/);
+ assert.match(script,/sessionKey/);
+ assert.match(script,/forgetToken/);
  assert.match(script,/textContent=item.name/);
  assert.match(script,/Disconnect/);
 });
@@ -72,4 +75,19 @@ test('optional analytics uses basic consent mode v2 and never loads before opt i
  assert.match(script,/if\(choice==='yes'\)loadAnalytics\(\)/);
  assert.match(script,/window.location.reload\(\)/);
  assert.doesNotMatch(script,/favorite_toggle/);
+});
+
+test('realtime metrics use a supported 30-minute GA4 API request',()=>{
+ const body=makeGA4RealtimeRequest();
+ assert.deepEqual(body.metrics.map(m=>m.name),['activeUsers','eventCount']);
+ assert.deepEqual(body.minuteRanges,[{startMinutesAgo:29,endMinutesAgo:0}]);
+ assert.deepEqual(parseGA4RealtimeResponse({rows:[{metricValues:[{value:'4'},{value:'13'}]}]}),{users:4,events:13});
+ assert.deepEqual(parseGA4RealtimeResponse({rows:[]}),{users:0,events:0});
+});
+test('admin contains only operator-facing reporting tools, not a setup wizard',()=>{
+ const admin=read('src/pages/admin/index.astro');
+ assert.match(admin,/id="ops-live-users"/);
+ assert.match(admin,/id="ops-remember"/);
+ assert.doesNotMatch(admin,/One-time analytics connection/);
+ assert.doesNotMatch(admin,/Connection and launch status/);
 });

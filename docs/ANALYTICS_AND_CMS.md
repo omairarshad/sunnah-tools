@@ -5,9 +5,9 @@ Updated 30 October 2026.
 
 The previous /admin/ page was just links and an optional Looker iframe; it did not query Google Analytics. The new /admin/ has a real GA4 Data API reporting interface, triggered only after the owner signs in to their own Google account.
 
-Once connected, it reads active users, sessions, page views, events, daily traffic, top pages/tools, countries and acquisition channels for 7, 28 or 90 days. The dashboard uses the actual Google Analytics API response, not local counters or fabricated sample metrics. No GA4 data is displayed until authorised and retrieved.
+Once connected, it reads active users, sessions, page views, events, daily traffic, top pages/tools, countries and acquisition channels for 7, 28 or 90 days, plus separate live users and event counts from the last 30 minutes. The dashboard uses the actual Google Analytics API response, not local counters or fabricated sample metrics. No GA4 data is displayed until authorised and retrieved.
 
-Google OAuth is read-only (analytics.readonly); its access token remains in browser memory. No service account keys or confidential tokens are embedded into static pages. GA4 Google sign-in controls who can access the underlying property; the /admin/ URL itself is public and noindex, not a login wall. AdSense revenue remains separate in the private AdSense Reports.
+Google OAuth is read-only (analytics.readonly). For easier refreshes, the checked "Keep me connected" option retains a **short-lived token in the current tab's sessionStorage**. This token can be read by JavaScript running on the same origin; use a trusted browser/device. The token expires and is cleared after Google rejects it or when Disconnect is clicked. Unchecking the option deletes the stored copy; reports themselves are not stored. No refresh token, service account secret, or client secret is embedded or saved. Hostinger protects /admin/ with an owner-configured password; Google independently restricts underlying property access. AdSense revenue remains in private AdSense Reports.
 
 ## Owner setup — GA4 collection and reporting
 
@@ -20,9 +20,9 @@ Google OAuth is read-only (analytics.readonly); its access token remains in brow
    - GOOGLE_OAUTH_CLIENT_ID = the OAuth Web client ID ending in .apps.googleusercontent.com
 4. Re-run Build static site for Hostinger from feature/initial-site-and-tools or commit a source change.
 5. Visit the live site in an incognito browser, decline optional GA4 and confirm no tag loads; then grant consent, visit a few pages and check GA4 Realtime.
-6. Open https://sunnah.tools/admin/ and click Connect Google Analytics. Authorise read-only Analytics access and select 7, 28 or 90 days; Refresh fetches new reports. Disconnect hides data and clears the in-memory token.
+6. Open https://sunnah.tools/admin/ and connect Google. Refresh requests both the historical and 30-minute Realtime endpoints. A short-lived session token can survive refreshes in the same tab, but requires reauthorisation after expiry. Disconnect clears that token.
 
-GA4 reporting may be delayed, and consent denial and browser blockers reduce coverage. An empty report does not imply zero real website traffic. Never enter a password, a bank detail, a client secret or an access token into the static website configuration.
+Realtime reports typically populate within minutes of consented visits; standard reporting can take 24–48 hours. Consent denial and browser blockers limit coverage. An empty report is not proof of zero real website visitors. Never enter a password, bank detail, client secret or access token in static configuration.
 
 ## Events and privacy
 

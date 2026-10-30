@@ -19,9 +19,15 @@ try{
    const page=await ctx.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));
    await page.route('https://accounts.google.com/gsi/client',route=>route.fulfill({
     status:200,contentType:'application/javascript',
-    body:"window.google={accounts:{oauth2:{initTokenClient:function(options){return {requestAccessToken:function(){options.callback({access_token:'test_token_only',expires_in:3600,scope:'https://www.googleapis.com/auth/analytics.readonly'})}}}}}};"
+    body:"window.google={accounts:{oauth2:{initTokenClient:function(options){return {requestAccessToken:function(){window.__testAuthCalls=(window.__testAuthCalls||0)+1;options.callback({access_token:'test_token_only',expires_in:3600,scope:'https://www.googleapis.com/auth/analytics.readonly'})}}}}}};"
    }));
-   let requests=0,validRequest=true,lastRange='';
+   let requests=0,liveRequests=0,validRequest=true,lastRange='';
+   await page.route('https://analyticsdata.googleapis.com/v1beta/properties/123456789:runRealtimeReport',route=>{
+    liveRequests++;
+    const body=JSON.parse(route.request().postData()||'{}');
+    if(body.metrics?.[0]?.name!=='activeUsers'||body.metrics?.[1]?.name!=='eventCount'||body.minuteRanges?.[0]?.startMinutesAgo!==29)validRequest=false;
+    return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({rows:[row([],['4','13'])]})});
+   });
    await page.route('https://analyticsdata.googleapis.com/v1beta/properties/123456789:batchRunReports',async route=>{
     requests++;
     const request=route.request(),body=JSON.parse(request.postData()||'{}');
@@ -40,7 +46,14 @@ try{
    await page.screenshot({path:resolve(dir,mode+'-'+theme+'-setup.png'),animations:'disabled'});
    await page.getByRole('button',{name:'Connect Google Analytics'}).click();
    await page.waitForFunction(()=>document.getElementById('ops-users')?.textContent==='14',{timeout:12000});
-   if(requests!==2||!validRequest)issues.push(tag+' broken 5+1 batch read-only API requests');
+   if(requests!==2||liveRequests!==1||!validRequest)issues.push(tag+' broken 5+1 batch or realtime report request');
+   if(await page.locator('#ops-live-users').textContent()!=='4')issues.push(tag+' missing realtime users');
+   if(await page.locator('#ops-live-events').textContent()!=='13')issues.push(tag+' missing realtime events');
+   if(!await page.evaluate(()=>sessionStorage.getItem('sunnah-ga4-dashboard-token-v1')))issues.push(tag+' missing tab session');
+   await page.reload({waitUntil:'domcontentloaded'});
+   await page.waitForFunction(()=>document.getElementById('ops-users')?.textContent==='14',{timeout:12000});
+   if(await page.evaluate(()=>window.__testAuthCalls||0)!==0)issues.push(tag+' reload unexpectedly required Google login');
+   if(requests!==4||liveRequests!==2)issues.push(tag+' refresh did not restore reports');
    if(await page.locator('#ops-sessions').textContent()!=='19')issues.push(tag+' incorrect metric');
    if(!(await page.locator('#ops-pages').textContent()).includes('/tools/prayer-times/'))issues.push(tag+' missing top page');
    const w=await page.evaluate(()=>document.documentElement.scrollWidth);
@@ -49,7 +62,7 @@ try{
    await page.locator('#ops-period').selectOption('7');
    await page.waitForFunction(()=>document.getElementById('ops-status')?.textContent?.includes('Verified GA4 report'));
    if(lastRange!=='6daysAgo')issues.push(tag+' date range wrong '+lastRange);
-   if(requests!==4)issues.push(tag+' expected two batches per date range');
+   if(requests!==6)issues.push(tag+' expected two batches per date range');
    // Ensure real Google validation errors are displayed, not hidden behind generic HTTP 400.
    await page.route('https://analyticsdata.googleapis.com/v1beta/properties/123456789:batchRunReports',route=>route.fulfill({
     status:400,contentType:'application/json',
@@ -60,6 +73,10 @@ try{
    if(!await page.locator('#ops-data').isHidden())issues.push(tag+' stale data visible after API error');
    await page.getByRole('button',{name:'Disconnect'}).click();
    if(!await page.locator('#ops-data').isHidden())issues.push(tag+' data still shown after disconnect');
+   if(await page.evaluate(()=>sessionStorage.getItem('sunnah-ga4-dashboard-token-v1')))issues.push(tag+' token remains after disconnect');
+   await page.reload({waitUntil:'domcontentloaded'});
+   await page.waitForFunction(()=>!document.getElementById('ops-connect')?.disabled,{timeout:12000});
+   if(await page.locator('#ops-connect').isHidden())issues.push(tag+' disconnect failed to clear reload session');
    if(errors.length)issues.push(tag+' JS errors '+errors.join('; '));
    checks.push({mode,theme,requests,validRequest});await ctx.close();
   }

@@ -1,20 +1,18 @@
 ---
 import Base from '../../layouts/Base.astro';
-import {siteAnalytics} from '../../lib/siteAnalytics';
 import {siteReporting} from '../../lib/siteReporting';
-import {siteAds} from '../../lib/siteAds';
 import '../../styles/admin-reporting.css';
 const configured=Boolean(siteReporting.propertyId&&siteReporting.oauthClientId);
 ---
 <Base title="Operations & Live Analytics" description="Private Google-authenticated reporting setup and owner operations links for Sunnah Tools." noindex={true}>
  <div class="operations">
   <header class="ops-hero">
-   <div><span class="ops-kicker">SUNNAH TOOLS · OWNER WORKSPACE</span><h1>Website analytics</h1><p>Actual traffic, top tools and engagement from Google Analytics. Sign in to your own Google account to read reports. No visitor or revenue figures are fabricated.</p></div>
-   <div class="ops-hero-status"><span class:list={['ops-dot',configured?'ops-dot-ready':'ops-dot-pending']}></span>{configured?'GA4 reporting connection configured':'GA4 reporting connection needed'}</div>
+   <div><span class="ops-kicker">SUNNAH TOOLS · OWNER WORKSPACE</span><h1>Website analytics</h1><p>Visitor trends, popular tools and engagement, using actual Google Analytics data from people who allow measurement.</p></div>
+   <div class="ops-hero-status"><span class:list={['ops-dot',configured?'ops-dot-ready':'ops-dot-pending']}></span>{configured?'Analytics connected':'Analytics needs configuration'}</div>
   </header>
   <section id="ga4-reporting" class="ops-report" data-property-id={siteReporting.propertyId??''} data-client-id={siteReporting.oauthClientId??''} aria-labelledby="ops-traffic-title">
    <div class="ops-report-toolbar">
-    <div><h2 id="ops-traffic-title">Traffic overview</h2><p>Live data from your GA4 property, available only after Google authentication.</p></div>
+    <div><h2 id="ops-traffic-title">Traffic overview</h2><p>Reports update as Google processes visitor data. Realtime covers the last 30 minutes.</p></div>
     <div class="ops-report-actions">
      <label for="ops-period">Time period <select id="ops-period"><option value="7">Last 7 days</option><option value="28" selected>Last 28 days</option><option value="90">Last 90 days</option></select></label>
      <button type="button" id="ops-connect" disabled={!configured}>Connect Google Analytics</button>
@@ -22,14 +20,20 @@ const configured=Boolean(siteReporting.propertyId&&siteReporting.oauthClientId);
      <button type="button" id="ops-disconnect" hidden>Disconnect</button>
     </div>
    </div>
-   <p id="ops-status" class="ops-status" role="status" aria-live="polite">{configured?'Sign in to view real analytics. Your Google access token is only held in this browser tab.':'To activate this live dashboard, configure your GA4 numeric Property ID and a Google OAuth web client. Instructions below.'}</p>
+   <label class="ops-remember"><input type="checkbox" id="ops-remember" checked/> Keep me connected when refreshing this tab (until Google access expires)</label>
+   <p id="ops-status" class="ops-status" role="status" aria-live="polite">{configured?'Connect to see reports. Your short-lived Google access stays in this tab only.':'Analytics connection needs configuration.'}</p>
    <div id="ops-data" hidden>
+    <section class="ops-realtime" aria-label="Realtime website activity in the last 30 minutes">
+     <div><span class="ops-live-kicker">REALTIME · LAST 30 MINUTES</span><h3>Current website activity</h3><p id="ops-realtime-status" role="status">Checking current activity…</p></div>
+     <div class="ops-live-stats"><div><span>Active users</span><strong id="ops-live-users">—</strong></div><div><span>Events</span><strong id="ops-live-events">—</strong></div></div>
+    </section>
     <div class="ops-metrics" aria-label="Visitor metrics">
      <div><span>Active users</span><strong id="ops-users">—</strong></div>
      <div><span>Sessions</span><strong id="ops-sessions">—</strong></div>
      <div><span>Page views</span><strong id="ops-views">—</strong></div>
      <div><span>Events</span><strong id="ops-events">—</strong></div>
     </div>
+    <p id="ops-empty-note" class="ops-empty-note" hidden>No processed traffic yet. New GA4 properties can take 24–48 hours to populate regular reports. Realtime updates much sooner. Only consented visits are recorded.</p>
     <section class="ops-panel ops-timeline" aria-labelledby="ops-chart-title"><div class="ops-panel-heading"><h3 id="ops-chart-title">Visitors over time</h3><span>Active users by day</span></div><div id="ops-chart" class="ops-chart" role="img" aria-label="Active users over time"></div></section>
     <div class="ops-breakdowns">
      <section class="ops-panel" aria-labelledby="ops-pages-title"><div class="ops-panel-heading"><h3 id="ops-pages-title">Top pages and tools</h3><span>Page views</span></div><div id="ops-pages" class="ops-rows"></div></section>
@@ -40,13 +44,7 @@ const configured=Boolean(siteReporting.propertyId&&siteReporting.oauthClientId);
     <p class="ops-report-foot">Google Analytics metrics include only data collected with the appropriate consent and may be delayed or affected by browser blocking. Results are fetched when you sign in; this page does not store the reports.</p>
    </div>
   </section>
-  <div class="ops-section-title"><h2>Connection and launch status</h2><p>These are configuration checks, not claims of Google account approval.</p></div>
-  <div class="ops-checks">
-   <article><span class="ops-step">01 · GOOGLE ANALYTICS</span><h3>Collect real visitor data</h3><p>{siteAnalytics.enabled?'GA4 collection is configured. Visitor analytics still require consent.':'GA4 measurement is not enabled in the current website build.'}</p><span class="ops-state">{siteAnalytics.enabled?'Measurement enabled':'Needs GA4 measurement ID'}</span><a href="https://analytics.google.com/analytics/web/" target="_blank" rel="noopener noreferrer">Open Google Analytics</a></article>
-   <article><span class="ops-step">02 · ADSENSE SITE</span><h3>Confirm site is approved</h3><p>AdSense lists your site, but its Ads page does not prove approval. Check <strong>Sites</strong> for the exact status <strong>Ready</strong> before serving advertisements.</p><span class="ops-state">Check in AdSense → Sites</span><a href="https://www.google.com/adsense/" target="_blank" rel="noopener noreferrer">Open AdSense</a></article>
-   <article><span class="ops-step">03 · CONSENT & ADS</span><h3>Keep visitors in control</h3><p>Publish a Google-certified TCF European regulations message for UK/EEA/Swiss visitors, then confirm ads.txt, placement IDs and site approval.</p><span class="ops-state">{siteAds.enabled?'Ad rendering enabled; verify CMP and site approval':'Ad rendering disabled · safe for review'}</span><a href="https://support.google.com/adsense/answer/13554116" target="_blank" rel="noopener noreferrer">Google CMP requirements</a></article>
-  </div>
-  <div class="ops-section-title"><h2>Owner tools</h2><p>Reports and editing remain protected by their respective Google or GitHub sign-ins.</p></div>
+  <div class="ops-section-title"><h2>Owner tools</h2><p>Search visibility, advertising, content and deployment.</p></div>
   <nav class="ops-links" aria-label="Owner operations">
    <a href="https://search.google.com/search-console/" target="_blank" rel="noopener noreferrer"><span>Search Console</span><small>Search queries, indexing and clicks</small></a>
    <a href="https://analytics.google.com/analytics/web/" target="_blank" rel="noopener noreferrer"><span>Google Analytics</span><small>Realtime and detailed reports</small></a>
@@ -54,17 +52,7 @@ const configured=Boolean(siteReporting.propertyId&&siteReporting.oauthClientId);
    <a href="https://app.pagescms.org/" target="_blank" rel="noopener noreferrer"><span>Homepage editor</span><small>GitHub-authenticated content editing</small></a>
    <a href="https://github.com/omairarshad/sunnah-tools/actions" target="_blank" rel="noopener noreferrer"><span>Deployment history</span><small>Tests and Hostinger releases</small></a>
   </nav>
-  <section class="ops-setup" aria-labelledby="ops-setup-heading">
-   <h2 id="ops-setup-heading">One-time analytics connection</h2>
-   <p>Only the Google Analytics property owner can authorise access. There are no passwords, service-account keys or private reports embedded in the public site.</p>
-   <ol>
-    <li>Create or select your <strong>Sunnah Tools</strong> GA4 property and web stream at <a href="https://analytics.google.com/" target="_blank" rel="noopener noreferrer">Google Analytics</a>. Copy its <code>G-…</code> Measurement ID and numeric Property ID.</li>
-    <li>In <a href="https://console.cloud.google.com/apis/library/analyticsdata.googleapis.com" target="_blank" rel="noopener noreferrer">Google Cloud</a>, enable the Google Analytics Data API. Configure OAuth consent and create a <strong>Web application</strong> OAuth client with <code>https://sunnah.tools</code> as an authorised JavaScript origin. Add your own Google login as a test user if the app is in Testing mode. Do not create a service-account key for the website.</li>
-    <li>Set GitHub Actions variables <code>GA4_MEASUREMENT_ID</code>, <code>GA4_ENABLED=true</code>, <code>GA4_PROPERTY_ID</code> and <code>GOOGLE_OAUTH_CLIENT_ID</code>. Republish the source branch. The browser will request read-only access to this specific GA4 property when you click Connect.</li>
-    <li>Open an incognito window, consent to optional analytics on the public site, then check <strong>Realtime</strong> in GA4. Return here and click <strong>Connect Google Analytics</strong> to view authentic reports.</li>
-   </ol>
-   <p><a href="https://github.com/omairarshad/sunnah-tools/blob/feature/initial-site-and-tools/docs/ANALYTICS_AND_CMS.md" target="_blank" rel="noopener noreferrer">Detailed setup and privacy guide</a></p>
-  </section>
+
  </div>
 </Base>
 <script>

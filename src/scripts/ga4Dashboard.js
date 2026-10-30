@@ -1,5 +1,5 @@
-import {makeGA4ReportBatches,parseGA4Response} from '../lib/reportingConfig.mjs';
-/** Google-authenticated, read-only reporting. OAuth tokens exist only in memory. */
+import {makeGA4ReportBatches,parseGA4Response,makeGA4RealtimeRequest,parseGA4RealtimeResponse} from '../lib/reportingConfig.mjs';
+/** Read-only reporting; short-lived OAuth token can be scoped to the current tab. */
 export function initGA4Dashboard(doc=document){
  const root=doc.getElementById('ga4-reporting');
  if(!root)return;
@@ -10,8 +10,30 @@ export function initGA4Dashboard(doc=document){
  const period=doc.getElementById('ops-period');
  const data=doc.getElementById('ops-data');
  const status=doc.getElementById('ops-status');
+ const remember=doc.getElementById('ops-remember');
+ const liveStatus=doc.getElementById('ops-realtime-status');
+ const emptyNote=doc.getElementById('ops-empty-note');
  if(!propertyId||!clientId)return;
- let tokenClient=null,accessToken=null,tokenExpiry=0,busy=false;
+ let tokenClient=null,accessToken=null,tokenExpiry=0,busy=false,requestGeneration=0;
+ const sessionKey='sunnah-ga4-dashboard-token-v1';
+ const clearStored=()=>{try{sessionStorage.removeItem(sessionKey)}catch{}};
+ const storeToken=()=>{
+  if(!remember.checked||!accessToken||Date.now()+30000>=tokenExpiry){clearStored();return;}
+  try{sessionStorage.setItem(sessionKey,JSON.stringify({accessToken,expiresAt:tokenExpiry,propertyId,clientId}))}catch{}
+ };
+ const signedInUI=()=>{connect.hidden=true;refresh.hidden=false;disconnect.hidden=false;};
+ const signedOutUI=()=>{connect.hidden=false;refresh.hidden=true;disconnect.hidden=true;data.hidden=true;};
+ const forgetToken=()=>{accessToken=null;tokenExpiry=0;requestGeneration++;clearStored();signedOutUI();};
+ let restored=false;
+ try{
+  const value=JSON.parse(sessionStorage.getItem(sessionKey)||'null');
+  if(value?.propertyId===propertyId&&value?.clientId===clientId&&
+     typeof value.accessToken==='string'&&value.accessToken.length>0&&
+     Number.isFinite(value.expiresAt)&&value.expiresAt>Date.now()+30000){
+   accessToken=value.accessToken;tokenExpiry=value.expiresAt;restored=true;signedInUI();
+  }else clearStored();
+ }catch{clearStored();}
+ remember.addEventListener('change',storeToken);
  const number=n=>new Intl.NumberFormat('en-GB').format(n||0);
  const setStatus=(message,error=false)=>{
   status.textContent=message;
@@ -89,7 +111,7 @@ export function initGA4Dashboard(doc=document){
    body:JSON.stringify(body),cache:'no-store'
   });
   if(!response.ok){
-   if(response.status===401){accessToken=null;throw new Error('Google sign-in expired. Connect again.');}
+   if(response.status===401){forgetToken();throw new Error('Google session expired. Connect again.');}
    if(response.status===403)throw new Error('Google denied report access. Check that your login has access to this GA4 property, the Data API is enabled, and the OAuth app allows your account.');
    if(response.status===404)throw new Error('GA4 property not found. Verify the numeric Property ID.');
    // Provide Google's actual validation reason without exposing credentials or headers.
@@ -104,13 +126,33 @@ export function initGA4Dashboard(doc=document){
  };
  async function loadReports(){
   if(busy||!accessToken)return;
-  if(Date.now()>tokenExpiry){accessToken=null;setStatus('Google session expired. Connect again.');connect.hidden=false;refresh.hidden=true;disconnect.hidden=true;data.hidden=true;return;}
-  busy=true;refresh.disabled=true;setStatus('Loading actual Google Analytics reports…');
+  if(Date.now()+5000>=tokenExpiry){forgetToken();setStatus('Your Google access expired. Connect again.',true);return;}
+  const generation=++requestGeneration;
+  busy=true;refresh.disabled=true;setStatus('Loading Google Analytics reports…');
+  liveStatus.textContent='Checking recent activity…';
   try{
    const batches=makeGA4ReportBatches(period.value);
    // The API rejects requests containing six or more reports. Combine two legal
    // batches in the original order so parsing remains strict and consistent.
-   const replies=await Promise.all(batches.map(batch=>request('batchRunReports',batch)));
+   const responses=await Promise.allSettled([
+    ...batches.map(batch=>request('batchRunReports',batch)),
+    request('runRealtimeReport',makeGA4RealtimeRequest())
+   ]);
+   if(generation!==requestGeneration)return;
+   const live=responses[2];
+   if(live.status==='fulfilled'){
+    const values=parseGA4RealtimeResponse(live.value);
+    el('ops-live-users').textContent=number(values.users);
+    el('ops-live-events').textContent=number(values.events);
+    liveStatus.textContent='Google Analytics Realtime · refresh to check again';
+   }else{
+    el('ops-live-users').textContent='—';el('ops-live-events').textContent='—';
+    liveStatus.textContent='Realtime unavailable; historical reporting may still work.';
+   }
+   const replies=responses.slice(0,2).map(result=>{
+    if(result.status==='rejected')throw result.reason;
+    return result.value;
+   });
    const raw={reports:replies.flatMap((reply,index)=>{
     if(!Array.isArray(reply?.reports)||reply.reports.length!==batches[index].requests.length){
      throw new Error('Google Analytics returned an incomplete report batch.');
@@ -126,10 +168,12 @@ export function initGA4Dashboard(doc=document){
    renderRows('ops-channels',report.channels,'Channel','value');
    renderRows('ops-event-list',report.events,'Event','value');
    renderRows('ops-countries',report.countries,'Country','value');
+   emptyNote.hidden=Object.values(report.kpis).some(value=>value>0);
    data.hidden=false;
    const now=new Date();
-   setStatus('Verified GA4 report · '+now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})+'. Source: your Google Analytics property. Numbers are not cached by sunnah.tools.');
+   setStatus('Google Analytics updated at '+now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})+'. Reporting is consent-based and may be delayed.');
   }catch(err){
+   if(generation!==requestGeneration)return;
    setStatus(err instanceof Error?err.message:'Unable to load analytics at present.',true);
    data.hidden=true;
   }finally{busy=false;refresh.disabled=false;}
@@ -143,20 +187,22 @@ export function initGA4Dashboard(doc=document){
     if(!String(response.scope||'').includes('analytics.readonly')){setStatus('The Google login did not grant read-only Analytics access.',true);return;}
     accessToken=response.access_token;
     tokenExpiry=Date.now()+Math.max(60,(Number(response.expires_in)||300)-30)*1000;
-    connect.hidden=true;refresh.hidden=false;disconnect.hidden=false;
-    loadReports();
+    signedInUI();storeToken();loadReports();
    },
    error_callback:()=>setStatus('Google sign-in was closed or blocked. Check your browser popup settings.',true)
   });
   connect.disabled=false;
-  setStatus('Google login ready. Connect with a Google account authorised for this GA4 property.');
- }).catch(err=>setStatus(err.message,true));
- connect.addEventListener('click',()=>{if(tokenClient)tokenClient.requestAccessToken({prompt:'consent'});});
+  if(!accessToken)setStatus('Connect Google Analytics to read your private reports.');
+ }).catch(err=>{if(!accessToken)setStatus(err.message,true);});
+ if(restored){
+  setStatus('Restoring this tab’s Google session…');
+  loadReports();
+ }
+ connect.addEventListener('click',()=>{if(tokenClient)tokenClient.requestAccessToken({prompt:''});});
  refresh.addEventListener('click',loadReports);
  period.addEventListener('change',()=>{if(accessToken)loadReports();});
  disconnect.addEventListener('click',()=>{
-  accessToken=null;tokenExpiry=0;
-  connect.hidden=false;refresh.hidden=true;disconnect.hidden=true;data.hidden=true;
-  setStatus('Disconnected. No report or access token was saved on this website.');
+  forgetToken();
+  setStatus('Disconnected. Session token cleared from this tab.');
  });
 }
