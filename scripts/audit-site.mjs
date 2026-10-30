@@ -108,7 +108,9 @@ assert(home.includes('fonts.googleapis.com/css2?family=Karla'),'Default Google F
 assert(home.includes('Petrona'),'Petrona font loading missing');
 assert(read('privacy/index.html').includes('Website typography (Google Fonts)'),'Google Fonts disclosure missing');
 assert(read('admin/index.html').includes('noindex,nofollow'),'Admin shell must be noindexed');
-assert(read('admin/index.html').includes('Open Pages CMS'),'CMS launch portal missing');
+assert(read('admin/index.html').includes('Connect Google Analytics')&&read('admin/index.html').includes('ops-users')&&read('admin/index.html').includes('ops-pages'),'Real GA4 reporting dashboard missing');
+assert(read('admin/index.html').includes('Homepage editor'),'GitHub-authenticated homepage editor link missing');
+assert(read('admin/index.html').includes('AdSense → Sites'),'Site approval status guidance missing');
 assert(!sitemap.includes('/admin/'),'Admin route must be excluded from sitemap');
 if(process.env.PUBLIC_GA4_ENABLED!=='true')assert(!home.includes('googletagmanager.com/gtag/js'),'GA4 must remain off without owner configuration');
 assert(read('robots.txt').includes('sitemap-index.xml'),'Robots sitemap reference missing');
