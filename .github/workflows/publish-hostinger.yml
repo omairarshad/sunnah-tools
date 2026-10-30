@@ -46,10 +46,13 @@ jobs:
       - name: Generate static website
         env:
           PUBLIC_ADSENSE_ADS_ENABLED: ${{ vars.ADSENSE_ADS_ENABLED }}
+          PUBLIC_ADSENSE_SITE_READY: ${{ vars.ADSENSE_SITE_READY }}
           PUBLIC_ADSENSE_CMP_READY: ${{ vars.ADSENSE_CMP_READY }}
           PUBLIC_ADSENSE_HOME_SLOT: ${{ vars.ADSENSE_HOME_SLOT }}
           PUBLIC_ADSENSE_TOOL_SLOT: ${{ vars.ADSENSE_TOOL_SLOT }}
           PUBLIC_GA4_MEASUREMENT_ID: ${{ vars.GA4_MEASUREMENT_ID }}
+          PUBLIC_GA4_PROPERTY_ID: ${{ vars.GA4_PROPERTY_ID }}
+          PUBLIC_GOOGLE_OAUTH_CLIENT_ID: ${{ vars.GOOGLE_OAUTH_CLIENT_ID }}
           PUBLIC_GA4_ENABLED: ${{ vars.GA4_ENABLED }}
           PUBLIC_LOOKER_STUDIO_REPORT_URL: ${{ vars.LOOKER_STUDIO_REPORT_URL }}
         run: npm run build

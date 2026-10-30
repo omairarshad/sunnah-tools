@@ -8,7 +8,7 @@ Ads are deliberately **OFF** until a real publisher ID, both responsive ad unit 
 - Without settings, **no AdSense JS**, ad unit markup, ads.txt placeholder or advertising iframe loads.
 - With a valid publisher ID alone, HTML can include a Google AdSense account **verification meta tag** and CI writes a correct `/ads.txt` seller declaration. This does **not** start showing ads.
 - With all required variables and owner-attested CMP setup, the site loads a single AdSense library and offers **two controlled, manual responsive placements**: one after the homepage tool grid, and one after a tool's main functionality, guides and disclaimer. No ad appears in a calculator input, above the homepage tool directory, inside a printable page or within the embeddable prayer widget.
-- The site does not implement Auto ads itself; decide in the AdSense dashboard whether to activate Auto ads. For launch **leave Auto ads OFF** to avoid unwanted anchors, full-screen vignettes and ads inserted among controls.
+- The site does not implement Auto ads itself; decide in the AdSense dashboard whether to activate Auto ads. For launch **leave Auto ads OFF** and Auto optimise OFF to avoid unwanted anchors, unexpected experiments and ads inserted among controls.
 - A script being configured is not proof Google has approved the site, granted consent or filled an ad request.
 
 ## Owner actions (never send private account credentials)
@@ -22,7 +22,8 @@ Ads are deliberately **OFF** until a real publisher ID, both responsive ad unit 
    - `ADSENSE_HOME_SLOT`: real numeric homepage ad slot ID
    - `ADSENSE_TOOL_SLOT`: real numeric tool ad slot ID
    - `ADSENSE_CMP_READY`: `true` ONLY after the proper certified CMP is configured and validated
-   - `ADSENSE_ADS_ENABLED`: `true` ONLY when the site is approved and ready to serve compliant ads.
+   - `ADSENSE_SITE_READY`: `true` ONLY after AdSense Sites explicitly displays Ready for sunnah.tools.
+   - `ADSENSE_ADS_ENABLED`: `true` ONLY when approved, CMP setup is complete and manual ad slots are configured.
 7. Rerun the Hostinger publish workflow. Visit a regular browser from relevant regions and test Google consent flow, responsive ads, mobile CLS and calculator input interactions. Review `Ads > Sites` and the AdSense Policy Center. Some ads may take time to appear and can be blocked by browser settings.
 8. If Google requests privacy controls or account changes, resolve them **before** making ads live; keep `ADSENSE_ADS_ENABLED=false` as the kill switch.
 

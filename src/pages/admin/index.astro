@@ -1,31 +1,73 @@
 ---
 import Base from '../../layouts/Base.astro';
 import {siteAnalytics} from '../../lib/siteAnalytics';
+import {siteReporting} from '../../lib/siteReporting';
 import {siteAds} from '../../lib/siteAds';
-const report=siteAnalytics.dashboardUrl;
+import '../../styles/admin-reporting.css';
+const configured=Boolean(siteReporting.propertyId&&siteReporting.oauthClientId);
 ---
-<Base title="Site Dashboard & Content Editor" description="Sunnah Tools site owner's operations hub with private analytics links, content editing and publishing workflows." noindex={true}>
-<section class="admin-shell">
- <span class="eyebrow">SITE OPERATIONS · SUNNAH TOOLS</span>
- <h1>Your Sunnah Tools dashboard</h1>
- <p class="admin-summary">One place to manage homepage cards, review search performance, check advertising revenue and open the traffic dashboard. Editing requires your GitHub account; private analytics require your Google sign-in. This page itself contains no confidential account data.</p>
- <div class="admin-dashboard-grid">
-  <div class="admin-module"><span class="module-tag">CONTENT EDITOR</span><h2>Edit homepage</h2><p>Change the Arabic Alphabet, IslamReact and Meem & Moon cards; upload branded banner images, update colours, visibility, homepage text and section order.</p><a href="https://app.pagescms.org/" target="_blank" rel="noopener noreferrer">Open Pages CMS ↗</a></div>
-  <div class="admin-module"><span class="module-tag">TRAFFIC & BEHAVIOUR</span><h2>Google Analytics 4</h2><p>See visitors, sessions, countries, traffic sources, top pages and events such as external promo clicks.</p><div class="no-data">Tracking: {siteAnalytics.enabled?'Configured; visitor consent required':'Awaiting measurement ID and activation'}</div><a href="https://analytics.google.com/analytics/web/" target="_blank" rel="noopener noreferrer">View GA4 reports ↗</a></div>
-  <div class="admin-module"><span class="module-tag">ORGANIC SEARCH</span><h2>Google Search Console</h2><p>Review Google impressions, clicks, search queries, indexed pages, sitemap health and Core Web Vitals.</p><a href="https://search.google.com/search-console/" target="_blank" rel="noopener noreferrer">Open Search Console ↗</a></div>
-  <div class="admin-module"><span class="module-tag">AD MONETISATION</span><h2>Google AdSense</h2><p>Monitor page RPM, estimated revenue, ad impressions, policy issues and approvals once your account is activated.</p><div class="no-data">Ads: {siteAds.enabled?'Activated in website build':'Disabled until approval and CMP readiness'}</div><a href="https://www.google.com/adsense/" target="_blank" rel="noopener noreferrer">Open AdSense ↗</a></div>
-  <div class="admin-module"><span class="module-tag">SITE RELEASES</span><h2>Deployment status</h2><p>Check test results and builds, then confirm Hostinger has deployed the latest <code>hostinger-live</code> branch.</p><a href="https://github.com/omairarshad/sunnah-tools/actions" target="_blank" rel="noopener noreferrer">View GitHub builds ↗</a></div>
-  <div class="admin-module"><span class="module-tag">YOUR WEBSITE</span><h2>Live homepage</h2><p>Preview current tools, promotional cards and layout in a new tab after publishing your edits.</p><a href="https://sunnah.tools/" target="_blank" rel="noopener noreferrer">Open Sunnah Tools ↗</a></div>
+<Base title="Operations & Live Analytics" description="Private Google-authenticated reporting setup and owner operations links for Sunnah Tools." noindex={true}>
+ <div class="operations">
+  <header class="ops-hero">
+   <div><span class="ops-kicker">SUNNAH TOOLS · OWNER WORKSPACE</span><h1>Website analytics</h1><p>Actual traffic, top tools and engagement from Google Analytics. Sign in to your own Google account to read reports. No visitor or revenue figures are fabricated.</p></div>
+   <div class="ops-hero-status"><span class:list={['ops-dot',configured?'ops-dot-ready':'ops-dot-pending']}></span>{configured?'GA4 reporting connection configured':'GA4 reporting connection needed'}</div>
+  </header>
+  <section id="ga4-reporting" class="ops-report" data-property-id={siteReporting.propertyId??''} data-client-id={siteReporting.oauthClientId??''} aria-labelledby="ops-traffic-title">
+   <div class="ops-report-toolbar">
+    <div><h2 id="ops-traffic-title">Traffic overview</h2><p>Live data from your GA4 property, available only after Google authentication.</p></div>
+    <div class="ops-report-actions">
+     <label for="ops-period">Time period <select id="ops-period"><option value="7">Last 7 days</option><option value="28" selected>Last 28 days</option><option value="90">Last 90 days</option></select></label>
+     <button type="button" id="ops-connect" disabled={!configured}>Connect Google Analytics</button>
+     <button type="button" id="ops-refresh" hidden>Refresh data</button>
+     <button type="button" id="ops-disconnect" hidden>Disconnect</button>
+    </div>
+   </div>
+   <p id="ops-status" class="ops-status" role="status" aria-live="polite">{configured?'Sign in to view real analytics. Your Google access token is only held in this browser tab.':'To activate this live dashboard, configure your GA4 numeric Property ID and a Google OAuth web client. Instructions below.'}</p>
+   <div id="ops-data" hidden>
+    <div class="ops-metrics" aria-label="Visitor metrics">
+     <div><span>Active users</span><strong id="ops-users">—</strong></div>
+     <div><span>Sessions</span><strong id="ops-sessions">—</strong></div>
+     <div><span>Page views</span><strong id="ops-views">—</strong></div>
+     <div><span>Events</span><strong id="ops-events">—</strong></div>
+    </div>
+    <section class="ops-panel ops-timeline" aria-labelledby="ops-chart-title"><div class="ops-panel-heading"><h3 id="ops-chart-title">Visitors over time</h3><span>Active users by day</span></div><div id="ops-chart" class="ops-chart" role="img" aria-label="Active users over time"></div></section>
+    <div class="ops-breakdowns">
+     <section class="ops-panel" aria-labelledby="ops-pages-title"><div class="ops-panel-heading"><h3 id="ops-pages-title">Top pages and tools</h3><span>Page views</span></div><div id="ops-pages" class="ops-rows"></div></section>
+     <section class="ops-panel" aria-labelledby="ops-channels-title"><div class="ops-panel-heading"><h3 id="ops-channels-title">Acquisition channels</h3><span>Sessions</span></div><div id="ops-channels" class="ops-rows"></div></section>
+     <section class="ops-panel" aria-labelledby="ops-countries-title"><div class="ops-panel-heading"><h3 id="ops-countries-title">Visitor countries</h3><span>Active users</span></div><div id="ops-countries" class="ops-rows"></div></section>
+     <section class="ops-panel" aria-labelledby="ops-events-title"><div class="ops-panel-heading"><h3 id="ops-events-title">Tracked actions</h3><span>Event count</span></div><div id="ops-event-list" class="ops-rows"></div></section>
+    </div>
+    <p class="ops-report-foot">Google Analytics metrics include only data collected with the appropriate consent and may be delayed or affected by browser blocking. Results are fetched when you sign in; this page does not store the reports.</p>
+   </div>
+  </section>
+  <div class="ops-section-title"><h2>Connection and launch status</h2><p>These are configuration checks, not claims of Google account approval.</p></div>
+  <div class="ops-checks">
+   <article><span class="ops-step">01 · GOOGLE ANALYTICS</span><h3>Collect real visitor data</h3><p>{siteAnalytics.enabled?'GA4 collection is configured. Visitor analytics still require consent.':'GA4 measurement is not enabled in the current website build.'}</p><span class="ops-state">{siteAnalytics.enabled?'Measurement enabled':'Needs GA4 measurement ID'}</span><a href="https://analytics.google.com/analytics/web/" target="_blank" rel="noopener noreferrer">Open Google Analytics</a></article>
+   <article><span class="ops-step">02 · ADSENSE SITE</span><h3>Confirm site is approved</h3><p>AdSense lists your site, but its Ads page does not prove approval. Check <strong>Sites</strong> for the exact status <strong>Ready</strong> before serving advertisements.</p><span class="ops-state">Check in AdSense → Sites</span><a href="https://www.google.com/adsense/" target="_blank" rel="noopener noreferrer">Open AdSense</a></article>
+   <article><span class="ops-step">03 · CONSENT & ADS</span><h3>Keep visitors in control</h3><p>Publish a Google-certified TCF European regulations message for UK/EEA/Swiss visitors, then confirm ads.txt, placement IDs and site approval.</p><span class="ops-state">{siteAds.enabled?'Ad rendering enabled; verify CMP and site approval':'Ad rendering disabled · safe for review'}</span><a href="https://support.google.com/adsense/answer/13554116" target="_blank" rel="noopener noreferrer">Google CMP requirements</a></article>
+  </div>
+  <div class="ops-section-title"><h2>Owner tools</h2><p>Reports and editing remain protected by their respective Google or GitHub sign-ins.</p></div>
+  <nav class="ops-links" aria-label="Owner operations">
+   <a href="https://search.google.com/search-console/" target="_blank" rel="noopener noreferrer"><span>Search Console</span><small>Search queries, indexing and clicks</small></a>
+   <a href="https://analytics.google.com/analytics/web/" target="_blank" rel="noopener noreferrer"><span>Google Analytics</span><small>Realtime and detailed reports</small></a>
+   <a href="https://www.google.com/adsense/" target="_blank" rel="noopener noreferrer"><span>AdSense</span><small>Approval, payments, RPM and policies</small></a>
+   <a href="https://app.pagescms.org/" target="_blank" rel="noopener noreferrer"><span>Homepage editor</span><small>GitHub-authenticated content editing</small></a>
+   <a href="https://github.com/omairarshad/sunnah-tools/actions" target="_blank" rel="noopener noreferrer"><span>Deployment history</span><small>Tests and Hostinger releases</small></a>
+  </nav>
+  <section class="ops-setup" aria-labelledby="ops-setup-heading">
+   <h2 id="ops-setup-heading">One-time analytics connection</h2>
+   <p>Only the Google Analytics property owner can authorise access. There are no passwords, service-account keys or private reports embedded in the public site.</p>
+   <ol>
+    <li>Create or select your <strong>Sunnah Tools</strong> GA4 property and web stream at <a href="https://analytics.google.com/" target="_blank" rel="noopener noreferrer">Google Analytics</a>. Copy its <code>G-…</code> Measurement ID and numeric Property ID.</li>
+    <li>In <a href="https://console.cloud.google.com/apis/library/analyticsdata.googleapis.com" target="_blank" rel="noopener noreferrer">Google Cloud</a>, enable the Google Analytics Data API. Configure OAuth consent and create a <strong>Web application</strong> OAuth client with <code>https://sunnah.tools</code> as an authorised JavaScript origin. Add your own Google login as a test user if the app is in Testing mode. Do not create a service-account key for the website.</li>
+    <li>Set GitHub Actions variables <code>GA4_MEASUREMENT_ID</code>, <code>GA4_ENABLED=true</code>, <code>GA4_PROPERTY_ID</code> and <code>GOOGLE_OAUTH_CLIENT_ID</code>. Republish the source branch. The browser will request read-only access to this specific GA4 property when you click Connect.</li>
+    <li>Open an incognito window, consent to optional analytics on the public site, then check <strong>Realtime</strong> in GA4. Return here and click <strong>Connect Google Analytics</strong> to view authentic reports.</li>
+   </ol>
+   <p><a href="https://github.com/omairarshad/sunnah-tools/blob/feature/initial-site-and-tools/docs/ANALYTICS_AND_CMS.md" target="_blank" rel="noopener noreferrer">Detailed setup and privacy guide</a></p>
+  </section>
  </div>
- <section class="admin-stack" aria-labelledby="report-heading">
-  <h2 id="report-heading">Your traffic overview</h2>
-  {report?<><p>This panel displays your configured Looker Studio report, using Google's own access permissions. If you see a sign-in error here, open it in a new tab instead.</p><div class="admin-report"><iframe title="Sunnah Tools private analytics report" src={report} loading="lazy" referrerpolicy="no-referrer" /></div><p><a href={report} target="_blank" rel="noopener noreferrer">Open the full report in Looker Studio ↗</a></p></>:<><p><strong>Analytics dashboard connection not configured yet.</strong> Create a GA4 property for Sunnah Tools, then connect it to a private <a href="https://lookerstudio.google.com/" target="_blank" rel="noopener noreferrer">Looker Studio report</a> showing users, top tools, search sources, external promo clicks and event counts.</p><p>Set the GitHub Actions variable <code>LOOKER_STUDIO_REPORT_URL</code> to your report URL once you've built it; the website will then display it here. Keep the report restricted to your Google account rather than making it publicly viewable.</p></>}
- </section>
- <section class="admin-stack" aria-labelledby="manage-heading">
-  <h2 id="manage-heading">How homepage editing works</h2>
-  <p>Open Pages CMS → sign in with GitHub → grant access to <code>omairarshad/sunnah-tools</code> → select branch <code>feature/initial-site-and-tools</code> → open <strong>Homepage layout & cards</strong>. Save your edits to GitHub and the build workflow prepares the new site for Hostinger.</p>
-  <p>Only editors with approved repository permissions can save changes. Don't create a publicly writable admin endpoint or paste GitHub access tokens into the website.</p>
-  <p><a href="https://github.com/omairarshad/sunnah-tools/blob/feature/initial-site-and-tools/docs/ANALYTICS_AND_CMS.md" target="_blank" rel="noopener noreferrer">Read configuration and setup instructions ↗</a></p>
- </section>
-</section>
 </Base>
+<script>
+ import {initGA4Dashboard} from '../../scripts/ga4Dashboard.js';
+ initGA4Dashboard(document);
+</script>

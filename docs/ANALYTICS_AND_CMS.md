@@ -1,67 +1,53 @@
-# Sunnah Tools — Homepage CMS & Analytics (October 2026)
+# Sunnah Tools — Real analytics and advertising operations
+Updated 30 October 2026.
 
-## What this release implements
+## What is real
 
-**Homepage promotions:** prominent ArabicAlphabet.app card above the tool directory, plus IslamReact on YouTube and Meem & Moon Islamic merchandise. All three are marked as external destinations and open in a new tab.
+The previous /admin/ page was just links and an optional Looker iframe; it did not query Google Analytics. The new /admin/ has a real GA4 Data API reporting interface, triggered only after the owner signs in to their own Google account.
 
-**Editable homepage:** the site reads `src/data/homepage.json`. The editor can change intro copy and visibility, promotional banner artwork/URLs/colour/visibility/order, section order, and desktop grid columns. The redundant four-card 'Start here' section has been removed. The core tool directory is always present to avoid accidentally removing utility content or search pages.
+Once connected, it reads active users, sessions, page views, events, daily traffic, top pages/tools, countries and acquisition channels for 7, 28 or 90 days. The dashboard uses the actual Google Analytics API response, not local counters or fabricated sample metrics. No GA4 data is displayed until authorised and retrieved.
 
-**Secure editor:** `.pages.yml` configures [Pages CMS](https://app.pagescms.org/), which edits the GitHub source repository after *GitHub authentication*. The static `/admin/` page is a link hub, **not** an unauthenticated write API. Website visitors cannot change content from /admin/. Never give the browser a GitHub personal access token.
+Google OAuth is read-only (analytics.readonly); its access token remains in browser memory. No service account keys or confidential tokens are embedded into static pages. GA4 Google sign-in controls who can access the underlying property; the /admin/ URL itself is public and noindex, not a login wall. AdSense revenue remains separate in the private AdSense Reports.
 
-**Analytics:** optional GA4 client integration. Default: entirely OFF. Once GA4 is configured in repository variables, it uses a small opt-in preference UI. No `gtag.js` network request is made before a visitor accepts; the preference is stored locally and can be changed using the footer button. GA4 events only include `promotion_id`, `tool_slug` and generic `tool_search_used` (no search text, geolocation, financial fields, prayer tracker values, or other personal form content). Google Analytics can be blocked by browser privacy extensions; traffic is consent-limited, not a census.
+## Owner setup — GA4 collection and reporting
 
-**Dashboard:** `/admin/` presents access to:
-- Pages CMS (edit homepage, GitHub sign-in)
-- GA4 (users, sessions, page views, source/medium, countries, custom events)
-- Search Console (search impressions, clicks, keywords, indexing)
-- AdSense (revenue, page RPM, policy status)
-- GitHub build monitoring
-- A configured private Looker Studio report (optional embedded report view, access still controlled by Google). The site **does not fabricate metrics** or collect Analytics Data API credentials in its public static JavaScript.
+1. In https://analytics.google.com/ create or open the Sunnah Tools GA4 property, with a web data stream for https://sunnah.tools. Note the G- Measurement ID and the numeric Property ID, which are different.
+2. In https://console.cloud.google.com/ enable Google Analytics Data API for your Cloud project. Configure OAuth consent and create a Web application OAuth Client ID; allow https://sunnah.tools as an authorised JavaScript origin. If the app is in Testing mode, add the owner's Google email as a test user. Give the owner Google Analytics property access. Do not generate or upload an OAuth client secret or service account private key.
+3. Set these public repository Actions variables (Settings → Secrets and variables → Actions → Variables):
+   - GA4_MEASUREMENT_ID = the G-… web stream measurement ID
+   - GA4_ENABLED = true (only after reviewing the opt-in consent design)
+   - GA4_PROPERTY_ID = the numeric property ID
+   - GOOGLE_OAUTH_CLIENT_ID = the OAuth Web client ID ending in .apps.googleusercontent.com
+4. Re-run Build static site for Hostinger from feature/initial-site-and-tools or commit a source change.
+5. Visit the live site in an incognito browser, decline optional GA4 and confirm no tag loads; then grant consent, visit a few pages and check GA4 Realtime.
+6. Open https://sunnah.tools/admin/ and click Connect Google Analytics. Authorise read-only Analytics access and select 7, 28 or 90 days; Refresh fetches new reports. Disconnect hides data and clears the in-memory token.
 
-## Activate content editing
+GA4 reporting may be delayed, and consent denial and browser blockers reduce coverage. An empty report does not imply zero real website traffic. Never enter a password, a bank detail, a client secret or an access token into the static website configuration.
 
-1. Open https://app.pagescms.org and sign in with GitHub.
-2. Install or approve Pages CMS GitHub App access for **only** `omairarshad/sunnah-tools`. Pages CMS is a third-party service; review the permissions it requests.
-3. Open the repository, choose **`feature/initial-site-and-tools`** (the source branch; **not** the generated `hostinger-live` branch, which is overwritten on every release).
-4. Open **Homepage layout & cards**.
-5. Edit the three external promotions, replace banner artwork using the CMS image upload field, change section ordering, colours, headings or number of columns. Save. GitHub Actions will validate and publish the resulting source; Hostinger may require a redeploy depending on the app connection.
-6. If Pages CMS does not offer the desired branch in your account, edit `src/data/homepage.json` using GitHub's file editor on `feature/initial-site-and-tools`, and commit to the source branch. **Do not** edit the generated `hostinger-live` branch.
-7. Edits are versioned; GitHub commits can be reverted if an incorrect card is published.
+## Events and privacy
 
-The CMS manages a typed JSON file, not arbitrary HTML or JavaScript. URLs are validated to allow only HTTPS external links. Invalid URLs are omitted rather than becoming clickable javascript: links.
+GA4 requests do not occur before optional opt-in; initial Google consent mode v2 defaults are all denied. The GA4 script loads only after visitor approval. Denying a previously approved choice reloads the page to unload the tracking tag.
 
-## Activate Google Analytics 4
+Tracked events: page_view and (on consent only) promotion_click with promotion_id, tool_open with tool_slug, and tool_search_used without the search text. Neither form values, financial figures, geolocation, entered prayer data, nor tracker history are sent. To see promotion or tool parameters separately in GA4 Reports, register event-scoped custom dimensions for promotion_id and tool_slug. Top Pages and daily traffic do not require custom dimensions.
 
-1. Go to https://analytics.google.com/, create a GA4 property and web data stream for `https://sunnah.tools/` (if you have not already), and copy your `G-...` **Measurement ID**.
-2. In GitHub → `omairarshad/sunnah-tools` → Settings → Secrets and variables → Actions → **Variables**, set:
-   - `GA4_MEASUREMENT_ID` to your real `G-...` measurement ID.
-   - `GA4_ENABLED` to `true` only after reviewing the privacy policy and optional consent UI.
-3. Trigger `Build static site for Hostinger` from the source branch or publish a source commit to regenerate the static site. The GitHub workflow maps those variables to compile-time `PUBLIC_GA4_...` Astro settings.
-4. Check the public website in an incognito browser. A small optional analytics preference panel should appear. Before accepting, there must be **no** request to `www.googletagmanager.com/gtag/js`; after accepting, the GA4 tag should load. Declining should leave GA4 completely unloaded on a fresh page. Returning visitors retain their choice in browser-local storage.
-5. In GA4, use Realtime and DebugView to verify visits. Custom events: `promotion_click` (`promotion_id`), `tool_open` (`tool_slug`), `favorite_toggle` (`tool_slug`), `tool_search_used` (event only). If you want to use the custom parameters as GA4 report dimensions, register them as event-scoped custom dimensions; events alone do not automatically appear as configured dimensions.
-6. For detailed dashboard reporting, open https://lookerstudio.google.com/ and create a report connected to the GA4 property. Include scorecards and charts for Users, Sessions, Views, Countries, Source/Medium, Top Pages, and Events over Time. Restrict sharing to your own Google account.
-7. If you want the report to appear within `/admin/`, set the GitHub Actions variable `LOOKER_STUDIO_REPORT_URL` to the private report URL and republish. Google still controls access; if embedding is blocked, use the direct private report link instead. **Never** make a report public solely to make an iframe work.
+## AdSense setup and safety
 
-## Revenue and privacy
+The site has the owner's existing YouTube AdSense publisher identity for site meta verification and ads.txt. The screenshot of Ads → By site shows sunnah.tools and Auto ads OFF but does not establish Sites approval.
 
-- The Google Analytics consent preference is for **analytics only**. It **does not replace Google's certified CMP / TCF European regulations message** needed for AdSense when serving certain traffic.
-- Do not configure `ADSENSE_ADS_ENABLED=true` until publisher approval and certified consent setup are verified. See `docs/ADSENSE_SETUP.md`.
-- Analytics and advertisements should not load on the self-contained prayer times embed by default.
-- The dashboard is a **public noindex navigation shell**; the sensitive Google reports and GitHub edits remain protected by Google's and GitHub's authentication. Do not place private API keys, GA4 service-account credentials or revenue export files on this static page.
-- Treat visitor consent, privacy policy, access permissions and paid advertisements as ongoing operational responsibilities.
-- SEO impact is not guaranteed by adding cross-promotion cards. Track search clicks, organic landing pages, CTR and visitor engagement; keep calculators prominent.
+Before serving ads: open AdSense → Sites and confirm the site status reads Ready. In Privacy & messaging publish a Google-certified TCF consent message for UK, EEA and Swiss visitors; confirm consent choices and Google Consent Mode integration in a real browser. The optional website GA4 consent choice is not a substitute for Google's certified CMP. Google requires a certified CMP for personalised ads for these regions.
 
-## Next possible features
+Keep Auto ads and Auto optimise OFF for controlled manual positions. Under Ads → By ad unit create two responsive Display ads and copy numeric slot IDs. Manual positions are already present after the homepage tool list and below the main tools; never interrupt a calculation.
 
-- Optional promotional card scheduling and rotating home cards after basic analytics reveals actual engagement.
-- More substantive, independently verified Arabic learning tools linking to the dedicated ArabicAlphabet.app property.
-- Periodic internal SEO performance review using real Search Console queries, not synthetic search-volume guesses.
-- A proper unified authenticated dashboard with GA4 API + Google OAuth would require a secure server-side proxy or third-party hosted analytics service; it cannot be safely implemented by placing credentials in this static Hostinger frontend.
+Only after approval, CMP and testing, set Actions variables ADSENSE_SITE_READY=true, ADSENSE_CMP_READY=true, ADSENSE_HOME_SLOT, ADSENSE_TOOL_SLOT and ADSENSE_ADS_ENABLED=true. Missing any of these keeps adverts disabled. Never activate these variables based only on a site appearing in the Ads tab.
 
-## Branded homepage banners (October 2026)
+Use separate AdSense Payments accounts for website versus YouTube once available and check the correct bank method for the website; do not change the existing YouTube payment method without a clear reason.
 
-The large four-card “Start here” row was removed to make the top of the homepage quieter. A wide ArabicAlphabet.app image banner is followed by two compact IslamReact and Meem & Moon image banners; on smaller screens the banners responsively reorganise. Each entire banner is one accessible external link, with the same `data-promo-id` GA4 event capture as before.
+## Other real data sources
 
-The initial shipped SVGs are **original brand-themed illustrations**, not copies of official logos, YouTube thumbnails or photographs. They are lightweight self-hosted stand-ins for the final artwork; the typography, Arabic flashcards, playback illustration and gift/sticker motif reflect each destination. Owners should upload official brand artwork or suitable product photos using Pages CMS when available. In the **External projects and promotional cards** editor, choose **Banner artwork** and upload a local SVG, WebP, PNG or JPEG asset. The `image` property is a local `/media/...` path; this avoids fragile hotlinking and maintains performance. Add a short `imageAlt` description. The old images are retained in `public/media/brands/` for easy rollback.
+- https://search.google.com/search-console/ — actual Google search impressions, clicks, rankings and indexing
+- https://analytics.google.com/analytics/web/ — GA4 Realtime, explorations and events
+- https://www.google.com/adsense/ — actual revenue, RPM, policy status and payments
+- https://app.pagescms.org/ — GitHub-authenticated homepage editing; use source branch feature/initial-site-and-tools, never generated hostinger-live
+- https://github.com/omairarshad/sunnah-tools/actions — build and deployment results
 
-Do not change a banner to an HTTP or `javascript:` URL. Links are restricted to HTTPS, images to local approved media paths. Source images should be licensed or owned; if the source website updates its identity, replace the local artwork.
+Official references: https://support.google.com/analytics/answer/14183469 , https://developers.google.com/analytics/devguides/reporting/data/v1 , https://developers.google.com/tag-platform/security/guides/consent , https://support.google.com/adsense/answer/12170222 , https://support.google.com/adsense/answer/13554116 .
