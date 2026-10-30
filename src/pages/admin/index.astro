@@ -25,16 +25,16 @@ const configured=Boolean(siteReporting.propertyId&&siteReporting.oauthClientId);
    <div id="ops-data" hidden>
     <section class="ops-realtime" aria-label="Realtime website activity in the last 30 minutes">
      <div><span class="ops-live-kicker">REALTIME · LAST 30 MINUTES</span><h3>Current website activity</h3><p id="ops-realtime-status" role="status">Checking current activity…</p></div>
-     <div class="ops-live-stats"><div><span>Active users</span><strong id="ops-live-users">—</strong></div><div><span>Events</span><strong id="ops-live-events">—</strong></div></div>
+     <div class="ops-live-stats"><div><span>Live users</span><strong id="ops-live-users">—</strong></div><div><span>Events</span><strong id="ops-live-events">—</strong></div></div>
     </section>
     <div class="ops-metrics" aria-label="Visitor metrics">
-     <div><span>Active users</span><strong id="ops-users">—</strong></div>
+     <div><span>Users · selected period</span><strong id="ops-users">—</strong></div>
      <div><span>Sessions</span><strong id="ops-sessions">—</strong></div>
      <div><span>Page views</span><strong id="ops-views">—</strong></div>
      <div><span>Events</span><strong id="ops-events">—</strong></div>
     </div>
     <p id="ops-empty-note" class="ops-empty-note" hidden>No processed traffic yet. New GA4 properties can take 24–48 hours to populate regular reports. Realtime updates much sooner. Only consented visits are recorded.</p>
-    <section class="ops-panel ops-timeline" aria-labelledby="ops-chart-title"><div class="ops-panel-heading"><h3 id="ops-chart-title">Visitors over time</h3><span>Active users by day</span></div><div id="ops-chart" class="ops-chart" role="img" aria-label="Active users over time"></div></section>
+    <section class="ops-panel ops-timeline" aria-labelledby="ops-chart-title"><div class="ops-panel-heading"><h3 id="ops-chart-title">Traffic over time</h3><label class="ops-chart-control" for="ops-chart-metric">Show <select id="ops-chart-metric"><option value="users">Users</option><option value="sessions">Sessions</option><option value="views">Page views</option></select></label></div><div id="ops-chart" class="ops-chart" aria-label="Traffic by day"></div></section>
     <div class="ops-breakdowns">
      <section class="ops-panel" aria-labelledby="ops-pages-title"><div class="ops-panel-heading"><h3 id="ops-pages-title">Top pages and tools</h3><span>Page views</span></div><div id="ops-pages" class="ops-rows"></div></section>
      <section class="ops-panel" aria-labelledby="ops-channels-title"><div class="ops-panel-heading"><h3 id="ops-channels-title">Acquisition channels</h3><span>Sessions</span></div><div id="ops-channels" class="ops-rows"></div></section>
@@ -56,7 +56,7 @@ const configured=Boolean(siteReporting.propertyId&&siteReporting.oauthClientId);
    <label class="ops-remember"><input type="checkbox" id="ops-ads-remember" checked/> Keep AdSense connected in this tab until the Google session expires</label>
    <p id="ops-ads-status" class="ops-status" role="status" aria-live="polite">Connect read-only AdSense to check approval and revenue.</p>
    <div class="ops-ads-statusline"><span>Site approval</span><strong id="ops-ads-approval">Not checked</strong><span id="ops-ads-site-label">sunnah.tools</span></div>
-   <p class="ops-revenue-help">AdSense is still reviewing the site. Before approval, you can set up <a href="https://www.google.com/adsense/" target="_blank" rel="noopener noreferrer">Privacy &amp; messaging</a> and confirm <a href="/ads.txt" target="_blank" rel="noopener noreferrer">ads.txt</a>. After approval, create two manual responsive ad units and keep Auto ads off. Ad serving is not enabled from this dashboard. <a href="https://www.google.com/adsense/" target="_blank" rel="noopener noreferrer">Check AdSense → Sites</a>.</p>
+   <p class="ops-revenue-help">While approval is pending, you can set up <a href="https://www.google.com/adsense/" target="_blank" rel="noopener noreferrer">Privacy &amp; messaging</a> and confirm <a href="/ads.txt" target="_blank" rel="noopener noreferrer">ads.txt</a>. After approval, create two manual responsive ad units and keep Auto ads off. Ad serving is not enabled from this dashboard. <a href="https://www.google.com/adsense/" target="_blank" rel="noopener noreferrer">Check AdSense → Sites</a>.</p>
    <div id="ops-ads-data" hidden>
     <div class="ops-revenue-kpis" aria-label="Site-specific earnings">
      <div><span>Estimated today</span><strong id="ops-ads-today">—</strong></div>
