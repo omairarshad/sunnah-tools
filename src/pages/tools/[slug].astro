@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import NewSunnahGuide from '../../components/NewSunnahGuide.astro';
+import DeepSevenKnowledge from '../../components/DeepSevenKnowledge.astro';
 import '../../styles/tool-accordion.css';
 import AdPlacement from '../../components/AdPlacement.astro';
 import ToolApp from '../../components/ToolApp';
@@ -277,6 +278,7 @@ const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemL
    </section>
    <div class="tool-knowledge-area" id="tool-knowledge" aria-label="Detailed reference guide">
    {['hijama-date-planner','duha-prayer-time','istikhara-guide','friday-sunnah-checklist','islamic-will-planner','aqiqah-planner','sunnah-fasting-planner'].includes(slug)&&<NewSunnahGuide slug={slug}/>}
+   {['hijama-date-planner','duha-prayer-time','istikhara-guide','friday-sunnah-checklist','islamic-will-planner','aqiqah-planner','sunnah-fasting-planner'].includes(slug)&&<DeepSevenKnowledge slug={slug}/>}
    {slug==='tahajjud-time'&&<TahajjudGuide/>}
    {slug==='prayer-times'&&<PrayerTimesGuide/>}
    {slug==='qibla-finder'&&<QiblaGuide/>}
