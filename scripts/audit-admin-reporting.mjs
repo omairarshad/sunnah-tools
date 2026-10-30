@@ -24,7 +24,7 @@ try{
    let requests=0,liveRequests=0,validRequest=true,lastRange='';
    let siteReady=false,adsReportCalls=0,adsSiteFilterValid=true;
    await page.route('https://adsense.googleapis.com/v2/**',route=>{
-    const u=new URL(route.request().url);
+    const u=new URL(route.request().url());
     if(route.request().headers().authorization!=='Bearer ads_token_only')adsSiteFilterValid=false;
     const json=o=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(o)});
     if(u.pathname==='/v2/accounts')return json({accounts:[{name:'accounts/pub-123'}]});
