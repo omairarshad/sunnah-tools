@@ -68,7 +68,11 @@ try{
    if(!(await page.content()).includes('noindex,nofollow'))issues.push(tag+' public index risk');
    await page.screenshot({path:resolve(dir,mode+'-'+theme+'-setup.png'),animations:'disabled'});
    await page.getByRole('button',{name:'Connect Google Analytics'}).click();
-   await page.waitForFunction(()=>document.getElementById('ops-users')?.textContent==='14',{timeout:12000});
+   try{await page.waitForFunction(()=>document.getElementById('ops-users')?.textContent==='14',null,{timeout:12000});}
+   catch(e){
+    console.error('REPORTING-DEBUG',JSON.stringify({tag,status:await page.locator('#ops-status').textContent(),siteError:await page.locator('#ops-ads-status').textContent(),requests,liveRequests,errors}));
+    throw e;
+   }
    if(requests!==2||liveRequests!==1||!validRequest)issues.push(tag+' broken 5+1 batch or realtime report request');
    if(await page.locator('#ops-live-users').textContent()!=='4')issues.push(tag+' missing realtime users');
    if(await page.locator('#ops-live-events').textContent()!=='13')issues.push(tag+' missing realtime events');
