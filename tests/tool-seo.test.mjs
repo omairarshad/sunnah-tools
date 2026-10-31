@@ -31,6 +31,8 @@ test('popular homepage tools keep prayer, Hijri, Ramadan and Zakat topics contig
  assert.ok(order.indexOf('zakat-calculator')<order.indexOf('islamic-events-calendar'));
  assert.ok(order.indexOf('fitrana-calculator')<order.indexOf('nisab-calculator'));
  assert.ok(order.indexOf('umrah-packing-checklist')<order.indexOf('tasbih-counter'));
+ assert.deepEqual(order.slice(order.indexOf('umrah-packing-checklist'),order.indexOf('quran-planner')),['umrah-packing-checklist','tawaf-sai-counter']);
+ assert.ok(order.indexOf('quran-planner')<order.indexOf('islamic-will-planner'));
 });
 
 test('every top-priority page has keyword-first title and a descriptive H1',()=>{

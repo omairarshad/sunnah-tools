@@ -347,33 +347,6 @@
         "imageAlt": "Pilgrimage travel suitcase with an Umrah passport"
       },
       {
-        "slug": "tasbih-counter",
-        "title": "Digital Tasbih",
-        "description": "Count dhikr and save progress on this device.",
-        "tone": "coral",
-        "enabled": true,
-        "image": "/tool-art/tasbih-counter.svg",
-        "imageAlt": "Circular prayer beads around a digital dhikr count"
-      },
-      {
-        "slug": "quran-planner",
-        "title": "Quran Reading Planner",
-        "description": "Plan your daily reading to finish the Quran.",
-        "tone": "indigo",
-        "enabled": true,
-        "image": "/tool-art/quran-planner.svg",
-        "imageAlt": "Open Quran with bookmark and reading checklist"
-      },
-      {
-        "slug": "qurbani-share-calculator",
-        "title": "Qurbani Share Calculator",
-        "description": "Split Udhiyah costs across animal shares.",
-        "tone": "amber",
-        "enabled": true,
-        "image": "/tool-art/qurbani-share-calculator.svg",
-        "imageAlt": "Seven Qurbani cost shares arranged around an animal silhouette"
-      },
-      {
         "slug": "tawaf-sai-counter",
         "title": "Tawaf & Sa’i Counter",
         "description": "Count seven Tawaf circuits and Sa’i lengths.",
@@ -383,13 +356,13 @@
         "imageAlt": "Kaaba and the seven circuits of Tawaf"
       },
       {
-        "slug": "daily-adhkar",
-        "title": "Quranic Duas & Adhkar",
-        "description": "Read a source-linked collection of Quranic duas with a repetition counter.",
+        "slug": "quran-planner",
+        "title": "Quran Reading Planner",
+        "description": "Plan your daily reading to finish the Quran.",
         "tone": "indigo",
         "enabled": true,
-        "image": "/tool-art/daily-adhkar.svg",
-        "imageAlt": "Low-poly illustration representing quranic duas & adhkar with a clear geometric symbol"
+        "image": "/tool-art/quran-planner.svg",
+        "imageAlt": "Open Quran with bookmark and reading checklist"
       },
       {
         "slug": "quran-juz-finder",
@@ -410,13 +383,22 @@
         "imageAlt": "Low-poly illustration representing hifz memorisation tracker with a clear geometric symbol"
       },
       {
-        "slug": "halal-additives-checker",
-        "title": "Halal Additives Checker",
-        "description": "Look up common food E-numbers and see which sources need checking.",
-        "tone": "mint",
+        "slug": "daily-adhkar",
+        "title": "Quranic Duas & Adhkar",
+        "description": "Read a source-linked collection of Quranic duas with a repetition counter.",
+        "tone": "indigo",
         "enabled": true,
-        "image": "/tool-art/halal-additives-checker.svg",
-        "imageAlt": "Low-poly illustration representing halal additives checker with a clear geometric symbol"
+        "image": "/tool-art/daily-adhkar.svg",
+        "imageAlt": "Low-poly illustration representing quranic duas & adhkar with a clear geometric symbol"
+      },
+      {
+        "slug": "tasbih-counter",
+        "title": "Digital Tasbih",
+        "description": "Count dhikr and save progress on this device.",
+        "tone": "coral",
+        "enabled": true,
+        "image": "/tool-art/tasbih-counter.svg",
+        "imageAlt": "Circular prayer beads around a digital dhikr count"
       },
       {
         "slug": "istikhara-guide",
@@ -437,13 +419,13 @@
         "imageAlt": "Low-poly clipboard with checkmarks for Friday Sunnah preparation"
       },
       {
-        "slug": "islamic-will-planner",
-        "title": "Islamic Will Planner",
-        "description": "Organise private questions for inheritance and legal advisers.",
-        "tone": "rose",
+        "slug": "qurbani-share-calculator",
+        "title": "Qurbani Share Calculator",
+        "description": "Split Udhiyah costs across animal shares.",
+        "tone": "amber",
         "enabled": true,
-        "image": "/tool-art/islamic-will-planner.svg",
-        "imageAlt": "Low-poly illustrated legal document and seal for preparing a will"
+        "image": "/tool-art/qurbani-share-calculator.svg",
+        "imageAlt": "Seven Qurbani cost shares arranged around an animal silhouette"
       },
       {
         "slug": "aqiqah-planner",
@@ -453,6 +435,24 @@
         "enabled": true,
         "image": "/tool-art/aqiqah-planner.svg",
         "imageAlt": "Soft geometric child blanket artwork for Aqiqah planning"
+      },
+      {
+        "slug": "halal-additives-checker",
+        "title": "Halal Additives Checker",
+        "description": "Look up common food E-numbers and see which sources need checking.",
+        "tone": "mint",
+        "enabled": true,
+        "image": "/tool-art/halal-additives-checker.svg",
+        "imageAlt": "Low-poly illustration representing halal additives checker with a clear geometric symbol"
+      },
+      {
+        "slug": "islamic-will-planner",
+        "title": "Islamic Will Planner",
+        "description": "Organise private questions for inheritance and legal advisers.",
+        "tone": "rose",
+        "enabled": true,
+        "image": "/tool-art/islamic-will-planner.svg",
+        "imageAlt": "Low-poly illustrated legal document and seal for preparing a will"
       }
     ]
   },
