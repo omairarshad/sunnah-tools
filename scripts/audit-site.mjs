@@ -62,8 +62,12 @@ if(process.env.PUBLIC_ADSENSE_ADS_ENABLED!=='true')assert(!home.includes('pagead
 const sitemap=read('sitemap-0.xml');
 assert((home.match(/class="directory-topic-heading"/g)||[]).length===6,'Homepage should display six distinct tool topics');
 for(const heading of ['Hajj &amp; Umrah','Qur’an, dhikr &amp; everyday life'])assert(home.includes(heading),'Expected separate topic heading: '+heading);
-for(const slug of ['umrah-packing-checklist','tawaf-sai-counter'])assert(new RegExp('<article[^>]*data-topic="pilgrimage"[^>]*data-slug="'+slug+'"[^>]*data-category="hajj &amp; umrah"').test(home),'Pilgrimage grouping or filter missing: '+slug);
-assert(home.includes('data-filter="hajj &amp; umrah"'),'Pilgrimage filter missing');
+for(const slug of ['umrah-packing-checklist','tawaf-sai-counter']){
+ const cardTags=home.match(/<article\\b[^>]*>/g)||[];
+ const tag=cardTags.find(x=>x.includes('data-slug="'+slug+'"'));
+ assert(tag&&tag.includes('data-topic="pilgrimage"')&&/data-category="[^"]*hajj[^"]*umrah"/.test(tag),'Pilgrimage grouping or filter missing: '+slug);
+}
+assert(/data-filter="[^"]*hajj[^"]*umrah"/.test(home),'Pilgrimage filter missing');
 assert(!home.includes('Hajj, Umrah &amp; worship'),'Old mixed topic heading remains');
 assert((home.match(/class="tool-card-visual"/g)||[]).length===slugs.length,'Every card must show a large illustration');
 for(const slug of slugs){
