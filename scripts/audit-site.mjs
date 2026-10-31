@@ -63,7 +63,7 @@ const sitemap=read('sitemap-0.xml');
 assert((home.match(/class="directory-topic-heading"/g)||[]).length===6,'Homepage should display six distinct tool topics');
 for(const heading of ['Hajj &amp; Umrah','Qur’an, dhikr &amp; everyday life'])assert(home.includes(heading),'Expected separate topic heading: '+heading);
 for(const slug of ['umrah-packing-checklist','tawaf-sai-counter']){
- const cardTags=home.match(/<article\\b[^>]*>/g)||[];
+ const cardTags=home.match(/<article\b[^>]*>/g)||[];
  const tag=cardTags.find(x=>x.includes('data-slug="'+slug+'"'));
  assert(tag&&tag.includes('data-topic="pilgrimage"')&&/data-category="[^"]*hajj[^"]*umrah"/.test(tag),'Pilgrimage grouping or filter missing: '+slug);
 }
