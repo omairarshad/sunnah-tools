@@ -1,0 +1,117 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><script>
+ (() => {
+  let stored = null;
+  try { stored = localStorage.getItem('sunnah-tools-theme'); } catch {}
+  const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false;
+  document.documentElement.dataset.theme = stored === 'dark' || stored === 'light' ? stored : (prefersDark ? 'dark' : 'light');
+ })();
+</script><script>
+ (() => {
+  // Voluntary session-only font experiment; normal visitors use the existing design.
+  const fonts={
+   'petrona-karla':'https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700;800&family=Petrona:wght@400;500;600;700&display=swap',
+   'alegreya-family':'https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Alegreya+Sans:wght@400;500;600;700;800&display=swap',
+   'eczar-plex':'https://fonts.googleapis.com/css2?family=Eczar:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap'
+  };
+  const storageKey='sunnah-font-preview';
+  const selected=new URLSearchParams(location.search).get('font-preview');
+  const allowed=value=>typeof value==='string'&&Object.prototype.hasOwnProperty.call(fonts,value);
+  let choice='';
+  try {
+   if(selected==='off')sessionStorage.removeItem(storageKey);
+   else if(allowed(selected))sessionStorage.setItem(storageKey,selected);
+   choice=sessionStorage.getItem(storageKey)||'';
+  } catch {if(allowed(selected))choice=selected}
+  if(!allowed(choice))return;
+  document.documentElement.dataset.fontPreview=choice;
+  const fontsLink=document.createElement('link');fontsLink.rel='stylesheet';fontsLink.href=fonts[choice];document.head.appendChild(fontsLink);
+  const previewLink=document.createElement('link');previewLink.rel='stylesheet';previewLink.href='/font-preview.css';document.head.appendChild(previewLink);
+ })();
+</script><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&display=swap"><meta name="description" content="Understand Zakat on cash, savings and gold, the difference between gold and silver Nisab, the lunar-year condition and how Fitrana rates are set."><link rel="canonical" href="https://sunnah.tools/guides/zakat-nisab-and-fitrana/"><meta property="og:type" content="website"><meta property="og:site_name" content="Sunnah Tools"><meta property="og:title" content="Zakat, Nisab &#38; Fitrana Calculation Guide | Sunnah Tools"><meta property="og:description" content="Understand Zakat on cash, savings and gold, the difference between gold and silver Nisab, the lunar-year condition and how Fitrana rates are set."><meta property="og:url" content="https://sunnah.tools/guides/zakat-nisab-and-fitrana/"><meta name="google-adsense-account" content="ca-pub-4083891573415148"><meta name="twitter:card" content="summary"><link rel="icon" href="/favicon.svg"><meta name="theme-color" content="#F8F7F3"><title>Zakat, Nisab &amp; Fitrana Calculation Guide | Sunnah Tools</title><link rel="stylesheet" href="/_astro/about.DhG8BxCK.css">
+<link rel="stylesheet" href="/_astro/about.CJlG9rAQ.css"></head> <body> <a class="skip-link" href="#content">Skip to content</a> <header class="site-header"> <div class="site-header-inner"> <a class="brand" href="/" aria-label="Sunnah Tools homepage"><img class="brand-symbol" src="/brand-mark.svg" alt="" aria-hidden="true" width="48" height="48" decoding="async"><span class="brand-wordmark">Sunnah<span class="brand-sub">Tools</span></span></a> <nav aria-label="Main navigation" class="top-navigation"> <a href="/#tools">Explore tools</a> <a href="/tools/prayer-times/">Prayer times</a> <a href="/tools/zakat-calculator/">Zakat</a> <a href="/about/">About</a> </nav> <div class="header-controls"> <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch to dark mode" aria-pressed="false" title="Toggle dark mode"> <svg class="theme-icon theme-icon-moon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 13.4A8.8 8.8 0 0 1 10.6 3.2 8.8 8.8 0 1 0 20.8 13.4Z"></path></svg> <svg class="theme-icon theme-icon-sun" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path></svg> <span id="theme-toggle-label">Dark mode</span> </button> <a href="/#tools" class="header-action">All tools <span aria-hidden="true">↗</span></a> </div> </div> </header> <main id="content"> <article class="content editorial-guide"> <h1>How to estimate Zakat, Nisab and Fitrana</h1> <p>Zakat calculators are useful for organising figures, but deciding whether an asset is Zakatable can depend on your circumstances and scholarly guidance. Our calculators make their assumptions visible and ask you to enter prices or a published local Fitrana rate instead of presenting unverified live values.</p> <nav class="guide-quick-links" aria-label="Related Zakat tools"><a href="/tools/zakat-calculator/">Zakat calculator ↗</a><a href="/tools/nisab-calculator/">Nisab thresholds ↗</a><a href="/tools/gold-zakat-calculator/">Gold Zakat ↗</a><a href="/tools/fitrana-calculator/">Fitrana ↗</a></nav> <h2>What is Nisab?</h2><p>Nisab is the minimum qualifying wealth threshold for Zakat. The traditional gold and silver standards use different weights and usually give different monetary values. The calculator applies 87.48 grams for gold and 612.36 grams for silver, multiplied by the current price per gram that you enter. Which benchmark to follow is a matter for qualified guidance.</p> <h2>How a 2.5% illustration is calculated</h2><p>For wealth that meets the relevant conditions, the calculator shows 2.5% of the qualifying net assets you enter. Whether and how to deduct liabilities, how to value investments or business stock, and whether a lunar year (hawl) has passed all require care. The tool is an estimate, not an automatic ruling or tax calculation.</p> <h2>Cash, savings and gold</h2><p>Enter asset amounts in one currency and avoid mixing currencies without converting first. The <a href="/tools/gold-zakat-calculator/">gold calculator</a> estimates pure-gold content from weight and karat purity; gemstone weight and jewellery rules may require separate consideration. You provide the metal price, because the site does not claim to receive a live market price feed.</p> <h2>Fitrana is different from annual Zakat</h2><p>Zakat al-Fitr (Fitrana) is associated with the end of Ramadan and is commonly expressed as an amount per eligible person. Rates and accepted forms of payment may vary by locality and authority. Enter the currently verified rate from your chosen mosque or charity; do not assume one universal worldwide cash amount.</p> <h2>Reviewing the result</h2><p>Keep a record of your assumptions, check current metal prices and your community's guidance, and ask a qualified scholar or trusted charity when the treatment of an asset is unclear. UK users should also verify that the currency and rates they enter are in pounds if they expect a GBP result.</p> <p class="guide-next"><a href="/tools/zakat-calculator/">Open the Zakat calculator →</a></p> </article></main> <footer class="site-footer"><div class="footer-inner"> <div><a class="footer-brand" href="/"><img src="/brand-mark.svg" alt="" aria-hidden="true" width="33" height="33" loading="lazy"><span>Sunnah <em>Tools</em></span></a><p>Prayer times, Islamic calendars and calculators.</p></div> <div class="footer-links"><a href="/#tools">All tools</a><a href="/about/">About</a><a href="/guides/prayer-time-methods/">Prayer guide</a><a href="/guides/ramadan-dates-and-timetables/">Ramadan guide</a><a href="/privacy/">Privacy</a><a href="/sitemap-index.xml">Sitemap</a></div> <div class="privacy-controls"><button type="button" id="analytics-preferences">Analytics preferences</button></div> <p class="footer-bottom">© 2026 Sunnah Tools. Calculations are informational; follow trusted local guidance for religious decisions.</p> </div></footer> <div id="analytics-consent" class="analytics-consent" hidden role="region" aria-label="Optional analytics preferences"><div><strong>Optional site analytics</strong><p>May we use Google Analytics to measure visits and understand which tools people use? No analytics script loads unless you allow it. We never send your calculation inputs or entered locations. See our <a href="/privacy/">privacy policy</a>.</p></div><div class="consent-actions"><button type="button" id="analytics-no">No thanks</button><button type="button" id="analytics-yes">Allow analytics</button></div></div><script>(function(){const measurementId = "G-DP5EWHE85J";
+
+(function(){
+ const key='sunnah-analytics-choice-v1';
+ const notice=document.getElementById('analytics-consent');
+ const launcher=document.getElementById('analytics-preferences');
+ let choice=null,loaded=false,searchTracked=false;
+ try{choice=localStorage.getItem(key)}catch{}
+ window.dataLayer=window.dataLayer||[];
+ function gtag(){window.dataLayer.push(arguments);}
+ // Basic consent mode v2: set defaults before any external tag can load.
+ gtag('consent','default',{
+  analytics_storage:'denied',ad_storage:'denied',
+  ad_user_data:'denied',ad_personalization:'denied'
+ });
+ const show=()=>{if(notice)notice.hidden=false;};
+ const hide=()=>{if(notice)notice.hidden=true;};
+ function loadAnalytics(){
+  if(loaded)return;
+  loaded=true;
+  gtag('consent','update',{
+   analytics_storage:'granted',ad_storage:'denied',
+   ad_user_data:'denied',ad_personalization:'denied'
+  });
+  gtag('js',new Date());
+  gtag('config',measurementId,{send_page_view:true});
+  const tag=document.createElement('script');
+  tag.async=true;
+  tag.src='https://www.googletagmanager.com/gtag/js?id='+encodeURIComponent(measurementId);
+  document.head.append(tag);
+ }
+ function update(value){
+  const hadLoaded=loaded;
+  choice=value;
+  try{localStorage.setItem(key,value)}catch{}
+  hide();
+  if(value==='yes')loadAnalytics();
+  else if(hadLoaded){
+   gtag('consent','update',{analytics_storage:'denied'});
+   // Unload the tag entirely; mere consent update may still permit cookieless pings.
+   window.location.reload();
+  }
+ }
+ if(choice==='yes')loadAnalytics();
+ else if(choice!=='no')show();
+ document.getElementById('analytics-yes')?.addEventListener('click',()=>update('yes'));
+ document.getElementById('analytics-no')?.addEventListener('click',()=>update('no'));
+ launcher?.addEventListener('click',show);
+ window.sunnahTrack=function(name,params){
+  if(choice!=='yes'||!loaded||!/^([a-z][a-z0-9_]{1,39})$/.test(name))return;
+  // Do not pass free-form search queries, coordinates, calculations or input values.
+  gtag('event',name,params||{});
+ };
+ document.addEventListener('click',function(event){
+  if(!(event.target instanceof Element))return;
+  const promo=event.target.closest('[data-promo-id]');
+  if(promo){
+   window.sunnahTrack('promotion_click',{promotion_id:promo.getAttribute('data-promo-id')||'unknown'});
+   return;
+  }
+  const tool=event.target.closest('a[href^="/tools/"]');
+  if(tool){
+   const slug=(tool.getAttribute('href')||'').split('/')[2];
+   if(/^[a-z0-9-]{2,64}$/.test(slug||''))window.sunnahTrack('tool_open',{tool_slug:slug});
+  }
+ });
+ document.getElementById('tool-search-input')?.addEventListener('input',function(){
+  if(!searchTracked&&this.value.trim().length>=2){
+   searchTracked=true;
+   window.sunnahTrack('tool_search_used',{});
+  }
+ });
+})();
+})();</script> <script type="module">const t=document.querySelector("#theme-toggle"),c=document.querySelector("#theme-toggle-label"),o="sunnah-tools-theme",a=document.documentElement,n=window.matchMedia?.("(prefers-color-scheme: dark)"),d=()=>n?.matches?"dark":"light",m=()=>a.dataset.theme==="dark"?"dark":"light";function r(){const e=m()==="dark";t&&(t.setAttribute("aria-pressed",String(e)),t.setAttribute("aria-label",e?"Switch to light mode":"Switch to dark mode"),t.title=e?"Switch to light mode":"Switch to dark mode"),c&&(c.textContent=e?"Light mode":"Dark mode"),document.querySelector('meta[name="theme-color"]')?.setAttribute("content",e?"#101916":"#F8F7F3")}t?.addEventListener("click",()=>{const e=m()==="dark"?"light":"dark";a.dataset.theme=e;try{localStorage.setItem(o,e)}catch{}r()});n?.addEventListener?.("change",()=>{try{if(localStorage.getItem(o)==="dark"||localStorage.getItem(o)==="light")return}catch{}a.dataset.theme=d(),r()});r();</script> <script>
+ (() => {
+  const choice=document.documentElement.dataset.fontPreview;
+  const labels={'petrona-karla':'Petrona + Karla','alegreya-family':'Alegreya + Alegreya Sans','eczar-plex':'Eczar + IBM Plex Sans'};
+  if(!Object.prototype.hasOwnProperty.call(labels,choice))return;
+  const bar=document.createElement('aside');
+  bar.className='font-preview-bar';
+  bar.setAttribute('aria-label','Temporary font preview controls');
+  const label=document.createElement('span');label.textContent='Font preview: '+labels[choice];
+  const compare=document.createElement('a');compare.textContent='Compare all fonts';compare.href='/font-lab/';
+  const exit=document.createElement('a');exit.textContent='Exit preview';exit.href='/?font-preview=off';
+  bar.append(label,compare,exit);document.body.appendChild(bar);
+ })();
+</script> </body> </html>
