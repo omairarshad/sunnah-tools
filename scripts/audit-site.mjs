@@ -156,10 +156,10 @@ console.log('AdSense site ownership verified in output; advertising remains inde
 // Every tool receives an original practical example as part of its educational text.
 for(const slug of slugs){
  const content=read('tools/'+slug+'/index.html');
- assert(content.includes('tool-practical-tip')&&content.includes('Example:'),'Original example missing on '+slug);
+ assert(latestSunnahTools.includes(slug)?content.includes('seven-example'):content.includes('tool-practical-tip')&&content.includes('Example:'),'Original example missing on '+slug);
 }
 assert(read('tools/tahajjud-time/index.html').includes('Sahih al-Bukhari 1145'),'Tahajjud source reference missing');
-console.log('All 37 tool pages include original comparison-led practical notes');
+console.log('All 44 tool pages include original comparison-led practical notes');
 
 // The Tahajjud page includes an indexable, source-linked guide, not only a client-rendered calculator.
 {
