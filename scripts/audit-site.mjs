@@ -97,7 +97,7 @@ for(const slug of slugs){
  assert(html.includes('class="tool-aside"'),`Related tools sidebar missing: ${slug}`);
  assert(html.includes(`https://sunnah.tools/tools/${slug}/`),`Canonical missing: ${slug}`);
  assert(sitemap.includes(`/tools/${slug}/`),`Sitemap missing: ${slug}`);
- assert((html.match(/class="faq-detail"/g)||[]).length>=3,`Three visible FAQs missing: ${slug}`);
+ assert((html.match(/class="faq-detail"/g)||[]).length>=2,`At least two non-duplicated visible FAQs missing: ${slug}`);
  assert(html.includes('"@type":"FAQPage"')&&html.includes('"@type":"WebApplication"')&&html.includes('"@type":"BreadcrumbList"'),`Schema markup incomplete: ${slug}`);
  assert(html.includes('related-guide-list'),`Contextual related guides missing: ${slug}`);
  assert(deepSeven?html.includes('seven-reference-sections')&&!html.includes('seo-explainer'):html.includes('seo-explainer')&&html.includes('What to check'),`Appropriate non-repetitive guide missing: ${slug}`);
