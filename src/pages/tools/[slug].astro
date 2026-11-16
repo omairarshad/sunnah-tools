@@ -1,6 +1,5 @@
 ---
 import Base from '../../layouts/Base.astro';
-import NewSunnahGuide from '../../components/NewSunnahGuide.astro';
 import DeepSevenKnowledge from '../../components/DeepSevenKnowledge.astro';
 import '../../styles/tool-accordion.css';
 import AdPlacement from '../../components/AdPlacement.astro';
@@ -57,7 +56,14 @@ const seo=toolSeo[slug];
 const insight=toolInsights[slug];
 if(!insight)throw new Error(`Missing example for ${slug}`);
 if(!seo)throw new Error(`Missing unique SEO entry for ${slug}`);
-const faqItems=[{question:guide.question,answer:guide.answer},...seo.faqs];
+const inDepthSeven=new Set(['hijama-date-planner','duha-prayer-time','istikhara-guide','friday-sunnah-checklist','islamic-will-planner','aqiqah-planner','sunnah-fasting-planner']);
+const hasInDepthSeven=inDepthSeven.has(slug);
+const normaliseText=(value:string)=>value.toLocaleLowerCase('en-GB').replace(/[^\\p{L}\\p{N}]+/gu,' ').trim();
+const faqItems=[{question:guide.question,answer:guide.answer},...seo.faqs].filter((item,index,array)=>
+ array.findIndex(other=>normaliseText(other.question)===normaliseText(item.question))===index
+);
+const uniqueMethod=normaliseText(guide.method)!==normaliseText(seo.details);
+const uniqueCaution=normaliseText(insight.check)!==normaliseText(seo.caution);
 const faqSchema={'@context':'https://schema.org','@type':'FAQPage',mainEntity:faqItems.map(item=>({'@type':'Question',name:item.question,acceptedAnswer:{'@type':'Answer',text:item.answer}}))};
 // Editorial references are visible in the corresponding server-rendered guides.
 const editorialSources:Record<string,{topic:string;citations:string[]}>= {
@@ -277,8 +283,7 @@ const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemL
     <div class="tool-inner"><ToolApp slug={slug} client:only="react"/></div>
    </section>
    <div class="tool-knowledge-area" id="tool-knowledge" aria-label="Detailed reference guide">
-   {['hijama-date-planner','duha-prayer-time','istikhara-guide','friday-sunnah-checklist','islamic-will-planner','aqiqah-planner','sunnah-fasting-planner'].includes(slug)&&<NewSunnahGuide slug={slug}/>}
-   {['hijama-date-planner','duha-prayer-time','istikhara-guide','friday-sunnah-checklist','islamic-will-planner','aqiqah-planner','sunnah-fasting-planner'].includes(slug)&&<DeepSevenKnowledge slug={slug}/>}
+   {hasInDepthSeven&&<DeepSevenKnowledge slug={slug}/>}
    {slug==='tahajjud-time'&&<TahajjudGuide/>}
    {slug==='prayer-times'&&<PrayerTimesGuide/>}
    {slug==='qibla-finder'&&<QiblaGuide/>}
@@ -318,13 +323,13 @@ const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemL
    {slug==='tawaf-sai-counter'&&<TawafSaiDeepGuide/>}
    </div>
    {slug==='prayer-times'&&<p class="small"><a href="/prayer-times/">Browse city-specific prayer times</a> — select a major city or use the calculator above for any location.</p>}
-   <section class="explainer seo-explainer" id="how-it-works" aria-labelledby="how-label">
+   {!hasInDepthSeven&&<section class="explainer seo-explainer" id="how-it-works" aria-labelledby="how-label">
     <div class="section-label"><h2 id="how-label">{slug==='tahajjud-time'?'How the Tahajjud timing is calculated':slug==='prayer-times'?'How the prayer-time calculator works':slug==='qibla-finder'?'How the Qibla bearing is calculated':slug==='zakat-calculator'?'How the Zakat estimate is calculated':slug==='fasting-times'?'How Suhoor and Iftar times are calculated':`How to use ${tool.name}`}</h2></div>
     <p>{seo.summary}</p><p>{seo.details}</p><p class="tool-practical-tip"><strong>Example:</strong> {insight.example}</p>
-    <h3>{slug==='tahajjud-time'?'Calculation method':'How it works'}</h3><p>{guide.method}</p>
-    <h3>What to check</h3><p>{seo.caution}</p><p>{insight.check}</p>
+    {uniqueMethod&&<><h3>{slug==='tahajjud-time'?'Calculation method':'How it works'}</h3><p>{guide.method}</p></>}
+    <h3>What to check</h3><p>{seo.caution}</p>{uniqueCaution&&<p>{insight.check}</p>}
     {guide.source&&<p class="source-note">Reference: <a href={guide.source.url} target="_blank" rel="noopener noreferrer">{guide.source.label}<span aria-hidden="true"> ↗</span></a></p>}
-   </section>
+   </section>}
    <section class="explainer" aria-labelledby="faq-label">
     <div class="section-label"><h2 id="faq-label">Common questions</h2></div>
     {faqItems.map(({question,answer})=><details class="faq-detail"><summary>{question}<span class="plus-symbol" aria-hidden="true">+</span></summary><p>{answer}</p></details>)}
