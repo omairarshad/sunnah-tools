@@ -92,7 +92,7 @@ for(const slug of slugs){
   ?html.includes('id="in-depth-reference"')&&html.includes('id="seven-reference-questions"')
   :slug==='tahajjud-time'
    ?html.includes('What to check')&&html.includes('Tahajjud prayer: a practical guide')&&html.includes('id="tahajjud-how-to-pray"')
-   :html.includes('What to check')&&html.includes('How it works');
+   :html.includes('What to check')&&html.includes('seo-explainer');
  assert(guidanceOK,`Tool guidance missing: ${slug}`);
  assert(html.includes('class="tool-aside"'),`Related tools sidebar missing: ${slug}`);
  assert(html.includes(`https://sunnah.tools/tools/${slug}/`),`Canonical missing: ${slug}`);
