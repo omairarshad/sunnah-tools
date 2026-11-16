@@ -339,3 +339,11 @@ for(const [slug,title,id] of finalSevenGuides){
  assert(sitemap.includes('/tools/'+slug+'/'),'Sitemap missing '+slug);
 }
 console.log('Final seven comprehensive guides are indexed with Article citations and FAQs');
+
+const contactPage=read('contact/index.html'),editorialPage=read('editorial-policy/index.html');
+assert(home.includes('href="/contact/"')&&home.includes('href="/editorial-policy/"'),'Contact and editorial links must be in the public footer');
+assert(contactPage.includes('GitHub issues are public')&&contactPage.includes('/issues/new'),'Public feedback route and privacy warning missing');
+assert(editorialPage.includes('adhan-js')&&editorialPage.includes('Fiqh')&&editorialPage.includes('not a fatwa'),'Editorial standards page is incomplete');
+assert(read('admin/index.html').includes('noindex,nofollow'),'Admin route must remain noindex');
+assert(sitemap.includes('/contact/')&&sitemap.includes('/editorial-policy/'),'Trust pages must be discoverable in the sitemap');
+await import('./audit-local-navigation.mjs');
