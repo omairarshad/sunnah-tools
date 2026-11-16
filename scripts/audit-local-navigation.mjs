@@ -10,7 +10,9 @@ const files=allHtml(root),broken=[];let checked=0;
 for(const file of files){
  const page='/'+relative(root,file).replace(/\\/g,'/').replace(/index\.html$/,'');
  const html=readFileSync(file,'utf8');
- for(const m of html.matchAll(/\b(?:href|src)\s*=\s*["']([^"']+)["']/gi)){
+ for(const tag of html.matchAll(/<(?:a|link|img|script|source|iframe)\b[^>]*>/gi)){
+  const m=tag[0].match(/(?:^|\s)(?:href|src)\s*=\s*["']([^"']+)["']/i);
+  if(!m)continue;
   const raw=m[1].replace(/&amp;/g,'&');
   if(raw.startsWith('#')||/^(?:data:|blob:|mailto:|tel:|javascript:)/i.test(raw))continue;
   let url;
