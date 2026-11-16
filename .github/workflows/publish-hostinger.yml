@@ -68,7 +68,7 @@ jobs:
           cp public/.htaccess dist/.htaccess
           test -s dist/release.json
           test -s dist/.htaccess
-          grep -q 'illustrated-37-tools' dist/release.json
+          grep -q 'illustrated-44-tools' dist/release.json
 
       - name: Check deployable homepage exists
         shell: bash
