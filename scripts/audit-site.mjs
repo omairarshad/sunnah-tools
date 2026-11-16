@@ -87,9 +87,12 @@ for(const slug of slugs){
  assert(header(html),`Shared chrome missing: ${slug}`);
  assert(html.includes('id="theme-toggle"'),`Theme toggle missing on tool page: ${slug}`);
  assert(html.includes('class="tool-panel"'),`Interactive panel missing: ${slug}`);
- const guidanceOK=slug==='tahajjud-time'
-  ?html.includes('What to check')&&html.includes('Tahajjud prayer: a practical guide')&&html.includes('id="tahajjud-how-to-pray"')
-  :html.includes('What to check')&&html.includes('How it works');
+ const deepSeven=latestSunnahTools.includes(slug);
+ const guidanceOK=deepSeven
+  ?html.includes('id="in-depth-reference"')&&html.includes('id="seven-reference-questions"')
+  :slug==='tahajjud-time'
+   ?html.includes('What to check')&&html.includes('Tahajjud prayer: a practical guide')&&html.includes('id="tahajjud-how-to-pray"')
+   :html.includes('What to check')&&html.includes('How it works');
  assert(guidanceOK,`Tool guidance missing: ${slug}`);
  assert(html.includes('class="tool-aside"'),`Related tools sidebar missing: ${slug}`);
  assert(html.includes(`https://sunnah.tools/tools/${slug}/`),`Canonical missing: ${slug}`);
@@ -97,7 +100,7 @@ for(const slug of slugs){
  assert((html.match(/class="faq-detail"/g)||[]).length>=3,`Three visible FAQs missing: ${slug}`);
  assert(html.includes('"@type":"FAQPage"')&&html.includes('"@type":"WebApplication"')&&html.includes('"@type":"BreadcrumbList"'),`Schema markup incomplete: ${slug}`);
  assert(html.includes('related-guide-list'),`Contextual related guides missing: ${slug}`);
- assert(html.includes('seo-explainer')&&html.includes('What to check'),`Unique explanation missing: ${slug}`);
+ assert(deepSeven?html.includes('seven-reference-sections')&&!html.includes('seo-explainer'):html.includes('seo-explainer')&&html.includes('What to check'),`Appropriate non-repetitive guide missing: ${slug}`);
  assert(html.includes('meta name="description"'),`SEO meta description missing: ${slug}`);
  assert(!html.includes('<title>'+slug+' | Sunnah Tools</title>'),`Generic metadata found: ${slug}`);
 }
