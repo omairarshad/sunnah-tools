@@ -105,7 +105,7 @@ for(const slug of slugs){
  assert(html.includes('meta name="description"'),`SEO meta description missing: ${slug}`);
  assert(!html.includes('<title>'+slug+' | Sunnah Tools</title>'),`Generic metadata found: ${slug}`);
 }
-for(const slug of newSlugs){const html=read(`tools/${slug}/index.html`);assert(html.includes('source-note'),`New tool needs a religious source: ${slug}`);assert(html.includes('How it works')&&html.includes('What to check'),`New tool lacks accuracy notes: ${slug}`);}
+for(const slug of newSlugs){const html=read(`tools/${slug}/index.html`);assert(html.includes('source-note'),`New tool needs a religious source: ${slug}`);assert(html.includes('seo-explainer')&&html.includes('What to check'),`New tool lacks accuracy notes: ${slug}`);}
 assert(read('guides/prayer-time-methods/index.html').includes('How are Islamic prayer times calculated?'),'Prayer method guide missing');
 assert(read('guides/ramadan-dates-and-timetables/index.html').includes('Planning a reliable Ramadan timetable'),'Ramadan guide missing');
 assert(sitemap.includes('/guides/prayer-time-methods/'),'Methodology guide missing from sitemap');
