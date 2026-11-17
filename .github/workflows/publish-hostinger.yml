@@ -150,3 +150,7 @@ jobs:
         env:
           SUNNAH_PUBLIC_SITE: https://sunnah.tools
         run: node scripts/check-public-deployment.mjs
+
+      - name: Diagnose published ads.txt for Google crawlers
+        continue-on-error: true
+        run: node scripts/check-public-ads-txt.mjs
