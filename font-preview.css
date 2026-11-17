@@ -1,0 +1,21 @@
+/* Voluntary typography preview. No change to regular visitors. */
+html[data-font-preview="petrona-karla"]{--trial-heading:"Petrona",Georgia,serif;--trial-text:"Karla",Arial,sans-serif}
+html[data-font-preview="alegreya-family"]{--trial-heading:"Alegreya",Georgia,serif;--trial-text:"Alegreya Sans",Arial,sans-serif}
+html[data-font-preview="eczar-plex"]{--trial-heading:"Eczar",Georgia,serif;--trial-text:"IBM Plex Sans",Arial,sans-serif}
+html[data-font-preview],html[data-font-preview] body{font-family:var(--trial-text)!important}
+html[data-font-preview] :is(button,input,select,textarea,kbd){font-family:var(--trial-text)!important}
+html[data-font-preview] :is(.brand,.footer-brand,.home-intro h1,.directory-heading h2,.tool-topline h1,.promo-heading h2,.tool-panel-heading h2,.section-label h2,.section-label h3,.aside-title h2,.content h1,.content h2,.editorial-guide h1,.editorial-guide h2,.guide-links strong,.growth-count strong){
+ font-family:var(--trial-heading)!important;font-weight:600!important;letter-spacing:-.02em!important
+}
+html[data-font-preview] .home-intro h1,html[data-font-preview] .tool-topline h1{line-height:1.14!important}
+html[data-font-preview] :is(.directory .tool-card h3,.tool-inner label,.tool-inner button,.top-navigation,.faq-detail summary,.tool-inner .result strong){font-family:var(--trial-text)!important;letter-spacing:-.01em!important}
+html[data-font-preview] .directory .tool-card h3{font-weight:700!important;line-height:1.27!important}
+html[data-font-preview] .eyebrow{letter-spacing:.095em!important}
+html[data-font-preview] :is(.tool-inner .result strong,.growth-qada-progress,.prayers strong){font-variant-numeric:tabular-nums}
+html[data-font-preview] .font-preview-bar{position:fixed;z-index:2147483640;bottom:14px;left:50%;transform:translateX(-50%);width:min(650px,calc(100% - 24px));display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px;padding:12px 18px;border-radius:12px;background:#143a2e;color:#f9f6ed;box-shadow:0 8px 35px rgba(0,0,0,.28);font:600 13px/1.4 var(--trial-text)!important}
+html[data-font-preview] .font-preview-bar span{margin-right:auto}
+html[data-font-preview] .font-preview-bar a{color:#f5d69b;text-decoration:underline;text-underline-offset:3px}
+html[data-font-preview] .font-preview-bar a:hover{color:#fff}
+html[data-font-preview] body{padding-bottom:76px}
+@media(max-width:520px){html[data-font-preview] .font-preview-bar{gap:8px;padding:12px 14px;font-size:12px!important}html[data-font-preview] .font-preview-bar span{width:100%;text-align:center;margin:0}}
+@media print{html[data-font-preview] .font-preview-bar{display:none!important}html[data-font-preview] body{padding-bottom:0}}
